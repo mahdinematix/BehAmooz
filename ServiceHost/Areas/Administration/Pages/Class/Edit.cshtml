@@ -1,0 +1,77 @@
+﻿@model StudyManagement.Application.Contracts.Class.EditClass
+@{
+
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">ویرایش کلاس @Model.Code</h4>
+</div>
+
+<form asp-page="./Index" asp-page-handler="Edit"
+      method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh"
+      enctype="multipart/form-data">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="CourseId" class="control-label">درس</label>
+                    <select type="text" class="form-control" asp-for="CourseId" asp-items='new SelectList(Model.Courses,"Id","Name")'>
+                        <option value="0">درس را انتخاب کنید ...</option>
+                    </select>
+                    <span asp-validation-for="CourseId" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Code" class="control-label">کد ارائه کلاس</label>
+                    <input type="text" class="form-control" asp-for="Code" maxlength="6">
+                    <span asp-validation-for="Code" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Day" class="control-label">روز کلاس</label>
+                    <select type="text" class="form-control" asp-for="Day">
+                        <option value="0">روز کلاس را انتخاب کنید ...</option>
+                        <option value="شنبه">شنبه</option>
+                        <option value="یکشنبه">یکشنبه</option>
+                        <option value="دوشنبه">دوشنبه.</option>
+                        <option value="سه شنبه">سه شنبه</option>
+                        <option value="چهارشنبه">چهارشنبه</option>
+                        <option value="پنجشنبه">پنجشنبه</option>
+                        <option value="جمعه">جمعه</option>
+                    </select>
+                    <span asp-validation-for="Day" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="StartTime" class="control-label">ساعت شروع</label>
+                    <input type="time" class="form-control" asp-for="StartTime">
+                    <span asp-validation-for="StartTime" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EndTime" class="control-label">ساعت پایان</label>
+                    <input type="time" class="form-control" asp-for="EndTime">
+                    <span asp-validation-for="EndTime" class="error"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <input type="hidden" value="@Model.Id" asp-for="Id"/>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+    </div>
+</form>

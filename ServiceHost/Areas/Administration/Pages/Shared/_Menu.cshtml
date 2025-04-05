@@ -1,0 +1,49 @@
+﻿
+@{
+}
+<div class="left side-menu">
+    <div class="sidebar-inner slimscrollleft">
+        <div class="user-details">
+            <div class="pull-left">
+                <img src="~/AdminTheme/assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+            </div>
+            <div class="user-info">
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">جان دو</a>
+                </div>
+
+                <p class="text-muted m-0">مدیر سیستم</p>
+            </div>
+        </div>
+        <!--- Divider -->
+        <div id="sidebar-menu">
+            <ul>
+                <li>
+                    <a asp-page="/Index" class="waves-effect active">
+                        <i class="md md-home"></i><span> داشبورد </span>
+                    </a>
+                </li>
+
+                <li class="has_sub">
+                    <a class="waves-effect">
+                        <i class="fa fa-graduation-cap"></i><span> مدیریت درسی </span>
+                        <span class="pull-right">
+                            <i class="md md-add"></i>
+                        </span>
+                    </a>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a asp-page="/Course/Index">دروس</a>
+                        </li>
+                        <li>
+                            <a asp-page="/Class/Index">کلاس ها</a>
+                        </li>
+                       
+                    </ul>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
