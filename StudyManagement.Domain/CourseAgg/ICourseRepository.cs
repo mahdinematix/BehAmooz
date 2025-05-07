@@ -8,5 +8,6 @@ namespace StudyManagement.Domain.CourseAgg
         List<CourseViewModel> Search(CourseSearchModel searchModel);
         EditCourse GetDetails(long id);
         List<CourseViewModel> GetCourses();
+        CourseViewModel GetByCourseId(long courseId);
     }
 }

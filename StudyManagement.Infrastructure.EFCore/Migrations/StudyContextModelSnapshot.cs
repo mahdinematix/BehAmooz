@@ -103,6 +103,84 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.ToTable("Courses", (string)null);
                 });
 
+            modelBuilder.Entity("StudyManagement.Domain.SessionAgg.Session", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Booklet")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<long>("ClassId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Video")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassId");
+
+                    b.ToTable("Sessions", (string)null);
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.SessionPictureAgg.SessionPicture", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Picture")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<long>("SessionId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("SessionPictures", (string)null);
+                });
+
             modelBuilder.Entity("StudyManagement.Domain.ClassAgg.Class", b =>
                 {
                     b.HasOne("StudyManagement.Domain.CourseAgg.Course", "Course")
@@ -114,9 +192,41 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("StudyManagement.Domain.SessionAgg.Session", b =>
+                {
+                    b.HasOne("StudyManagement.Domain.ClassAgg.Class", "Class")
+                        .WithMany("Sessions")
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.SessionPictureAgg.SessionPicture", b =>
+                {
+                    b.HasOne("StudyManagement.Domain.SessionAgg.Session", "Session")
+                        .WithMany("SessionPictures")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.ClassAgg.Class", b =>
+                {
+                    b.Navigation("Sessions");
+                });
+
             modelBuilder.Entity("StudyManagement.Domain.CourseAgg.Course", b =>
                 {
                     b.Navigation("Classes");
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.SessionAgg.Session", b =>
+                {
+                    b.Navigation("SessionPictures");
                 });
 #pragma warning restore 612, 618
         }

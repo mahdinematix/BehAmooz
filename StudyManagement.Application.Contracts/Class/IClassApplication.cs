@@ -1,4 +1,5 @@
-﻿using _01_Framework.Application;
+﻿using System.Collections;
+using _01_Framework.Application;
 
 namespace StudyManagement.Application.Contracts.Class
 {
@@ -9,6 +10,8 @@ namespace StudyManagement.Application.Contracts.Class
         OperationResult Activate(long id);
         OperationResult DeActivate(long id);
         EditClass GetDetails(long id);
-        List<ClassViewModel> Search(ClassSearchModel searchModel);
+        List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId);
+        List<ClassViewModel> GetClasses();
+        ClassViewModel GetClassById(long id);
     }
 }

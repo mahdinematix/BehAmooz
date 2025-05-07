@@ -21,12 +21,12 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
-            if (command.StartTime == command.EndTime)
+            var startTime = Convert.ToInt32(command.StartTime.Substring(0,2));
+            var endTime = Convert.ToInt32(command.EndTime.Substring(0, 2));
+            if (startTime >= endTime)
             {
-                return operation.Failed(ApplicationMessages.StartTimeAndEndTimeIsEqual);
+                return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
             }
-
-
             var classs = new Class(command.Code, command.StartTime, command.EndTime,
                 command.CourseId, command.Day);
             _classRepository.Create(classs);
@@ -43,14 +43,14 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
 
-            if (_classRepository.Exists(x=>x.Code==command.Code && x.Id != command.Id))
+            if (_classRepository.Exists(x=>x.Code==command.Code && x.Id != command.Id && x.CourseId == command.CourseId))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
             if (command.StartTime == command.EndTime)
             {
-                return operation.Failed(ApplicationMessages.StartTimeAndEndTimeIsEqual);
+                return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
             }
 
             classs.Edit(command.Code,command.StartTime,command.EndTime,command.CourseId, command.Day);
@@ -91,9 +91,19 @@ namespace StudyManagement.Application
             return _classRepository.GetDetails(id);
         }
 
-        public List<ClassViewModel> Search(ClassSearchModel searchModel)
+        public List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId)
         {
-            return _classRepository.Search(searchModel);
+            return _classRepository.Search(searchModel, courseId);
+        }
+
+        public List<ClassViewModel> GetClasses()
+        {
+            return _classRepository.GetClasses();
+        }
+
+        public ClassViewModel GetClassById(long id)
+        {
+            return _classRepository.GetClassById(id);
         }
     }
 }

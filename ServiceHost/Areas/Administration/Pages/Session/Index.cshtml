@@ -1,0 +1,110 @@
+﻿@page "{classId}"
+@model ServiceHost.Areas.Administration.Pages.Session.IndexModel
+@{
+    Layout = "Shared/_AdminLayout";
+    ViewBag.Title = $"مدیریت جلسات کلاس {Model.Class.Code}";
+}
+
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-heading">
+                <h3 class="panel-title">مدیریت جلسات کلاس @Model.Class.Code در روز های @Model.Class.Day ساعت @Model.Class.StartTime درس @Model.Class.Course</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title pull-right">@ViewBag.Title</h4>
+        <p class="pull-left">
+            <a class="btn btn-success btn-lg" asp-page="./Create" asp-route-classId="@Model.Class.Id">تعریف جلسه جدید</a>
+            <a asp-page="/Class/Index" asp-route-courseId="@Model.Class.CourseId" class="btn btn-primary btn-lg">بازگشت</a>
+        </p>
+    </div>
+</div>
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">لیست جلسات (@Model.Class.SessionsCount)</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>شماره جلسه</th>
+                                    <th>عنوان جلسه</th>
+                                    <th>فیلم</th>
+                                    <th>جزوه</th>
+                                    <th>تصاویر</th>
+                                    <th>توضیحات</th>
+                                    <th>وضعیت</th>
+                                    <th>تاریخ تعریف</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Sessions)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Number</td>
+                                        <td>@item.Title</td>
+                                        <td><a href="@item.Video" target="_blank">مشاهده</a></td>
+                                        <td><a href="@item.Booklet" target="_blank">مشاهده</a></td>
+                                        <td><a asp-page="/SessionPicture/Index" asp-route-sessionId="@item.Id">مشاهده</a></td>
+                                        <td>@item.Description</td>
+                                        <td>
+                                            @if (item.IsActive)
+                                            {
+                                                <i class="fa fa-2x fa-check text-success"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-2x fa-close text-danger"></i>
+                                            }
+                                        </td>
+                                        <td>@item.CreationDate</td>
+                                        <td>
+                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-id="@item.Id" asp-route-classId="@item.ClassId">
+                                                <i class="fa fa-edit"></i> ویرایش
+                                            </a>
+                                            @if (item.IsActive)
+                                            {
+                                                <a class="btn btn-danger" asp-page="/Session/Index" asp-page-handler="DeActivate" asp-route-id="@item.Id" asp-route-classId="@item.ClassId">غیرفعالسازی</a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-success" asp-page="/Session/Index" asp-page-handler="Activate" asp-route-id="@item.Id" asp-route-classId="@item.ClassId">فعالسازی</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/adminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+        });
+    </script>
+}
+

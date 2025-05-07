@@ -91,5 +91,10 @@ namespace StudyManagement.Application
         {
             return _courseRepository.GetCourses();
         }
+
+        public CourseViewModel GetByCourseId(long courseId)
+        {
+            return _courseRepository.GetByCourseId(courseId);
+        }
     }
 }

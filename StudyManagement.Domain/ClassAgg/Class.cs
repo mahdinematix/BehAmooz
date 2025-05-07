@@ -1,5 +1,6 @@
 ﻿using _01_Framework.Domain;
 using StudyManagement.Domain.CourseAgg;
+using StudyManagement.Domain.SessionAgg;
 
 namespace StudyManagement.Domain.ClassAgg
 {
@@ -12,6 +13,7 @@ namespace StudyManagement.Domain.ClassAgg
         public bool IsActive { get; private set; }
         public long CourseId { get; private set; }
         public Course Course { get; private set; }
+        public ICollection<Session> Sessions { get; private set; }
 
         public Class(string code, string startTime, string endTime, long courseId,string day)
         {
@@ -21,6 +23,7 @@ namespace StudyManagement.Domain.ClassAgg
             CourseId = courseId;
             IsActive = true;
             Day = day;
+            Sessions = new List<Session>();
         }
 
         public void Edit(string code, string startTime, string endTime, long courseId,string day)

@@ -38,7 +38,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             {
                 query = query.Where(x => x.Code == searchModel.Code);
             }
-            if (!string.IsNullOrWhiteSpace(searchModel.CourseKind))
+            if (searchModel.CourseKind != "0" && searchModel.CourseKind != null)
             {
                 query = query.Where(x => x.CourseKind == searchModel.CourseKind);
             }
@@ -65,6 +65,15 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Id = x.Id,
                 Name = x.Name
             }).ToList();
+        }
+
+        public CourseViewModel GetByCourseId(long courseId)
+        {
+            return _context.Courses.Select(x => new CourseViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).FirstOrDefault(x => x.Id == courseId);
         }
     }
 }

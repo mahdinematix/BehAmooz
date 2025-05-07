@@ -1,75 +1,176 @@
-﻿@model StudyManagement.Application.Contracts.Class.CreateClass
+﻿@page "{courseId}"
+@model ServiceHost.Areas.Administration.Pages.Class.CreateModel
 @{
 }
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">@Model.Message</div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">تعریف کلاس جدید برای درس @Model.Course.Name</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post"
+                      enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Code" class="control-label">کد ارائه کلاس</label>
+                                <input type="text" class="form-control" asp-for="Command.Code" maxlength="6">
+                                <span asp-validation-for="Command.Code" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Day" class="control-label">روز کلاس</label>
+                                <select type="text" class="form-control" asp-for="Command.Day">
+                                    <option value="0">روز کلاس را انتخاب کنید ...</option>
+                                    <option value="شنبه">شنبه</option>
+                                    <option value="یکشنبه">یکشنبه</option>
+                                    <option value="دوشنبه">دوشنبه</option>
+                                    <option value="سه شنبه">سه شنبه</option>
+                                    <option value="چهارشنبه">چهارشنبه</option>
+                                    <option value="پنجشنبه">پنجشنبه</option>
+                                    <option value="جمعه">جمعه</option>
+                                </select>
+                                <span asp-validation-for="Command.Day" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.StartTime" class="control-label">ساعت شروع</label>
+                                <select type="text" class="form-control" asp-for="Command.StartTime">
+                                    <option value="0">ساعت شروع</option>
+                                    <option value="08:00">8:00</option>
+                                    <option value="08:15">8:15</option>
+                                    <option value="08:30">8:30</option>
+                                    <option value="08:45">8:45</option>
+                                    <option value="09:00">9:00</option>
+                                    <option value="09:15">9:15</option>
+                                    <option value="09:30">9:30</option>
+                                    <option value="09:45">9:45</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:15">10:15</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="10:45">10:45</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:15">11:15</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="11:45">11:45</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="12:15">12:15</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="12:45">12:45</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:15">13:15</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="13:45">13:45</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:15">14:15</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="14:45">14:45</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:15">15:15</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="15:45">15:45</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:15">16:15</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="16:45">16:45</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:15">17:15</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="17:45">17:45</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="18:15">18:15</option>
+                                    <option value="18:30">18:30</option>
+                                    <option value="18:45">18:45</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="19:15">19:15</option>
+                                    <option value="19:30">19:30</option>
+                                    <option value="19:45">19:45</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="20:15">20:15</option>
+                                    <option value="20:30">20:30</option>
+                                    <option value="20:45">20:45</option>
+                                </select>
+                                <span asp-validation-for="Command.StartTime" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.EndTime" class="control-label">ساعت پایان</label>
+                                <select type="text" class="form-control" asp-for="Command.EndTime">
+                                    <option value="0">ساعت پایان</option>
+                                    <option value="08:00">8:00</option>
+                                    <option value="08:15">8:15</option>
+                                    <option value="08:30">8:30</option>
+                                    <option value="08:45">8:45</option>
+                                    <option value="09:00">9:00</option>
+                                    <option value="09:15">9:15</option>
+                                    <option value="09:30">9:30</option>
+                                    <option value="09:45">9:45</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:15">10:15</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="10:45">10:45</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:15">11:15</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="11:45">11:45</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="12:15">12:15</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="12:45">12:45</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:15">13:15</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="13:45">13:45</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:15">14:15</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="14:45">14:45</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:15">15:15</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="15:45">15:45</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:15">16:15</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="16:45">16:45</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:15">17:15</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="17:45">17:45</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="18:15">18:15</option>
+                                    <option value="18:30">18:30</option>
+                                    <option value="18:45">18:45</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="19:15">19:15</option>
+                                    <option value="19:30">19:30</option>
+                                    <option value="19:45">19:45</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="20:15">20:15</option>
+                                    <option value="20:30">20:30</option>
+                                    <option value="20:45">20:45</option>
+                                </select>
+                                <span asp-validation-for="Command.EndTime" class="error"></span>
+                            </div>
+                        </div>
 
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">تعریف کلاس جدید</h4>
+                    </div>
+                    <input type="hidden" value="@Model.Course.Id" asp-for="Command.CourseId"/>
+
+                    <button type="submit" class="btn btn-info waves-effect waves-light">تعریف</button>
+                    <a asp-page="./Index" asp-route-courseId="@Model.Course.Id" class="btn btn-default waves-effect">بازگشت</a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-
-<form asp-page="./Index" asp-page-handler="Create"
-      method="post"
-      data-ajax="true"
-      data-callback=""
-      data-action="Refresh"
-      enctype="multipart/form-data">
-    <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="CourseId" class="control-label">درس</label>
-                    <select type="text" class="form-control" asp-for="CourseId" asp-items='new SelectList(Model.Courses,"Id","Name")'>
-                        <option value="0">درس را انتخاب کنید ...</option>
-                    </select>
-                    <span asp-validation-for="CourseId" class="error"></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="Code" class="control-label">کد ارائه کلاس</label>
-                    <input type="text" class="form-control" asp-for="Code" maxlength="6">
-                    <span asp-validation-for="Code" class="error"></span>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="Day" class="control-label">روز کلاس</label>
-                    <select type="text" class="form-control" asp-for="Day">
-                        <option value="0">روز کلاس را انتخاب کنید ...</option>
-                        <option value="شنبه">شنبه</option>
-                        <option value="یکشنبه">یکشنبه</option>
-                        <option value="دوشنبه">دوشنبه</option>
-                        <option value="سه شنبه">سه شنبه</option>
-                        <option value="چهارشنبه">چهارشنبه</option>
-                        <option value="پنجشنبه">پنجشنبه</option>
-                        <option value="جمعه">جمعه</option>
-                    </select>
-                    <span asp-validation-for="Day" class="error"></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="StartTime" class="control-label">ساعت شروع</label>
-                    <input type="time" class="form-control" asp-for="StartTime">
-                    <span asp-validation-for="StartTime" class="error"></span>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="EndTime" class="control-label">ساعت پایان</label>
-                    <input type="time" class="form-control" asp-for="EndTime">
-                    <span asp-validation-for="EndTime" class="error"></span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
-        <button type="submit" class="btn btn-info waves-effect waves-light">تعریف</button>
-    </div>
-</form>

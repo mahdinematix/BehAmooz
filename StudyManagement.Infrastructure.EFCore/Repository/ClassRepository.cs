@@ -28,9 +28,9 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             }).FirstOrDefault(x => x.Id == id);
         }
 
-        public List<ClassViewModel> Search(ClassSearchModel searchModel)
+        public List<ClassViewModel> Search(ClassSearchModel searchModel , long courseId)
         {
-            var query = _context.Classes.Include(x=>x.Course).Select(x => new ClassViewModel
+            var query = _context.Classes.Where(x=>x.CourseId == courseId).Include(x=>x.Course).Include(x=>x.Sessions).Select(x => new ClassViewModel
             {
                 Id = x.Id,
                 Code = x.Code,
@@ -40,7 +40,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 IsActive = x.IsActive && x.Course.IsActive,
                 Course = x.Course.Name,
                 CreationDate = x.CreationDate.ToFarsi(),
-                Day = x.Day
+                Day = x.Day,
+                SessionsCount = x.Sessions.Count
             });
             
 
@@ -54,17 +55,35 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 query = query.Where(x => x.StartTime.Contains(searchModel.StartTime));
             }
 
-            if (searchModel.CourseId > 0)
-            {
-                query = query.Where(x => x.CourseId == searchModel.CourseId);
-            }
-
             if (searchModel.IsActive)
             {
-                query = query.Where(x => x.IsActive);
+                query = query.Where(x => !x.IsActive);
             }
 
             return query.OrderByDescending(x => x.Id).ToList();
+        }
+
+        public List<ClassViewModel> GetClasses()
+        {
+            return _context.Classes.Select(x => new ClassViewModel
+            {
+                Id = x.Id,
+                Code = x.Code
+            }).ToList();
+        }
+
+        public ClassViewModel GetClassById(long id)
+        {
+            return _context.Classes.Include(x=>x.Course).Include(x=>x.Sessions).Select(x => new ClassViewModel
+            {
+                Id = x.Id,
+                Code = x.Code,
+                Day = x.Day,
+                StartTime = x.StartTime,
+                Course = x.Course.Name,
+                CourseId = x.Course.Id,
+                SessionsCount = x.Sessions.Count
+            }).FirstOrDefault(x => x.Id == id);
         }
     }
 }

@@ -52,7 +52,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">لیست دروس</h3>
+                <h3 class="panel-title">لیست دروس (@Model.Courses.Count)</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -105,6 +105,8 @@
                                             {
                                                 <a class="btn btn-success" asp-page="./Index" asp-page-handler="Activate" asp-route-id="@item.Id">فعالسازی</a>
                                             }
+                                            <a class="btn btn-primary pull-right m-rl-5" asp-page="/Class/Index" asp-route-courseId="@item.Id">مشاهده کلاس ها</a>
+
                                         </td>
                                     </tr>
                                 }

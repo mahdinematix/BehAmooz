@@ -13,9 +13,7 @@ namespace StudyManagement.Application.Contracts.Class
         public string StartTime { get; set; }
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string EndTime { get; set; }
-        [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public long CourseId { get; set; }
-        public List<CourseViewModel> Courses { get; set; }
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Day { get; set; }
     }

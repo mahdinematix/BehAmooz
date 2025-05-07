@@ -1,0 +1,65 @@
+﻿@page "{classId}"
+@model ServiceHost.Areas.Administration.Pages.Session.EditModel
+@{
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">تعریف جلسه جدید</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post"
+                      enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Number" class="control-label">شماره جلسه</label>
+                                <input type="number" min="1" max="16" class="form-control" asp-for="Command.Number">
+                                <span asp-validation-for="Command.Number" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Title" class="control-label">عنوان جلسه</label>
+                                <input type="text" class="form-control" asp-for="Command.Title" />
+                                <span asp-validation-for="Command.Title" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Video" class="control-label">فیلم جلسه</label>
+                                <input type="text" class="form-control" asp-for="Command.Video" />
+                                <span asp-validation-for="Command.Video" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Booklet" class="control-label">جزوه جلسه</label>
+                                <input type="text" class="form-control" asp-for="Command.Booklet" />
+                                <span asp-validation-for="Command.Booklet" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Command.Description" class="control-label">توضیحات</label>
+                                <textarea rows="10" class="form-control" asp-for="Command.Description"></textarea>
+                                <span asp-validation-for="Command.Description" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="@Model.Class.Id" asp-for="Command.ClassId" />
+                    <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id" />
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+                    <a asp-page="./Index" asp-route-classId="@Model.Class.Id" class="btn btn-default waves-effect">بازگشت</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

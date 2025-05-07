@@ -1,10 +1,6 @@
 ﻿@font-face {
-    font-family: 'IranSans';
-    src: url('../fonts/IranianSans.eot'), 
-        url('../fonts/IranianSans.eot') format('embedded-opentype'), 
-        url('../fonts/IranianSans.woff') format('woff'), 
-        url('../fonts/IranianSans.ttf') format('truetype'), 
-        url('../fonts/IranianSans.svg') format('svg');
+    font-family: 'IranYekan';
+    src: url('../fonts/iranyekanwebbold.eot'), url('../fonts/iranyekanwebbold.eot') format('embedded-opentype'), url('../fonts/iranyekanwebbold.woff') format('woff'), url('../fonts/IRANYekanBold.ttf') format('truetype'), url('../fonts/iranyekanwebbold.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -12,7 +8,7 @@
 body {
     direction: rtl;
     text-align: right;
-    font-family: 'IranSans'
+    font-family: 'IranYekan'
 }
 
 .hero-slider-content { text-align: right; }

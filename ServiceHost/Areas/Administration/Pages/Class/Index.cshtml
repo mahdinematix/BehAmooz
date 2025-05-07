@@ -1,9 +1,9 @@
-﻿@page
+﻿@page "{courseId}"
 @using _01_Framework.Application
 @model ServiceHost.Areas.Administration.Pages.Class.IndexModel
 @{
     Layout = "Shared/_AdminLayout";
-    ViewBag.Title = "مدیریت کلاس ها";
+    ViewBag.Title = $"مدیریت کلاس های درس {Model.Course.Name}";
 }
 
 
@@ -11,16 +11,19 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">تعریف کلاس جدید</a>
+            <a class="btn btn-success btn-lg" asp-page="Create" asp-route-courseId="@Model.Course.Id">تعریف کلاس جدید</a>
+            <a asp-page="/Course/Index" class="btn btn-primary btn-lg">بازگشت</a>
+
         </p>
     </div>
+   
 </div>
 
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">جستجو در کلاس ها</h3>
+                <h3 class="panel-title">جستجو در کلاس های درس @Model.Course.Name</h3>
             </div>
             <div class="panel-body">
                 <form class="form-inline" role="form" method="get">
@@ -30,25 +33,73 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="SearchModel.StartTime">ساعت شروع:</label>
-                        <input type="time" class="form-control" asp-for="SearchModel.StartTime" data-val="false">
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.CourseId"></label>
-                        <select class="form-control" asp-items="Model.Courses" asp-for="SearchModel.CourseId" data-val="false">
-                            <option value="0">درس را انتخاب کنید...</option>
+                        <label class="sr-only" asp-for="SearchModel.StartTime"></label>
+                        <select class="form-control" asp-for="SearchModel.StartTime" data-val="false">
+                            <option value="0">ساعت شروع</option>
+                            <option value="08:00">8:00</option>
+                            <option value="08:15">8:15</option>
+                            <option value="08:30">8:30</option>
+                            <option value="08:45">8:45</option>
+                            <option value="09:00">9:00</option>
+                            <option value="09:15">9:15</option>
+                            <option value="09:30">9:30</option>
+                            <option value="09:45">9:45</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:15">10:15</option>
+                            <option value="10:30">10:30</option>
+                            <option value="10:45">10:45</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:15">11:15</option>
+                            <option value="11:30">11:30</option>
+                            <option value="11:45">11:45</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:15">12:15</option>
+                            <option value="12:30">12:30</option>
+                            <option value="12:45">12:45</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:15">13:15</option>
+                            <option value="13:30">13:30</option>
+                            <option value="13:45">13:45</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:15">14:15</option>
+                            <option value="14:30">14:30</option>
+                            <option value="14:45">14:45</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:15">15:15</option>
+                            <option value="15:30">15:30</option>
+                            <option value="15:45">15:45</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:15">16:15</option>
+                            <option value="16:30">16:30</option>
+                            <option value="16:45">16:45</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:15">17:15</option>
+                            <option value="17:30">17:30</option>
+                            <option value="17:45">17:45</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:15">18:15</option>
+                            <option value="18:30">18:30</option>
+                            <option value="18:45">18:45</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:15">19:15</option>
+                            <option value="19:30">19:30</option>
+                            <option value="19:45">19:45</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:15">20:15</option>
+                            <option value="20:30">20:30</option>
+                            <option value="20:45">20:45</option>
                         </select>
                     </div>
                     <div class="form-group m-r-10">
                         <div class="checkbox checkbox-primary">
                             <input asp-for="SearchModel.IsActive">
                             <label asp-for="SearchModel.IsActive">
-                                جستجو در کلاس های فعال
+                                جستجو در کلاس های غیرفعال
                             </label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
-                    <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
+                    <input type="submit" class="btn btn-success" value="جستجو" />
+                    <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index" asp-route-courseId="@Model.Course.Id">مشاهده همه</a>
                 </form>
             </div>
         </div>
@@ -59,7 +110,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">لیست دروس</h3>
+                <h3 class="panel-title">لیست کلاس های درس @Model.Course.Name (@Model.Classes.Count)</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -68,11 +119,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>نام درس</th>
                                     <th>کد کلاس</th>
                                     <th>روز</th>
                                     <th>ساعت شروع</th>
                                     <th>ساعت پایان</th>
+                                    <th>تعداد جلسات</th>
                                     <th>وضعیت</th>
                                     <th>تاریخ تعریف</th>
                                     <th>عملیات</th>
@@ -83,11 +134,11 @@
                                 {
                                     <tr>
                                         <td>@item.Id</td>
-                                        <td>@item.Course</td>
                                         <td>@item.Code</td>
                                         <td>@item.Day</td>
                                         <td>@item.StartTime.ToShownTime()</td>
                                         <td>@item.EndTime.ToShownTime()</td>
+                                        <td>@item.SessionsCount</td>
                                         <td>
                                             @if (item.IsActive)
                                             {
@@ -101,17 +152,19 @@
                                         <td>@item.CreationDate</td>
                                         <td>
                                             <a class="btn btn-warning pull-right m-rl-5"
-                                               href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id})">
+                                               href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id, courseId = item.CourseId})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (item.IsActive)
                                             {
-                                                <a class="btn btn-danger" asp-page="./Index" asp-page-handler="DeActivate" asp-route-id="@item.Id">غیرفعالسازی</a>
+                                                <a class="btn btn-danger" asp-page="./Index" asp-page-handler="DeActivate" asp-route-id="@item.Id" asp-route-courseId="@item.CourseId">غیرفعالسازی</a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-success" asp-page="./Index" asp-page-handler="Activate" asp-route-id="@item.Id">فعالسازی</a>
+                                                <a class="btn btn-success" asp-page="./Index" asp-page-handler="Activate" asp-route-id="@item.Id" asp-route-courseId="@item.CourseId">فعالسازی</a>
                                             }
+
+                                            <a class="btn btn-primary pull-right m-rl-5" asp-page="/Session/Index" asp-route-classId="@item.Id">مشاهده جلسات</a>
                                         </td>
                                     </tr>
                                 }

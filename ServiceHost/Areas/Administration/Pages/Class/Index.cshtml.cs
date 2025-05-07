@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
+ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Course;
 
@@ -12,8 +11,8 @@ namespace ServiceHost.Areas.Administration.Pages.Class
         private readonly IClassApplication _classApplication;
 
         public ClassSearchModel SearchModel;
-        public SelectList Courses;
         public List<ClassViewModel> Classes;
+        public CourseViewModel Course { get; set; }
         
 
         public IndexModel(ICourseApplication courseApplication, IClassApplication classApplication)
@@ -22,31 +21,15 @@ namespace ServiceHost.Areas.Administration.Pages.Class
             _classApplication = classApplication;
         }
 
-        public void OnGet(ClassSearchModel searchModel)
+        public void OnGet(ClassSearchModel searchModel, long courseId)
         {
-            Courses = new SelectList(_courseApplication.GetCourses(), "Id", "Name");
-            Classes = _classApplication.Search(searchModel);
-        }
-
-        public IActionResult OnGetCreate()
-        {
-            var command = new CreateClass
-            {
-                Courses = _courseApplication.GetCourses()
-            };
-            return Partial("./Create", command);
-        }
-
-        public IActionResult OnPostCreate(CreateClass command)
-        {
-            var result = _classApplication.Create(command);
-            return new JsonResult(result);
+            Classes = _classApplication.Search(searchModel, courseId);
+            Course = _courseApplication.GetByCourseId(courseId);
         }
 
         public IActionResult OnGetEdit(long id)
         {
             var classs = _classApplication.GetDetails(id);
-            classs.Courses = _courseApplication.GetCourses();
             return Partial("Edit", classs);
         }
 

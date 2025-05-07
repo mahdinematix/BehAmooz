@@ -10,5 +10,6 @@ public class ClassViewModel
     public long CourseId { get; set; }
     public string Course { get; set; }
     public string CreationDate { get; set; }
+    public int SessionsCount { get; set; }
     public string Day { get; set; }
 }
