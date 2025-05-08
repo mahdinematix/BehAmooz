@@ -1,3 +1,4 @@
+using MessageManagement.Infrastructure.Configuration;
 using StudyManagement.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,10 +15,11 @@ services.AddRazorPages();
 var connectionString = builder.Configuration.GetConnectionString("BehAmoozDb");
 
 StudyManagementBootstrapper.Configuration(services,connectionString); 
+MessageManagementBootstrapper.Configuration(services,connectionString);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuration the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

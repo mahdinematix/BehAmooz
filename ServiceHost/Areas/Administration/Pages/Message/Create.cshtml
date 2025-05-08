@@ -1,0 +1,66 @@
+﻿@model MessageManagement.Application.Contract.Message.CreateMessage
+@{
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">ایجاد پیام جدید</h4>
+</div>
+
+<form asp-page="./Index" asp-page-handler="Create"
+      method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label">عنوان</label>
+                    <input type="text" class="form-control" asp-for="Title" />
+                    <span asp-validation-for="Title" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="MessageFor" class="control-label">سطح نمایش</label>
+                    <select type="text" class="form-control" asp-for="MessageFor">
+                        <option value="0">سطح نمایش را انتخاب کنید ...</option>
+                        <option value="اساتید">اساتید</option>
+                        <option value="دانشجویان">دانشجویان</option>
+                    </select>
+                    <span asp-validation-for="MessageFor" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="StartDate" class="control-label">تاریخ شروع نمایش</label>
+                    <input class="form-control persianDateInput" asp-for="StartDate">
+                    <span asp-validation-for="StartDate" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EndDate" class="control-label">تاریخ پایان نمایش</label>
+                    <input class="form-control persianDateInput" asp-for="EndDate">
+                    <span asp-validation-for="EndDate" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group no-margin">
+                    <label asp-for="Body" class="control-label">بدنه پیام</label>
+                    <textarea rows="5" type="text" class="form-control autogrow" asp-for="Body"></textarea>
+                    <span asp-validation-for="Body" class="error"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
+    </div>
+</form>
