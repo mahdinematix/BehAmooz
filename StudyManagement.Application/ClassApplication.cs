@@ -28,7 +28,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
             }
             var classs = new Class(command.Code, command.StartTime, command.EndTime,
-                command.CourseId, command.Day);
+                command.CourseId, command.Day,1);
             _classRepository.Create(classs);
             _classRepository.Save();
             return operation.Succeed();
@@ -53,7 +53,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
             }
 
-            classs.Edit(command.Code,command.StartTime,command.EndTime,command.CourseId, command.Day);
+            classs.Edit(command.Code,command.StartTime,command.EndTime,command.CourseId, command.Day,1);
             _classRepository.Save();
             return operation.Succeed();
         }

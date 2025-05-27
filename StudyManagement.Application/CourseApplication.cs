@@ -25,7 +25,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
-            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code);
+            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major);
             _courseRepository.Create(course);
             _courseRepository.Save();
             return operation.Succeed();
@@ -46,7 +46,7 @@ namespace StudyManagement.Application
             }
 
 
-            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code);
+            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major);
             _courseRepository.Save();
             return operation.Succeed();
         }

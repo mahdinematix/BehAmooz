@@ -12,7 +12,7 @@ namespace MessageManagement.Infrastructure.Configuration
 {
     public class MessageManagementBootstrapper
     {
-        public static void Configuration(IServiceCollection services, string connectionString)
+        public static void Configure(IServiceCollection services, string connectionString)
         {
             services.AddTransient<IMessageApplication, MessageApplication>();
             services.AddTransient<IMessageRepository, MessageRepository>();

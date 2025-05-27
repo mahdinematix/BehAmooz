@@ -1,0 +1,159 @@
+﻿@{
+}
+
+
+<div class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="header-wrapper d-none d-lg-flex">
+                    <div class="logo">
+                        <a asp-page="/Index">
+                            <img src="~/Theme/assets/img/logo.png" width="100" height="100" class="img-fluid" alt="">
+                        </a>
+                    </div>
+                    <div class="navigation-menu-wrapper">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a asp-page="/Index">صفحه اصلی</a>
+                                </li>
+
+                                <li>
+                                    <a href="#contactUs">تماس با ما</a>
+                                </li>
+                                <li>
+                                    <a href="#aboutUs">درباره ما</a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="header-icon-wrapper">
+                        <ul class="icon-list">
+                            <li>
+                                <a href="javascript:void(0)" id="search-overlay-trigger">
+                                    <i class="ion-ios-search-strong"></i>
+                                </a>
+                            </li>
+                            @* <li>
+                                @if (AuthHelper.IsAuthenticated())
+                                {
+                                    <a asp-page="Profile" asp-route-id="@AuthHelper.CurrentProfessorId()">
+                                        @if (!string.IsNullOrWhiteSpace(AuthHelper.GetAccountInfo().ProfilePhoto))
+                                        {
+                                            <img src="~/Pictures/@AuthHelper.GetAccountInfo().ProfilePhoto" class="profile-photo" />
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-user-circle"></i>
+                                        }
+                                    </a>
+
+                                    <p><strong>@AuthHelper.GetAccountInfo().Fullname</strong></p>
+                                }
+
+                            </li> *@
+
+                            <div>
+                            </div>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="header-mobile-navigation d-block d-lg-none">
+                    <div class="row align-items-center">
+                        <div class="col-6 col-md-6">
+                            <div class="header-logo">
+                                <a asp-page="/Index">
+                                    <img src="~/Theme/assets/img/logo.png" class="img-fluid" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="mobile-navigation text-right">
+                                <div class="header-icon-wrapper">
+                                    <ul class="icon-list justify-content-end">
+
+                                        <li>
+                                            <a href="javascript:void(0)" class="mobile-menu-icon"
+                                               id="mobile-menu-trigger">
+                                                <i class="fa fa-bars"></i>
+                                            </a>
+                                        </li>
+
+                                        @* <li>
+                                            @if (AuthHelper.IsAuthenticated())
+                                            {
+                                                <a asp-page="Profile" asp-route-id="@AuthHelper.CurrentProfessorId()">
+                                                    @if (!string.IsNullOrWhiteSpace(AuthHelper.GetAccountInfo().ProfilePhoto))
+                                                    {
+                                                        <img src="~/Pictures/@AuthHelper.GetAccountInfo().ProfilePhoto" class="profile-photo" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-user-circle"></i>
+                                                    }
+                                                </a>
+
+                                                <p><strong>@AuthHelper.GetAccountInfo().Fullname</strong></p>
+                                            }
+
+                                        </li> *@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="offcanvas-mobile-menu" id="offcanvas-mobile-menu">
+    <a href="javascript:void(0)" class="offcanvas-menu-close" id="offcanvas-menu-close-trigger">
+        <i class="ion-android-close"></i>
+    </a>
+
+    <div class="offcanvas-wrapper">
+
+        <div class="offcanvas-inner-content">
+            <div class="offcanvas-mobile-search-area">
+                <form method="get" asp-page="/Search">
+                    <input type="search" id="value" name="value" placeholder="هر چه در فروشگاه می خواهید جستجو کنید ...">
+                    <button type="submit">
+                        <i class="ion-android-search"></i>
+                    </button>
+                </form>
+            </div>ّ
+            <nav class="offcanvas-navigation">
+                <ul>
+                    <li class="">
+                        <a asp-page="/Index">صفحه اصلی</a>
+                    </li>
+                   
+                    <li>
+                        <a href="#contactUs" onclick="hideOffcanvas()">تماس با ما</a>
+                    </li>
+                    <li>
+                        <a href="#contactUs" onclick="hideOffcanvas()">درباره ما</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function hideOffcanvas() {
+       $("#offcanvas-mobile-menu").click(function(){
+           $('#offcanvas-mobile-menu').removeClass('active').addClass('inactive');
+    });
+    }
+
+</script>

@@ -1,5 +1,6 @@
- using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Course;
 
@@ -30,6 +31,7 @@ namespace ServiceHost.Areas.Administration.Pages.Class
         public IActionResult OnGetEdit(long id)
         {
             var classs = _classApplication.GetDetails(id);
+            
             return Partial("Edit", classs);
         }
 

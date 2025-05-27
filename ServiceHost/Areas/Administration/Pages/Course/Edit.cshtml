@@ -1,4 +1,5 @@
-﻿@model StudyManagement.Application.Contracts.Course.EditCourse
+﻿@using _01_Framework.Infrastructure
+@model StudyManagement.Application.Contracts.Course.EditCourse
 @{
 }
 
@@ -15,18 +16,29 @@
       enctype="multipart/form-data">
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="Name" class="control-label">نام درس</label>
-                    <input type="text" class="form-control" asp-for="Name">
+                    <input type="text" class="form-control" asp-for="Name" />
                     <span asp-validation-for="Name" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Code" class="control-label">کد درس</label>
+                    <input type="text" class="form-control" asp-for="Code" maxlength="10" />
+                    <span asp-validation-for="Code" class="error"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="Code" class="control-label">کد درس</label>
-                    <input type="text" class="form-control" asp-for="Code" maxlength="10">
-                    <span asp-validation-for="Code" class="error"></span>
+                    <label asp-for="Major" class="control-label">رشته</label>
+                    <select asp-for="Major" class="form-control" asp-items='new SelectList(Majors.List, "Id", "Name")'>
+                        <option value="0">رشته درس را انتخاب کنید ...</option>
+                    </select>
+                    <span asp-validation-for="Major" class="error"></span>
                 </div>
             </div>
         </div>

@@ -7,15 +7,16 @@ namespace StudyManagement.Domain.ClassAgg
     public class Class : EntityBase
     {
         public string Code { get; private set; }
-        public string Day { get; private set; }
+        public int Day { get; private set; }
         public string StartTime { get; private set; }
         public string EndTime { get; private set; }
         public bool IsActive { get; private set; }
+        public long ProfessorId { get; private set; }
         public long CourseId { get; private set; }
         public Course Course { get; private set; }
         public ICollection<Session> Sessions { get; private set; }
 
-        public Class(string code, string startTime, string endTime, long courseId,string day)
+        public Class(string code, string startTime, string endTime, long courseId,int day, long professorId)
         {
             Code = code;
             StartTime = startTime;
@@ -23,16 +24,18 @@ namespace StudyManagement.Domain.ClassAgg
             CourseId = courseId;
             IsActive = true;
             Day = day;
+            ProfessorId = professorId;
             Sessions = new List<Session>();
         }
 
-        public void Edit(string code, string startTime, string endTime, long courseId,string day)
+        public void Edit(string code, string startTime, string endTime, long courseId,int day, long professorId)
         {
             Code = code;
             StartTime = startTime;
             EndTime = endTime;
             CourseId = courseId;
             Day = day;
+            ProfessorId = professorId;
         }
 
         public void Activate()

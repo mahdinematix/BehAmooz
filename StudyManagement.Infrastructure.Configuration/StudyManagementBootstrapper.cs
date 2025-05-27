@@ -16,7 +16,7 @@ namespace StudyManagement.Infrastructure.Configuration
 {
     public class StudyManagementBootstrapper
     {
-        public static void Configuration(IServiceCollection services, string connectionString)
+        public static void Configure(IServiceCollection services, string connectionString)
         {
             services.AddTransient<ICourseApplication, CourseApplication>();
             services.AddTransient<ICourseRepository, CourseRepository>();

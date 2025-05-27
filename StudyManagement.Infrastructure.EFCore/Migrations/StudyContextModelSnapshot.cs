@@ -17,7 +17,7 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.3")
+                .HasAnnotation("ProductVersion", "9.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -41,10 +41,8 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Day")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
 
                     b.Property<string>("EndTime")
                         .IsRequired()
@@ -53,6 +51,9 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<long>("ProfessorId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("StartTime")
                         .IsRequired()
@@ -76,8 +77,8 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("CourseKind")
                         .IsRequired()
@@ -89,6 +90,11 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Major")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()

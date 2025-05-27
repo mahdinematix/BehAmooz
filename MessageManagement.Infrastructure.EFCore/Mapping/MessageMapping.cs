@@ -14,7 +14,6 @@ namespace MessageManagement.Infrastructure.EFCore.Mapping
             builder.Property(x => x.Title).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Body).HasMaxLength(5000).IsRequired();
             builder.Property(x => x.MessageFor).HasMaxLength(20).IsRequired();
-
         }
     }
 }

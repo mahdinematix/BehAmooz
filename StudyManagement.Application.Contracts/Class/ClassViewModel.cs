@@ -11,5 +11,8 @@ public class ClassViewModel
     public string Course { get; set; }
     public string CreationDate { get; set; }
     public int SessionsCount { get; set; }
+    public int DayId { get; set; }
     public string Day { get; set; }
+    public long ProfessorId { get; set; }
+    public string ProfessorFullName { get; set; }
 }

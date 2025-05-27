@@ -24,7 +24,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 CourseId = x.CourseId,
                 EndTime = x.EndTime.ToShownTime(),
                 StartTime = x.StartTime.ToShownTime(),
-                Day = x.Day
+                Day = x.Day,
+                ProfessorId = x.ProfessorId
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -40,8 +41,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 IsActive = x.IsActive && x.Course.IsActive,
                 Course = x.Course.Name,
                 CreationDate = x.CreationDate.ToFarsi(),
-                Day = x.Day,
-                SessionsCount = x.Sessions.Count
+                DayId = x.Day,
+                Day = Days.GetName(x.Day),
+                SessionsCount = x.Sessions.Count,
+                ProfessorId = x.ProfessorId
             });
             
 
@@ -50,9 +53,13 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 query = query.Where(x => x.Code.Contains(searchModel.Code));
             }
 
-            if (!string.IsNullOrWhiteSpace(searchModel.StartTime))
+            if (searchModel.StartTime != "0" && searchModel.StartTime != null)
             {
-                query = query.Where(x => x.StartTime.Contains(searchModel.StartTime));
+                query = query.Where(x => x.StartTime == searchModel.StartTime);
+            }
+            if (searchModel.DayId >0)
+            {
+                query = query.Where(x => x.DayId == searchModel.DayId);
             }
 
             if (searchModel.IsActive)
@@ -78,7 +85,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             {
                 Id = x.Id,
                 Code = x.Code,
-                Day = x.Day,
+                Day = Days.GetName(x.Day),
+                DayId = x.Day,
                 StartTime = x.StartTime,
                 Course = x.Course.Name,
                 CourseId = x.Course.Id,

@@ -1,3 +1,5 @@
+using _01_Framework.Application;
+using AccountManagement.Infrastructure.Configuration;
 using MessageManagement.Infrastructure.Configuration;
 using StudyManagement.Infrastructure.Configuration;
 
@@ -14,12 +16,14 @@ services.AddCors(options => options.AddPolicy("MyPolicy", builder =>
 services.AddRazorPages();
 var connectionString = builder.Configuration.GetConnectionString("BehAmoozDb");
 
-StudyManagementBootstrapper.Configuration(services,connectionString); 
-MessageManagementBootstrapper.Configuration(services,connectionString);
+StudyManagementBootstrapper.Configure(services,connectionString); 
+MessageManagementBootstrapper.Configure(services,connectionString);
+AccountManagementBootstrapper.Configure(services,connectionString);
+services.AddTransient<IPasswordHasher, PasswordHasher>();
 
 var app = builder.Build();
 
-// Configuration the HTTP request pipeline.
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

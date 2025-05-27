@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\02_Query\02_Query.csproj" />
+    <ProjectReference Include="..\AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\MessageManagement.Infrastructure.Configuration\MessageManagement.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\StudyManagement.Infrastructure.Configuration\StudyManagement.Infrastructure.Configuration.csproj" />
   </ItemGroup>

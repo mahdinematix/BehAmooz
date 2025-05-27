@@ -11,9 +11,10 @@ namespace StudyManagement.Infrastructure.EFCore.Mapping
             builder.ToTable("Courses");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(300).IsRequired();
-            builder.Property(x => x.Code).HasMaxLength(10).IsRequired();
+            builder.Property(x => x.Code).HasMaxLength(20).IsRequired();
             builder.Property(x => x.CourseKind).HasMaxLength(10).IsRequired();
-            builder.Property(x => x.NumberOfUnit).IsRequired();
+            builder.Property(x => x.Major).HasMaxLength(50).IsRequired();
+
 
             builder.HasMany(x => x.Classes).WithOne(x => x.Course).HasForeignKey(x => x.CourseId);
 
