@@ -1,3 +1,5 @@
+using _01_Framework.Infrastructure;
+using BlogManagement.Infrastructure.Configuration.Permission;
 using MessageManagement.Application.Contract.Message;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,6 +18,7 @@ namespace ServiceHost.Areas.Administration.Pages.Message
             _messageApplication = messageApplication;
         }
 
+        [NeedsPermissions(MessagePermissions.ListMessages)]
         public void OnGet(MessageSearchModel searchModel)
         {
             Messages = _messageApplication.Search(searchModel);
@@ -26,6 +29,7 @@ namespace ServiceHost.Areas.Administration.Pages.Message
             return Partial("./Create", new CreateMessage());
         }
 
+        [NeedsPermissions(MessagePermissions.CreateMessage)]
         public IActionResult OnPostCreate(CreateMessage command)
         {
             var result = _messageApplication.Create(command);
@@ -38,6 +42,7 @@ namespace ServiceHost.Areas.Administration.Pages.Message
             return Partial("Edit", message);
         }
 
+        [NeedsPermissions(MessagePermissions.EditMessage)]
         public IActionResult OnPostEdit(EditMessage command)
         {
             var result = _messageApplication.Edit(command);

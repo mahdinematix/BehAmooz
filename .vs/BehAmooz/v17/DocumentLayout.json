@@ -3,16 +3,68 @@
   "WorkspaceRootPath": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9919D8E6-FFC0-496B-ACE6-D669E1D7C799}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\accounts\\account\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9919D8E6-FFC0-496B-ACE6-D669E1D7C799}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\accounts\\account\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.infrastructure.efcore\\repository\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|solutionrelative:studymanagement.infrastructure.efcore\\repository\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9919D8E6-FFC0-496B-ACE6-D669E1D7C799}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\accounts\\account\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9919D8E6-FFC0-496B-ACE6-D669E1D7C799}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\accounts\\account\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9919D8E6-FFC0-496B-ACE6-D669E1D7C799}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\accounts\\account\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9919D8E6-FFC0-496B-ACE6-D669E1D7C799}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\accounts\\account\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.infrastructure.efcore\\studymanagement.infrastructure.efcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|solutionrelative:studymanagement.infrastructure.efcore\\studymanagement.infrastructure.efcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B785720-A1C6-3FD0-F5A3-A2BEFEF459B7}|StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.infrastructure.configuration\\studymanagement.infrastructure.configuration.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{8B785720-A1C6-3FD0-F5A3-A2BEFEF459B7}|StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj|solutionrelative:studymanagement.infrastructure.configuration\\studymanagement.infrastructure.configuration.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\class\\classsearchmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\class\\classsearchmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}|AccoutManagement.Application.Contract\\AccountManagement.Application.Contract.csproj|d:\\programming\\asp .net projects\\behamooz\\accoutmanagement.application.contract\\account\\accountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}|AccoutManagement.Application.Contract\\AccountManagement.Application.Contract.csproj|solutionrelative:accoutmanagement.application.contract\\account\\accountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E582842-35B9-F129-CFD2-1A6A3B8769B5}|AccountManagement.Infrastructure.EFCore\\AccountManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\accountmanagement.infrastructure.efcore\\repository\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E582842-35B9-F129-CFD2-1A6A3B8769B5}|AccountManagement.Infrastructure.EFCore\\AccountManagement.Infrastructure.EFCore.csproj|solutionrelative:accountmanagement.infrastructure.efcore\\repository\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\class\\classviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\class\\classviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61EED481-F72F-4946-1DB6-868B1ECD89E9}|AccountManagement.Domain\\AccountManagement.Domain.csproj|d:\\programming\\asp .net projects\\behamooz\\accountmanagement.domain\\accountagg\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61EED481-F72F-4946-1DB6-868B1ECD89E9}|AccountManagement.Domain\\AccountManagement.Domain.csproj|solutionrelative:accountmanagement.domain\\accountagg\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application\\classapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|solutionrelative:studymanagement.application\\classapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\class\\iclassapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\class\\iclassapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|d:\\programming\\asp .net projects\\behamooz\\01_framework\\application\\authhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|solutionrelative:01_framework\\application\\authhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|d:\\programming\\asp .net projects\\behamooz\\01_framework\\application\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|solutionrelative:01_framework\\application\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,72 +74,215 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 6,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StudyManagement.Infrastructure.EFCore",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj",
+              "RelativeDocumentMoniker": "StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj",
+              "RelativeToolTip": "StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-07T15:12:22.687Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Index.cshtml.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Index.cshtml.cs",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Index.cshtml.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwBoAAAAIAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "StudyManagement.Infrastructure.Configuration",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj",
+              "RelativeDocumentMoniker": "StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj",
+              "RelativeToolTip": "StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-07T15:11:53.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AccountViewModel.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccoutManagement.Application.Contract\\Account\\AccountViewModel.cs",
+              "RelativeDocumentMoniker": "AccoutManagement.Application.Contract\\Account\\AccountViewModel.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccoutManagement.Application.Contract\\Account\\AccountViewModel.cs",
+              "RelativeToolTip": "AccoutManagement.Application.Contract\\Account\\AccountViewModel.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAA1wAUAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-26T17:34:46.959Z"
+              "WhenOpened": "2025-06-07T15:08:50.333Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Index.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Index.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Index.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-26T15:27:54.286Z",
+              "DocumentIndex": 5,
+              "Title": "ClassSearchModel.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\ClassSearchModel.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Class\\ClassSearchModel.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\ClassSearchModel.cs",
+              "RelativeToolTip": "StudyManagement.Application.Contracts\\Class\\ClassSearchModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T15:02:57.811Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Create.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Create.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Create.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Accounts\\Account\\Create.cshtml",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAGUAAAA6AAAAAAAAAA==",
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwB0AAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T14:52:13.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAB7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-26T15:11:52.449Z"
+              "WhenOpened": "2025-06-07T14:50:01.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ClassRepository.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
+              "RelativeToolTip": "StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAswEUAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T14:50:50.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ClassViewModel.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\ClassViewModel.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Class\\ClassViewModel.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\ClassViewModel.cs",
+              "RelativeToolTip": "StudyManagement.Application.Contracts\\Class\\ClassViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T14:51:32.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IAccountRepository.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Domain\\AccountAgg\\IAccountRepository.cs",
+              "RelativeDocumentMoniker": "AccountManagement.Domain\\AccountAgg\\IAccountRepository.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Domain\\AccountAgg\\IAccountRepository.cs",
+              "RelativeToolTip": "AccountManagement.Domain\\AccountAgg\\IAccountRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T14:55:00.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AccountRepository.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Infrastructure.EFCore\\Repository\\AccountRepository.cs",
+              "RelativeDocumentMoniker": "AccountManagement.Infrastructure.EFCore\\Repository\\AccountRepository.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Infrastructure.EFCore\\Repository\\AccountRepository.cs",
+              "RelativeToolTip": "AccountManagement.Infrastructure.EFCore\\Repository\\AccountRepository.cs",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAgwHoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T20:11:09.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IClassApplication.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
+              "RelativeToolTip": "StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T20:09:04.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Create.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T14:42:35.442Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAB2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-01T20:04:09.4Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ClassApplication.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\ClassApplication.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Application\\ClassApplication.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\ClassApplication.cs",
+              "RelativeToolTip": "StudyManagement.Application\\ClassApplication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T19:18:17.325Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AuthHelper.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AuthHelper.cs",
+              "RelativeDocumentMoniker": "01_Framework\\Application\\AuthHelper.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AuthHelper.cs",
+              "RelativeToolTip": "01_Framework\\Application\\AuthHelper.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAowGMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T14:37:34.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AuthViewModel.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AuthViewModel.cs",
+              "RelativeDocumentMoniker": "01_Framework\\Application\\AuthViewModel.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AuthViewModel.cs",
+              "RelativeToolTip": "01_Framework\\Application\\AuthViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T14:38:06.635Z",
+              "EditorCaption": ""
             }
           ]
         }

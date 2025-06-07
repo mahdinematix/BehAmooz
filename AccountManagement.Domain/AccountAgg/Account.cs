@@ -13,15 +13,16 @@ namespace AccountManagement.Domain.AccountAgg
         public string PhoneNumber { get; private set; }
         public string NationalCode { get; private set; }
         public string Code { get; private set; }
-        public int UniversityType { get; private set; }
-        public int University { get; private set; }
-        public int Major { get; private set; }
+        public int UniversityTypeId { get; private set; }
+        public int UniversityId { get; private set; }
+        public int MajorId { get; private set; }
         public string NationalCardPicture { get; private set; }
         public int Status { get; private set; }
         public Role Role { get; set; }
         public long RoleId { get; private set; }
 
-        public Account(string firstName, string lastName, string password, string email, string phoneNumber, string nationalCode, string code, int universityType, int university, int major, string nationalCardPicture, long roleId)
+
+        public Account(string firstName, string lastName, string password, string email, string phoneNumber, string nationalCode, string code, int universityTypeId, int universityId, int majorId, string nationalCardPicture, long roleId)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -30,9 +31,9 @@ namespace AccountManagement.Domain.AccountAgg
             PhoneNumber = phoneNumber;
             NationalCode = nationalCode;
             Code = code;
-            UniversityType = universityType;
-            University = university;
-            Major = major;
+            UniversityTypeId = universityTypeId;
+            UniversityId = universityId;
+            MajorId = majorId;
             NationalCardPicture = nationalCardPicture;
             Status = Statuses.Waiting;
             RoleId = roleId;
@@ -46,9 +47,9 @@ namespace AccountManagement.Domain.AccountAgg
             PhoneNumber = phoneNumber;
             NationalCode = nationalCode;
             Code = code;
-            UniversityType = universityType;
-            University = university;
-            Major = major;
+            UniversityTypeId = universityType;
+            UniversityId = university;
+            MajorId = major;
             NationalCardPicture = nationalCardPicture;
             RoleId = roleId;
         }

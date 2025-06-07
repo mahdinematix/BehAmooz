@@ -28,14 +28,13 @@ namespace StudyManagement.Domain.ClassAgg
             Sessions = new List<Session>();
         }
 
-        public void Edit(string code, string startTime, string endTime, long courseId,int day, long professorId)
+        public void Edit(string code, string startTime, string endTime, long courseId,int day)
         {
             Code = code;
             StartTime = startTime;
             EndTime = endTime;
             CourseId = courseId;
             Day = day;
-            ProfessorId = professorId;
         }
 
         public void Activate()

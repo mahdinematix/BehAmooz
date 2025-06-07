@@ -53,7 +53,7 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("Major")
+                    b.Property<int>("MajorId")
                         .HasColumnType("int");
 
                     b.Property<string>("NationalCardPicture")
@@ -73,8 +73,8 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
                     b.Property<long>("RoleId")
                         .HasColumnType("bigint");
@@ -82,10 +82,10 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("University")
+                    b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UniversityType")
+                    b.Property<int>("UniversityTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

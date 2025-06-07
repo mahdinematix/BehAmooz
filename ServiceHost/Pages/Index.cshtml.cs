@@ -1,3 +1,4 @@
+using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -5,15 +6,21 @@ namespace ServiceHost.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IAuthHelper _authHelper;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IAuthHelper authHelper)
         {
-            _logger = logger;
+            _authHelper = authHelper;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (_authHelper.CurrentAccountRole() != "3")
+            {
+                return RedirectToPage("/Index", new { area = "Administration" });
+            }
+
+            return Page();
 
         }
     }

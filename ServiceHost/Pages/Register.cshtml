@@ -1,0 +1,104 @@
+﻿@page
+@using _01_Framework.Infrastructure
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ServiceHost.Pages.RegisterModel
+@{
+}
+
+
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 m-auto">
+                                @if (Model.RegisterMessage != null)
+                                {
+                                    <div class="alert alert-danger">@Model.RegisterMessage</div>
+                                }
+                                <form method="post">
+                                    <div class="login-form">
+                                        <div class="row">
+                                            <div class="col-12 mb-20">
+                                                <div class="text-center form-check">
+                                                    <input type="radio" class="btn-check" value="@Roles.Student" name="roleId" id="student" autocomplete="off" checked>
+                                                    <label class="btn btn-outline-primary" for="student">دانشجو هستم</label>
+
+                                                    <input type="radio" class="btn-check" value="@Roles.Professor" name="roleId" id="proffessor" autocomplete="off">
+                                                    <label class="btn btn-outline-danger" for="proffessor">استاد هستم</label>
+
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>نام <span class="red-star">*</span></label>
+                                                <input class="form-control" maxlength="150" type="text" name="firstName" placeholder="نام">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>نام خانوادگی <span class="red-star">*</span></label>
+                                                <input class="form-control" maxlength="200" type="text" name="lastName" placeholder="نام خانوادگی">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>کد ملی <span class="red-star">*</span></label>
+                                                <input class="form-control" maxlength="10" type="text" name="nationalCode" placeholder="کد ملی">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>کارت ملی <span class="red-star">*</span></label>
+                                                <input class="form-control" type="text" name="nationalCardPicture" accept="image/*">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>کد استادی/دانشجویی <span class="red-star">*</span></label>
+                                                <input class="form-control" maxlength="20" type="text" name="code" placeholder="کد استادی/دانشجویی">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>رشته <span class="red-star">*</span></label>
+                                                <select class="custom-select my-1 mr-sm-2" name="majorId" asp-items='new SelectList(Majors.List, "Id", "Name")'>
+                                                    <option value="0">رشته</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>نوع دانشگاه <span class="red-star">*</span></label>
+                                                <select class="custom-select my-1 mr-sm-2" name="universityTypeId" asp-items='new SelectList(UniversityTypes.List, "Id", "Name")'>
+                                                    <option value="0">نوع دانشگاه</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20 form-group">
+                                                <label>دانشگاه <span class="red-star">*</span></label>
+                                                <select class="custom-select my-1 mr-sm-2" name="universityId" asp-items='new SelectList(Universities.List, "Id", "Name")'>
+                                                    <option value="0">دانشگاه</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>موبایل <span class="red-star">*</span></label>
+                                                <input class="form-control" maxlength="11" type="text" name="phoneNumber" placeholder="موبایل">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>ایمیل <span class="red-star">*</span></label>
+                                                <input maxlength="300" class="form-control" type="email" name="email" placeholder="ایمیل" style="direction: rtl">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>کلمه عبور <span class="red-star">*</span></label>
+                                                <input class="form-control" type="password" id="password" name="password" placeholder="کلمه عبور">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label>تکرار کلمه عبور <span class="red-star">*</span></label>
+                                                <input class="form-control" id="rePassword" type="password" name="rePassword" placeholder="تکرار کلمه عبور">
+                                                <span class="error" id="rePassAlert"></span>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-success w-100 mt-3">ثبت نام</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

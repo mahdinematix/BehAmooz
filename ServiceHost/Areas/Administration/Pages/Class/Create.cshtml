@@ -1,4 +1,6 @@
 ﻿@page "{courseId}"
+@inject IAuthHelper AuthHelper
+@using _01_Framework.Application
 @using _01_Framework.Infrastructure
 @model ServiceHost.Areas.Administration.Pages.Class.CreateModel
 @{
@@ -55,6 +57,21 @@
                         </div>
 
                     </div>
+                    @if (AuthHelper.CurrentAccountRole() != Roles.Professor)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Command.ProfessorId" class="control-label">ساعت شروع</label>
+                                    <select type="text" class="form-control" asp-for="Command.ProfessorId" asp-items="@Model.Professors">
+                                        <option value="0">استاد</option>
+                                    </select>
+                                    <span asp-validation-for="Command.ProfessorId" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     <input type="hidden" value="@Model.Course.Id" asp-for="Command.CourseId"/>
 
                     <button type="submit" class="btn btn-info waves-effect waves-light">تعریف</button>

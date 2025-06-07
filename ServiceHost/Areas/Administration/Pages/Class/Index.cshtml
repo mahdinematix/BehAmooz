@@ -35,13 +35,13 @@
 
                     <div class="form-group">
                         <label class="sr-only" asp-for="SearchModel.StartTime"></label>
-                        <select class="form-control" asp-for="SearchModel.StartTime" data-val="false" asp-items='new SelectList(Times.List,"Value", "Value")'>
+                        <select class="form-control" asp-for="SearchModel.StartTime" data-val="false" asp-items='new SelectList(Times.List, "Value", "Value")'>
                             <option value="0">ساعت شروع</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="sr-only" asp-for="SearchModel.DayId"></label>
-                        <select class="form-control" asp-for="SearchModel.DayId" data-val="false" asp-items='new SelectList(Days.List,"Id", "Name")'>
+                        <select class="form-control" asp-for="SearchModel.DayId" data-val="false" asp-items='new SelectList(Days.List, "Id", "Name")'>
                             <option value="0">روز</option>
                         </select>
                     </div>
@@ -53,7 +53,7 @@
                             </label>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-success" value="جستجو" />
+                    <input type="submit" class="btn btn-success" value="جستجو"/>
                     <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index" asp-route-courseId="@Model.Course.Id">مشاهده همه</a>
                 </form>
             </div>
@@ -74,6 +74,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>استاد</th>
                                     <th>کد کلاس</th>
                                     <th>روز</th>
                                     <th>ساعت شروع</th>
@@ -89,6 +90,7 @@
                                 {
                                     <tr>
                                         <td>@item.Id</td>
+                                        <td>@item.ProfessorFullName</td>
                                         <td>@item.Code</td>
                                         <td>@item.Day</td>
                                         <td>@item.StartTime.ToShownTime()</td>

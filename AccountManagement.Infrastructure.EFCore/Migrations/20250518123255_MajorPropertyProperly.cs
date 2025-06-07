@@ -11,7 +11,7 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "Major",
+                name: "MajorId",
                 table: "Accounts",
                 type: "int",
                 nullable: false,
@@ -24,7 +24,7 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Major",
+                name: "MajorId",
                 table: "Accounts",
                 type: "nvarchar(50)",
                 maxLength: 50,

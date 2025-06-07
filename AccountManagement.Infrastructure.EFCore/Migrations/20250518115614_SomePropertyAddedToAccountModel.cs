@@ -15,7 +15,7 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
                 table: "Accounts");
 
             migrationBuilder.AlterColumn<int>(
-                name: "University",
+                name: "UniversityId",
                 table: "Accounts",
                 type: "int",
                 nullable: false,
@@ -32,7 +32,7 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
                 defaultValue: "");
 
             migrationBuilder.AddColumn<int>(
-                name: "UniversityType",
+                name: "UniversityTypeId",
                 table: "Accounts",
                 type: "int",
                 nullable: false,
@@ -47,11 +47,11 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
                 table: "Accounts");
 
             migrationBuilder.DropColumn(
-                name: "UniversityType",
+                name: "UniversityTypeId",
                 table: "Accounts");
 
             migrationBuilder.AlterColumn<string>(
-                name: "University",
+                name: "UniversityId",
                 table: "Accounts",
                 type: "nvarchar(100)",
                 maxLength: 100,

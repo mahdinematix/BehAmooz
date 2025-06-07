@@ -32,8 +32,8 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<long>("CourseId")
                         .HasColumnType("bigint");

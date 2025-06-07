@@ -26,14 +26,17 @@ namespace _01_Framework.Application
             {
                 new Claim("AccountId", account.Id.ToString()),
                 new Claim(ClaimTypes.Name,account.Fullname),
-                new Claim("Username",account.Username),
                 new Claim(ClaimTypes.Role,account.RoleId.ToString()),
                 new Claim(ClaimTypes.MobilePhone,account.Mobile),
                 new Claim(ClaimTypes.Email,account.Email),
-                new Claim(ClaimTypes.StreetAddress,account.Address),
-                new Claim(ClaimTypes.PostalCode,account.Zipcode),
-                new Claim(ClaimTypes.Uri,account.ProfilePhoto),
-                new Claim("permissions",permissions),
+                new Claim("UniversityId",account.UniversityId.ToString()),
+                new Claim("UniversityTypeId",account.UniversityTypeId.ToString()),
+                new Claim("MajorId",account.MajorId.ToString()),
+                new Claim("Status",account.Status.ToString()),
+                new Claim("NationalCardPicture",account.NationalCardPicture),
+                new Claim("NationalCode",account.NationalCode),
+                new Claim("Code",account.Code),
+                new Claim("permissions",permissions)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -82,13 +85,16 @@ namespace _01_Framework.Application
 
             result.Id = long.Parse(claims.FirstOrDefault(x => x.Type == "AccountId").Value);
             result.Fullname = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
-            result.Username = claims.FirstOrDefault(x => x.Type == "Username").Value;
             result.Mobile = claims.FirstOrDefault(x => x.Type == ClaimTypes.MobilePhone).Value;
             result.Email = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             result.RoleId = long.Parse(claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
-            result.Address = claims.FirstOrDefault(x => x.Type == ClaimTypes.StreetAddress).Value;
-            result.Zipcode = claims.FirstOrDefault(x => x.Type == ClaimTypes.PostalCode).Value;
-            result.ProfilePhoto = claims.FirstOrDefault(x => x.Type == ClaimTypes.Uri).Value;
+            result.UniversityId = int.Parse(claims.FirstOrDefault(x => x.Type == "UniversityId").Value);
+            result.UniversityTypeId = int.Parse(claims.FirstOrDefault(x => x.Type == "UniversityTypeId").Value);
+            result.MajorId = int.Parse(claims.FirstOrDefault(x => x.Type == "MajorId").Value);
+            result.Status = int.Parse(claims.FirstOrDefault(x => x.Type == "Status").Value);
+            result.NationalCode = claims.FirstOrDefault(x => x.Type == "NationalCode").Value;
+            result.Code = claims.FirstOrDefault(x => x.Type == "Code").Value;
+            result.NationalCardPicture = claims.FirstOrDefault(x => x.Type == "NationalCardPicture").Value;
             result.Role = Roles.GetRoleBy(result.RoleId);
 
             return result;
@@ -100,7 +106,7 @@ namespace _01_Framework.Application
             {
                 return new List<int>();
             }
-            var permissions = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "permissions")?.Value;
+            var permissions = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "permissions").Value;
 
             return JsonConvert.DeserializeObject<List<int>>(permissions);
         }
@@ -113,6 +119,18 @@ namespace _01_Framework.Application
 
             return 0;
         }
+
+        public int CurrentAccountStatus()
+        {
+            if (IsAuthenticated())
+                return int.Parse(_contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Status").Value);
+
+
+            return 0;
+        }
+        
+
+        
 
     }
 }

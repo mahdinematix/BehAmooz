@@ -7,10 +7,12 @@ namespace StudyManagement.Application
     public class ClassApplication : IClassApplication
     {
         private readonly IClassRepository _classRepository;
+        private readonly IAuthHelper _authHelper;
 
-        public ClassApplication(IClassRepository classRepository)
+        public ClassApplication(IClassRepository classRepository, IAuthHelper authHelper)
         {
             _classRepository = classRepository;
+            _authHelper = authHelper;
         }
 
         public OperationResult Create(CreateClass command)
@@ -27,8 +29,18 @@ namespace StudyManagement.Application
             {
                 return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
             }
+
+            long professorId;
+            if (_authHelper.CurrentAccountRole() == "2")
+            {
+                professorId = _authHelper.CurrentAccountId();
+            }
+            else
+            {
+                professorId = command.ProfessorId;
+            }
             var classs = new Class(command.Code, command.StartTime, command.EndTime,
-                command.CourseId, command.Day,1);
+                command.CourseId, command.Day,professorId);
             _classRepository.Create(classs);
             _classRepository.Save();
             return operation.Succeed();
@@ -53,7 +65,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
             }
 
-            classs.Edit(command.Code,command.StartTime,command.EndTime,command.CourseId, command.Day,1);
+            classs.Edit(command.Code,command.StartTime,command.EndTime,command.CourseId, command.Day);
             _classRepository.Save();
             return operation.Succeed();
         }

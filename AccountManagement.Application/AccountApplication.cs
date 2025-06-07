@@ -1,6 +1,7 @@
 ﻿using _01_Framework.Application;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Domain.AccountAgg;
+using AccountManagement.Domain.RoleAgg;
 
 namespace AccountManagement.Application
 {
@@ -8,11 +9,15 @@ namespace AccountManagement.Application
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IAuthHelper _authHelper;
 
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IRoleRepository roleRepository, IAuthHelper authHelper)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
+            _roleRepository = roleRepository;
+            _authHelper = authHelper;
         }
 
         public OperationResult Register(RegisterAccount command)
@@ -113,6 +118,48 @@ namespace AccountManagement.Application
         public List<AccountViewModel> Search(AccountSearchModel searchModel)
         {
             return _accountRepository.Search(searchModel);
+        }
+
+        public OperationResult Login(Login command)
+        {
+            var operation = new OperationResult();
+            var account = _accountRepository.GetByNationalCode(command.NationalCode);
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessages.WrongPasswordOrUsername);
+            }
+
+            var result = _passwordHasher.Check(account.Password, command.Password);
+
+            if (!result.Verified)
+            {
+                return operation.Failed(ApplicationMessages.WrongPasswordOrUsername);
+            }
+
+            var permissions = _roleRepository.GetBy(account.RoleId)
+                .Permissions
+                .Select(x => x.Code)
+                .ToList();
+            var fullname = account.FirstName + " " + account.LastName;
+            var authViewModel = new AuthViewModel(account.Id,account.RoleId,fullname,account.NationalCode,account.Code,account.UniversityTypeId,account.UniversityId,account.MajorId,account.NationalCardPicture,account.Status,account.PhoneNumber,account.Email,permissions);
+
+            _authHelper.Signin(authViewModel);
+            return operation.Succeed();
+        }
+
+        public void Logout()
+        {
+            _authHelper.SignOut();
+        }
+
+        public List<AccountViewModel> GetProfessors()
+        {
+            return _accountRepository.GetProfessors();
+        }
+
+        public string GetProfessorById(long professorId)
+        {
+            return _accountRepository.GetProfessorById(professorId);
         }
     }
 }

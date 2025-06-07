@@ -2,6 +2,7 @@
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Domain.AccountAgg;
+using AccountManagement.Domain.RoleAgg;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccountManagement.Infrastructure.EFCore.Repository
@@ -23,14 +24,14 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 Email = x.Email,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Major = x.Major,
+                Major = x.MajorId,
                 NationalCardPicture = x.NationalCardPicture,
                 NationalCode = x.NationalCode,
                 PhoneNumber = x.PhoneNumber,
                 Code = x.Code,
-                University = x.University,
+                University = x.UniversityId,
                 RoleId = x.RoleId,
-                UniversityType = x.UniversityType
+                UniversityType = x.UniversityTypeId
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -41,16 +42,16 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 Id = x.Id,
                 Email = x.Email,
                 FullName = x.FirstName + " " + x.LastName,
-                MajorId = x.Major,
-                Major = Majors.GetName(x.Major),
+                MajorId = x.MajorId,
+                Major = Majors.GetName(x.MajorId),
                 NationalCardPicture = x.NationalCardPicture,
                 NationalCode = x.NationalCode,
                 PhoneNumber = x.PhoneNumber,
                 Code = x.Code,
-                UniversityType = UniversityTypes.GetName(x.UniversityType),
-                UniversityId = x.University,
-                UniversityTypeId = x.UniversityType,
-                University = Universities.GetName(x.University),
+                UniversityType = UniversityTypes.GetName(x.UniversityTypeId),
+                UniversityId = x.UniversityId,
+                UniversityTypeId = x.UniversityTypeId,
+                University = Universities.GetName(x.UniversityId),
                 RoleId = x.RoleId,
                 Role = x.Role.Name,
                 CreationDate = x.CreationDate.ToFarsi(),
@@ -101,6 +102,31 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             }
 
             return query.OrderByDescending(x => x.Id).ToList();
+        }
+
+        public Account GetByNationalCode(string nationalCode)
+        {
+            return _context.Accounts.FirstOrDefault(x => x.NationalCode == nationalCode);
+        }
+
+        public List<AccountViewModel> GetProfessors()
+        {
+            return _context.Accounts.Where(x => x.RoleId == long.Parse(Roles.Professor)).Select(x => new AccountViewModel
+            {
+                Id = x.Id,
+                FullName = x.FirstName + " " + x.LastName
+            }).ToList();
+        }
+
+        public string GetProfessorById(long professorId)
+        {
+            var firstName = _context.Accounts.Where(x => x.RoleId == long.Parse(Roles.Professor))
+                .FirstOrDefault(x => x.Id == professorId).FirstName;
+
+            var lastName = _context.Accounts.Where(x => x.RoleId == long.Parse(Roles.Professor))
+                .FirstOrDefault(x => x.Id == professorId).LastName;
+
+            return firstName + " " + lastName;
         }
     }
 }

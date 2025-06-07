@@ -15,7 +15,7 @@ namespace _02_Query.Query
 
         public List<MessageQueryModel> GetProfessorMessages()
         {
-            return _messageContext.Messages.Where(x => x.MessageFor == "اساتید").Select(x => new MessageQueryModel
+            return _messageContext.Messages.Where(x => x.MessageFor == "اساتید").Where(x=>x.EndDate >= DateTime.Now).Select(x => new MessageQueryModel
                 {
                     Title = x.Title,
                     Body = x.Body,

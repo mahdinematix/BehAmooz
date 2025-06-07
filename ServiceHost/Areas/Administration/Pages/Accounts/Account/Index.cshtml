@@ -1,6 +1,7 @@
 ﻿@page
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
+@using AccountManagement.Infrastructure.Configuration.Permission
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Accounts.Account.IndexModel
 
@@ -13,7 +14,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد کاربر جدید</a>
+            <a permission="@AccountPermissions.CreateAccount" class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد کاربر جدید</a>
         </p>
     </div>
 </div>
@@ -146,27 +147,27 @@
                                         </td>
                                         <td>@item.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5"
+                                            <a permission="@AccountPermissions.EditAccount" class="btn btn-warning pull-right m-rl-5"
                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
 
-                                            <a class="btn btn-primary pull-right m-rl-5"
+                                            <a permission="@AccountPermissions.ChangePassword" class="btn btn-primary pull-right m-rl-5"
                                                href="#showmodal=@Url.Page("./Index", "ChangePassword", new { id = item.Id})">
                                                 <i class="fa fa-lock"></i> تغییر رمز
                                             </a>
                                             @if (item.Status == Statuses.Waiting)
                                             {
-                                                <a class="btn btn-success pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Confirm">تایید</a>
-                                                <a class="btn btn-danger pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Reject">رد کردن</a>
+                                                <a permission="@AccountPermissions.ConfirmOrReject" class="btn btn-success pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Confirm">تایید</a>
+                                                <a permission="@AccountPermissions.ConfirmOrReject" class="btn btn-danger pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Reject">رد کردن</a>
                                             }
                                             @if (item.Status == Statuses.Confirmed)
                                             {
-                                                <a class="btn btn-danger pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Reject">رد کردن</a>
+                                                <a permission="@AccountPermissions.ConfirmOrReject" class="btn btn-danger pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Reject">رد کردن</a>
                                             }
                                             @if (item.Status == Statuses.Rejected)
                                             {
-                                                <a class="btn btn-success pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Confirm">تایید</a>
+                                                <a permission="@AccountPermissions.ConfirmOrReject" class="btn btn-success pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Confirm">تایید</a>
                                             }
                                             
                                         </td>

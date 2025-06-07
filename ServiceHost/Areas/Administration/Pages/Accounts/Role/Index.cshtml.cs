@@ -1,4 +1,6 @@
+using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Role;
+using AccountManagement.Infrastructure.Configuration.Permission;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
@@ -14,6 +16,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             _roleApplication = roleApplication;
         }
 
+        [NeedsPermissions(AccountPermissions.ListRoles)]
         public void OnGet()
         {
             Roles = _roleApplication.GetAllRoles();

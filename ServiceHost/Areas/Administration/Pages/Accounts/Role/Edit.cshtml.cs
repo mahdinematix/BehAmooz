@@ -1,5 +1,6 @@
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Role;
+using AccountManagement.Infrastructure.Configuration.Permission;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -49,7 +50,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             }
         }
 
-        
+        [NeedsPermissions(AccountPermissions.EditRole)]
         public IActionResult OnPost(EditRole command)
         {
             var result = _roleApplication.Edit(command);

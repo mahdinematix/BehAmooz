@@ -1,5 +1,10 @@
-﻿@{
+﻿@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+
+@inject IAuthHelper AuthHelper
+@{
 }
+
 
 
 <div class="header-area header-sticky">
@@ -18,47 +23,31 @@
                                 <li>
                                     <a asp-page="/Index">صفحه اصلی</a>
                                 </li>
-
+                                
                                 <li>
                                     <a href="#contactUs">تماس با ما</a>
                                 </li>
-                                <li>
-                                    <a href="#aboutUs">درباره ما</a>
-                                </li>
+                                @if (AuthHelper.IsAuthenticated())
+                                {
+                                    <li>
+                                        <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-page="/Account">ورود | ثبت نام</a>
+                                    </li>
+                                }
+                                @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() != Roles.Student)
+                                {
+                                    <li>
+                                        <a asp-page="/Index" asp-area="Administration">مدیریت سایت</a>
+                                    </li>
+                                }
 
                             </ul>
                         </nav>
-                    </div>
-                    <div class="header-icon-wrapper">
-                        <ul class="icon-list">
-                            <li>
-                                <a href="javascript:void(0)" id="search-overlay-trigger">
-                                    <i class="ion-ios-search-strong"></i>
-                                </a>
-                            </li>
-                            @* <li>
-                                @if (AuthHelper.IsAuthenticated())
-                                {
-                                    <a asp-page="Profile" asp-route-id="@AuthHelper.CurrentProfessorId()">
-                                        @if (!string.IsNullOrWhiteSpace(AuthHelper.GetAccountInfo().ProfilePhoto))
-                                        {
-                                            <img src="~/Pictures/@AuthHelper.GetAccountInfo().ProfilePhoto" class="profile-photo" />
-                                        }
-                                        else
-                                        {
-                                            <i class="fa fa-user-circle"></i>
-                                        }
-                                    </a>
-
-                                    <p><strong>@AuthHelper.GetAccountInfo().Fullname</strong></p>
-                                }
-
-                            </li> *@
-
-                            <div>
-                            </div>
-
-                        </ul>
                     </div>
                 </div>
 
@@ -75,6 +64,14 @@
                             <div class="mobile-navigation text-right">
                                 <div class="header-icon-wrapper">
                                     <ul class="icon-list justify-content-end">
+                                        <li>
+                                            <div class="header-cart-icon">
+                                                <a asp-page="/Cart">
+                                                    <i class="ion-bag"></i>
+                                                    <span class="counter cart_items_count">0</span>
+                                                </a>
+                                            </div>
+                                        </li>
 
                                         <li>
                                             <a href="javascript:void(0)" class="mobile-menu-icon"
@@ -83,24 +80,10 @@
                                             </a>
                                         </li>
 
-                                        @* <li>
-                                            @if (AuthHelper.IsAuthenticated())
-                                            {
-                                                <a asp-page="Profile" asp-route-id="@AuthHelper.CurrentProfessorId()">
-                                                    @if (!string.IsNullOrWhiteSpace(AuthHelper.GetAccountInfo().ProfilePhoto))
-                                                    {
-                                                        <img src="~/Pictures/@AuthHelper.GetAccountInfo().ProfilePhoto" class="profile-photo" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <i class="fa fa-user-circle"></i>
-                                                    }
-                                                </a>
+                                        <li>
+                                            
 
-                                                <p><strong>@AuthHelper.GetAccountInfo().Fullname</strong></p>
-                                            }
-
-                                        </li> *@
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -113,6 +96,7 @@
 </div>
 
 
+
 <div class="offcanvas-mobile-menu" id="offcanvas-mobile-menu">
     <a href="javascript:void(0)" class="offcanvas-menu-close" id="offcanvas-menu-close-trigger">
         <i class="ion-android-close"></i>
@@ -121,14 +105,6 @@
     <div class="offcanvas-wrapper">
 
         <div class="offcanvas-inner-content">
-            <div class="offcanvas-mobile-search-area">
-                <form method="get" asp-page="/Search">
-                    <input type="search" id="value" name="value" placeholder="هر چه در فروشگاه می خواهید جستجو کنید ...">
-                    <button type="submit">
-                        <i class="ion-android-search"></i>
-                    </button>
-                </form>
-            </div>ّ
             <nav class="offcanvas-navigation">
                 <ul>
                     <li class="">
@@ -140,6 +116,9 @@
                     </li>
                     <li>
                         <a href="#contactUs" onclick="hideOffcanvas()">درباره ما</a>
+                    </li>
+                    <li>
+                        <a asp-page="/Login" onclick="hideOffcanvas()">ورود/ثبت نام</a>
                     </li>
                 </ul>
             </nav>

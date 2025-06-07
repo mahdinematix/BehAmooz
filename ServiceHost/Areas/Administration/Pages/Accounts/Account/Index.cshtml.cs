@@ -1,5 +1,7 @@
+using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Application.Contract.Role;
+using AccountManagement.Infrastructure.Configuration.Permission;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,7 +24,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             _accountApplication = accountApplication;
             _roleApplication = roleApplication;
         }
-
+        [NeedsPermissions(AccountPermissions.ListAccounts)]
         public void OnGet(AccountSearchModel searchModel)
         {
             Roles = new SelectList(_roleApplication.GetAllRoles(), "Id", "Name");
@@ -37,7 +39,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             };
             return Partial("./Create", command);
         }
-
+        [NeedsPermissions(AccountPermissions.CreateAccount)]
         public JsonResult OnPostCreate(RegisterAccount command)
         {
             var result = _accountApplication.Register(command);
@@ -51,6 +53,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return Partial("Edit", account);
         }
 
+        [NeedsPermissions(AccountPermissions.EditAccount)]
         public JsonResult OnPostEdit(EditAccount command)
         {
             var result = _accountApplication.Edit(command);
@@ -63,23 +66,27 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return Partial("ChangePassword", command);
         }
 
-
+        [NeedsPermissions(AccountPermissions.ChangePassword)]
         public JsonResult OnPostChangePassword(ChangePassword command)
         {
             var result = _accountApplication.ChangePassword(command);
             return new JsonResult(result);
         }
 
+        [NeedsPermissions(AccountPermissions.ConfirmOrReject)]
         public IActionResult OnGetConfirm(long id)
         {
             _accountApplication.Confirm(id);
             return RedirectToPage("./Index");
         }
+
+        [NeedsPermissions(AccountPermissions.ConfirmOrReject)]
         public IActionResult OnGetReject(long id)
         {
             _accountApplication.Reject(id);
             return RedirectToPage("./Index");
 
         }
+
     }
 }
