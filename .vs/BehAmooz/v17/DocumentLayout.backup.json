@@ -3,68 +3,116 @@
   "WorkspaceRootPath": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.infrastructure.efcore\\repository\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|solutionrelative:studymanagement.infrastructure.efcore\\repository\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\getobjectacl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\getobjectacl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\putobjectacl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\putobjectacl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\putbucketlifecycleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\putbucketlifecycleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.infrastructure.efcore\\studymanagement.infrastructure.efcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|solutionrelative:studymanagement.infrastructure.efcore\\studymanagement.infrastructure.efcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\getbucketlifecycleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\getbucketlifecycleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B785720-A1C6-3FD0-F5A3-A2BEFEF459B7}|StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.infrastructure.configuration\\studymanagement.infrastructure.configuration.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{8B785720-A1C6-3FD0-F5A3-A2BEFEF459B7}|StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj|solutionrelative:studymanagement.infrastructure.configuration\\studymanagement.infrastructure.configuration.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\deletebucketlifecycleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\deletebucketlifecycleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\class\\classsearchmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\class\\classsearchmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\deleteobjecttags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\deleteobjecttags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}|AccoutManagement.Application.Contract\\AccountManagement.Application.Contract.csproj|d:\\programming\\asp .net projects\\behamooz\\accoutmanagement.application.contract\\account\\accountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}|AccoutManagement.Application.Contract\\AccountManagement.Application.Contract.csproj|solutionrelative:accoutmanagement.application.contract\\account\\accountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\headobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\headobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E582842-35B9-F129-CFD2-1A6A3B8769B5}|AccountManagement.Infrastructure.EFCore\\AccountManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\accountmanagement.infrastructure.efcore\\repository\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E582842-35B9-F129-CFD2-1A6A3B8769B5}|AccountManagement.Infrastructure.EFCore\\AccountManagement.Infrastructure.EFCore.csproj|solutionrelative:accountmanagement.infrastructure.efcore\\repository\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\downloadpresignedobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\downloadpresignedobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\class\\classviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\class\\classviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\getobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\getobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61EED481-F72F-4946-1DB6-868B1ECD89E9}|AccountManagement.Domain\\AccountManagement.Domain.csproj|d:\\programming\\asp .net projects\\behamooz\\accountmanagement.domain\\accountagg\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61EED481-F72F-4946-1DB6-868B1ECD89E9}|AccountManagement.Domain\\AccountManagement.Domain.csproj|solutionrelative:accountmanagement.domain\\accountagg\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\genpresignedurl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\genpresignedurl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application\\classapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|solutionrelative:studymanagement.application\\classapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\uploadpart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\uploadpart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\class\\iclassapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\class\\iclassapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\putobjecttags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\putobjecttags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\getobjecttags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\getobjecttags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|d:\\programming\\asp .net projects\\behamooz\\01_framework\\application\\authhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|solutionrelative:01_framework\\application\\authhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\putbuckettags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\putbuckettags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|d:\\programming\\asp .net projects\\behamooz\\01_framework\\application\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|solutionrelative:01_framework\\application\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\getbuckettags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\getbuckettags.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\deletebucketcors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\deletebucketcors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\putbucketcors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\putbucketcors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\getbucketcors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\getbucketcors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\getbucketversioning.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\getbucketversioning.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\enablebucketversioning.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\enablebucketversioning.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\putbucketacl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\putbucketacl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\deletebucketpolicy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\deletebucketpolicy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|d:\\programming\\asp .net projects\\behamooz\\arvancloud\\getbucketacl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}|ArvanCloud\\ArvanCloud.csproj|solutionrelative:arvancloud\\getbucketacl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\query\\sessionquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\query\\sessionquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\session.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\session.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\session.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\session.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84AADB69-5AAF-EF38-EE58-4714C5256EBB}|StudyManagement.Domain\\StudyManagement.Domain.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.domain\\sessionpictureagg\\sessionpicture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84AADB69-5AAF-EF38-EE58-4714C5256EBB}|StudyManagement.Domain\\StudyManagement.Domain.csproj|solutionrelative:studymanagement.domain\\sessionpictureagg\\sessionpicture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\contracts\\session\\sessionquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\contracts\\session\\sessionquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,214 +122,395 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "StudyManagement.Infrastructure.EFCore",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj",
-              "RelativeDocumentMoniker": "StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj",
-              "RelativeToolTip": "StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-06-07T15:12:22.687Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "StudyManagement.Infrastructure.Configuration",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj",
-              "RelativeDocumentMoniker": "StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj",
-              "RelativeToolTip": "StudyManagement.Infrastructure.Configuration\\StudyManagement.Infrastructure.Configuration.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-06-07T15:11:53.678Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AccountViewModel.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccoutManagement.Application.Contract\\Account\\AccountViewModel.cs",
-              "RelativeDocumentMoniker": "AccoutManagement.Application.Contract\\Account\\AccountViewModel.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccoutManagement.Application.Contract\\Account\\AccountViewModel.cs",
-              "RelativeToolTip": "AccoutManagement.Application.Contract\\Account\\AccountViewModel.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAA1wAUAAAAoAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "GetObjectAcl.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetObjectAcl.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GetObjectAcl.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetObjectAcl.cs",
+              "RelativeToolTip": "ArvanCloud\\GetObjectAcl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T15:08:50.333Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ClassSearchModel.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\ClassSearchModel.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Class\\ClassSearchModel.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\ClassSearchModel.cs",
-              "RelativeToolTip": "StudyManagement.Application.Contracts\\Class\\ClassSearchModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T15:02:57.811Z",
+              "WhenOpened": "2025-07-17T12:39:09.73Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml.cs",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwB0AAABAAAAAAAAAAA==",
+              "Title": "PutObjectAcl.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutObjectAcl.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\PutObjectAcl.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutObjectAcl.cs",
+              "RelativeToolTip": "ArvanCloud\\PutObjectAcl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T14:52:13.594Z",
+              "WhenOpened": "2025-07-17T12:38:26.434Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAB7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-07T14:50:01.289Z",
+              "Title": "PutBucketLifecycleConfiguration.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutBucketLifecycleConfiguration.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\PutBucketLifecycleConfiguration.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutBucketLifecycleConfiguration.cs",
+              "RelativeToolTip": "ArvanCloud\\PutBucketLifecycleConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T12:37:45.867Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ClassRepository.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
-              "RelativeToolTip": "StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAswEUAAAAPAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "GetBucketLifecycleConfiguration.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketLifecycleConfiguration.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GetBucketLifecycleConfiguration.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketLifecycleConfiguration.cs",
+              "RelativeToolTip": "ArvanCloud\\GetBucketLifecycleConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T14:50:50.932Z",
+              "WhenOpened": "2025-07-17T12:37:05.681Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ClassViewModel.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\ClassViewModel.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Class\\ClassViewModel.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\ClassViewModel.cs",
-              "RelativeToolTip": "StudyManagement.Application.Contracts\\Class\\ClassViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAxAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "DeleteBucketLifecycleConfiguration.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DeleteBucketLifecycleConfiguration.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\DeleteBucketLifecycleConfiguration.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DeleteBucketLifecycleConfiguration.cs",
+              "RelativeToolTip": "ArvanCloud\\DeleteBucketLifecycleConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T14:51:32.758Z",
+              "WhenOpened": "2025-07-17T12:36:29.451Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IAccountRepository.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Domain\\AccountAgg\\IAccountRepository.cs",
-              "RelativeDocumentMoniker": "AccountManagement.Domain\\AccountAgg\\IAccountRepository.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Domain\\AccountAgg\\IAccountRepository.cs",
-              "RelativeToolTip": "AccountManagement.Domain\\AccountAgg\\IAccountRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "DeleteObjectTags.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DeleteObjectTags.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\DeleteObjectTags.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DeleteObjectTags.cs",
+              "RelativeToolTip": "ArvanCloud\\DeleteObjectTags.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T14:55:00.058Z",
+              "WhenOpened": "2025-07-17T12:35:13.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HeadObject.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\HeadObject.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\HeadObject.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\HeadObject.cs",
+              "RelativeToolTip": "ArvanCloud\\HeadObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:47:49.406Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "AccountRepository.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Infrastructure.EFCore\\Repository\\AccountRepository.cs",
-              "RelativeDocumentMoniker": "AccountManagement.Infrastructure.EFCore\\Repository\\AccountRepository.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Infrastructure.EFCore\\Repository\\AccountRepository.cs",
-              "RelativeToolTip": "AccountManagement.Infrastructure.EFCore\\Repository\\AccountRepository.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAgwHoAAAAMAAAAAAAAAA==",
+              "Title": "DownloadPresignedObject.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DownloadPresignedObject.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\DownloadPresignedObject.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DownloadPresignedObject.cs",
+              "RelativeToolTip": "ArvanCloud\\DownloadPresignedObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-01T20:11:09.438Z",
+              "WhenOpened": "2025-07-17T10:46:47.414Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "IClassApplication.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
-              "RelativeToolTip": "StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAbAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "GetObject.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetObject.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GetObject.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetObject.cs",
+              "RelativeToolTip": "ArvanCloud\\GetObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-01T20:09:04.551Z",
+              "WhenOpened": "2025-07-17T10:46:15.545Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Create.cshtml.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml.cs",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml.cs",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAoAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "GenPresignedURL.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GenPresignedURL.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GenPresignedURL.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GenPresignedURL.cs",
+              "RelativeToolTip": "ArvanCloud\\GenPresignedURL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T14:42:35.442Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAB2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-01T20:04:09.4Z",
+              "WhenOpened": "2025-07-17T10:45:36.385Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "ClassApplication.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\ClassApplication.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application\\ClassApplication.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\ClassApplication.cs",
-              "RelativeToolTip": "StudyManagement.Application\\ClassApplication.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAhAAAAAAAAAA==",
+              "Title": "UploadPart.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\UploadPart.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\UploadPart.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\UploadPart.cs",
+              "RelativeToolTip": "ArvanCloud\\UploadPart.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAgwBoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-01T19:18:17.325Z",
+              "WhenOpened": "2025-07-17T10:45:04.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PutObjectTags.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutObjectTags.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\PutObjectTags.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutObjectTags.cs",
+              "RelativeToolTip": "ArvanCloud\\PutObjectTags.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:40:42.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "GetObjectTags.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetObjectTags.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GetObjectTags.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetObjectTags.cs",
+              "RelativeToolTip": "ArvanCloud\\GetObjectTags.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:40:02.765Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "AuthHelper.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AuthHelper.cs",
-              "RelativeDocumentMoniker": "01_Framework\\Application\\AuthHelper.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AuthHelper.cs",
-              "RelativeToolTip": "01_Framework\\Application\\AuthHelper.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAowGMAAAAMAAAAAAAAAA==",
+              "Title": "PutBucketTags.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutBucketTags.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\PutBucketTags.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutBucketTags.cs",
+              "RelativeToolTip": "ArvanCloud\\PutBucketTags.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAgwBIAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T14:37:34.012Z",
+              "WhenOpened": "2025-07-17T10:38:08.187Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "AuthViewModel.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AuthViewModel.cs",
-              "RelativeDocumentMoniker": "01_Framework\\Application\\AuthViewModel.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AuthViewModel.cs",
-              "RelativeToolTip": "01_Framework\\Application\\AuthViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAsAAAAAAAAAA==",
+              "Title": "GetBucketTags.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketTags.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GetBucketTags.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketTags.cs",
+              "RelativeToolTip": "ArvanCloud\\GetBucketTags.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T14:38:06.635Z",
+              "WhenOpened": "2025-07-17T10:37:13.541Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "DeleteBucketCors.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DeleteBucketCors.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\DeleteBucketCors.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DeleteBucketCors.cs",
+              "RelativeToolTip": "ArvanCloud\\DeleteBucketCors.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:36:35.919Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PutBucketCors.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutBucketCors.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\PutBucketCors.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutBucketCors.cs",
+              "RelativeToolTip": "ArvanCloud\\PutBucketCors.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:36:01.309Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "GetBucketCors.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketCors.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GetBucketCors.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketCors.cs",
+              "RelativeToolTip": "ArvanCloud\\GetBucketCors.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:35:27.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "GetBucketVersioning.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketVersioning.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GetBucketVersioning.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketVersioning.cs",
+              "RelativeToolTip": "ArvanCloud\\GetBucketVersioning.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:34:56.252Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "EnableBucketVersioning.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\EnableBucketVersioning.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\EnableBucketVersioning.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\EnableBucketVersioning.cs",
+              "RelativeToolTip": "ArvanCloud\\EnableBucketVersioning.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:34:23.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "PutBucketAcl.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutBucketAcl.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\PutBucketAcl.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\PutBucketAcl.cs",
+              "RelativeToolTip": "ArvanCloud\\PutBucketAcl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:33:49.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "GetBucketAcl.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketAcl.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\GetBucketAcl.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\GetBucketAcl.cs",
+              "RelativeToolTip": "ArvanCloud\\GetBucketAcl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:33:13.239Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "DeleteBucketPolicy.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DeleteBucketPolicy.cs",
+              "RelativeDocumentMoniker": "ArvanCloud\\DeleteBucketPolicy.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ArvanCloud\\DeleteBucketPolicy.cs",
+              "RelativeToolTip": "ArvanCloud\\DeleteBucketPolicy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T10:32:35.792Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "SessionQuery.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\SessionQuery.cs",
+              "RelativeDocumentMoniker": "02_Query\\Query\\SessionQuery.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\SessionQuery.cs",
+              "RelativeToolTip": "02_Query\\Query\\SessionQuery.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAYwCkAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T08:23:38.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "SessionQueryModel.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Session\\SessionQueryModel.cs",
+              "RelativeDocumentMoniker": "02_Query\\Contracts\\Session\\SessionQueryModel.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Session\\SessionQueryModel.cs",
+              "RelativeToolTip": "02_Query\\Contracts\\Session\\SessionQueryModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T08:22:24.357Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "SessionPicture.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Domain\\SessionPictureAgg\\SessionPicture.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Domain\\SessionPictureAgg\\SessionPicture.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Domain\\SessionPictureAgg\\SessionPicture.cs",
+              "RelativeToolTip": "StudyManagement.Domain\\SessionPictureAgg\\SessionPicture.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T08:20:57.541Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Session.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Session.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Session.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Session.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Pages\\Session.cshtml.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwAQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T08:13:32.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Session.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Session.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Session.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Session.cshtml",
+              "RelativeToolTip": "ServiceHost\\Pages\\Session.cshtml",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAAAF8AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-15T08:13:22.313Z",
               "EditorCaption": ""
             }
           ]

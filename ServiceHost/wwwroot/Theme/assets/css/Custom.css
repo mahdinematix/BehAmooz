@@ -229,3 +229,8 @@ body {
     white-space: nowrap;
     line-height: 60px;
 }
+
+.btn-back {
+    display: flex;
+    justify-self: flex-end;
+}

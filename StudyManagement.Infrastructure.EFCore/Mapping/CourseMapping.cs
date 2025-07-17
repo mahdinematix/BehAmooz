@@ -13,7 +13,6 @@ namespace StudyManagement.Infrastructure.EFCore.Mapping
             builder.Property(x => x.Name).HasMaxLength(300).IsRequired();
             builder.Property(x => x.Code).HasMaxLength(20).IsRequired();
             builder.Property(x => x.CourseKind).HasMaxLength(10).IsRequired();
-            builder.Property(x => x.Major).HasMaxLength(50).IsRequired();
 
 
             builder.HasMany(x => x.Classes).WithOne(x => x.Course).HasForeignKey(x => x.CourseId);

@@ -1,4 +1,5 @@
 ﻿@page "{classId}"
+@using _01_Framework.Application
 @model ServiceHost.Areas.Administration.Pages.Session.IndexModel
 @{
     Layout = "Shared/_AdminLayout";
@@ -45,6 +46,7 @@
                                     <th>فیلم</th>
                                     <th>جزوه</th>
                                     <th>تصاویر</th>
+                                    <th>قیمت (تومان)</th>
                                     <th>توضیحات</th>
                                     <th>وضعیت</th>
                                     <th>تاریخ تعریف</th>
@@ -61,6 +63,7 @@
                                         <td><a href="@item.Video" target="_blank">مشاهده</a></td>
                                         <td><a href="@item.Booklet" target="_blank">مشاهده</a></td>
                                         <td><a asp-page="/SessionPicture/Index" asp-route-sessionId="@item.Id">مشاهده</a></td>
+                                        <td>@item.Price.ToMoney()</td>
                                         <td>@item.Description</td>
                                         <td>
                                             @if (item.IsActive)

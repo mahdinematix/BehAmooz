@@ -9,23 +9,25 @@ namespace StudyManagement.Domain.CourseAgg
         public int NumberOfUnit { get; private set; }
         public string CourseKind { get; private set; }
         public string Code { get; private set; }
-        public string Major { get; private set; }
+        public int Major { get; private set; }
+        public int University { get; private set; }
         public bool IsActive { get; private set; }
         public ICollection<Class> Classes { get; private set; }
 
 
-        public Course(string name, int numberOfUnit, string courseKind, string code,string major)
+        public Course(string name, int numberOfUnit, string courseKind, string code,int major, int university)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;
             CourseKind = courseKind;
             Code = code;
             Major = major;
+            University = university;
             IsActive = true;
             Classes = new List<Class>();
         }
 
-        public void Edit(string name, int numberOfUnit, string courseKind, string code, string major)
+        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;

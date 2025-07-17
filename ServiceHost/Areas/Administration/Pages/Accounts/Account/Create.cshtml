@@ -73,9 +73,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <div class="form-group">
+                    <div class="form-group select2-container select2">
                         <label asp-for="Major" class="control-label">رشته</label>
-                        <select class="form-control" asp-for="Major" asp-items='new SelectList(Majors.List,"Id", "Name")'>
+                        <select class="form-control select2 select2-offscreen" asp-for="Major" asp-items='new SelectList(Majors.List,"Id", "Name")'>
                             <option value="0">رشته</option>
                         </select>
                         <span asp-validation-for="Major" class="error"></span>
@@ -88,20 +88,21 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label asp-for="UniversityType" class="control-label">نوع دانشگاه</label>
-                        <select class="form-control" asp-for="UniversityType" asp-items='new SelectList(UniversityTypes.List,"Id", "Name")'>
+                        <select id="branchesDropDown" class="form-control" asp-items='new SelectList(UniversityTypes.List, "Id", "Name")'>
                             <option value="0">نوع دانشگاه</option>
                         </select>
                         <span asp-validation-for="UniversityType" class="error"></span>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="University" class="control-label">دانشگاه</label>
-                    <select class="form-control" asp-for="University" asp-items='new SelectList(Universities.List,"Id", "Name")'>
+                    @Html.DropDownListFor(r => r.University, new SelectList(new List<string>(), "Id", "Name"), new { @class = "form-control", id = "roomsDropDown" })
+                    @* <label asp-for="University" class="control-label">دانشگاه</label>
+                    <select class="form-control" asp-for="University" asp-items='new SelectList(Universities.List, "Id", "Name")'>
                         <option value="0">دانشگاه</option>
                     </select>
-                    <span asp-validation-for="University" class="error"></span>
+                    <span asp-validation-for="University" class="error"></span> *@
                 </div>
             </div>
         </div>
@@ -147,3 +148,48 @@
         <button type="submit" class="btn btn-info waves-effect waves-light">ثبت نام</button>
     </div>
 </form>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            var branchesDropDown = $("#branchesDropDown ");
+            var roomsDropDown= $("#roomsDropDown");
+
+            branchesDropDown.ready(function () {
+
+                $.ajax({
+                    url: "api/uniTypes",
+                    type: "GET",
+                    success: function (data) {
+                        $.each(data, function () {
+                            branchesDropDown.append("<option value='" + this.Id + "'>" + this.Name + "</option>")
+                        });
+                    }
+                }).done(function () {
+                    $.ajax({
+                        url: "api/unisByType/" + @Model.UniversityType,
+                        type: "GET",
+                        success: function (data) {
+                            $.each(data, function () {                                    
+                                roomsDropDown.append("<option value='" + this.Id + "'>" + this.Name + "</option>");
+                            });
+                        }
+                    });
+                });
+
+                branchesDropDown.on("change", function () {
+                    $.ajax({
+                        url: "/api/unisByType/" + branchesDropDown.val(),
+                        type: "GET",
+                        success: function (data) {
+                            roomsDropDown.empty();
+                            $.each(data, function () {
+                                roomsDropDown.append("<option value='" + this.Id + "'>" + this.Name + "</option>");
+                            });
+                        }
+                    });
+                });
+    </script>
+}

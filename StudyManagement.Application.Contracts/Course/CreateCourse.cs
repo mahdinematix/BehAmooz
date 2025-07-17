@@ -15,8 +15,9 @@ namespace StudyManagement.Application.Contracts.Course
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         [MaxLength(20,ErrorMessage = ValidationMessages.MaxLength)]
         public string Code { get; set; }
-        [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        public string Major { get; set; }
+        public int Major { get; set; }
+        public int University { get; set; }
+
 
     }
 }

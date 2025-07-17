@@ -1,4 +1,6 @@
-﻿namespace StudyManagement.Application.Contracts.Course;
+﻿using System.ComponentModel;
+
+namespace StudyManagement.Application.Contracts.Course;
 
 public class CourseViewModel
 {
@@ -6,7 +8,8 @@ public class CourseViewModel
     public string Name { get; set; }
     public int NumberOfUnit { get; set; }
     public string Code { get; set; }
-    public string Major { get; set; }
+    public int Major { get; set; }
+    public int University { get; set; }
     public string CourseKind { get; set; }
     public string CreationDate { get; set; }
     public bool IsActive { get; set; }

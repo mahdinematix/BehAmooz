@@ -1,4 +1,5 @@
 ﻿using _01_Framework.Application;
+using _01_Framework.Infrastructure;
 using StudyManagement.Application.Contracts.Course;
 using StudyManagement.Domain.CourseAgg;
 
@@ -7,10 +8,12 @@ namespace StudyManagement.Application
     public class CourseApplication : ICourseApplication
     {
         private readonly ICourseRepository _courseRepository;
+        private readonly IAuthHelper _authHelper;
 
-        public CourseApplication(ICourseRepository courseRepository)
+        public CourseApplication(ICourseRepository courseRepository, IAuthHelper authHelper)
         {
             _courseRepository = courseRepository;
+            _authHelper = authHelper;
         }
 
         public OperationResult Create(CreateCourse command)
@@ -25,7 +28,8 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
-            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major);
+
+            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,_authHelper.GetAccountInfo().UniversityId);
             _courseRepository.Create(course);
             _courseRepository.Save();
             return operation.Succeed();

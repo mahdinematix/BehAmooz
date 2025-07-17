@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MessageManagement.Infrastructure.EFCore\MessageManagement.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\StudyManagement.Infrastructure.EFCore\StudyManagement.Infrastructure.EFCore.csproj" />
   </ItemGroup>
 
 </Project>

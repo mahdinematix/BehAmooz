@@ -1939,21 +1939,23 @@ select {
 }
 
 .hero-slider-content p.slider-title--small {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 24px;
     width: 550px;
     max-width: 100%;
-    margin-bottom: 60px;
+    margin-top: 0;
+    margin-bottom: 25px;
     color: #292929;
 }
 
 .hero-slider-content p.slider-title--big-bold {
-    font-size: 80px;
-    font-weight: 700;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 100;
     line-height: 80px;
-    margin-bottom: 20px;
-    color: #292929;
+    margin-bottom: 0;
+    color: #1da1f2;
 }
 
 .hero-slider-content p.slider-title--big-light {
@@ -1961,6 +1963,7 @@ select {
     font-weight: 300;
     line-height: 40px;
     margin-bottom: 0;
+    margin-top: 15px;
     color: #292929;
 }
 

@@ -3,5 +3,6 @@
     public interface IMessageQuery
     {
         List<MessageQueryModel> GetProfessorMessages();
+        List<MessageQueryModel> GetStudentMessages();
     }
 }

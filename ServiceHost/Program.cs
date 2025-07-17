@@ -1,4 +1,7 @@
 using _01_Framework.Application;
+using _01_Framework.Application.Email;
+using _01_Framework.Application.Sms;
+using _01_Framework.Application.ZarinPal;
 using _01_Framework.Infrastructure;
 using AccountManagement.Infrastructure.Configuration;
 using MessageManagement.Infrastructure.Configuration;
@@ -29,6 +32,9 @@ MessageManagementBootstrapper.Configure(services,connectionString);
 AccountManagementBootstrapper.Configure(services,connectionString);
 services.AddTransient<IPasswordHasher, PasswordHasher>();
 services.AddTransient<IAuthHelper, AuthHelper>();
+services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
+services.AddTransient<ISmsService, SmsService>();
+services.AddTransient<IEmailService, EmailService>();
 
 
 

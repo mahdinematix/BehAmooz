@@ -1,4 +1,3 @@
-using AccountManagement.Application;
 using AccountManagement.Application.Contract.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

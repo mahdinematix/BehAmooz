@@ -23,5 +23,16 @@ namespace _02_Query.Query
                 })
                 .ToList();
         }
+
+        public List<MessageQueryModel> GetStudentMessages()
+        {
+            return _messageContext.Messages.Where(x => x.MessageFor == "دانشجویان").Where(x => x.EndDate >= DateTime.Now).Select(x => new MessageQueryModel
+                {
+                    Title = x.Title,
+                    Body = x.Body,
+                    CreationDate = x.CreationDate.ToFarsi()
+                })
+                .ToList();
+        }
     }
 }

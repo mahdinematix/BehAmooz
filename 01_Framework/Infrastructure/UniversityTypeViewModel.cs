@@ -2,13 +2,15 @@
 
 namespace _01_Framework.Infrastructure
 {
-    public class UniversityTypeViewModel:AutoId
+    public class UniversityTypeViewModel
     {
+        public int Id { get; private set; }
         public string Name { get; set; }
         public List<UniversityViewModel> Universities { get; set; }
 
-        public UniversityTypeViewModel(string name)
+        public UniversityTypeViewModel(int id, string name)
         {
+            Id = id;
             Name = name;
         }
     }

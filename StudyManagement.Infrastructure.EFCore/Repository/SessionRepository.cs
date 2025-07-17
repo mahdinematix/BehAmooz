@@ -24,7 +24,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Description = x.Description,
                 Number = x.Number,
                 Title = x.Title,
-                Video = x.Video
+                Video = x.Video,
+                Price = x.Price
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -40,7 +41,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Video = x.Video,
                 IsActive = x.IsActive,
                 ClassId = x.ClassId,
-                CreationDate = x.CreationDate.ToFarsi()
+                CreationDate = x.CreationDate.ToFarsi(),
+                Price = x.Price
 
             }).OrderByDescending(x => x.Id).ToList();
         }

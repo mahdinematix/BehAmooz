@@ -40,6 +40,12 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.University"></label>
+                        <select class="form-control" asp-for="SearchModel.University" asp-items='new SelectList(Universities.List,"Id", "Name")' data-val="false" placeholder="دانشگاه">
+                            <option value="0">دانشگاه درس را انتخاب کنید</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="sr-only" asp-for="SearchModel.CourseKind"></label>
                         <select class="form-control" asp-for="SearchModel.CourseKind" data-val="false">
                             <option value="0">نوع درس را انتخاب کنید...</option>
@@ -71,6 +77,7 @@
                                     <th>نام درس</th>
                                     <th>کد درس</th>
                                     <th>رشته</th>
+                                    <th>دانشگاه</th>
                                     <th>تعداد واحد</th>
                                     <th>نوع درس</th>
                                     <th>تعداد کلاس</th>
@@ -86,7 +93,8 @@
                                         <td>@item.Id</td>
                                         <td>@item.Name</td>
                                         <td>@item.Code</td>
-                                        <td>@item.Major</td>
+                                        <td>@Majors.GetName(item.Major)</td>
+                                        <td>@Universities.GetName(item.University)</td>
                                         <td>@item.NumberOfUnit</td>
                                         <td>@item.CourseKind</td>
                                         <td>@item.ClassesCount</td>
@@ -137,5 +145,12 @@
             $('#datatable').dataTable();
         });
     </script>
+    
+    <script>
+        $(document).ready(function () {
+            $("select").select2();
+        });
+    </script>
+    
 }
 

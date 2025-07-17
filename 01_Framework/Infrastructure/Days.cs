@@ -6,26 +6,27 @@ namespace _01_Framework.Infrastructure
     {
         public static List<DayViewModel> List = new List<DayViewModel>
         {
-            new DayViewModel("شنبه"),
-            new DayViewModel("یکشنبه"),
-            new DayViewModel("دوشنبه"),
-            new DayViewModel("سه‌شنبه"),
-            new DayViewModel("چهارشنبه"),
-            new DayViewModel("پنجشنبه"),
-            new DayViewModel("جمعه")
+            new DayViewModel(1,"شنبه"),
+            new DayViewModel(2,"یکشنبه"),
+            new DayViewModel(3,"دوشنبه"),
+            new DayViewModel(4,"سه‌شنبه"),
+            new DayViewModel(5,"چهارشنبه"),
+            new DayViewModel(6,"پنجشنبه"),
+            new DayViewModel(7,"جمعه")
         };
 
         public static string GetName(int id)
         {
-            foreach (var i in List)
+            var result = "";
+            foreach (var item in List)
             {
-                if (i.Id == id)
+                if (item.Id == id)
                 {
-                    return i.Name;
+                    result = item.Name;
                 }
             }
 
-            return null;
+            return result;
         }
     }
 }

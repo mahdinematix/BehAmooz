@@ -8,11 +8,8 @@ public class AccountViewModel
     public string PhoneNumber { get; set; }
     public string NationalCode { get; set; }
     public int UniversityTypeId { get; set; }
-    public string UniversityType { get; set; }
     public int UniversityId { get; set; }
-    public string University { get; set; }
     public int MajorId { get; set; }
-    public string Major { get; set; }
     public string NationalCardPicture { get; set; }
     public string Code { get; set; }
     public long RoleId { get; set; }

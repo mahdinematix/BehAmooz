@@ -1,5 +1,4 @@
 ﻿@using _01_Framework.Application
-@using _01_Framework.Infrastructure
 
 @inject IAuthHelper AuthHelper
 @{
@@ -14,7 +13,7 @@
                 <div class="header-wrapper d-none d-lg-flex">
                     <div class="logo">
                         <a asp-page="/Index">
-                            <img src="~/Theme/assets/img/logo.png" width="100" height="100" class="img-fluid" alt="">
+                            <img src="~/Theme/assets/img/logo.png" width="60%" class="img-fluid" alt="">
                         </a>
                     </div>
                     <div class="navigation-menu-wrapper">
@@ -23,9 +22,11 @@
                                 <li>
                                     <a asp-page="/Index">صفحه اصلی</a>
                                 </li>
-                                
                                 <li>
-                                    <a href="#contactUs">تماس با ما</a>
+                                    <a asp-page="AboutUs">درباره ما</a>
+                                </li>
+                                <li>
+                                    <a asp-page="ContactUs">ارتباط با ما</a>
                                 </li>
                                 @if (AuthHelper.IsAuthenticated())
                                 {
@@ -39,15 +40,42 @@
                                         <a asp-page="/Account">ورود | ثبت نام</a>
                                     </li>
                                 }
-                                @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() != Roles.Student)
-                                {
-                                    <li>
-                                        <a asp-page="/Index" asp-area="Administration">مدیریت سایت</a>
-                                    </li>
-                                }
 
                             </ul>
                         </nav>
+                    </div>
+                    <div class="header-icon-wrapper">
+                        <ul class="icon-list">
+                            @if (AuthHelper.IsAuthenticated())
+                            {
+                                <li>
+                                    <a href="javascript:void(0)" id="search-overlay-trigger">
+                                        <i class="ion-ios-search-strong"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a asp-page="/Cart">
+                                        <div class="header-cart-icon">
+                                            <i class="ion-bag"></i>
+                                            <span class="counter cart_items_count">0</span>
+                                            <div class="mini-cart" id="mini-cart">
+                                                <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a asp-page="Profile" asp-route-id="@AuthHelper.CurrentAccountId()">
+                                        <i class="fa fa-user-circle"></i>
+                                    </a>
+                                    <p><strong>@AuthHelper.GetAccountInfo().Fullname</strong></p>
+                                </li>
+                            }
+
+                        </ul>
                     </div>
                 </div>
 
@@ -56,7 +84,7 @@
                         <div class="col-6 col-md-6">
                             <div class="header-logo">
                                 <a asp-page="/Index">
-                                    <img src="~/Theme/assets/img/logo.png" class="img-fluid" alt="">
+                                    <img src="~/Theme/assets/img/logo.png" class="img-fluid" alt="logo" width="50%">
                                 </a>
                             </div>
                         </div>
@@ -81,7 +109,7 @@
                                         </li>
 
                                         <li>
-                                            
+
 
                                         </li>
                                     </ul>
@@ -110,7 +138,7 @@
                     <li class="">
                         <a asp-page="/Index">صفحه اصلی</a>
                     </li>
-                   
+
                     <li>
                         <a href="#contactUs" onclick="hideOffcanvas()">تماس با ما</a>
                     </li>

@@ -11,30 +11,34 @@ namespace StudyManagement.Domain.SessionAgg
         public string Video { get; private set; }
         public string Booklet { get; private set; }
         public string Description { get; private set; }
+        public double Price { get; set; }
         public long ClassId { get; private set; }
         public bool IsActive { get; private set; }
+        public bool IsPayed { get; private set; }
         public Class Class { get; private set; }
         public ICollection<SessionPicture> SessionPictures { get; private set; }
 
-        public Session(string number, string title, string video, string booklet, string description, long classId)
+        public Session(string number, string title, string video, string booklet, string description,double price, long classId)
         {
             Number = number;
             Title = title;
             Video = video;
             Booklet = booklet;
             Description = description;
+            Price = price;
             ClassId = classId;
             IsActive = true;
             SessionPictures = new List<SessionPicture>();
         }
 
-        public void Edit(string number, string title, string video, string booklet, string description, long classId)
+        public void Edit(string number, string title, string video, string booklet, string description, double price, long classId)
         {
             Number = number;
             Title = title;
             Video = video;
             Booklet = booklet;
             Description = description;
+            Price = price;
             ClassId = classId;
         }
 

@@ -1,12 +1,13 @@
 ﻿namespace _01_Framework.Infrastructure
 {
-    public class MajorViewModel : AutoId
+    public class MajorViewModel
     {
+        public int Id { get; private set; }
         public string Name { get; set; }
 
-
-        public MajorViewModel(string name)
+        public MajorViewModel(int id, string name)
         {
+            Id = id;
             Name = name;
         }
     }

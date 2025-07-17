@@ -4,27 +4,28 @@
     {
         public static List<UniversityTypeViewModel> List = new List<UniversityTypeViewModel>
         {
-            new UniversityTypeViewModel("آموزشکده سما"),
-            new UniversityTypeViewModel("دانشگاه آزاد اسلامی"),
-            new UniversityTypeViewModel("دانشگاه پیام نور"),
-            new UniversityTypeViewModel("دانشگاه جامع علمی کاربردی"),
-            new UniversityTypeViewModel("دانشگاه دولتی"),
-            new UniversityTypeViewModel("دانشگاه علوم پزشکی (دولتی)"),
-            new UniversityTypeViewModel("دانشگاه غیر انتفاعی"),
-            new UniversityTypeViewModel("دانشگاه فرهنگیان"),
-            new UniversityTypeViewModel("دانشگاه فنی و حرفه ای")
+            new UniversityTypeViewModel(1,"آموزشکده سما"),
+            new UniversityTypeViewModel(2,"دانشگاه آزاد اسلامی"),
+            new UniversityTypeViewModel(3,"دانشگاه پیام نور"),
+            new UniversityTypeViewModel(4,"دانشگاه جامع علمی کاربردی"),
+            new UniversityTypeViewModel(5,"دانشگاه دولتی"),
+            new UniversityTypeViewModel(6,"دانشگاه علوم پزشکی (دولتی)"),
+            new UniversityTypeViewModel(7,"دانشگاه غیر انتفاعی"),
+            new UniversityTypeViewModel(8,"دانشگاه فرهنگیان"),
+            new UniversityTypeViewModel(9,"دانشگاه فنی و حرفه ای")
         };
         public static string GetName(int id)
         {
+            var name = "";
             foreach (var i in List)
             {
                 if (i.Id == id)
                 {
-                    return i.Name;
+                    name = i.Name;
                 }
             }
 
-            return null;
+            return name;
         }
     }
 }

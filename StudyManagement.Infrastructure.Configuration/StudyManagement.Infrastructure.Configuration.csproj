@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\02_Query\02_Query.csproj" />
     <ProjectReference Include="..\StudyManagement.Application.Contracts\StudyManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\StudyManagement.Application\StudyManagement.Application.csproj" />
     <ProjectReference Include="..\StudyManagement.Infrastructure.EFCore\StudyManagement.Infrastructure.EFCore.csproj" />

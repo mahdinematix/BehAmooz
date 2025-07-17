@@ -8,6 +8,7 @@ public class SessionViewModel
     public string Video { get; set; }
     public string Booklet { get; set; }
     public string Description { get; set; }
+    public double Price { get; set; }
     public long ClassId { get; set; }
     public bool IsActive { get; set; }
     public string CreationDate { get; set; }

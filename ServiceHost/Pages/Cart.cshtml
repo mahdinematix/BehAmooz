@@ -1,0 +1,76 @@
+﻿@page
+@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ServiceHost.Pages.CartModel
+@{
+    ViewData["Title"] = "سبد خرید ";
+}
+
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="cart-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="pro-title">جلسه</th>
+                                        <th class="pro-title">روز کلاس</th>
+                                        <th class="pro-title">ساعت کلاس</th>
+                                        <th class="pro-title">استاد</th>
+                                        <th class="pro-title">درس</th>
+                                        <th class="pro-subtotal">قیمت</th>
+                                        <th class="pro-remove">حذف</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.CartItems)
+                                    {
+                                        <tr>
+                                            <td class="pro-title">
+                                                <a>@item.SessionNumber</a>
+                                            </td>
+                                            <td class="pro-title">
+
+                                                <a>@Days.GetName(item.ClassDay)</a>
+                                            </td>
+                                            <td class="pro-title">
+                                                <a>@item.ClassStartTime تا @item.ClassEndTime</a>
+                                            </td>
+                                            <td class="pro-title">
+                                                <a>@item.ProfessorFullName</a>
+                                            </td>
+                                            <td class="pro-title">
+                                                <a>@item.CourseName</a>
+                                            </td>
+                                            <td class="pro-price">
+                                                <span>@item.SessionPrice.ToMoney()</span>
+                                            </td>
+                                            <td class="pro-remove">
+                                                <a asp-page-handler="RemoveFromCart" asp-route-id="@item.Id">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-12 d-flex">
+                                <div class="cart-summary">
+                                    <div class="cart-summary-button">
+                                        <a class="checkout-btn" asp-page-handler="GoToCheckout">تکمیل فرایند خرید</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

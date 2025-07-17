@@ -1,0 +1,43 @@
+﻿@page "{classId}"
+@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@model ServiceHost.Pages.SessionsModel
+@{
+}
+
+<div class="row m-5" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center mb-4">
+                <h3 class="panel-title">جلسات کلاس روز @Days.GetName(Model.Class.Day) ساعت @Model.Class.StartTime تا @Model.Class.EndTime استاد @Model.Class.ProfessorFullName درس @Model.CourseName</h3>
+                <a class="btn btn-primary btn-lg btn-back" asp-page="/Class" asp-route-courseId="@Model.Class.CourseId">بازگشت</a>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table id="datatable" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>جلسه</th>
+                                    <th>قیمت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Sessions)
+                                {
+                                        <tr>
+                                            <td>@item.SessionNumber</td>
+                                            <td>@item.SessionPrice.ToMoney()</td>
+                                            <td><a class="btn btn-success" asp-page="/Session" asp-route-sessionId="@item.SessionId">جزئیات</a></td>
+                                        </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
