@@ -19,16 +19,16 @@ namespace _02_Query.Query
 
         public List<CartItem> GetItemsByClassId(long classId)
         {
-            return _studyContext.Sessions.Include(x => x.Class).ThenInclude(x => x.Course).Where(x=>x.ClassId == classId).Select(x => new CartItem
+            return _studyContext.Sessions.Where(x => x.ClassId == classId).Include(x => x.Class).ThenInclude(x => x.Course).Select(x => new CartItem
             {
-                SessionPrice = x.Price,
                 SessionNumber = x.Number,
                 ClassStartTime = x.Class.StartTime,
                 ClassEndTime = x.Class.EndTime,
                 ClassDay = x.Class.Day,
                 ProfessorFullName = x.Class.ProfessorId.ToString(),
                 CourseName = x.Class.Course.Name,
-                SessionId = x.Id
+                SessionId = x.Id,
+                SessionPrice = x.Class.Course.Price
             }).ToList();
         }
 
@@ -41,7 +41,6 @@ namespace _02_Query.Query
                 ClassId = x.ClassId,
                 Description = x.Description,
                 IsActive = x.IsActive,
-                Price = x.Price,
                 Number = x.Number,
                 IsPayed = x.IsPayed,
                 Video = x.Video,

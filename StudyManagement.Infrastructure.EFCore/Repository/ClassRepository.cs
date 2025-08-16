@@ -12,11 +12,13 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
     {
         private readonly StudyContext _context;
         private readonly AccountContext _accountContext; 
+        private readonly IAuthHelper _authHelper;
 
-        public ClassRepository(StudyContext context, AccountContext accountContext) : base(context)
+        public ClassRepository(StudyContext context, AccountContext accountContext, IAuthHelper authHelper) : base(context)
         {
             _context = context;
             _accountContext = accountContext;
+            _authHelper = authHelper;
         }
 
         public EditClass GetDetails(long id)
@@ -56,6 +58,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 ProfessorId = x.ProfessorId,
                 
             });
+            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            {
+                query = query.Where(x => x.ProfessorId == _authHelper.CurrentAccountId());
+            }
             
 
             if (!string.IsNullOrWhiteSpace(searchModel.Code))
@@ -70,6 +76,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             if (searchModel.DayId >0)
             {
                 query = query.Where(x => x.DayId == searchModel.DayId);
+            }
+            if (searchModel.ProfessorId > 0)
+            {
+                query = query.Where(x => x.ProfessorId == searchModel.ProfessorId);
             }
 
             if (searchModel.IsActive)
@@ -108,6 +118,25 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 CourseId = x.Course.Id,
                 SessionsCount = x.Sessions.Count
             }).FirstOrDefault(x => x.Id == id);
+        }
+
+        public string GetClassCodeById(long id)
+        {
+            return _context.Classes.FirstOrDefault(x => x.Id == id).Code;
+        }
+
+        public List<ClassViewModel> GetClassesForCopy(long courseId, long classId)
+        {
+            return _context.Classes.Where(x=>x.ProfessorId == _authHelper.CurrentAccountId()).Where(x=>x.CourseId == courseId).Where(x=>x.Id != classId).Select(x => new ClassViewModel
+            {
+                Id = x.Id,
+                Code = x.Code
+            }).ToList();
+        }
+
+        public Class GetClassByCode(string code)
+        {
+            return _context.Classes.FirstOrDefault(x => x.Code == code);
         }
     }
 }

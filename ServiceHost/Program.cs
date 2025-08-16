@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 // Add services to the container.
+services.AddTransient<IAuthHelper, AuthHelper>();
 services.AddHttpContextAccessor();
 
 services.AddRazorPages()
@@ -24,14 +25,13 @@ services.AddRazorPages()
         options.Conventions.AuthorizeAreaFolder("Administration", "/Course", "Course");
         options.Conventions.AuthorizeAreaFolder("Administration", "/Message", "Message");
         options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
-    }); ;
+    });
 var connectionString = builder.Configuration.GetConnectionString("BehAmoozDb");
 
 StudyManagementBootstrapper.Configure(services,connectionString); 
 MessageManagementBootstrapper.Configure(services,connectionString);
 AccountManagementBootstrapper.Configure(services,connectionString);
 services.AddTransient<IPasswordHasher, PasswordHasher>();
-services.AddTransient<IAuthHelper, AuthHelper>();
 services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
 services.AddTransient<ISmsService, SmsService>();
 services.AddTransient<IEmailService, EmailService>();
@@ -45,7 +45,7 @@ services.Configure<CookieTempDataProviderOptions>(options => {
 services.Configure<CookiePolicyOptions>(options =>
 {
     options.CheckConsentNeeded = context => true;
-    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -92,8 +92,21 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller}/{action}")
+    .WithStaticAssets();
+
+app.MapAreaControllerRoute(
+    name: "AreaRoute",
+    areaName: "Administration",
+    pattern: "{area}/{controller}/{action}"
+).WithStaticAssets();
+
 app.MapRazorPages()
    .WithStaticAssets();
-app.MapControllers();
+
+
 
 app.Run();

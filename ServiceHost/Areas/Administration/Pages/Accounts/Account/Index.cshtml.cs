@@ -1,4 +1,4 @@
-using _01_Framework.Infrastructure;
+﻿using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Application.Contract.Role;
 using AccountManagement.Infrastructure.Configuration.Permission;
@@ -11,11 +11,12 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
 {
     public class IndexModel : PageModel
     {
-        [TempData]
-        public string Message { get; set; }
         public AccountSearchModel SearchModel;
         public List<AccountViewModel> Accounts;
+        public List<AccountViewModel> Students;
         public SelectList Roles;
+        public List<SelectListItem> Unis;
+        public List<SelectListItem> UniTypes;
         private readonly IAccountApplication _accountApplication;
         private readonly IRoleApplication _roleApplication;
 
@@ -29,35 +30,9 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
         {
             Roles = new SelectList(_roleApplication.GetAllRoles(), "Id", "Name");
             Accounts = _accountApplication.Search(searchModel);
-        }
-
-        public IActionResult OnGetCreate()
-        {
-            var command = new RegisterAccount
-            {
-                Roles = _roleApplication.GetAllRoles()
-            };
-            return Partial("./Create", command);
-        }
-        [NeedsPermissions(AccountPermissions.CreateAccount)]
-        public JsonResult OnPostCreate(RegisterAccount command)
-        {
-            var result = _accountApplication.Register(command);
-            return new JsonResult(result);
-        }
-
-        public IActionResult OnGetEdit(long id)
-        {
-            var account = _accountApplication.GetDetails(id);
-            account.Roles = _roleApplication.GetAllRoles();
-            return Partial("Edit", account);
-        }
-
-        [NeedsPermissions(AccountPermissions.EditAccount)]
-        public JsonResult OnPostEdit(EditAccount command)
-        {
-            var result = _accountApplication.Edit(command);
-            return new JsonResult(result);
+            Students = _accountApplication.SearchInStudents(searchModel);
+            UniTypes = GetUniTypes();
+            Unis = GetUnis();
         }
 
         public IActionResult OnGetChangePassword(long id)
@@ -85,7 +60,52 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
         {
             _accountApplication.Reject(id);
             return RedirectToPage("./Index");
+        }
 
+        private List<SelectListItem> GetUnis(int typeId = 1)
+        {
+
+            List<SelectListItem> lstUnis = Universities.List
+                .Where(c => c.UniversityTypeId == typeId)
+                .Select(n =>
+                    new SelectListItem
+                    {
+                        Value = n.Id.ToString(),
+                        Text = n.Name
+                    }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "0",
+                Text = "دانشگاه را انتخاب کنید"
+            };
+
+            lstUnis.Insert(0, defItem);
+
+            return lstUnis;
+        }
+
+        private List<SelectListItem> GetUniTypes()
+        {
+            var lstCountries = new List<SelectListItem>();
+
+            List<UniversityTypeViewModel> Countries = UniversityTypes.List;
+
+            lstCountries = Countries.Select(ct => new SelectListItem()
+            {
+                Value = ct.Id.ToString(),
+                Text = ct.Name
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "0",
+                Text = "نوع دانشگاه را انتخاب کنید"
+            };
+
+            lstCountries.Insert(0, defItem);
+
+            return lstCountries;
         }
 
     }

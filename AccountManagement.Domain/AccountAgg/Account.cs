@@ -68,5 +68,10 @@ namespace AccountManagement.Domain.AccountAgg
         {
             Password = password;
         }
+
+        public void ChangeStatusToWaiting()
+        {
+            Status = Statuses.Waiting;
+        }
     }
 }

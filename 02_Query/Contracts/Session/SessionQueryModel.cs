@@ -10,7 +10,6 @@ namespace _02_Query.Contracts.Session
         public string Video { get; set; }
         public string Booklet { get; set; }
         public string Description { get; set; }
-        public double Price { get; set; }
         public long ClassId { get; set; }
         public bool IsActive { get; set; }
         public bool IsPayed { get; set; }

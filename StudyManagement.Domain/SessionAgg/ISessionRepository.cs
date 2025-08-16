@@ -7,6 +7,8 @@ namespace StudyManagement.Domain.SessionAgg
     {
         EditSession GetDetails(long id);
         List<SessionViewModel> GetAllByClassId(long classId);
+        ICollection<Session> GetAllByClassIdForCopy(long classId);
         SessionViewModel GetBySessionId(long sessionId);
+        void Delete(Session session);
     }
 }

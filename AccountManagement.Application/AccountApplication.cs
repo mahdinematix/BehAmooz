@@ -57,6 +57,7 @@ namespace AccountManagement.Application
             account.Edit(command.FirstName, command.LastName, command.Email, command.PhoneNumber,
                 command.NationalCode, command.Code, command.UniversityType, command.University, command.Major,
                 command.NationalCardPicture,command.RoleId);
+            account.ChangeStatusToWaiting();
             _accountRepository.Save();
             return operation.Succeed();
 
@@ -141,7 +142,7 @@ namespace AccountManagement.Application
                 .Select(x => x.Code)
                 .ToList();
             var fullname = account.FirstName + " " + account.LastName;
-            var authViewModel = new AuthViewModel(account.Id,account.RoleId,fullname,account.NationalCode,account.Code,account.UniversityTypeId,account.UniversityId,account.MajorId,account.NationalCardPicture,account.Status,account.PhoneNumber,account.Email,permissions);
+            var authViewModel = new AuthViewModel(account.Id,account.RoleId,fullname,account.NationalCode,account.Code,account.UniversityTypeId,account.UniversityId,account.MajorId,account.NationalCardPicture,account.Status,account.PhoneNumber,account.Email,permissions,command.Password);
 
             _authHelper.Signin(authViewModel);
             return operation.Succeed();
@@ -160,6 +161,11 @@ namespace AccountManagement.Application
         public string GetProfessorById(long professorId)
         {
             return _accountRepository.GetProfessorById(professorId);
+        }
+
+        public List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel)
+        {
+            return _accountRepository.SearchInStudents(searchModel);
         }
     }
 }

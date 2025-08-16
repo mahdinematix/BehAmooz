@@ -9,7 +9,7 @@
         public string CourseName { get; set; }
         public string ProfessorFullName { get; set; }
         public string SessionNumber { get; set; }
-        public double SessionPrice { get; set; }
+        public int SessionPrice { get; set; }
         public long SessionId { get; set; }
     }
 }

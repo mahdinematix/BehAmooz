@@ -5,8 +5,7 @@ namespace StudyManagement.Domain.OrderAgg
     public class Order : EntityBase
     {
         public long AccountId { get; private set; }
-        public int PaymentMethod { get; private set; }
-        public double TotalAmount { get; private set; }
+        public int TotalAmount { get; private set; }
         public bool IsPayed { get; private set; }
         public bool IsCanceled { get; private set; }
         public string IssueTrackingNo { get; private set; }
@@ -14,7 +13,7 @@ namespace StudyManagement.Domain.OrderAgg
         
         public List<OrderItem> Items { get; private set; }
 
-        public Order(long accountId, double totalAmount, int paymentMethod)
+        public Order(long accountId, int totalAmount)
         {
             AccountId = accountId;
             TotalAmount = totalAmount;
@@ -22,7 +21,6 @@ namespace StudyManagement.Domain.OrderAgg
             IsPayed = false;
             RefId = 0;
             IssueTrackingNo = "0";
-            PaymentMethod = paymentMethod;
             Items = new List<OrderItem>();
         }
 

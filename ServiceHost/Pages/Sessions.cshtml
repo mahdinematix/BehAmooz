@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading text-center mb-4">
-                <h3 class="panel-title">جلسات کلاس روز @Days.GetName(Model.Class.Day) ساعت @Model.Class.StartTime تا @Model.Class.EndTime استاد @Model.Class.ProfessorFullName درس @Model.CourseName</h3>
+                <h3 class="panel-title">جلسات کلاس روز @Days.GetName(Model.Class.Day) ساعت @Model.Class.StartTime تا @Model.Class.EndTime استاد @Model.Class.ProfessorFullName درس @Model.Course.Name</h3>
                 <a class="btn btn-primary btn-lg btn-back" asp-page="/Class" asp-route-courseId="@Model.Class.CourseId">بازگشت</a>
 
             </div>

@@ -27,8 +27,8 @@ namespace _02_Query.Query
                 CourseKind = x.CourseKind,
                 Name = x.Name,
                 NumberOfUnit = x.NumberOfUnit,
-                Id = x.Id
-
+                Id = x.Id,
+                Price = x.Price
             }).ToList();
         }
 

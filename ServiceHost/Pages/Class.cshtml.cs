@@ -2,7 +2,6 @@ using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Class;
 using _02_Query.Contracts.Course;
-using AccountManagement.Domain.RoleAgg;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,12 +13,7 @@ namespace ServiceHost.Pages
         private readonly ICourseQuery _courseQuery;
         private readonly IAuthHelper _authHelper;
         public List<ClassQueryModel> Classes;
-        public string CourseName;
-
-        //classes.ForEach(item =>
-        //{
-        //    item.ProfessorFullName = accounts.FirstOrDefault(x => x.Id == item.ProfessorId)?.FullName;
-        //});
+        public string Course;
 
         public ClassModel(IClassQuery classQuery, ICourseQuery courseQuery, IAuthHelper authHelper)
         {
@@ -30,17 +24,30 @@ namespace ServiceHost.Pages
 
         public IActionResult OnGet(long courseId)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
             if (!_authHelper.IsAuthenticated())
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (_authHelper.CurrentAccountRole() != Roles.Student)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Rejected");
+            }
+
             Classes = _classQuery.GetClassesByCourseId(courseId);
-            CourseName = _courseQuery.GetCourseNameById(courseId);
+            Course = _courseQuery.GetCourseNameById(courseId);
             return Page();
         }
     }

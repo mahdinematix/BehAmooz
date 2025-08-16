@@ -17,3 +17,25 @@
     }
 
 }
+
+function FillUnis(lstUniTypes) {
+    var lstUnis = $("#lstUnis");
+    lstUnis.empty();
+    var selectedType = lstUniTypes.options[lstUniTypes.selectedIndex].value;
+
+    if (selectedType != null && selectedType != '') {
+        $.getJSON('Uni/GetUnisByType', {typeId: selectedType}, function (unis) {
+            if (unis != null && !jQuery.isEmptyObject(unis)) {
+                $.each(unis, function (index, uni) {
+                    lstUnis.append($('<option/>',
+                        {
+                            value: uni.value,
+                            text: uni.text
+                        }));
+                });
+            }
+        });
+    }
+
+    return;
+}

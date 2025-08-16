@@ -1,7 +1,6 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Infrastructure.EFCore;
-using StudyManagement.Application.Contracts;
 using StudyManagement.Application.Contracts.Order;
 using StudyManagement.Domain.OrderAgg;
 
@@ -39,7 +38,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 CreationDate = x.CreationDate.ToFarsi(),
                 IsPayed = x.IsPayed,
                 IssueTrackingNo = x.IssueTrackingNo,
-                PaymentMethodId = x.PaymentMethod,
                 RefId = x.RefId,
                 TotalAmount = x.TotalAmount, 
             });
@@ -58,7 +56,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             foreach (var order in orders)
             {
                 order.AccountFullname = accounts.FirstOrDefault(x => x.Id == order.AccountId)?.LastName;
-                order.PaymentMethod = PaymentMethod.GetBy(order.PaymentMethodId).Name;
             }
 
             return orders;

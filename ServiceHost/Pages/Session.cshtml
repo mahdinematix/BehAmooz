@@ -1,29 +1,64 @@
 ﻿@page "{sessionId}"
+@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Pages.SessionModel
 @{
 }
-<div class="breadcrumb-area section-space--half">
-    <div class="container wide">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb-wrapper breadcrumb-bg">
-                    <div class="breadcrumb-content">
-                        <h1 class="breadcrumb-content__title">@Model.Session.Number</h1>
-                        <ul class="breadcrumb-content__page-map">
-                            <li>
-                                <a asp-page="/Index">صفحه اصلی</a>
-                            </li>
-                            <li>
-                                <a asp-page="/Sessions" asp-route-id="@Model.Session.ClassId">بازگشت به صفحه قبل</a>
-                            </li>
-                            <li class="active">@Model.Session.Title</li>
-                        </ul>
+
+
+
+<div class="row m-5" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center mb-4">
+                <h3 class="panel-title">جلسه @Model.Session.Number کلاس @Days.GetName(Model.Class.Day) @Model.Class.StartTime تا @Model.Class.EndTime استاد @Model.Class.ProfessorFullName درس @Model.Course.Name</h3>
+                <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.Session.ClassId">بازگشت</a>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table id="datatable" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>جلسه</th>
+                                    <th>عنوان جلسه</th>
+                                    <th>ویدیو</th>
+                                    <th>جزوه</th>
+                                    <th>تصاویر</th>
+                                    <th>توضیحات</th>
+                                    <th>قیمت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>@Model.Session.Number</td>
+                                    <td>@Model.Session.Title</td>
+                                    <td><i class="fa fa-lock text-success fa-2x"></i></td>
+                                    <td><i class="fa fa-lock text-success fa-2x"></i></td>
+                                    <td><i class="fa fa-lock text-success fa-2x"></i></td>
+                                    <td><i class="fa fa-lock text-success fa-2x"></i></td>
+                                    <td>@Model.Course.Price.ToMoney()</td>
+                                    <td>
+                                        <a class="btn btn-success text-white" onclick="addToCart('@Model.Session.Id', '@Model.Course.Price', '@Model.Session.Number', '@Model.Class.Day','@Model.Class.StartTime','@Model.Class.EndTime','@Model.Class.ProfessorFullName','@Model.Course.Name')">
+                                            <i class="ion-bag"></i> افزودن به سبد خرید
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <div class="page-content-area">
     <div class="container">
@@ -34,6 +69,7 @@
                         <div class="single-product-main-content-area section-space" style="direction: ltr;">
                             <div class="row" style="display: flex; flex-direction: row-reverse">
                                 <div class="col-lg-6">
+                                    <p>تصاویر جلسه </p>
                                     <div class="product-details-slider-area">
                                         <div class="big-image-wrapper">
                                             <div class="product-details-big-image-slider-wrapper product-details-big-image-slider-wrapper--bottom-space ht-slick-slider"
@@ -56,8 +92,6 @@
                                                     {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false, "slidesToScroll": 1} }
                                                 ]'>
 
-                                                
-                                                </div>
                                                 @foreach (var picture in Model.Session.SessionPictures)
                                                 {
                                                     <div class="single-image">
@@ -77,19 +111,19 @@
                                                     "autoplaySpeed": 5000,
                                                     "speed": 500,
                                                     "asNavFor": ".product-details-big-image-slider-wrapper",
-                                                    "focusOnSelect": false,
+                                                    "focusOnSelect": true,
                                                     "centerMode": false,
                                                     "prevArrow": {"buttonClass": "slick-prev", "iconClass": "fa fa-angle-left" },
                                                     "nextArrow": {"buttonClass": "slick-next", "iconClass": "fa fa-angle-right" }
                                                 }' data-slick-responsive='[
-                                                    {"breakpoint":1501, "settings": {"slidesToShow": 3, "arrows": true} },
-                                                    {"breakpoint":1199, "settings": {"slidesToShow": 3, "arrows": true} },
+                                                    {"breakpoint":1501, "settings": {"slidesToShow": 3, "arrows": false} },
+                                                    {"breakpoint":1199, "settings": {"slidesToShow": 3, "arrows": false} },
                                                     {"breakpoint":991, "settings": {"slidesToShow": 5, "arrows": false, "slidesToScroll": 1} },
                                                     {"breakpoint":767, "settings": {"slidesToShow": 3, "arrows": false, "slidesToScroll": 1} },
                                                     {"breakpoint":575, "settings": {"slidesToShow": 3, "arrows": false, "slidesToScroll": 1} },
                                                     {"breakpoint":479, "settings": {"slidesToShow": 2, "arrows": false, "slidesToScroll": 1} }
                                                 ]'>
-                                            
+
                                             @foreach (var picture in Model.Session.SessionPictures)
                                             {
                                                 <div class="single-image">
@@ -101,59 +135,15 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="single-product-content-description">
-                                        <p class="single-info">
-                                            <a asp-page="/ProductCategory" asp-route-id="@Model.Product.CategorySlug">@Model.Product.Category</a>
-                                        </p>
-                                        <h2 class="product-title">@Model.Product.Name</h2>
+                                        <h2 class="product-title">عنوان جلسه: @Model.Session.Title</h2>
 
-                                        <p class="single-grid-product__price" style="direction: rtl">
-                                            @if (Model.Product.HasDiscount)
-                                            {
-                                                <span class="main-price discounted">@Model.Product.Price تومان</span>
-                                                <span class="discounted-price">@Model.Product.PriceWithDiscount تومان</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="main-price">@Model.Product.Price تومان</span>
-                                            }
-
-                                        </p>
-
-                                        <p class="single-info"><span class="value">@Model.Product.Code</span> :کد محصول</p>
-                                        <p class="single-info">
-                                            @if (Model.Product.IsInStock)
-                                            {
-                                                <span class="text-success">موجود در انبار</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-danger">محصول ناموجود</span>
-                                            }
-                                        </p>
-
-                                        <p class="product-description">
-                                            @Model.Product.ShortDescription
-                                        </p>
-                                        @if (Model.Product.HasDiscount)
-                                        {
-                                            <div class="product-countdown" data-countdown="@Model.Product.ExpirationDate"></div>
-                                        }
-
-                                        <div class="product-actions">
-                                            <div class="quantity-selection">
-                                                <label>تعداد</label>
-                                                <input type="number" value="1" min="1" id="productCount">
-                                            </div>
-                                            <div class="product-buttons">
-                                                <a class="cart-btn" onclick="addToCart('@Model.Product.Id', '@Model.Product.Name', '@Model.Product.DoublePrice', '@Model.Product.Picture')">
-                                                    <i class="ion-bag"></i> افزودن به سبد خرید
-                                                </a>
-                                            </div>
+                                        <div>
+                                            <a><span class="text-success">مشاهده و دانلود ویدیو</span></a>
                                         </div>
                                         <br/>
-                                        <p class="single-info mb-0">
-                                            تگ ها: @Model.Product.Keywords
-                                        </p>
+                                        <div>
+                                            <a><span class="text-success">مشاهده و دانلود جزوه</span></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -168,57 +158,13 @@
                                                 <a class="nav-item nav-link active" id="description-tab"
                                                    data-toggle="tab" href="#product-description" role="tab"
                                                    aria-selected="true">توضیحات</a>
-                                                <a class="nav-item nav-link" id="review-tab" data-toggle="tab"
-                                                   href="#review" role="tab" aria-selected="false">نظرات (@Model.Product.Comments.Count)</a>
                                             </div>
                                         </nav>
                                         <div class="tab-content" id="nav-tabContent">
                                             <div class="tab-pane fade show active" id="product-description"
                                                  role="tabpanel" aria-labelledby="description-tab">
                                                 <div class="product-description">
-                                                    @Model.Product.Description
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="review" role="tabpanel"
-                                                 aria-labelledby="review-tab">
-                                                <div class="product-rating-wrap">
-                                                    
-                                                    @foreach (var comment in Model.Product.Comments)
-                                                    {
-                                                        <div class="ratings-wrapper">
-                                                            <div class="sin-ratings">
-                                                                <div class="rating-author">
-                                                                    <h3>@comment.Name</h3>
-                                                                </div>
-                                                                <p>@comment.Message</p>
-                                                            </div>
-                                                        </div>
-                                                    }
-
-                                                    <div class="rating-form-wrapper fix">
-                                                        <h3>نظر خود را به ما بگویید</h3>
-                                                        <form method="post">
-                                                            <div class="rating-form row">
-                                                                <div class="col-md-6 col-12 form-group">
-                                                                    <label for="name">نام:</label>
-                                                                    <input id="name" placeholder="مثال: علی علوی" name="name" type="text">
-                                                                </div>
-                                                                <div class="col-md-6 col-12 form-group">
-                                                                    <label for="email">ایمیل: (ایمیل شما منتشر نخواهد شد.)</label>
-                                                                    <input id="email" placeholder="مثال: example@email.com" name="email" type="text">
-                                                                </div>
-                                                                <div class="col-12 form-group">
-                                                                    <label for="your-review">نظر شما:</label>
-                                                                    <textarea name="message" id="message" placeholder="نظر خود را بنویسید ..."></textarea>
-                                                                </div>
-                                                                <input type="hidden" name="ownerRecordId" value="@Model.Product.Id" />
-                                                                <input type="hidden" name="productSlug" value="@Model.Product.Slug" />
-                                                                <div class="col-12">
-                                                                    <input value="ارسال" type="submit">
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                                    @Model.Session.Description
                                                 </div>
                                             </div>
                                         </div>

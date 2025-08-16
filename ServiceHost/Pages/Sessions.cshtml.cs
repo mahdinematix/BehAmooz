@@ -1,6 +1,7 @@
 using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Class;
+using _02_Query.Contracts.Course;
 using _02_Query.Contracts.Session;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,7 +16,7 @@ namespace ServiceHost.Pages
         private readonly IClassQuery _classQuery;
         public ClassQueryModel Class;
         public List<CartItem> Sessions;
-        public string CourseName { get; set; }
+        public CourseQueryModel Course { get; set; }
 
         public SessionsModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery)
         {
@@ -28,20 +29,31 @@ namespace ServiceHost.Pages
         public IActionResult OnGet(long classId)
         {
 
+            var status = _authHelper.CurrentAccountStatus();
+
             if (!_authHelper.IsAuthenticated())
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (_authHelper.CurrentAccountRole() != Roles.Student)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }
 
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Rejected");
+            }
+
             Sessions = _sessionQuery.GetItemsByClassId(classId);
             Class = _classQuery.GetClassById(classId);
-            CourseName = _classQuery.GetCourseNameByClassId(classId);
-
+            Course = _classQuery.GetCourseNameAndPriceByClassId(Class.CourseId);
             return Page();
         }
     }

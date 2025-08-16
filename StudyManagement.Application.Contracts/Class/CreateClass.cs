@@ -17,7 +17,5 @@ namespace StudyManagement.Application.Contracts.Class
         public long CourseId { get; set; }
         public int Day { get; set; }
         public long ProfessorId { get; set; }
-
-        public List<AccountViewModel> Professors { get; set; }
     }
 }

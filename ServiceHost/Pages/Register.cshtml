@@ -28,8 +28,6 @@
 
                                                     <input type="radio" class="btn-check" value="@Roles.Professor" name="roleId" id="proffessor" autocomplete="off">
                                                     <label class="btn btn-outline-danger" for="proffessor">استاد هستم</label>
-
-                                                    
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
@@ -54,20 +52,18 @@
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label>رشته <span class="red-star">*</span></label>
-                                                <select class="custom-select my-1 mr-sm-2" name="major" asp-items='new SelectList(Majors.List, "Id", "Name")' required>
+                                                <select class="form-control my-1 mr-sm-2 select22" name="major" asp-items='new SelectList(Majors.List, "Id", "Name")' required>
                                                     <option value="0">رشته</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label>نوع دانشگاه <span class="red-star">*</span></label>
-                                                <select class="custom-select my-1 mr-sm-2" name="universityType" asp-items='new SelectList(UniversityTypes.List, "Id", "Name")' required>
-                                                    <option value="0">نوع دانشگاه</option>
+                                                <select class="custom-select my-1 mr-sm-2" name="universityType" asp-items="Model.UniTypes" onchange="FillUnis(this);" required>
                                                 </select>
                                             </div>
                                             <div class="col-md-6 col-12 mb-20 form-group">
                                                 <label>دانشگاه <span class="red-star">*</span></label>
-                                                <select class="custom-select my-1 mr-sm-2" name="university" asp-items='new SelectList(Universities.List, "Id", "Name")' required>
-                                                    <option value="0">دانشگاه</option>
+                                                <select id="lstUnis" class="form-control my-1 mr-sm-2" name="university" asp-items="Model.Unis" required>
                                                 </select>
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
@@ -105,3 +101,20 @@
     </div>
 </div>
 
+@section Scripts
+{
+    <script src="~/adminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+}

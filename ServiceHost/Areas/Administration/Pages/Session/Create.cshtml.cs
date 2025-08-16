@@ -32,8 +32,12 @@ namespace ServiceHost.Areas.Administration.Pages.Session
             {
                 return RedirectToPage("./Index", new { classId = classId });
             }
-            Message = result.Message;
-            return RedirectToPage("./Create", new { classId = classId });
+            else
+            {
+                Message = result.Message;
+                return RedirectToPage("./Create", new { classId = classId });
+            }
+                
         }
     }
 }

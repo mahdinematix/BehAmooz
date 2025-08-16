@@ -29,7 +29,7 @@ namespace StudyManagement.Application
             }
 
 
-            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,_authHelper.GetAccountInfo().UniversityId);
+            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price);
             _courseRepository.Create(course);
             _courseRepository.Save();
             return operation.Succeed();
@@ -50,7 +50,7 @@ namespace StudyManagement.Application
             }
 
 
-            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major);
+            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price);
             _courseRepository.Save();
             return operation.Succeed();
         }

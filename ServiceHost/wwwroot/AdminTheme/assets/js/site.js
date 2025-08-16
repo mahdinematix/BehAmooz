@@ -185,6 +185,48 @@ function handleAjaxCall(method, url, data) {
     }
 }
 
+function FillUnis(lstUniTypes) {
+    var lstUnis = $("#lstUnis");
+    lstUnis.empty();
+    var selectedType = lstUniTypes.options[lstUniTypes.selectedIndex].value;
+
+    if (selectedType != null && selectedType != '') {
+        $.getJSON('/Unis/GetUnisByType', {typeId:selectedType}, function (unis) {
+            if (unis != null && !jQuery.isEmptyObject(unis)) {
+                $.each(unis, function (index, uni) {
+                    lstUnis.append($('<option/>',
+                        {
+                            value: uni.value,
+                            text: uni.text
+                        }));
+                });
+            }
+        });
+    }
+    return;
+}
+
+function FillUnivirsities(lstUniTypes) {
+    var lstUnis = $("#lstUnis");
+    lstUnis.empty();
+    var selectedType = lstUniTypes.options[lstUniTypes.selectedIndex].value;
+
+    if (selectedType != null && selectedType != '') {
+        $.getJSON('/University/GetUnisByType', { typeId: selectedType }, function (unis) {
+            if (unis != null && !jQuery.isEmptyObject(unis)) {
+                $.each(unis, function (index, uni) {
+                    lstUnis.append($('<option/>',
+                        {
+                            value: uni.value,
+                            text: uni.text
+                        }));
+                });
+            }
+        });
+    }
+    return;
+}
+
 jQuery.validator.addMethod("maxFileSize",
     function (value, element, params) {
         var size = element.files[0].size;
@@ -209,3 +251,4 @@ jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
 //        }
 //    });
 //jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
+

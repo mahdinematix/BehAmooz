@@ -9,6 +9,7 @@
         public string Code { get; set; }
         public int Major { get; set; }
         public int University { get; set; }
+        public int Price { get; set; }
         public bool IsActive { get; set; }
     }
 }

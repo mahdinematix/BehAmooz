@@ -5,7 +5,7 @@ namespace StudyManagement.Domain.OrderAgg;
 public class OrderItem : EntityBase
 {
     public long SessionId { get; private set; }
-    public double SessionPrice { get; private set; }
+    public int SessionPrice { get; private set; }
     public string SessionNumber { get; private set; }
     public string ProfessorFullName { get; private set; }
     public string ClassStartTime { get; private set; }
@@ -16,7 +16,7 @@ public class OrderItem : EntityBase
     public Order Order { get; private set; }
 
 
-    public OrderItem(long sessionId, double sessionPrice, string sessionNumber, string professorFullName, string classStartTime, string classEndTime, int classDay, string courseName)
+    public OrderItem(long sessionId, int sessionPrice, string sessionNumber, string professorFullName, string classStartTime, string classEndTime, int classDay, string courseName)
     {
         SessionId = sessionId;
         SessionPrice = sessionPrice;

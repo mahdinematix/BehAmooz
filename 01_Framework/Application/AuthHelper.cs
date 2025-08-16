@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-
 using _01_Framework.Infrastructure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -36,7 +35,8 @@ namespace _01_Framework.Application
                 new Claim("NationalCardPicture",account.NationalCardPicture),
                 new Claim("NationalCode",account.NationalCode),
                 new Claim("Code",account.Code),
-                new Claim("permissions",permissions)
+                new Claim("permissions",permissions),
+                new Claim("Password",account.Password)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -53,7 +53,6 @@ namespace _01_Framework.Application
                 authProperties
             );
         }
-
         public void SignOut()
         {
             _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -69,7 +68,6 @@ namespace _01_Framework.Application
             if (IsAuthenticated())
                 return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
 
-
             return null;
         }
 
@@ -82,7 +80,6 @@ namespace _01_Framework.Application
             }
 
             var claims = _contextAccessor.HttpContext.User.Claims.ToList();
-
             result.Id = long.Parse(claims.FirstOrDefault(x => x.Type == "AccountId").Value);
             result.Fullname = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
             result.Mobile = claims.FirstOrDefault(x => x.Type == ClaimTypes.MobilePhone).Value;
@@ -96,10 +93,10 @@ namespace _01_Framework.Application
             result.Code = claims.FirstOrDefault(x => x.Type == "Code").Value;
             result.NationalCardPicture = claims.FirstOrDefault(x => x.Type == "NationalCardPicture").Value;
             result.Role = Roles.GetRoleBy(result.RoleId);
+            result.Password = claims.FirstOrDefault(x => x.Type == "Password").Value;
 
             return result;
         }
-
         public List<int> GetPermissions()
         {
             if (!IsAuthenticated())
@@ -116,7 +113,6 @@ namespace _01_Framework.Application
             if (IsAuthenticated())
                 return long.Parse(_contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "AccountId").Value);
 
-
             return 0;
         }
 
@@ -125,12 +121,7 @@ namespace _01_Framework.Application
             if (IsAuthenticated())
                 return int.Parse(_contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Status").Value);
 
-
             return 0;
         }
-        
-
-        
-
     }
 }

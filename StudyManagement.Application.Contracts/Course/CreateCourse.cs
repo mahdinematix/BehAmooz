@@ -16,8 +16,9 @@ namespace StudyManagement.Application.Contracts.Course
         [MaxLength(20,ErrorMessage = ValidationMessages.MaxLength)]
         public string Code { get; set; }
         public int Major { get; set; }
+        public int UniversityType { get; set; }
         public int University { get; set; }
-
+        public int Price { get; set; }
 
     }
 }

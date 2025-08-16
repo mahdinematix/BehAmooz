@@ -10,5 +10,6 @@ namespace _01_Framework.Application
         AuthViewModel GetAccountInfo();
         List<int> GetPermissions();
         long CurrentAccountId();
+        public int CurrentAccountStatus();
     }
 }

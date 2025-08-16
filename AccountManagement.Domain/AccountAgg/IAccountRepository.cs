@@ -10,5 +10,6 @@ namespace AccountManagement.Domain.AccountAgg
         Account GetByNationalCode(string nationalCode);
         List<AccountViewModel> GetProfessors();
         string GetProfessorById(long professorId);
+        List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel);
     }
 }

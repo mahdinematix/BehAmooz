@@ -25,7 +25,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Number = x.Number,
                 Title = x.Title,
                 Video = x.Video,
-                Price = x.Price
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -42,9 +41,13 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 IsActive = x.IsActive,
                 ClassId = x.ClassId,
                 CreationDate = x.CreationDate.ToFarsi(),
-                Price = x.Price
 
             }).OrderByDescending(x => x.Id).ToList();
+        }
+
+        public ICollection<Session> GetAllByClassIdForCopy(long classId)
+        {
+            return _context.Sessions.Where(x => x.ClassId == classId).ToList();
         }
 
         public SessionViewModel GetBySessionId(long sessionId)
@@ -56,6 +59,12 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Title = x.Title,
                 ClassId = x.ClassId
             }).FirstOrDefault(x => x.Id == sessionId);
+        }
+
+        public void Delete(Session session)
+        {
+            _context.Sessions.Remove(session);
+            Save();
         }
     }
 }

@@ -62,8 +62,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label asp-for="Command.ProfessorId" class="control-label">ساعت شروع</label>
-                                    <select type="text" class="form-control" asp-for="Command.ProfessorId" asp-items="@Model.Professors">
+                                    <label asp-for="Command.ProfessorId" class="control-label">استاد</label>
+                                    <select type="text" class="form-control select22" asp-for="Command.ProfessorId" asp-items="@Model.Professors">
                                         <option value="0">استاد</option>
                                     </select>
                                     <span asp-validation-for="Command.ProfessorId" class="error"></span>
@@ -81,3 +81,14 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+
+
+}

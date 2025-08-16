@@ -1,6 +1,7 @@
 ﻿@page "{courseId}"
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
+@inject IAuthHelper AuthHelper
 @model ServiceHost.Areas.Administration.Pages.Class.IndexModel
 @{
     Layout = "Shared/_AdminLayout";
@@ -14,10 +15,8 @@
         <p class="pull-left">
             <a class="btn btn-success btn-lg" asp-page="Create" asp-route-courseId="@Model.Course.Id">تعریف کلاس جدید</a>
             <a asp-page="/Course/Index" class="btn btn-primary btn-lg">بازگشت</a>
-
         </p>
     </div>
-   
 </div>
 
 <div class="row">
@@ -45,6 +44,15 @@
                             <option value="0">روز</option>
                         </select>
                     </div>
+                    @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                    {
+                        <div class="form-group">
+                            <label asp-for="SearchModel.ProfessorId" class="control-label">استاد</label>
+                            <select type="text" class="form-control select22" data-val="false" asp-for="SearchModel.ProfessorId" asp-items="@Model.Professors">
+                                <option value="0">استاد</option>
+                            </select>
+                        </div>
+                    }
                     <div class="form-group m-r-10">
                         <div class="checkbox checkbox-primary">
                             <input asp-for="SearchModel.IsActive">
@@ -109,7 +117,7 @@
                                         <td>@item.CreationDate</td>
                                         <td>
                                             <a class="btn btn-warning pull-right m-rl-5"
-                                               href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id, courseId = item.CourseId})">
+                                               asp-page="Edit" asp-route-courseId="@Model.Course.Id" asp-route-id="@item.Id">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (item.IsActive)
@@ -122,6 +130,7 @@
                                             }
 
                                             <a class="btn btn-primary pull-right m-rl-5" asp-page="/Session/Index" asp-route-classId="@item.Id">مشاهده جلسات</a>
+                                            <a class="btn btn-info pull-right m-rl-5" href="#showmodal=@Url.Page("./Index", "Copy", new { id = item.Id })">کپی جلسات</a>
                                         </td>
                                     </tr>
                                 }
@@ -143,5 +152,10 @@
             $('#datatable').dataTable();
         });
     </script>
-}
 
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+}

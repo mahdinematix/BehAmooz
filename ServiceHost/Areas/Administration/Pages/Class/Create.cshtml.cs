@@ -34,11 +34,11 @@ namespace ServiceHost.Areas.Administration.Pages.Class
         {
             command.CourseId = courseId;
             var result = _classApplication.Create(command);
-            Message = result.Message;
             if (result.IsSucceeded)
             {
                 return RedirectToPage("./Index", new {courseId = courseId});
             }
+            Message = result.Message;
             return RedirectToPage("./Create", new {courseId = courseId});
         }
     }

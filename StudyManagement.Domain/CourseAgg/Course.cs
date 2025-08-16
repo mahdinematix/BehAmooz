@@ -10,30 +10,37 @@ namespace StudyManagement.Domain.CourseAgg
         public string CourseKind { get; private set; }
         public string Code { get; private set; }
         public int Major { get; private set; }
+        public int UniversityType { get; set; }
         public int University { get; private set; }
+        public int Price { get; private set; }
         public bool IsActive { get; private set; }
         public ICollection<Class> Classes { get; private set; }
 
 
-        public Course(string name, int numberOfUnit, string courseKind, string code,int major, int university)
+        public Course(string name, int numberOfUnit, string courseKind, string code,int major,int universityType, int university, int price)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;
             CourseKind = courseKind;
             Code = code;
             Major = major;
+            UniversityType = universityType;
             University = university;
             IsActive = true;
             Classes = new List<Class>();
+            Price = price;
         }
 
-        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major)
+        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major,int universityType, int university, int price)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;
             CourseKind = courseKind;
             Code = code;
             Major = major;
+            UniversityType = universityType;
+            University = university;
+            Price = price;
         }
 
         public void Activate()

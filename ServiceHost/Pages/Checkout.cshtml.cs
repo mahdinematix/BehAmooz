@@ -1,12 +1,13 @@
-using System.Globalization;
 using _01_Framework.Application;
 using _01_Framework.Application.ZarinPal;
+using _01_Framework.Infrastructure;
 using _02_Query.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nancy.Json;
 using StudyManagement.Application.Contracts.Order;
+using System.Globalization;
 
 namespace ServiceHost.Pages
 {
@@ -34,8 +35,29 @@ namespace ServiceHost.Pages
             Cart = new Cart();
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (!_authHelper.IsAuthenticated())
+            {
+                return RedirectToPage("/Login");
+            }
+
+            if (_authHelper.CurrentAccountRole() != Roles.Student)
+            {
+                return RedirectToPage("/Index", new { area = "Administration" });
+            }
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Rejected");
+            }
             var serializer = new JavaScriptSerializer();
             var value = Request.Cookies[CookieName];
             var cartItems = serializer.Deserialize<List<CartItem>>(value);
@@ -44,14 +66,23 @@ namespace ServiceHost.Pages
                 var cartItemUnitPrice = cartItem.SessionPrice;
             }
 
+            if (status == Statuses.Confirmed)
+            {
+                if (cartItems == null)
+                {
+                    return RedirectToPage("EmptyCart");
+                }
+            }
+
             Cart = _cartCalculatorService.ComputeCart(cartItems);
             _cartService.Set(Cart);
+
+            return Page();
         }
 
         public IActionResult OnPostPay(int paymentMethod)
         {
             var cart = _cartService.Get();
-            cart.SetPaymentMethod(paymentMethod);
 
 
             var orderId = _orderApplication.PlaceOrder(cart);

@@ -9,5 +9,8 @@ namespace StudyManagement.Domain.ClassAgg
         List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId);
         List<ClassViewModel> GetClasses();
         ClassViewModel GetClassById(long id);
+        string GetClassCodeById(long id);
+        List<ClassViewModel> GetClassesForCopy(long courseId, long classId);
+        Class GetClassByCode(string code);
     }
 }

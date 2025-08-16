@@ -1,5 +1,6 @@
 ﻿@page
 @using _01_Framework.Infrastructure
+@using _01_Framework.Application
 @model ServiceHost.Areas.Administration.Pages.Course.IndexModel
 @{
     Layout = "Shared/_AdminLayout";
@@ -11,7 +12,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewBag.Title</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">تعریف درس جدید</a>
+            <a class="btn btn-success btn-lg" asp-page="./Create">تعریف درس جدید</a>
         </p>
     </div>
 </div>
@@ -35,14 +36,18 @@
                     </div>
                     <div class="form-group">
                         <label class="sr-only" asp-for="SearchModel.Major"></label>
-                        <select class="form-control" asp-for="SearchModel.Major" asp-items='new SelectList(Majors.List,"Id", "Name")' data-val="false" placeholder="رشته">
+                        <select class="form-control select22" asp-for="SearchModel.Major" asp-items='new SelectList(Majors.List, "Id", "Name")' data-val="false" placeholder="رشته">
                             <option value="0">رشته درس را انتخاب کنید</option>
                         </select>
                     </div>
                     <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.UniversityType"></label>
+                        <select class="form-control" asp-for="SearchModel.UniversityType" asp-items="Model.UniTypes" data-val="false" onchange="FillUnivirsities(this);">
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="sr-only" asp-for="SearchModel.University"></label>
-                        <select class="form-control" asp-for="SearchModel.University" asp-items='new SelectList(Universities.List,"Id", "Name")' data-val="false" placeholder="دانشگاه">
-                            <option value="0">دانشگاه درس را انتخاب کنید</option>
+                        <select id="lstUnis" class="form-control select22" asp-for="SearchModel.University" asp-items="Model.Unis" data-val="false" placeholder="دانشگاه">
                         </select>
                     </div>
                     <div class="form-group">
@@ -81,6 +86,7 @@
                                     <th>تعداد واحد</th>
                                     <th>نوع درس</th>
                                     <th>تعداد کلاس</th>
+                                    <th>قیمت هر جلسه</th>
                                     <th>وضعیت</th>
                                     <th>تاریخ تعریف</th>
                                     <th>عملیات</th>
@@ -98,6 +104,7 @@
                                         <td>@item.NumberOfUnit</td>
                                         <td>@item.CourseKind</td>
                                         <td>@item.ClassesCount</td>
+                                        <td>@item.Price.ToMoney() تومان</td>
                                         <td>
                                             @if (item.IsActive)
                                             {
@@ -110,8 +117,7 @@
                                         </td>
                                         <td>@item.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5"
-                                               href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id})">
+                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-id="@item.Id">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (item.IsActive)
@@ -137,18 +143,10 @@
 </div>
 
 @section Scripts {
-    <script src="~/adminTheme/assets/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/adminTheme/assets/datatables/dataTables.bootstrap.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#datatable').dataTable();
-        });
-    </script>
     
     <script>
         $(document).ready(function () {
-            $("select").select2();
+            $(".select22").select2();
         });
     </script>
     

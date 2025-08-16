@@ -22,7 +22,7 @@ namespace StudyManagement.Application
             }
 
             var session = new Session(command.Number, command.Title, command.Video, command.Booklet,
-                command.Description,command.Price, command.ClassId);
+                command.Description, command.ClassId);
             _sessionRepository.Create(session);
             _sessionRepository.Save();
             return operation.Succeed();
@@ -43,7 +43,7 @@ namespace StudyManagement.Application
             }
 
             session.Edit(command.Number, command.Title, command.Video, command.Booklet,
-                command.Description,command.Price, command.ClassId);
+                command.Description, command.ClassId);
             _sessionRepository.Save();
             return operation.Succeed();
         }

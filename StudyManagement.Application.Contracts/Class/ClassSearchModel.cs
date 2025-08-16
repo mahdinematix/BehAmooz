@@ -6,5 +6,6 @@ public class ClassSearchModel
     public string StartTime { get; set; }
     public bool IsActive { get; set; }
     public int DayId { get; set; }
+    public long ProfessorId { get; set; }
 
 }

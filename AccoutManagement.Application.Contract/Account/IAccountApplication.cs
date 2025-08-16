@@ -16,5 +16,6 @@ namespace AccountManagement.Application.Contract.Account
         void Logout();
         List<AccountViewModel> GetProfessors();
         string GetProfessorById(long professorId);
+        List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel);
     }
 }

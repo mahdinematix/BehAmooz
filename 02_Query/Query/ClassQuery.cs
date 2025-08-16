@@ -1,7 +1,7 @@
 ﻿using _02_Query.Contracts.Class;
+using _02_Query.Contracts.Course;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Infrastructure.EFCore;
-using Microsoft.EntityFrameworkCore;
 using StudyManagement.Infrastructure.EFCore;
 
 namespace _02_Query.Query
@@ -68,9 +68,13 @@ namespace _02_Query.Query
             return classs;
         }
 
-        public string GetCourseNameByClassId(long classId)
+        public CourseQueryModel GetCourseNameAndPriceByClassId(long courseId)
         {
-            return _studyContext.Classes.Include(x=>x.Course).FirstOrDefault(x => x.Id == classId).Course.Name;
+            return _studyContext.Courses.Where(x=>x.Id==courseId).Select(x=> new CourseQueryModel
+            {
+                Name = x.Name,
+                Price = x.Price
+            }).FirstOrDefault();
         }
     }
 }

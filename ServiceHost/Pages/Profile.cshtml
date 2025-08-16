@@ -1,0 +1,105 @@
+﻿@page
+@using _01_Framework.Infrastructure
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ServiceHost.Pages.ProfileModel
+@{
+}
+
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 m-auto">
+                                <div class="alert alert-warning">توجه: پس از ویرایش اطلاعات، وضعیت اکانت شما به حالت "در انتظار" تغییر خواهد یافت و برای دسترسی مجدد باید منتظر تایید مدیر سیستم بمانید</div>
+                                @if (Model.Message != null)
+                                {
+                                    if (Model.IsSucceeded)
+                                    {
+                                        <div class="alert alert-success">@Model.Message</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-danger">@Model.Message</div>
+                                    }
+                                }
+                                <form method="post">
+                                    <div class="login-form">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.FirstName">نام</label>
+                                                <input class="form-control" maxlength="150" type="text" asp-for="Command.FirstName" placeholder="نام">
+                                                <span class="error" asp-validation-for="Command.FirstName"></span>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.LastName">نام خانوادگی</label>
+                                                <input class="form-control" maxlength="200" type="text" asp-for="Command.LastName" placeholder="نام خانوادگی">
+                                                <span class="error" asp-validation-for="Command.LastName"></span>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.NationalCode">کد ملی</label>
+                                                <input class="form-control" maxlength="10" type="text" asp-for="Command.NationalCode" placeholder="کد ملی">
+                                                <span class="error" asp-validation-for="Command.NationalCode"></span>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.NationalCardPicture">کارت ملی</label>
+                                                <input class="form-control" type="text" asp-for="Command.NationalCardPicture" accept="image/*">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.Code">کد استادی/دانشجویی</label>
+                                                <input class="form-control" maxlength="20" type="text" asp-for="Command.Code" placeholder="کد استادی/دانشجویی" required>
+                                                <span class="error" asp-validation-for="Command.Code"></span>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.Major">رشته</label>
+                                                <select class="form-control my-1 mr-sm-2 select22" asp-for="Command.Major" asp-items='new SelectList(Majors.List, "Id", "Name")'>
+                                                    <option value="0">رشته</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.PhoneNumber">موبایل</label>
+                                                <input class="form-control" maxlength="11" type="text" asp-for="Command.PhoneNumber" placeholder="موبایل">
+                                                <span class="error" asp-validation-for="Command.PhoneNumber"></span>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.Email">ایمیل</label>
+                                                <input maxlength="300" class="form-control" type="email" asp-for="Command.Email" placeholder="ایمیل" style="direction: rtl">
+                                            </div>
+                                            <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id"/>
+                                            <input type="hidden" value="@Model.Command.RoleId" asp-for="Command.RoleId"/>
+                                            <input type="hidden" value="@Model.Command.UniversityType" asp-for="Command.UniversityType"/>
+                                            <input type="hidden" value="@Model.Command.University" asp-for="Command.University"/>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary w-100 mt-3">ویرایش</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/adminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+}

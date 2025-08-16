@@ -14,7 +14,7 @@ namespace StudyManagement.Domain.ClassAgg
         public long ProfessorId { get; private set; }
         public long CourseId { get; private set; }
         public Course Course { get; private set; }
-        public ICollection<Session> Sessions { get; private set; }
+        public ICollection<Session> Sessions { get; set; }
 
         public Class(string code, string startTime, string endTime, long courseId,int day, long professorId)
         {
@@ -28,13 +28,14 @@ namespace StudyManagement.Domain.ClassAgg
             Sessions = new List<Session>();
         }
 
-        public void Edit(string code, string startTime, string endTime, long courseId,int day)
+        public void Edit(string code, string startTime, string endTime, long courseId,int day, long professorId)
         {
             Code = code;
             StartTime = startTime;
             EndTime = endTime;
             CourseId = courseId;
             Day = day;
+            ProfessorId = professorId;
         }
 
         public void Activate()

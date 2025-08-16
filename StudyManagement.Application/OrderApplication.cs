@@ -21,7 +21,7 @@ namespace StudyManagement.Application
         public long PlaceOrder(Cart cart)
         {
             var currentAccountId = _authHelper.CurrentAccountId();
-            var order = new Order(currentAccountId, cart.TotalAmount, cart.PaymentMethod);
+            var order = new Order(currentAccountId, cart.TotalAmount);
 
             foreach (var cartItem in cart.Items)
             {
@@ -41,8 +41,6 @@ namespace StudyManagement.Application
             var issueTrackingNo = CodeGenerator.Generate("S");
             order.SetIssueTrackingNo(issueTrackingNo);
             _orderRepository.Save();
-            //var account = _shopAccountAcl.GetAccountNameAndMobileBy(order.AccountId);
-            //_smsService.Send(account.mobile,$"{account.name} گرامی سفارش شما با کد پیگیری {issueTrackingNo} ثبت شد و در سریعترین زمان ممکن ارسال خواهد شد.");
             return issueTrackingNo;
         }
 

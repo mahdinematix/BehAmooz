@@ -95,7 +95,7 @@ namespace _01_Framework.Application
             return persianTime.Substring(0, 5);
         }
         
-        public static string ToMoney(this double myMoney)
+        public static string ToMoney(this int myMoney)
         {
             return myMoney.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
         }

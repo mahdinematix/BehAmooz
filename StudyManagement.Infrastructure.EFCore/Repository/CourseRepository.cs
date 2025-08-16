@@ -28,7 +28,9 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 CreationDate = x.CreationDate.ToFarsi(),
                 ClassesCount = x.Classes.Count,
                 Major = x.Major,
-                University = x.University
+                UniversityType = x.UniversityType,
+                University = x.University,
+                Price = x.Price
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
@@ -52,6 +54,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             {
                 query = query.Where(x => x.University == searchModel.University);
             }
+            if (searchModel.UniversityType > 0)
+            {
+                query = query.Where(x => x.UniversityType == searchModel.UniversityType);
+            }
 
             return query.OrderByDescending(x => x.Id).ToList();
         }
@@ -65,7 +71,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Code = x.Code,
                 NumberOfUnit = x.NumberOfUnit,
                 CourseKind = x.CourseKind,
-                Major = x.Major
+                Major = x.Major,
+                Price = x.Price,
+                UniversityType = x.UniversityType,
+                University = x.University
             }).FirstOrDefault(x => x.Id == id);
         }
 

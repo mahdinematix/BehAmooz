@@ -16,16 +16,29 @@ namespace ServiceHost.Pages
 
         public IActionResult OnGet()
         {
+            var status = _authHelper.CurrentAccountStatus();
+
             if (!_authHelper.IsAuthenticated())
             {
                 return RedirectToPage("/Login");
             }
+
             if (_authHelper.CurrentAccountRole() != Roles.Student)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }
-            return Page();
 
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Rejected");
+            }
+
+            return Page();
         }
     }
 }

@@ -11,7 +11,7 @@
             </div>
             <div class="user-info">
                 <div class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@AuthHelper.GetAccountInfo().Fullname</a>
+                    <a asp-page="/Profile" asp-area="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@AuthHelper.GetAccountInfo().Fullname</a>
                 </div>
 
                 <p class="text-muted m-0">@AuthHelper.GetAccountInfo().Role</p>
@@ -39,14 +39,20 @@
                     </li>
                 }
 
+                @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                {
+                    <li>
+                        <a class="waves-effect" asp-page="/Accounts/Account/Index"><i class="fa fa-user"></i><span> مدیریت کاربران </span><span class="pull-right"></span></a>
+                    </li>
 
-                <li class="has_sub">
-                    <a class="waves-effect"><i class="md md-mail"></i><span> مدیریت کاربران </span><span class="pull-right"><i class="md md-add"></i></span></a>
-                    <ul class="list-unstyled">
-                        <li><a asp-page="/Accounts/Account/Index">کاربران</a></li>
-                        <li><a asp-page="/Accounts/Role/Index">نقش ها</a></li>
-                    </ul>
-                </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="waves-effect" asp-page="/Accounts/Account/Index"><i class="fa fa-user"></i><span> مدیریت دانشجویان </span><span class="pull-right"></span></a>
+                        
+                    </li>
+                }
 
                 <li><a asp-page="/Login" asp-page-handler="Logout" class="waves-effect active"><i class="fa fa-sign-out"></i><span> خروج </span></a></li>
 

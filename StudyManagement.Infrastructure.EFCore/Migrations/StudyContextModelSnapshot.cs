@@ -102,7 +102,13 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Property<int>("NumberOfUnit")
                         .HasColumnType("int");
 
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
                     b.Property<int>("University")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniversityType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -135,14 +141,11 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
-                    b.Property<int>("PaymentMethod")
-                        .HasColumnType("int");
-
                     b.Property<long>("RefId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("TotalAmount")
-                        .HasColumnType("float");
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -183,9 +186,6 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                         .IsRequired()
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -286,8 +286,8 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<double>("SessionPrice")
-                                .HasColumnType("float");
+                            b1.Property<int>("SessionPrice")
+                                .HasColumnType("int");
 
                             b1.HasKey("Id");
 

@@ -49,12 +49,6 @@
                             @if (AuthHelper.IsAuthenticated())
                             {
                                 <li>
-                                    <a href="javascript:void(0)" id="search-overlay-trigger">
-                                        <i class="ion-ios-search-strong"></i>
-                                    </a>
-                                </li>
-
-                                <li>
                                     <a asp-page="/Cart">
                                         <div class="header-cart-icon">
                                             <i class="ion-bag"></i>
@@ -68,7 +62,7 @@
                                 </li>
 
                                 <li>
-                                    <a asp-page="Profile" asp-route-id="@AuthHelper.CurrentAccountId()">
+                                    <a asp-page="Profile">
                                         <i class="fa fa-user-circle"></i>
                                     </a>
                                     <p><strong>@AuthHelper.GetAccountInfo().Fullname</strong></p>

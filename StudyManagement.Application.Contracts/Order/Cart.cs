@@ -2,8 +2,7 @@
 
 public class Cart
 {
-    public double TotalAmount { get; set; }
-    public int PaymentMethod { get; set; }
+    public int TotalAmount { get; set; }
 
     public List<CartItem> Items { get; set; }
 
@@ -15,10 +14,7 @@ public class Cart
     public void Add(CartItem cartItem)
     {
         Items.Add(cartItem);
+        TotalAmount += cartItem.SessionPrice;
     }
 
-    public void SetPaymentMethod(int methodId)
-    {
-        PaymentMethod = methodId;
-    }
 }

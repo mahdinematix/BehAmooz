@@ -1,10 +1,12 @@
-﻿namespace _02_Query.Contracts.Class
+﻿using _02_Query.Contracts.Course;
+
+namespace _02_Query.Contracts.Class
 {
     public interface IClassQuery
     {
         List<ClassQueryModel> GetClassesByCourseId(long courseId);
 
         ClassQueryModel GetClassById(long classId);
-        string GetCourseNameByClassId(long classId);
+        CourseQueryModel GetCourseNameAndPriceByClassId(long courseId);
     }
 }

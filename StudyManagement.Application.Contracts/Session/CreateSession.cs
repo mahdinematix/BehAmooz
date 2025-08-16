@@ -20,8 +20,6 @@ namespace StudyManagement.Application.Contracts.Session
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         [MaxLength(1000, ErrorMessage = ValidationMessages.MaxLength)]
         public string Description { get; set; }
-
-        public double Price { get; set; }
         public long ClassId { get; set; }
     }
 }
