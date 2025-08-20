@@ -21,6 +21,7 @@ namespace _02_Query.Query
         {
             return _studyContext.Sessions.Where(x => x.ClassId == classId).Include(x => x.Class).ThenInclude(x => x.Course).Select(x => new CartItem
             {
+                Id = x.Id,
                 SessionNumber = x.Number,
                 ClassStartTime = x.Class.StartTime,
                 ClassEndTime = x.Class.EndTime,
@@ -28,7 +29,8 @@ namespace _02_Query.Query
                 ProfessorFullName = x.Class.ProfessorId.ToString(),
                 CourseName = x.Class.Course.Name,
                 SessionId = x.Id,
-                SessionPrice = x.Class.Course.Price
+                SessionPrice = x.Class.Course.Price,
+                
             }).ToList();
         }
 
@@ -42,12 +44,13 @@ namespace _02_Query.Query
                 Description = x.Description,
                 IsActive = x.IsActive,
                 Number = x.Number,
-                IsPayed = x.IsPayed,
                 Video = x.Video,
                 Title = x.Title,
                 SessionPictures = MapSessionPictures(x.SessionPictures)
             }).FirstOrDefault(x=>x.Id == sessionId);
         }
+
+
 
         private static List<SessionPictureQueryModel> MapSessionPictures(ICollection<SessionPicture> sessionPictures)
         {

@@ -1,10 +1,7 @@
 ﻿@using _01_Framework.Application
-
 @inject IAuthHelper AuthHelper
 @{
 }
-
-
 
 <div class="header-area header-sticky">
     <div class="container">
@@ -22,6 +19,12 @@
                                 <li>
                                     <a asp-page="/Index">صفحه اصلی</a>
                                 </li>
+                                @if (AuthHelper.IsAuthenticated())
+                                {
+                                    <li>
+                                        <a asp-page="/MySessions">جلسات من</a>
+                                    </li>
+                                }
                                 <li>
                                     <a asp-page="AboutUs">درباره ما</a>
                                 </li>
@@ -40,7 +43,6 @@
                                         <a asp-page="/Account">ورود | ثبت نام</a>
                                     </li>
                                 }
-
                             </ul>
                         </nav>
                     </div>
@@ -60,7 +62,18 @@
                                         </div>
                                     </a>
                                 </li>
-
+                                <li>
+                                    <a asp-page="/Wallet">
+                                        <div class="header-cart-icon">
+                                            <img src="~/Theme/assets/img/wallet.png" width="30px" />
+                                            <span class="counter cart_items_count">0 ریال</span>
+                                            <div class="mini-cart" id="mini-cart">
+                                                <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
                                 <li>
                                     <a asp-page="Profile">
                                         <i class="fa fa-user-circle"></i>
@@ -68,7 +81,6 @@
                                     <p><strong>@AuthHelper.GetAccountInfo().Fullname</strong></p>
                                 </li>
                             }
-
                         </ul>
                     </div>
                 </div>
@@ -94,17 +106,23 @@
                                                 </a>
                                             </div>
                                         </li>
-
+                                        <li>
+                                            <a asp-page="/Wallet">
+                                                <div class="header-cart-icon">
+                                                    <img src="~/Theme/assets/img/wallet.png" width="30px" />
+                                                    <span class="counter cart_items_count">0 ریال</span>
+                                                    <div class="mini-cart" id="mini-cart">
+                                                        <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="javascript:void(0)" class="mobile-menu-icon"
                                                id="mobile-menu-trigger">
                                                 <i class="fa fa-bars"></i>
                                             </a>
-                                        </li>
-
-                                        <li>
-
-
                                         </li>
                                     </ul>
                                 </div>
@@ -132,7 +150,12 @@
                     <li class="">
                         <a asp-page="/Index">صفحه اصلی</a>
                     </li>
-
+                    @if (AuthHelper.IsAuthenticated())
+                    {
+                        <li>
+                            <a asp-page="/MySessions">جلسات من</a>
+                        </li>
+                    }
                     <li>
                         <a href="#contactUs" onclick="hideOffcanvas()">تماس با ما</a>
                     </li>

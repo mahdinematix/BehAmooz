@@ -81,14 +81,7 @@ namespace ServiceHost.Pages
 
         public IActionResult OnGetGotoCheckout()
         {
-            var serializer = new JavaScriptSerializer();
-            var value = Request.Cookies[CookieName];
-            var cartItems = serializer.Deserialize<List<CartItem>>(value);
-            foreach (var cartItem in cartItems)
-            {
-                var cartItemUnitPrice = cartItem.SessionPrice;
-            }
-
+            
             return RedirectToPage("/Checkout");
         }
     }

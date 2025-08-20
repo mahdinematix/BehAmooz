@@ -13,7 +13,6 @@ namespace StudyManagement.Domain.SessionAgg
         public string Description { get; private set; }
         public long ClassId { get; private set; }
         public bool IsActive { get; private set; }
-        public bool IsPayed { get; private set; }
         public Class Class { get; private set; }
         public ICollection<SessionPicture> SessionPictures { get; private set; }
 
@@ -48,6 +47,7 @@ namespace StudyManagement.Domain.SessionAgg
         {
             IsActive = false;
         }
+
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using _01_Framework.Application;
+using Org.BouncyCastle.Ocsp;
 using StudyManagement.Application.Contracts.Session;
 using StudyManagement.Domain.SessionAgg;
 
@@ -90,5 +91,6 @@ namespace StudyManagement.Application
         {
             return _sessionRepository.GetBySessionId(sessionId);
         }
+
     }
 }

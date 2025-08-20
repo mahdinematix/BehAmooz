@@ -10,7 +10,6 @@ public class OrderViewModel
     public double TotalAmount { get; set; }
     public double PayAmount { get; set; }
     public bool IsPayed { get; set; }
-    public bool IsCanceled { get; set; }
     public string IssueTrackingNo { get; set; }
     public long RefId { get; set; }
     public string CreationDate { get; set; }

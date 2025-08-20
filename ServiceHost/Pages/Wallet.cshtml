@@ -1,0 +1,40 @@
+﻿@page
+@model ServiceHost.Pages.WalletModel
+@{
+}
+
+<div class="text-center">
+    <h2>موجودی کیف پول شما:</h2>
+    <h3 id="wallet-amount">100000 ریال</h3>
+    <p>شما می‌توانید مبلغ دلخواه خود را شارژ نمایید.</p>
+    <div class="col-md-12 col-12 mb-3">
+        <label>مبلغ (ریال):</label>
+        <input class="form-control" type="number" value="" step="10000" placeholder="مثال: 10000 معادل هزار تومان">
+    </div>
+    <a asp-page="/Wallet" asp-page-handler="Charge" class="btn btn-success text-center">شارژ کیف پول</a>
+    <p class="mt-5">همچنین شما می‌توانید مبلغ دلخواه خود را برداشت نمایید.</p>
+    <div class="col-md-12 col-12 mb-3">
+        <label>مبلغ (ریال):</label>
+        <input class="form-control" id="amount-input" type="text" placeholder="مثال: 10000 معادل هزار تومان">
+        <button class="btn btn-info text-center mt-2" id="copy-button">وارد کردن کل موجودی</button>
+    </div>
+    <div class="col-md-12 col-12 mb-3">
+        <label>شماره کارت (مبلغ بیش از 10 میلیون تومان شماره شبا):</label>
+        <input class="form-control" type="text" placeholder="مثال: 6037111111111111">
+    </div>
+    <a asp-page="/Wallet" asp-page-handler="Withdraw" class="btn btn-warning mb-3 text-center">برداشت</a>
+</div>
+
+@section Scripts
+{
+    <script>
+        document.getElementById("copy-button").addEventListener("click", function() {
+            var amountText = document.getElementById("wallet-amount").innerText;
+
+            var amountValue = amountText.replace(" ریال", "");
+            debugger;
+
+            document.getElementById("amount-input").value = amountValue;
+        });
+    </script>
+}

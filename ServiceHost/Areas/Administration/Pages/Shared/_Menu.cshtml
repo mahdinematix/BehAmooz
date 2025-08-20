@@ -11,7 +11,7 @@
             </div>
             <div class="user-info">
                 <div class="dropdown">
-                    <a asp-page="/Profile" asp-area="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@AuthHelper.GetAccountInfo().Fullname</a>
+                    <a asp-page="/Profile" asp-area="" class="dropdown-toggle" >@AuthHelper.GetAccountInfo().Fullname</a>
                 </div>
 
                 <p class="text-muted m-0">@AuthHelper.GetAccountInfo().Role</p>

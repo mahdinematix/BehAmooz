@@ -54,13 +54,6 @@ namespace StudyManagement.Application
             return _orderRepository.Search(searchModel);
         }
 
-        public void Cancel(long id)
-        {
-            var order = _orderRepository.GetBy(id);
-            order.Cancel();
-            _orderRepository.Save();
-        }
-
         public List<OrderItemViewModel> GetItems(long orderId)
         {
             return _orderRepository.GetItems(orderId);

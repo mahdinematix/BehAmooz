@@ -17,7 +17,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             _accountContext = accountContext;
         }
 
-        public double GetAmountBy(long id)
+        public int GetAmountBy(long id)
         {
             var result = _context.Orders.Select(x => new {x.TotalAmount, x.Id}).FirstOrDefault(x => x.Id == id);
             if (result != null)
@@ -34,7 +34,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             {
                 Id = x.Id,
                 AccountId = x.AccountId,
-                IsCanceled = x.IsCanceled,
                 CreationDate = x.CreationDate.ToFarsi(),
                 IsPayed = x.IsPayed,
                 IssueTrackingNo = x.IssueTrackingNo,
@@ -42,7 +41,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 TotalAmount = x.TotalAmount, 
             });
 
-            query = query.Where(x => x.IsCanceled == searchModel.IsCanceled);
 
             if (searchModel.AccountId > 0)
                 query = query.Where(x => x.AccountId == searchModel.AccountId);
@@ -55,7 +53,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             var orders = query.OrderByDescending(x => x.Id).ToList();
             foreach (var order in orders)
             {
-                order.AccountFullname = accounts.FirstOrDefault(x => x.Id == order.AccountId)?.LastName;
+                var fullName = accounts.FirstOrDefault(x => x.Id == order.AccountId)?.FirstName +" "+ accounts.FirstOrDefault(x => x.Id == order.AccountId)?.LastName;
+                order.AccountFullname = fullName;
             }
 
             return orders;
@@ -73,12 +72,17 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Id = x.Id,
                 OrderId = x.OrderId,
                 UnitPrice = x.SessionPrice,
-                SessionId = x.SessionId
+                SessionId = x.SessionId,
+                ClassDay = x.ClassDay,
+                ClassEndTime = x.ClassEndTime,
+                ClassStartTime = x.ClassStartTime,
+                CourseName = x.CourseName,
+                ProfessorFullName = x.ProfessorFullName
             }).ToList();
 
             foreach (var item in items)
             {
-                item.Session = sessions.FirstOrDefault(x => x.Id == item.SessionId)?.Number;
+                item.SessionNumber = sessions.FirstOrDefault(x => x.Id == item.SessionId)?.Number;
             }
 
             return items;

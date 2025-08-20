@@ -1,7 +1,76 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\mysessions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\mysessions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.infrastructure.efcore\\repository\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|solutionrelative:studymanagement.infrastructure.efcore\\repository\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application\\classapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|solutionrelative:studymanagement.application\\classapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\class\\iclassapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\class\\iclassapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84AADB69-5AAF-EF38-EE58-4714C5256EBB}|StudyManagement.Domain\\StudyManagement.Domain.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.domain\\sessionagg\\isessionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84AADB69-5AAF-EF38-EE58-4714C5256EBB}|StudyManagement.Domain\\StudyManagement.Domain.csproj|solutionrelative:studymanagement.domain\\sessionagg\\isessionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\session.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\session.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\checkout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\checkout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\query\\orderitemquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\query\\orderitemquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\contracts\\order\\iorderitemquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\contracts\\order\\iorderitemquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\contracts\\session\\isessionquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\contracts\\session\\isessionquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\query\\sessionquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\query\\sessionquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\contracts\\session\\sessionquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\contracts\\session\\sessionquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application\\sessionapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|solutionrelative:studymanagement.application\\sessionapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\session\\isessionapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\session\\isessionapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84AADB69-5AAF-EF38-EE58-4714C5256EBB}|StudyManagement.Domain\\StudyManagement.Domain.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.domain\\sessionagg\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84AADB69-5AAF-EF38-EE58-4714C5256EBB}|StudyManagement.Domain\\StudyManagement.Domain.csproj|solutionrelative:studymanagement.domain\\sessionagg\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\mysessions.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\mysessions.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.infrastructure.efcore\\studycontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0B8F369-BC9A-E9B7-5D0F-960C1CD5FC58}|StudyManagement.Infrastructure.EFCore\\StudyManagement.Infrastructure.EFCore.csproj|solutionrelative:studymanagement.infrastructure.efcore\\studycontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,35 +78,228 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ISessionRepository.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Domain\\SessionAgg\\ISessionRepository.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Domain\\SessionAgg\\ISessionRepository.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Domain\\SessionAgg\\ISessionRepository.cs",
+              "RelativeToolTip": "StudyManagement.Domain\\SessionAgg\\ISessionRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:58:38.083Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClassApplication.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\ClassApplication.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Application\\ClassApplication.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\ClassApplication.cs",
+              "RelativeToolTip": "StudyManagement.Application\\ClassApplication.cs",
+              "ViewState": "AgIAALYAAAAAAAAAAAAjwMUAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:58:04.275Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IOrderItemQuery.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Order\\IOrderItemQuery.cs",
+              "RelativeDocumentMoniker": "02_Query\\Contracts\\Order\\IOrderItemQuery.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Order\\IOrderItemQuery.cs",
+              "RelativeToolTip": "02_Query\\Contracts\\Order\\IOrderItemQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:51:28.956Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SessionApplication.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\SessionApplication.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Application\\SessionApplication.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\SessionApplication.cs",
+              "RelativeToolTip": "StudyManagement.Application\\SessionApplication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:49:51.549Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SessionQueryModel.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Session\\SessionQueryModel.cs",
+              "RelativeDocumentMoniker": "02_Query\\Contracts\\Session\\SessionQueryModel.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Session\\SessionQueryModel.cs",
+              "RelativeToolTip": "02_Query\\Contracts\\Session\\SessionQueryModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:35:27.093Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MySessions.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\MySessions.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\MySessions.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\MySessions.cshtml",
+              "RelativeToolTip": "ServiceHost\\Pages\\MySessions.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-20T07:40:40.924Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClassRepository.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
+              "RelativeToolTip": "StudyManagement.Infrastructure.EFCore\\Repository\\ClassRepository.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAArwH8AAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T08:00:09.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IClassApplication.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
+              "RelativeToolTip": "StudyManagement.Application.Contracts\\Class\\IClassApplication.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAArwBEAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T08:00:01.338Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ISessionQuery.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Session\\ISessionQuery.cs",
+              "RelativeDocumentMoniker": "02_Query\\Contracts\\Session\\ISessionQuery.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Session\\ISessionQuery.cs",
+              "RelativeToolTip": "02_Query\\Contracts\\Session\\ISessionQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:31:07.641Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SessionQuery.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\SessionQuery.cs",
+              "RelativeDocumentMoniker": "02_Query\\Query\\SessionQuery.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\SessionQuery.cs",
+              "RelativeToolTip": "02_Query\\Query\\SessionQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:31:36.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Session.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Session.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Session.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Session.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Pages\\Session.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:34:42.416Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrderItemQuery.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\OrderItemQuery.cs",
+              "RelativeDocumentMoniker": "02_Query\\Query\\OrderItemQuery.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\OrderItemQuery.cs",
+              "RelativeToolTip": "02_Query\\Query\\OrderItemQuery.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAYwDAAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:37:46.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Checkout.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Checkout.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Checkout.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Checkout.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Pages\\Checkout.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:18:25.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ISessionApplication.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Session\\ISessionApplication.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Session\\ISessionApplication.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Session\\ISessionApplication.cs",
+              "RelativeToolTip": "StudyManagement.Application.Contracts\\Session\\ISessionApplication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:49:45.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Session.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Domain\\SessionAgg\\Session.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Domain\\SessionAgg\\Session.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Domain\\SessionAgg\\Session.cs",
+              "RelativeToolTip": "StudyManagement.Domain\\SessionAgg\\Session.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:39:29.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "StudyContext.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\StudyContext.cs",
+              "RelativeDocumentMoniker": "StudyManagement.Infrastructure.EFCore\\StudyContext.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Infrastructure.EFCore\\StudyContext.cs",
+              "RelativeToolTip": "StudyManagement.Infrastructure.EFCore\\StudyContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAgwA0AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:39:28.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MySessions.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\MySessions.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\MySessions.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\MySessions.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Pages\\MySessions.cshtml.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAqwAsAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T07:28:48.872Z",
+              "EditorCaption": ""
             }
           ]
         }

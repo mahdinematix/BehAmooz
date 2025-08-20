@@ -2,6 +2,7 @@
 using _02_Query.Contracts.Class;
 using _02_Query.Contracts.Course;
 using _02_Query.Contracts.Message;
+using _02_Query.Contracts.Order;
 using _02_Query.Contracts.Session;
 using _02_Query.Query;
 using Microsoft.EntityFrameworkCore;
@@ -42,10 +43,11 @@ namespace StudyManagement.Infrastructure.Configuration
             services.AddTransient<ICourseQuery, CourseQuery>();
             services.AddTransient<IClassQuery, ClassQuery>();
             services.AddTransient<ISessionQuery, SessionQuery>();
+            services.AddTransient<IOrderItemQuery, OrderItemQuery>();
 
 
             services.AddTransient<ICartCalculatorService, CartCalculatorService>();
-            services.AddTransient<ICartService, CartService>();
+            services.AddSingleton<ICartService, CartService>();
             services.AddTransient<IOrderApplication, OrderApplication>();
             services.AddTransient<IOrderRepository, OrderRepository>();
 
