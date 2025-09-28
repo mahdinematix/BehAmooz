@@ -29,11 +29,11 @@ namespace ServiceHost.Areas.Administration.Pages.Session
         {
             command.ClassId = classId;
             var result = _sessionApplication.Edit(command);
-            if (result.IsSucceeded)
+            if (result.Result.IsSucceeded)
             {
                 return RedirectToPage("./Index", new { classId = classId });
             }
-            Message = result.Message;
+            Message = result.Result.Message;
             return RedirectToPage("./Edit", new { classId = classId });
         }
     }

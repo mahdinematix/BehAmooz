@@ -19,7 +19,7 @@ namespace _02_Query.Query
 
         public List<CartItem> GetItemsByClassId(long classId)
         {
-            return _studyContext.Sessions.Where(x => x.ClassId == classId).Include(x => x.Class).ThenInclude(x => x.Course).Select(x => new CartItem
+            return _studyContext.Sessions.Where(x=>x.IsActive).Where(x => x.ClassId == classId).Include(x => x.Class).ThenInclude(x => x.Course).Select(x => new CartItem
             {
                 Id = x.Id,
                 SessionNumber = x.Number,
@@ -54,7 +54,7 @@ namespace _02_Query.Query
 
         private static List<SessionPictureQueryModel> MapSessionPictures(ICollection<SessionPicture> sessionPictures)
         {
-            return sessionPictures.Select(x => new SessionPictureQueryModel
+            return sessionPictures.Where(x=>!x.IsRemoved).Select(x => new SessionPictureQueryModel
             {
                 SessionId = x.SessionId,
                 Picture = x.Picture,

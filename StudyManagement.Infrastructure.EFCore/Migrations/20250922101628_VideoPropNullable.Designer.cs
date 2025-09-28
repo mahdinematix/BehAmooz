@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudyManagement.Infrastructure.EFCore;
 
@@ -11,9 +12,11 @@ using StudyManagement.Infrastructure.EFCore;
 namespace StudyManagement.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(StudyContext))]
-    partial class StudyContextModelSnapshot : ModelSnapshot
+    [Migration("20250922101628_VideoPropNullable")]
+    partial class VideoPropNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,14 +173,16 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -274,8 +279,9 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                             b1.Property<long>("SessionId")
                                 .HasColumnType("bigint");
 
-                            b1.Property<int>("SessionNumber")
-                                .HasColumnType("int");
+                            b1.Property<string>("SessionNumber")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<int>("SessionPrice")
                                 .HasColumnType("int");

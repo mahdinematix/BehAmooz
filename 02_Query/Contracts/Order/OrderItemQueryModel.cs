@@ -3,7 +3,7 @@
     public class OrderItemQueryModel
     {
         public long SessionId { get; set; }
-        public string SessionNumber { get; set; }
+        public int SessionNumber { get; set; }
         public string ProfessorFullName { get; set; }
         public string ClassStartTime { get; set; }
         public string ClassEndTime { get; set; }

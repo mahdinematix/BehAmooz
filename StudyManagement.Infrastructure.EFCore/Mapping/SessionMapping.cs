@@ -12,11 +12,10 @@ namespace StudyManagement.Infrastructure.EFCore.Mapping
             builder.ToTable("Sessions");
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Number).HasMaxLength(2).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(200);
-            builder.Property(x => x.Video).HasMaxLength(1000).IsRequired();
+            builder.Property(x => x.Video).HasMaxLength(1000);
             builder.Property(x => x.Booklet).HasMaxLength(1000);
-            builder.Property(x => x.Description).HasMaxLength(1000);
+            builder.Property(x => x.Description).HasMaxLength(5000);
 
             builder.HasOne(x => x.Class).WithMany(x => x.Sessions).HasForeignKey(x => x.ClassId);
 

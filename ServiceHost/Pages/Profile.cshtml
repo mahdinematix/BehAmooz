@@ -29,25 +29,6 @@
                                     <div class="login-form">
                                         <div class="row">
                                             <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.FirstName">نام</label>
-                                                <input class="form-control" maxlength="150" type="text" asp-for="Command.FirstName" placeholder="نام">
-                                                <span class="error" asp-validation-for="Command.FirstName"></span>
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.LastName">نام خانوادگی</label>
-                                                <input class="form-control" maxlength="200" type="text" asp-for="Command.LastName" placeholder="نام خانوادگی">
-                                                <span class="error" asp-validation-for="Command.LastName"></span>
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.NationalCode">کد ملی</label>
-                                                <input class="form-control" maxlength="10" type="text" asp-for="Command.NationalCode" placeholder="کد ملی">
-                                                <span class="error" asp-validation-for="Command.NationalCode"></span>
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.NationalCardPicture">کارت ملی</label>
-                                                <input class="form-control" type="text" asp-for="Command.NationalCardPicture" accept="image/*">
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
                                                 <label asp-for="Command.Code">کد استادی/دانشجویی</label>
                                                 <input class="form-control" maxlength="20" type="text" asp-for="Command.Code" placeholder="کد استادی/دانشجویی" required>
                                                 <span class="error" asp-validation-for="Command.Code"></span>
@@ -57,6 +38,8 @@
                                                 <select class="form-control my-1 mr-sm-2 select22" asp-for="Command.Major" asp-items='new SelectList(Majors.List, "Id", "Name")'>
                                                     <option value="0">رشته</option>
                                                 </select>
+                                                <span class="error" asp-validation-for="Command.Major"></span>
+
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label asp-for="Command.PhoneNumber">موبایل</label>
@@ -66,11 +49,29 @@
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label asp-for="Command.Email">ایمیل</label>
                                                 <input maxlength="300" class="form-control" type="email" asp-for="Command.Email" placeholder="ایمیل" style="direction: rtl">
+                                                <span class="error" asp-validation-for="Command.Email"></span>
+
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.UniversityType">نوع دانشگاه</label>
+                                                <select class="custom-select my-1 mr-sm-2" asp-for="Command.UniversityType" asp-items="Model.UniTypes" onchange="FillUnis(this);" required>
+                                                </select>
+                                                <span class="error" asp-validation-for="Command.UniversityType"></span>
+
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20 form-group">
+                                                <label asp-for="Command.University">دانشگاه</label>
+                                                <select class="form-control select22 my-1 mr-sm-2" asp-for="Command.University" asp-items='new SelectList(Universities.List, "Id", "Name")' required>
+                                                </select>
+                                                <span class="error" asp-validation-for="Command.University"></span>
+
                                             </div>
                                             <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id"/>
-                                            <input type="hidden" value="@Model.Command.RoleId" asp-for="Command.RoleId"/>
-                                            <input type="hidden" value="@Model.Command.UniversityType" asp-for="Command.UniversityType"/>
-                                            <input type="hidden" value="@Model.Command.University" asp-for="Command.University"/>
+                                            <input type="hidden" value="@Model.Command.RoleId" asp-for="Command.RoleId" />
+                                            <input type="hidden" value="@Model.Command.FirstName" asp-for="Command.FirstName" />
+                                            <input type="hidden" value="@Model.Command.LastName" asp-for="Command.LastName" />
+                                            <input type="hidden" value="@Model.Command.NationalCode" asp-for="Command.NationalCode" />
+                                            <input type="hidden" value="@Model.Command.NationalCardPicture" asp-for="Command.NationalCardPicture" />
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary w-100 mt-3">ویرایش</button>
                                             </div>

@@ -4,10 +4,14 @@ using _01_Framework.Application.Sms;
 using _01_Framework.Application.ZarinPal;
 using _01_Framework.Infrastructure;
 using AccountManagement.Infrastructure.Configuration;
+using Amazon.S3;
 using MessageManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using ServiceHost;
+using ServiceHost.AwsServices;
+using ServiceHost.Hubs;
 using StudyManagement.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +20,9 @@ var services = builder.Services;
 // Add services to the container.
 services.AddTransient<IAuthHelper, AuthHelper>();
 services.AddHttpContextAccessor();
-
+services.AddControllers();
+services.AddAWSService<IAmazonS3>();
+services.AddSignalR();
 services.AddRazorPages()
     .AddMvcOptions(options => options.Filters.Add<SecurityPageFilter>())
     .AddRazorPagesOptions(options =>
@@ -35,8 +41,8 @@ services.AddTransient<IPasswordHasher, PasswordHasher>();
 services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
 services.AddTransient<ISmsService, SmsService>();
 services.AddTransient<IEmailService, EmailService>();
-
-
+services.AddTransient<IFileManager, FileManager>();
+services.AddScoped<IStorageService, StorageService>();
 
 services.Configure<CookieTempDataProviderOptions>(options => {
     options.Cookie.IsEssential = true;
@@ -47,6 +53,7 @@ services.Configure<CookiePolicyOptions>(options =>
     options.CheckConsentNeeded = context => true;
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
+
 
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
@@ -70,6 +77,8 @@ services.AddAuthorization(options =>
     options.AddPolicy("Account",
         builder => builder.RequireRole(new List<string> { Roles.Administrator, Roles.Professor }));
 });
+
+
 
 
 var app = builder.Build();
@@ -107,6 +116,6 @@ app.MapAreaControllerRoute(
 app.MapRazorPages()
    .WithStaticAssets();
 
-
+app.MapHub<UploadHub>("/uploadHub");
 
 app.Run();

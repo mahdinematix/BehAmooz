@@ -24,7 +24,7 @@
                                     <tr>
                                         <th>جلسه</th>
                                         <th>عنوان جلسه</th>
-                                        <th>ویدیو</th>
+                                        <th>فیلم</th>
                                         <th>جزوه</th>
                                         <th>تصاویر</th>
                                         <th>توضیحات</th>
@@ -136,14 +136,32 @@ else
                                     <div class="col-lg-6">
                                         <div class="single-product-content-description">
                                             <h2 class="product-title">عنوان جلسه: @Model.Session.Title</h2>
-
-                                            <div>
-                                                <a><span class="text-success">مشاهده و دانلود ویدیو</span></a>
-                                            </div>
+                                            @if (Model.Session.Video == "" || !Model.Session.Video.StartsWith("https://behamooz"))
+                                            {
+                                                <div>
+                                                    <span class="text-success">فیلمی آپلود نشده است.</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <a href="@Model.Session.Video"><span class="text-success">مشاهده و دانلود فیلم</span></a>
+                                                </div>
+                                            }
+                                            
                                             <br />
-                                            <div>
-                                                <a><span class="text-success">مشاهده و دانلود جزوه</span></a>
-                                            </div>
+                                            @if (Model.Session.Booklet == "" || !Model.Session.Booklet.StartsWith("https://behamooz"))
+                                            {
+                                                <div>
+                                                    <span class="text-success">جزوه‌ای آپلود نشده است.</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <a href="@Model.Session.Booklet"><span class="text-success">مشاهده و دانلود جزوه</span></a>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>

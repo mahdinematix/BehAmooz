@@ -30,7 +30,7 @@
                                 {
                                     <div class="alert alert-danger">@Model.RegisterMessage</div>
                                 }
-                                <form method="post">
+                                <form method="post" onsubmit="return checkNationalCode()">
                                     <div class="login-form">
                                         <div class="row">
                                             <div class="col-12 mb-20">
@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label>کد ملی <span class="red-star">*</span></label>
-                                                <input class="form-control" maxlength="10" type="text" name="nationalCode" placeholder="کد ملی" required>
+                                                <input id="nationalCodeInput" onchange="checkNationalCode(this)" class="form-control" maxlength="10" type="text" name="nationalCode" placeholder="کد ملی" required>
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label>کارت ملی <span class="red-star">*</span></label>
@@ -129,4 +129,40 @@
             $(".select22").select2();
         });
     </script>
+    
+    <script>
+        function checkNationalCode() {
+            const nationalCodeInput = document.getElementById('nationalCodeInput');
+            const nationalCode = nationalCodeInput.value;
+
+            if (nationalCode.length !== 10 || isNaN(nationalCode)) {
+                alert("لطفا یک عدد 10 رقمی وارد کنید");
+                return false;
+            }
+
+            const numArray = nationalCode.split('').map(Number);
+            const num2 = numArray[9];
+
+            const invalidCodes = ["0000000000", "1111111111", "2222222222", "3333333333", "4444444444", 
+                "5555555555", "6666666666", "7777777777", "8888888888", "9999999999"];
+            if (invalidCodes.includes(nationalCode)) {
+                alert("کد ملی وارد شده صحیح نمی باشد");
+                return false;
+            }
+
+            let num3 = 0;
+            for (let i = 0; i < 9; i++) {
+                num3 += numArray[i] * (10 - i);
+            }
+            const num4 = num3 % 11;
+
+            if ((num4 === 0 && num2 === 0) || (num4 === 1 && num2 === 1) || (num4 > 1 && num2 === 11 - num4)) {
+                return true;
+            } else {
+                alert("کد ملی نامعتبر است");
+                return false;
+            }
+        }
+    </script>
+
 }

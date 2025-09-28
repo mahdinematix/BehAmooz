@@ -1,6 +1,5 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using StudyManagement.Application.Contracts.SessionPicture;
 using StudyManagement.Domain.SessionPictureAgg;
 
@@ -19,7 +18,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             return _context.SessionPictures.Select(x => new EditSessionPicture
             {
                 Id = x.Id,
-                Picture = x.Picture,
                 SessionId = x.SessionId
             }).FirstOrDefault(x => x.Id == id);
         }

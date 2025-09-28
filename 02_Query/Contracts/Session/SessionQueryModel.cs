@@ -5,7 +5,7 @@ namespace _02_Query.Contracts.Session
     public class SessionQueryModel
     {
         public long Id { get; set; }
-        public string Number { get; set; }
+        public int Number { get; set; }
         public string Title { get; set; }
         public string Video { get; set; }
         public string Booklet { get; set; }

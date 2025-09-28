@@ -2,6 +2,11 @@
 @model ServiceHost.Areas.Administration.Pages.Session.EditModel
 @{
 }
+<div class="alert alert-warning">حداکثر حجم فیلم باید یک گیگابایت باشد.</div>
+<div class="alert alert-warning">حداکثر حجم جزوه باید 100 مگابایت باشد.</div>
+<div class="alert alert-warning">برای آپلود فایل باید vpn خود را خاموش کنید.</div>
+<div class="alert alert-warning">اگر قصد ویرایش فایل ویدیو یا جزوه را ندارید فیلد آنها را خالی بگذارید.</div>
+<div class="alert alert-warning">لطفا تا پایان اپلود صبر کنید. در صورت اتمام موفقیت آمیز به صفحه قبل ارجاع داده خواهید شد</div>
 
 @if (!string.IsNullOrWhiteSpace(Model.Message))
 {
@@ -11,7 +16,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">تعریف جلسه جدید</h3>
+                <h3 class="panel-title">ویرایش جلسه @Model.Command.Number کلاس @Model.Class.Code در روز های @Model.Class.Day ساعت @Model.Class.StartTime تا @Model.Class.EndTime درس @Model.Class.Course</h3>
             </div>
             <div class="panel-body">
                 <form method="post"
@@ -36,14 +41,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.Video" class="control-label">فیلم جلسه</label>
-                                <input type="text" class="form-control" asp-for="Command.Video" />
+                                <input id="inputVideo" type="file" class="form-control" asp-for="Command.Video" accept="video/mp4,video/x-m4v,video/*" />
                                 <span asp-validation-for="Command.Video" class="error"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.Booklet" class="control-label">جزوه جلسه</label>
-                                <input type="text" class="form-control" asp-for="Command.Booklet" />
+                                <input id="inputBooklet" type="file" class="form-control" asp-for="Command.Booklet" accept="application/pdf,.pdf" />
                                 <span asp-validation-for="Command.Booklet" class="error"></span>
                             </div>
                         </div>
@@ -52,17 +57,102 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label asp-for="Command.Description" class="control-label">توضیحات</label>
-                                <textarea rows="10" class="form-control" asp-for="Command.Description"></textarea>
+                                <textarea rows="10" maxlength="5000" class="form-control" asp-for="Command.Description"></textarea>
                                 <span asp-validation-for="Command.Description" class="error"></span>
                             </div>
                         </div>
                     </div>
+                    
+                    <div id="progress-video" style="display: none;">
+                        <p>در حال آپلود فیلم: <span id="video-percent">0</span>%</p>
+                        <div id="video-progress-bar" style="width: 0%; height: 20px; background-color: green;"></div>
+                    </div>
+
+                    <div id="progress-booklet" style="display: none;">
+                        <p>در حال آپلود جزوه: <span id="booklet-percent">0</span>%</p>
+                        <div id="booklet-progress-bar" style="width: 0%; height: 20px; background-color: blue;"></div>
+                    </div>
                     <input type="hidden" value="@Model.Class.Id" asp-for="Command.ClassId" />
                     <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id" />
-                    <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+                    <button type="submit" id="uploadButton" class="btn btn-info waves-effect waves-light">ویرایش</button>
                     <a asp-page="./Index" asp-route-classId="@Model.Class.Id" class="btn btn-default waves-effect">بازگشت</a>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        const inputVideo = document.getElementById('inputVideo');
+        const maxSize = 1024*1024*1024;
+
+        inputVideo.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                if (file.size > maxSize) {
+                    alert('حجم فایل ویدیو نباید بیشتر از 1 گیگابایت باشد.');
+                    this.value = '';
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const inputBooklet = document.getElementById('inputBooklet');
+        const maxSize = 100*1024*1024;
+
+        inputBooklet.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                if (file.size > maxSize) {
+                    alert('حجم فایل جزوه نباید بیشتر از 100 مگابایت باشد.');
+                    this.value = '';
+                }
+            }
+        });
+    </script>
+
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/uploadHub")
+            .build();
+
+        connection.on("ReceiveVideoProgress", function (percent) {
+            document.getElementById("video-percent").innerText = percent;
+            document.getElementById("video-progress-bar").style.width = percent + "%";
+        });
+
+        connection.on("ReceiveBookletProgress", function (percent) {
+            document.getElementById("booklet-percent").innerText = percent;
+            document.getElementById("booklet-progress-bar").style.width = percent + "%";
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
+
+    <script>
+        document.getElementById("uploadButton").onclick = function (event) {
+            const videoInput = document.getElementById("inputVideo").files.length > 0;
+            const bookletInput = document.getElementById("inputBooklet").files.length > 0;
+
+            if (videoInput && bookletInput) {
+                document.getElementById("progress-video").style.display = "block";
+                document.getElementById("progress-booklet").style.display = "block";
+            } else if (videoInput) {
+                document.getElementById("progress-video").style.display = "block";
+                document.getElementById("progress-booklet").style.display = "none";
+            } else if (bookletInput) {
+                document.getElementById("progress-booklet").style.display = "block";
+                document.getElementById("progress-video").style.display = "none";
+            } else {
+                document.getElementById("progress-video").style.display = "none";
+                document.getElementById("progress-booklet").style.display = "none";
+            }
+        }
+    </script>
+}

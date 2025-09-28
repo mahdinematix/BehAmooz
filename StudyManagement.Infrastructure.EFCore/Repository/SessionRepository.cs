@@ -19,18 +19,16 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             return _context.Sessions.Select(x => new EditSession
             {
                 Id = x.Id,
-                Booklet = x.Booklet,
                 ClassId = x.ClassId,
                 Description = x.Description,
                 Number = x.Number,
                 Title = x.Title,
-                Video = x.Video,
             }).FirstOrDefault(x => x.Id == id);
         }
 
         public List<SessionViewModel> GetAllByClassId(long classId)
         {
-            return _context.Sessions.Where(x=>x.ClassId == classId).Select(x => new SessionViewModel
+           return _context.Sessions.Where(x=>x.ClassId == classId).Select(x => new SessionViewModel
             {
                 Id = x.Id,
                 Booklet = x.Booklet,

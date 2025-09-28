@@ -1,24 +1,25 @@
 ﻿using _01_Framework.Application;
-using StudyManagement.Application.Contracts.Session;
 using StudyManagement.Application.Contracts.SessionPicture;
 using StudyManagement.Domain.SessionPictureAgg;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace StudyManagement.Application
 {
     public class SessionPictureApplication : ISessionPictureApplication
     {
         private readonly ISessionPictureRepository _sessionPictureRepository;
+        private readonly IFileManager _fileManager;
 
-        public SessionPictureApplication(ISessionPictureRepository sessionPictureRepository)
+        public SessionPictureApplication(ISessionPictureRepository sessionPictureRepository, IFileManager fileManager)
         {
             _sessionPictureRepository = sessionPictureRepository;
+            _fileManager = fileManager;
         }
 
-        public OperationResult Create(CreateSessionPicture command)
+        public async Task<OperationResult> CreateAsync(CreateSessionPicture command)
         {
             var operation = new OperationResult();
-            var sessionPicture = new SessionPicture(command.SessionId, command.Picture);
+            var fileUrl = await _fileManager.Upload(command.Picture, false);
+            var sessionPicture = new SessionPicture(command.SessionId, fileUrl);
             _sessionPictureRepository.Create(sessionPicture);
             _sessionPictureRepository.Save();
             return operation.Succeed();
@@ -32,7 +33,8 @@ namespace StudyManagement.Application
             {
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
-            sessionPicture.Edit(command.SessionId,command.Picture);
+            var fileName = _fileManager.Upload(command.Picture, false);
+            sessionPicture.Edit(command.SessionId,fileName.ToString());
             _sessionPictureRepository.Save();
             return operation.Succeed();
         }

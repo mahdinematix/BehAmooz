@@ -1,9 +1,9 @@
+using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
 using StudyManagement.Application.Contracts.SessionPicture;
-using StudyManagement.Domain.ClassAgg;
 
 namespace ServiceHost.Areas.Administration.Pages.SessionPicture
 {
@@ -32,15 +32,14 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
 
         public IActionResult OnPost(CreateSessionPicture command, long sessionId)
         {
-            command.SessionId = sessionId;
-            var result = _sessionPictureApplication.Create(command);
-            if (result.IsSucceeded)
+            command.SessionId = sessionId; 
+            var result = _sessionPictureApplication.CreateAsync(command);
+            if (result.Result.IsSucceeded)
             {
                 return RedirectToPage("./Index", new { sessionId = sessionId });
             }
-            Message = result.Message;
+            Message = result.Result.Message;
             return RedirectToPage("./Create", new { sessionId = sessionId });
         }
-
     }
 }

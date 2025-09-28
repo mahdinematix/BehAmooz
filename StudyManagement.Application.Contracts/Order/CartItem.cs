@@ -8,7 +8,7 @@
         public string ClassEndTime { get; set; }
         public string CourseName { get; set; }
         public string ProfessorFullName { get; set; }
-        public string SessionNumber { get; set; }
+        public int SessionNumber { get; set; }
         public int SessionPrice { get; set; }
         public long SessionId { get; set; }
     }

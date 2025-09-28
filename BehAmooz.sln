@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Application.Contract", "AccoutManagement.Application.Contract\AccountManagement.Application.Contract.csproj", "{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArvanCloud", "ArvanCloud\ArvanCloud.csproj", "{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageManagement.Application", "MessageManagement.Application\MessageManagement.Application.csproj", "{B6CEA4E0-C344-5112-C94A-A67FCEFAF1D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageManagement.Application.Contract", "MessageManagement.Application.Contract\MessageManagement.Application.Contract.csproj", "{85F32B63-F296-7809-C2E3-A42AF4DA0B2E}"
@@ -103,10 +101,6 @@ Global
 		{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDF63FE4-CFBE-CB79-4AEB-352580D8D210}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B6CEA4E0-C344-5112-C94A-A67FCEFAF1D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B6CEA4E0-C344-5112-C94A-A67FCEFAF1D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6CEA4E0-C344-5112-C94A-A67FCEFAF1D1}.Release|Any CPU.ActiveCfg = Release|Any CPU

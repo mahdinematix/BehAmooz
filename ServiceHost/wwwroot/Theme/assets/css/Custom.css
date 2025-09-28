@@ -234,3 +234,9 @@ body {
     display: flex;
     justify-self: flex-end;
 }
+
+.disabled {
+    pointer-events: none;
+    color: #444444;
+    cursor: not-allowed;
+}

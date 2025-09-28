@@ -82,7 +82,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
 
             foreach (var item in items)
             {
-                item.SessionNumber = sessions.FirstOrDefault(x => x.Id == item.SessionId)?.Number;
+                item.SessionNumber = (int) sessions.FirstOrDefault(x => x.Id == item.SessionId)?.Number;
             }
 
             return items;

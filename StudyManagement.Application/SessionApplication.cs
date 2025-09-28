@@ -1,5 +1,4 @@
 ﻿using _01_Framework.Application;
-using Org.BouncyCastle.Ocsp;
 using StudyManagement.Application.Contracts.Session;
 using StudyManagement.Domain.SessionAgg;
 
@@ -8,28 +7,31 @@ namespace StudyManagement.Application
     public class SessionApplication : ISessionApplication
     {
         private readonly ISessionRepository _sessionRepository;
+        private readonly IFileManager _fileManager;
 
-        public SessionApplication(ISessionRepository sessionRepository)
+        public SessionApplication(ISessionRepository sessionRepository, IFileManager fileManager)
         {
             _sessionRepository = sessionRepository;
+            _fileManager = fileManager;
         }
 
-        public OperationResult Create(CreateSession command)
+        public async Task<OperationResult> Create(CreateSession command)
         {
             var operation = new OperationResult();
             if (_sessionRepository.Exists(x=>x.Number == command.Number && x.ClassId == command.ClassId))
             {
                 return operation.Failed(ApplicationMessages.ASessionWithThatNumberExists);
             }
-
-            var session = new Session(command.Number, command.Title, command.Video, command.Booklet,
+            var fileUrlForVideo = await _fileManager.Upload(command.Video,true);
+            var fileUrlForBooklet = await _fileManager.Upload(command.Booklet,false);
+            var session = new Session(command.Number, command.Title, fileUrlForVideo, fileUrlForBooklet,
                 command.Description, command.ClassId);
             _sessionRepository.Create(session);
             _sessionRepository.Save();
             return operation.Succeed();
         }
 
-        public OperationResult Edit(EditSession command)
+        public async Task<OperationResult> Edit(EditSession command)
         {
             var operation = new OperationResult();
             var session = _sessionRepository.GetBy(command.Id);
@@ -42,8 +44,9 @@ namespace StudyManagement.Application
             {
                 return operation.Failed(ApplicationMessages.ASessionWithThatNumberExists);
             }
-
-            session.Edit(command.Number, command.Title, command.Video, command.Booklet,
+            var fileUrlForVideo = await _fileManager.Upload(command.Video,true);
+            var fileUrlForBooklet = await _fileManager.Upload(command.Booklet,false);
+            session.Edit(command.Number, command.Title, fileUrlForVideo, fileUrlForBooklet,
                 command.Description, command.ClassId);
             _sessionRepository.Save();
             return operation.Succeed();
@@ -57,7 +60,6 @@ namespace StudyManagement.Application
             {
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
-
             session.Activate();
             _sessionRepository.Save();
             return operation.Succeed();
@@ -71,7 +73,6 @@ namespace StudyManagement.Application
             {
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
-
             session.DeActivate();
             _sessionRepository.Save();
             return operation.Succeed();

@@ -8,10 +8,10 @@ using StudyManagement.Domain.ClassAgg;
 
 namespace StudyManagement.Infrastructure.EFCore.Repository
 {
-    public class ClassRepository: RepositoryBase<long,Class>, IClassRepository
+    public class ClassRepository : RepositoryBase<long, Class>, IClassRepository
     {
         private readonly StudyContext _context;
-        private readonly AccountContext _accountContext; 
+        private readonly AccountContext _accountContext;
         private readonly IAuthHelper _authHelper;
 
         public ClassRepository(StudyContext context, AccountContext accountContext, IAuthHelper authHelper) : base(context)
@@ -35,14 +35,14 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             }).FirstOrDefault(x => x.Id == id);
         }
 
-        public List<ClassViewModel> Search(ClassSearchModel searchModel , long courseId)
+        public List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId)
         {
-            var accounts = _accountContext.Accounts.Select(x=> new AccountViewModel
+            var accounts = _accountContext.Accounts.Select(x => new AccountViewModel
             {
                 Id = x.Id,
                 FullName = x.FirstName + " " + x.LastName
             });
-            var query = _context.Classes.Where(x=>x.CourseId == courseId).Include(x=>x.Course).Include(x=>x.Sessions).Select(x => new ClassViewModel
+            var query = _context.Classes.Where(x => x.CourseId == courseId).Include(x => x.Course).Include(x => x.Sessions).Select(x => new ClassViewModel
             {
                 Id = x.Id,
                 Code = x.Code,
@@ -56,13 +56,13 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Day = Days.GetName(x.Day),
                 SessionsCount = x.Sessions.Count,
                 ProfessorId = x.ProfessorId,
-                
+
             });
             if (_authHelper.CurrentAccountRole() == Roles.Professor)
             {
                 query = query.Where(x => x.ProfessorId == _authHelper.CurrentAccountId());
             }
-            
+
 
             if (!string.IsNullOrWhiteSpace(searchModel.Code))
             {
@@ -73,7 +73,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             {
                 query = query.Where(x => x.StartTime == searchModel.StartTime);
             }
-            if (searchModel.DayId >0)
+            if (searchModel.DayId > 0)
             {
                 query = query.Where(x => x.DayId == searchModel.DayId);
             }
@@ -107,7 +107,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
 
         public ClassViewModel GetClassById(long id)
         {
-            return _context.Classes.Include(x=>x.Course).Include(x=>x.Sessions).Select(x => new ClassViewModel
+            return _context.Classes.Include(x => x.Course).Include(x => x.Sessions).Select(x => new ClassViewModel
             {
                 Id = x.Id,
                 Code = x.Code,
@@ -127,11 +127,13 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
 
         public List<ClassViewModel> GetClassesForCopy(long courseId, long classId)
         {
-            return _context.Classes.Where(x=>x.ProfessorId == _authHelper.CurrentAccountId()).Where(x=>x.CourseId == courseId).Where(x=>x.Id != classId).Select(x => new ClassViewModel
+
+            return _context.Classes.Where(x => x.ProfessorId == _authHelper.CurrentAccountId()).Where(x => x.CourseId == courseId).Where(x => x.Id != classId).Select(x => new ClassViewModel
             {
                 Id = x.Id,
                 Code = x.Code
             }).ToList();
+
         }
 
         public Class GetClassByCode(string code)

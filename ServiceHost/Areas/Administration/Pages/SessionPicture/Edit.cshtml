@@ -3,6 +3,11 @@
 @{
 
 }
+<div class="alert alert-warning">حداکثر حجم تصویر باید 5 مگابایت باشد.</div>
+<div class="alert alert-warning">برای آپلود فایل باید vpn خود را خاموش کنید.</div>
+<div class="alert alert-warning">لطفا تا پایان اپلود صبر کنید. در صورت اتمام موفقیت آمیز به صفحه قبل ارجاع داده خواهید شد</div>
+
+
 
 @if (!string.IsNullOrWhiteSpace(Model.Message))
 {
@@ -12,7 +17,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">ویرایش عکس جلسه @Model.Session.Number کلاس @Model.Class.Code درس @Model.Class.Course</h3>
+                <h3 class="panel-title">ویرایش تصویر جلسه @Model.Session.Number کلاس @Model.Class.Code درس @Model.Class.Course</h3>
             </div>
             <div class="panel-body">
                 <form method="post"
@@ -21,17 +26,36 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.Picture" class="control-label">عکس</label>
-                                <input type="text" class="form-control" asp-for="Command.Picture" />
+                                <input id="inputPicture" type="file" class="form-control" asp-for="Command.Picture" accept="image/*" />
                                 <span asp-validation-for="Command.Picture" class="error"></span>
                             </div>
                         </div>
                     </div>
+
                     <input type="hidden" asp-for="Command.SessionId" value="@Model.Session.Id" />
                     <input type="hidden" asp-for="Command.Id" value="@Model.Command.Id" />
-                    <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+                    <button type="submit" id="uploadButton" class="btn btn-info waves-effect waves-light">ویرایش</button>
                     <a asp-page="./Index" asp-route-sessionId="@Model.Command.SessionId" class="btn btn-default waves-effect">بازگشت</a>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        const inputPicture = document.getElementById('inputPicture');
+        const maxSize = 5*1024*1024;
+
+        inputPicture.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                if (file.size > maxSize) {
+                    alert('حجم فایل تصویر نباید بیشتر از 5 مگابایت باشد.');
+                    this.value = '';
+                }
+            }
+        });
+    </script>
+}

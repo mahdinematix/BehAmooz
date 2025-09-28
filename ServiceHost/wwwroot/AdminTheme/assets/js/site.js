@@ -34,6 +34,9 @@ $(document).ready(function () {
     };
     $("#MainModal").on("shown.bs.modal",
         function () {
+            $("#select22").select2({
+                dropdownParent: $(this) 
+            });
             window.location.hash = "##";
             $('.persianDateInput').persianDatepicker({
                 format: 'YYYY/MM/DD',
@@ -227,23 +230,27 @@ function FillUnivirsities(lstUniTypes) {
     return;
 }
 
-jQuery.validator.addMethod("maxFileSize",
-    function (value, element, params) {
-        var size = element.files[0].size;
-        var maxSize = 3 * 1024 * 1024;
-        if (size > maxSize)
-            return false;
-        else {
-            return true;
+function FillClassCodes(checkbox) {
+    let anotherCourses = checkbox.checked;
+    let classId = document.getElementById('classIdInput').value;
+
+    $.ajax({
+        url: '@Url.Page("./Index", "Copy")',
+        type: 'GET',
+        data: { id: classId, anotherCourses: anotherCourses },
+        success: function (result) {
+            $('#resultContainer').html(result);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error: ' + error);
         }
     });
-jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
+}
 
 //jQuery.validator.addMethod("maxFileSize",
 //    function (value, element, params) {
 //        var size = element.files[0].size;
-//        var maxSize = 3 * 1024 * 1024;
-//        debugger;
+//        var maxSize = 1024 * 1024 * 1024;
 //        if (size > maxSize)
 //            return false;
 //        else {
@@ -252,3 +259,19 @@ jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
 //    });
 //jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
 
+jQuery.validator.addMethod("maxFileSize",
+    function (value, element, params) {
+        if (!element.files || !element.files.length) return true;
+
+        var size = element.files[0].size;
+        
+        var maxSize = parseInt($(element).attr("data-val-maxFileSize-size"));
+
+        if (isNaN(maxSize)) {
+            maxSize = 1024 * 1024 * 1024; // 1GB
+        }
+
+        return size <= maxSize;
+    }
+);
+jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");

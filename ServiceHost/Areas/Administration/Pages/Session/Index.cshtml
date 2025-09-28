@@ -10,7 +10,7 @@
 <div class="col-md-12">
 <div class="panel panel-default">
 <div class="panel-heading">
-                <h3 class="panel-title">مدیریت جلسات کلاس @Model.Class.Code در روز های @Model.Class.Day ساعت @Model.Class.StartTime درس @Model.Class.Course</h3>
+                <h3 class="panel-title">مدیریت جلسات کلاس @Model.Class.Code در روز های @Model.Class.Day ساعت @Model.Class.StartTime تا @Model.Class.EndTime درس @Model.Class.Course</h3>
             </div>
         </div>
     </div>
@@ -58,8 +58,22 @@
                                         <td>@item.Id</td>
                                         <td>@item.Number</td>
                                         <td>@item.Title</td>
-                                        <td><a href="@item.Video" target="_blank">مشاهده</a></td>
-                                        <td><a href="@item.Booklet" target="_blank">مشاهده</a></td>
+                                        @if (item.Video == "" || !item.Video.StartsWith("https://behamooz"))
+                                        {
+                                            <td>آپلود نشده</td>
+                                        }
+                                        else
+                                        {
+                                            <td><a href="@item.Video" target="_blank">مشاهده</a></td>
+                                        }
+                                        @if (item.Booklet == "" || !item.Booklet.StartsWith("https://behamooz"))
+                                        {
+                                            <td>آپلود نشده</td>
+                                        }
+                                        else
+                                        {
+                                            <td><a href="@item.Booklet" target="_blank">مشاهده</a></td>
+                                        }
                                         <td><a asp-page="/SessionPicture/Index" asp-route-sessionId="@item.Id">مشاهده</a></td>
                                         <td>@item.Description</td>
                                         <td>
