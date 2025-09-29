@@ -76,6 +76,7 @@
                     <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id" />
                     <button type="submit" id="uploadButton" class="btn btn-info waves-effect waves-light">ویرایش</button>
                     <a asp-page="./Index" asp-route-classId="@Model.Class.Id" class="btn btn-default waves-effect">بازگشت</a>
+                    <a asp-page-handler="Cancel" asp-route-classId="@Model.Class.Id" class="btn btn-danger">لغو فرایند آپلود</a>
                 </form>
             </div>
         </div>

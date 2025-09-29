@@ -18,9 +18,8 @@ public class StorageService : IStorageService
     }
 
     private static IAmazonS3 _s3Client;
-    private static string uploadId;
 
-    public async Task UploadFileAsync(S3Object s3Object, AwsCredentials awsCredentials, bool isVideo)
+    public async Task<string> UploadFileAsync(S3Object s3Object, AwsCredentials awsCredentials, bool isVideo)
     {
         var credentials = new BasicAWSCredentials(awsCredentials.AwsAccessKey, awsCredentials.AwsSecretKey);
         var config = new AmazonS3Config
@@ -37,7 +36,7 @@ public class StorageService : IStorageService
         };
         InitiateMultipartUploadResponse initResponse =
             await _s3Client.InitiateMultipartUploadAsync(initiateRequest);
-        uploadId = initResponse.UploadId;
+        var uploadId = initResponse.UploadId;
         long contentLength = s3Object.InputStream.Length;
         const int partSize = 5 * 1024 * 1024;
 
@@ -92,6 +91,8 @@ public class StorageService : IStorageService
             {
                 await _hubContext.Clients.All.SendAsync("ReceiveBookletProgress", 100);
             }
+
+            return uploadId;
         }
         catch (Exception ex)
         {
@@ -102,6 +103,7 @@ public class StorageService : IStorageService
                 UploadId = uploadId
             };
             await _s3Client.AbortMultipartUploadAsync(abortRequest);
+            return "";
         }
     }
 
@@ -135,7 +137,7 @@ public class StorageService : IStorageService
         }
     }
 
-    public async Task AbortMultipartUploadAsync(S3Object s3Object, AwsCredentials awsCredentials)
+    public async Task AbortMultipartUploadAsync(S3Object s3Object, AwsCredentials awsCredentials, string uploadId)
     {
         var credentials = new BasicAWSCredentials(awsCredentials.AwsAccessKey, awsCredentials.AwsSecretKey);
         var config = new AmazonS3Config

@@ -1,7 +1,48 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\message\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\message\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\message\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\message\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\message\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\message\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\query\\messagequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\query\\messagequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\contracts\\message\\imessagequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\contracts\\message\\imessagequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\viewcomponents\\professorsmessagesviewcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\viewcomponents\\professorsmessagesviewcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E486223A-53DC-AF64-6C99-B0ADC7F25DE5}|MessageManagement.Infrastructure.EFCore\\MessageManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\messagemanagement.infrastructure.efcore\\messagecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E486223A-53DC-AF64-6C99-B0ADC7F25DE5}|MessageManagement.Infrastructure.EFCore\\MessageManagement.Infrastructure.EFCore.csproj|solutionrelative:messagemanagement.infrastructure.efcore\\messagecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E486223A-53DC-AF64-6C99-B0ADC7F25DE5}|MessageManagement.Infrastructure.EFCore\\MessageManagement.Infrastructure.EFCore.csproj|d:\\programming\\asp .net projects\\behamooz\\messagemanagement.infrastructure.efcore\\repository\\messagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E486223A-53DC-AF64-6C99-B0ADC7F25DE5}|MessageManagement.Infrastructure.EFCore\\MessageManagement.Infrastructure.EFCore.csproj|solutionrelative:messagemanagement.infrastructure.efcore\\repository\\messagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,35 +50,137 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Message\\Edit.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Message\\Edit.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Message\\Edit.cshtml",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Message\\Edit.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB8AAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-29T12:20:13.774Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Message\\Create.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Message\\Create.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Message\\Create.cshtml",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Message\\Create.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB4AAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-29T12:20:01.248Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IMessageQuery.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Message\\IMessageQuery.cs",
+              "RelativeDocumentMoniker": "02_Query\\Contracts\\Message\\IMessageQuery.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Message\\IMessageQuery.cs",
+              "RelativeToolTip": "02_Query\\Contracts\\Message\\IMessageQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-29T12:16:45.834Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MessageQuery.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\MessageQuery.cs",
+              "RelativeDocumentMoniker": "02_Query\\Query\\MessageQuery.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\MessageQuery.cs",
+              "RelativeToolTip": "02_Query\\Query\\MessageQuery.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAuwAcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-29T12:14:12.134Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ProfessorsMessagesViewComponent.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\ViewComponents\\ProfessorsMessagesViewComponent.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\ViewComponents\\ProfessorsMessagesViewComponent.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\ViewComponents\\ProfessorsMessagesViewComponent.cs",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\ViewComponents\\ProfessorsMessagesViewComponent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-29T12:13:49.519Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Index.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Index.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-29T12:13:37.951Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Index.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Index.cshtml",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-29T12:13:35.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MessageContext.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\MessageManagement.Infrastructure.EFCore\\MessageContext.cs",
+              "RelativeDocumentMoniker": "MessageManagement.Infrastructure.EFCore\\MessageContext.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\MessageManagement.Infrastructure.EFCore\\MessageContext.cs",
+              "RelativeToolTip": "MessageManagement.Infrastructure.EFCore\\MessageContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-29T12:13:23.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MessageRepository.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\MessageManagement.Infrastructure.EFCore\\Repository\\MessageRepository.cs",
+              "RelativeDocumentMoniker": "MessageManagement.Infrastructure.EFCore\\Repository\\MessageRepository.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\MessageManagement.Infrastructure.EFCore\\Repository\\MessageRepository.cs",
+              "RelativeToolTip": "MessageManagement.Infrastructure.EFCore\\Repository\\MessageRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-29T12:13:17.73Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Message\\Index.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Message\\Index.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Message\\Index.cshtml",
+              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Message\\Index.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACQAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-29T12:09:28.711Z",
+              "EditorCaption": ""
             }
           ]
         }

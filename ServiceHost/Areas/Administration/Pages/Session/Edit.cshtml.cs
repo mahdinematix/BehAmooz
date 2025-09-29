@@ -1,3 +1,4 @@
+using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
@@ -9,14 +10,16 @@ namespace ServiceHost.Areas.Administration.Pages.Session
     {
         private readonly ISessionApplication _sessionApplication;
         private readonly IClassApplication _classApplication;
+        private readonly IFileManager _fileManager;
         public EditSession Command;
         public ClassViewModel Class;
         [TempData] public string Message { get; set; }
 
-        public EditModel(ISessionApplication sessionApplication, IClassApplication classApplication)
+        public EditModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager)
         {
             _sessionApplication = sessionApplication;
             _classApplication = classApplication;
+            _fileManager = fileManager;
         }
 
         public void OnGet(long id, long classId)
@@ -35,6 +38,13 @@ namespace ServiceHost.Areas.Administration.Pages.Session
             }
             Message = result.Result.Message;
             return RedirectToPage("./Edit", new { classId = classId });
+        }
+
+        public async Task<IActionResult> OnGetCancel(long classId)
+        {
+            await _fileManager.Cancel();
+            Message = "›—«?‰œ ¬Å·Êœ »« „Ê›ﬁ?  ·€Ê ‘œ.";
+            return RedirectToPage("./Create", new { classId = classId });
         }
     }
 }

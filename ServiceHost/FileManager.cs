@@ -10,6 +10,7 @@ public class FileManager : IFileManager
     private readonly IStorageService _storageService;
     private static string objName;
     private static string bucketName;
+    private static string uploadId;
 
     public FileManager(IStorageService storageService, IConfiguration configuration)
     {
@@ -44,7 +45,7 @@ public class FileManager : IFileManager
                 ServiceUrl = _configuration.GetSection("AWS")["ServiceURL"]
             };
 
-            await _storageService.UploadFileAsync(s3Obj, cred,isVideo);
+            uploadId = await _storageService.UploadFileAsync(s3Obj, cred,isVideo);
             var url = _storageService.GetObject(s3Obj, cred);
             return url;
         }
@@ -66,6 +67,6 @@ public class FileManager : IFileManager
             ServiceUrl = _configuration.GetSection("AWS")["ServiceURL"]
         };
 
-        await _storageService.AbortMultipartUploadAsync(s3Obj, cred);
+        await _storageService.AbortMultipartUploadAsync(s3Obj, cred, uploadId);
     }
 }

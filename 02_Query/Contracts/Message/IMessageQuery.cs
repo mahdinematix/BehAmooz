@@ -2,7 +2,7 @@
 {
     public interface IMessageQuery
     {
-        List<MessageQueryModel> GetProfessorMessages();
+        List<MessageQueryModel> GetAdminMessages();
         List<MessageQueryModel> GetStudentMessages();
     }
 }

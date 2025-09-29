@@ -14,7 +14,7 @@ namespace ServiceHost.Areas.Administration.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var professorMessages = _messageQuery.GetProfessorMessages();
+            var professorMessages = _messageQuery.GetAdminMessages();
             return View(professorMessages);
         }
     }
