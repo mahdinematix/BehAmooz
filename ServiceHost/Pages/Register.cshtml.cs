@@ -11,6 +11,7 @@ namespace ServiceHost.Pages
         private readonly IAccountApplication _accountApplication;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
+        public RegisterAccount Command;
 
         public RegisterModel(IAccountApplication accountApplication)
         {
@@ -27,11 +28,11 @@ namespace ServiceHost.Pages
         public IActionResult OnPost(RegisterAccount command)
         {
             var result = _accountApplication.Register(command);
-            if (result.IsSucceeded)
+            if (result.Result.IsSucceeded)
             {
                 return RedirectToPage("/Login");
             }
-            RegisterMessage = result.Message;
+            RegisterMessage = result.Result.Message;
             return RedirectToPage();
         }
 

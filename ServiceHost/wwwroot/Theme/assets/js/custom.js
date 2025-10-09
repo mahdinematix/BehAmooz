@@ -1,6 +1,6 @@
 ﻿const cookieName = "cart-items";
 
-function addToCart(id, sessionPrice,sessionNumber,classDay, classStartTime, classEndTime,professorFullName, courseName) {
+function addToCart(id, sessionPrice,sessionNumber,classId,classDay, classStartTime, classEndTime,professorFullName, courseName) {
     let sessions = $.cookie(cookieName);
     if (sessions === undefined) {
         sessions = [];
@@ -17,6 +17,7 @@ function addToCart(id, sessionPrice,sessionNumber,classDay, classStartTime, clas
             id,
             sessionPrice,
             sessionNumber,
+            classId,
             classDay,
             classStartTime,
             classEndTime,

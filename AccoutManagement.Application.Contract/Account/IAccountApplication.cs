@@ -5,8 +5,8 @@ namespace AccountManagement.Application.Contract.Account
 {
     public interface IAccountApplication
     {
-        OperationResult Register(RegisterAccount command);
-        OperationResult Edit(EditAccount command);
+        Task<OperationResult> Register(RegisterAccount command);
+        Task<OperationResult> Edit(EditAccount command);
         OperationResult Confirm(long id);
         OperationResult Reject(long id);
         OperationResult ChangePassword(ChangePassword command);
@@ -17,5 +17,6 @@ namespace AccountManagement.Application.Contract.Account
         List<AccountViewModel> GetProfessors();
         string GetProfessorById(long professorId);
         List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel);
+        List<AccountViewModel> SearchInCustomers(AccountSearchModel searchModel);
     }
 }

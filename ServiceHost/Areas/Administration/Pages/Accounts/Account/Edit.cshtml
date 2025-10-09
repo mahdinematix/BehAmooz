@@ -14,7 +14,7 @@
     {
         ViewBag.Title = $"ویرایش دانشجوی {Model.Command.FirstName} {Model.Command.LastName}";
     }
-    
+
 }
 @if (!string.IsNullOrWhiteSpace(Model.Message))
 {
@@ -36,9 +36,9 @@
                     <h3 class="panel-title">ویرایش دانشجوی @Model.Command.FirstName @Model.Command.LastName</h3>
                 </div>
             }
-            
+
             <div class="panel-body">
-                <form method="post" onsubmit="return checkNationalCode()"
+                <form method="post"
                       enctype="multipart/form-data">
                     <div class="row">
                         @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
@@ -55,11 +55,11 @@
                         }
                         else
                         {
-                            <input type="hidden" value="@Roles.Student" class="form-control" asp-for="Command.RoleId" readonly/>
+                            <input type="hidden" value="@Roles.Student" class="form-control" asp-for="Command.RoleId" readonly />
                         }
                         <div class="col-md-6">
                             <div class="form-group">
-                               @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                                @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
                                 {
                                     <label asp-for="Command.Code" class="control-label">کد دانشجویی/استادی</label>
                                 }
@@ -94,7 +94,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <label asp-for="Command.NationalCode" class="control-label">کد ملی</label>
-                                    <input id="nationalCodeInput" type="text" class="form-control" asp-for="Command.NationalCode">
+                                    <input type="text" class="form-control" asp-for="Command.NationalCode">
                                     <span asp-validation-for="Command.NationalCode" class="error"></span>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.NationalCardPicture" class="control-label">کارت ملی</label>
-                                <input type="text" class="form-control" asp-for="Command.NationalCardPicture">
+                                <input id="inputPicture" type="file" class="form-control" asp-for="Command.NationalCardPicture" accept="image/*">
                                 <span asp-validation-for="Command.NationalCardPicture" class="error"></span>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id"/>
+                    <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id" />
                     <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
                     <a asp-page="./Index" class="btn btn-default waves-effect">بازگشت</a>
                 </form>
@@ -174,42 +174,21 @@
             $(".select22").select2();
         });
     </script>
-    
+
+
+
     <script>
-        function checkNationalCode() {
-            const nationalCodeInput = document.getElementById('nationalCodeInput');
-            const nationalCode = nationalCodeInput.value;
+        const inputPicture = document.getElementById('inputPicture');
+        const maxSize = 5*1024*1024;
 
-            if (nationalCode.length !== 10 || isNaN(nationalCode)) {
-                alert("لطفا یک عدد 10 رقمی وارد کنید");
-                return false;
+        inputPicture.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                if (file.size > maxSize) {
+                    alert('حجم فایل تصویر نباید بیشتر از 5 مگابایت باشد.');
+                    this.value = '';
+                }
             }
-
-            const numArray = nationalCode.split('').map(Number);
-            const num2 = numArray[9];
-
-            const invalidCodes = ["0000000000", "1111111111", "2222222222", "3333333333", "4444444444", 
-                "5555555555", "6666666666", "7777777777", "8888888888", "9999999999"];
-            if (invalidCodes.includes(nationalCode)) {
-                alert("کد ملی وارد شده صحیح نمی باشد");
-                return false;
-            }
-
-            let num3 = 0;
-            for (let i = 0; i < 9; i++) {
-                num3 += numArray[i] * (10 - i);
-            }
-            const num4 = num3 % 11;
-
-            if ((num4 === 0 && num2 === 0) || (num4 === 1 && num2 === 1) || (num4 > 1 && num2 === 11 - num4)) {
-                return true;
-            } else {
-                alert("کد ملی نامعتبر است");
-                return false;
-            }
-        }
+        });
     </script>
-
-
-
 }

@@ -5794,6 +5794,14 @@ span.required {
     border-color: #292929;
     background-color: #292929;
 }
+.error {
+    color: #ff0000;
+}
+
+.wizard > .content > .body label.error {
+    margin-left: 0;
+    color: #e55957;
+}
 
     .contact-button:hover {
         border-color: #e33;

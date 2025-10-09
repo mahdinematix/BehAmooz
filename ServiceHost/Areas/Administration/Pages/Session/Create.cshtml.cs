@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
-using StudyManagement.Domain.ClassAgg;
 
 namespace ServiceHost.Areas.Administration.Pages.Session
 {

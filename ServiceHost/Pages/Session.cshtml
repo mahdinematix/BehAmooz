@@ -43,7 +43,7 @@
                                         <td><i class="fa fa-lock text-success fa-2x"></i></td>
                                         <td>@Model.Course.Price.ToMoney()</td>
                                         <td>
-                                            <a class="btn btn-success text-white" onclick="addToCart('@Model.Session.Id', '@Model.Course.Price', '@Model.Session.Number', '@Model.Class.Day','@Model.Class.StartTime','@Model.Class.EndTime','@Model.Class.ProfessorFullName','@Model.Course.Name')">
+                                            <a class="btn btn-success text-white" onclick="addToCart('@Model.Session.Id', '@Model.Course.Price', '@Model.Session.Number','@Model.Class.Id' , '@Model.Class.Day','@Model.Class.StartTime','@Model.Class.EndTime','@Model.Class.ProfessorFullName','@Model.Course.Name')">
                                                 <i class="ion-bag"></i> افزودن به سبد خرید
                                             </a>
                                         </td>

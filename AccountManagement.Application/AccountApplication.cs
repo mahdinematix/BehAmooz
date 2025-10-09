@@ -11,36 +11,71 @@ namespace AccountManagement.Application
         private readonly IPasswordHasher _passwordHasher;
         private readonly IRoleRepository _roleRepository;
         private readonly IAuthHelper _authHelper;
+        private readonly IFileManager _FileManager;
 
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IRoleRepository roleRepository, IAuthHelper authHelper)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IRoleRepository roleRepository, IAuthHelper authHelper, IFileManager fileManager)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
             _roleRepository = roleRepository;
             _authHelper = authHelper;
+            _FileManager = fileManager;
         }
 
-        public OperationResult Register(RegisterAccount command)
+        public async Task<OperationResult> Register(RegisterAccount command)
         {
             var operation = new OperationResult();
             if (_accountRepository.Exists(x => x.NationalCode == command.NationalCode || x.Code == command.Code))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecordNationalCodeOrCode);
             }
+
+            if (command.NationalCode.Length !=10 || string.IsNullOrWhiteSpace(command.NationalCode))
+            {
+                return operation.Failed(ApplicationMessages.InvalidNationalCode);
+            }
+            int[] numArray = command.NationalCode.Select(c => (int)char.GetNumericValue(c)).ToArray();
+            int num2 = numArray[9];
+            string[] invalidCodes = new string[]
+            {
+                "0000000000", "1111111111", "2222222222", "3333333333",
+                "4444444444", "5555555555", "6666666666", "7777777777",
+                "8888888888", "9999999999"
+            };
+            if (invalidCodes.Contains(command.NationalCode))
+            {
+                return operation.Failed(ApplicationMessages.InvalidNationalCode);
+            }
+
+            int num3 = 0;
+
+            for (int i = 0; i < 9; i++)
+            {
+                num3 += numArray[i] * (10 - i);
+            }
+
+            int num4 = num3 % 11;
+
+            if (!(num4 == 0 && num2 == 0) || !(num4 == 1 && num2 == 1) || !(num4 > 1 && num2 == 11 - num4))
+            {
+                return operation.Failed(ApplicationMessages.InvalidNationalCode);
+            }
+
             if (command.Password != command.RePassword)
             {
                 return operation.Failed(ApplicationMessages.PasswordsNotMatch);
             }
             var password = _passwordHasher.Hash(command.Password);
+            var fileUrlForNationalCardPicture = await _FileManager.Upload(command.NationalCardPicture, false);
             var account = new Account(command.FirstName, command.LastName, password, command.Email, command.PhoneNumber,
                 command.NationalCode, command.Code, command.UniversityType, command.University, command.Major,
-                command.NationalCardPicture,command.RoleId);
+                fileUrlForNationalCardPicture,command.RoleId);
             _accountRepository.Create(account);
             _accountRepository.Save();
             return operation.Succeed();
         }
 
-        public OperationResult Edit(EditAccount command)
+        public async Task<OperationResult> Edit(EditAccount command)
         {
             var operation = new OperationResult();
             var account = _accountRepository.GetBy(command.Id);
@@ -53,10 +88,40 @@ namespace AccountManagement.Application
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecordNationalCodeOrCode);
             }
+            if (command.NationalCode.Length != 10 || string.IsNullOrWhiteSpace(command.NationalCode))
+            {
+                return operation.Failed(ApplicationMessages.InvalidNationalCode);
+            }
+            int[] numArray = command.NationalCode.Select(c => (int)char.GetNumericValue(c)).ToArray();
+            int num2 = numArray[9];
+            string[] invalidCodes = new string[]
+            {
+                "0000000000", "1111111111", "2222222222", "3333333333",
+                "4444444444", "5555555555", "6666666666", "7777777777",
+                "8888888888", "9999999999"
+            };
+            if (invalidCodes.Contains(command.NationalCode))
+            {
+                return operation.Failed(ApplicationMessages.InvalidNationalCode);
+            }
 
+            int num3 = 0;
+
+            for (int i = 0; i < 9; i++)
+            {
+                num3 += numArray[i] * (10 - i);
+            }
+
+            int num4 = num3 % 11;
+
+            if (!(num4 == 0 && num2 == 0) || !(num4 == 1 && num2 == 1) || !(num4 > 1 && num2 == 11 - num4))
+            {
+                return operation.Failed(ApplicationMessages.InvalidNationalCode);
+            }
+            var fileUrlForNationalCardPicture = await _FileManager.Upload(command.NationalCardPicture, false);
             account.Edit(command.FirstName, command.LastName, command.Email, command.PhoneNumber,
                 command.NationalCode, command.Code, command.UniversityType, command.University, command.Major,
-                command.NationalCardPicture,command.RoleId);
+                fileUrlForNationalCardPicture,command.RoleId);
             account.ChangeStatusToWaiting();
             _accountRepository.Save();
             return operation.Succeed();
@@ -166,6 +231,11 @@ namespace AccountManagement.Application
         public List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel)
         {
             return _accountRepository.SearchInStudents(searchModel);
+        }
+
+        public List<AccountViewModel> SearchInCustomers(AccountSearchModel searchModel)
+        {
+            return _accountRepository.SearchInCustomers(searchModel);
         }
     }
 }

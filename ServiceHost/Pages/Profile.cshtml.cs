@@ -40,8 +40,8 @@ namespace ServiceHost.Pages
         public IActionResult OnPost(EditAccount command)
         {
             var result = _accountApplication.Edit(command);
-            IsSucceeded = result.IsSucceeded;
-            Message = result.Message;
+            IsSucceeded = result.Result.IsSucceeded;
+            Message = result.Result.Message;
             var loginDto = new Login
             {
                 NationalCode = _authHelper.GetAccountInfo().NationalCode,

@@ -50,7 +50,10 @@ namespace AccountManagement.Domain.AccountAgg
             UniversityTypeId = universityType;
             UniversityId = university;
             MajorId = major;
-            NationalCardPicture = nationalCardPicture;
+            if (!string.IsNullOrWhiteSpace(nationalCardPicture))
+            {
+                NationalCardPicture = nationalCardPicture;
+            }
             RoleId = roleId;
         }
 

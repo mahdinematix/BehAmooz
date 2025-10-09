@@ -44,13 +44,43 @@
                     <li>
                         <a class="waves-effect" asp-page="/Accounts/Account/Index"><i class="fa fa-user"></i><span> مدیریت کاربران </span><span class="pull-right"></span></a>
                     </li>
-
                 }
                 else
                 {
                     <li>
                         <a class="waves-effect" asp-page="/Accounts/Account/Index"><i class="fa fa-user"></i><span> مدیریت دانشجویان </span><span class="pull-right"></span></a>
                         
+                    </li>
+                }
+                
+                @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                {
+
+                    <li class="has_sub">
+                        <a class="waves-effect"><i class="fa fa-money"></i><span> مدیریت مالی </span>
+                    <span class="pull-right"><i class="md md-add"></i></span>
+
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a asp-page="/Financial/SettlementRequests">درخواست های تسویه حساب</a></li>
+                            <li><a asp-page="/Financial/Logs">تراکنش ها</a></li>
+                        </ul>
+
+                    </li>
+                }
+                else
+                {
+                    <li class="has_sub">
+                        <a class="waves-effect"><i class="fa fa-money"></i><span> مدیریت مالی </span>
+                            <span class="pull-right"><i class="md md-add"></i></span>
+
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a asp-page="/Financial/Wallet">کیف پول</a></li>
+                            <li><a asp-page="/Financial/ListCustomers">لیست مشتریان</a></li>
+                            <li><a asp-page="/Financial/Logs">تراکنش ها</a></li>
+                        </ul>
+
                     </li>
                 }
 

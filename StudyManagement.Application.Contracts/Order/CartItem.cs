@@ -3,6 +3,7 @@
     public class CartItem
     {
         public long Id { get; set; }
+        public long ClassId { get; set; }
         public int ClassDay { get; set; }
         public string ClassStartTime { get; set; }
         public string ClassEndTime { get; set; }

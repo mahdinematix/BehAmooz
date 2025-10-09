@@ -3,7 +3,7 @@
 public class ApplicationMessages
 {
     public const string DuplicatedRecord = "نام تکراری است. لطفا نام را تغییر دهید.";
-    public const string DuplicatedRecordNationalCodeOrCode = "کد ملی یا کد دانشجویی/استادی وارد شده تکراری است.";
+    public const string DuplicatedRecordNationalCodeOrCode = "کد ملی یا کد دانشجویی/استادی وارد شده در سیستم موجود است.";
     public const string NotFoundRecord = "رکوردی با اطلاعات درخواست شده یافت نشد. لطفا دوباره امتحان کنید.";
     public const string ASessionWithThatNumberExists = "جلسه ای باهمین شماره وجود دارد. لطفا مجدد تلاش کنید.";
     public const string StartTimeAndEndTimeHaveInterference = "ساعت شروع و پایان باهم تداخل دارند!";
@@ -17,5 +17,7 @@ public class ApplicationMessages
 
     public const string PaymentByCash =
         "سفارش شما با موفقیت ثبت شد. پس از تماس کارشناسان ما با شما، سفارش ارسال خواهد شد.";
-    }
+    public const string InvalidNationalCode = "کد ملی نامعتبر است.";
+
+}
 }

@@ -1,47 +1,35 @@
-ï»¿using _01_Framework.Infrastructure;
+using _01_Framework.Application;
+using _01_Framework.Infrastructure;
+using _02_Query.Contracts.Customer;
 using AccountManagement.Application.Contract.Account;
-using AccountManagement.Application.Contract.Role;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
+namespace ServiceHost.Areas.Administration.Pages.Financial
 {
-    public class EditModel : PageModel
+    public class ListCustomersModel : PageModel
     {
-        private readonly IAccountApplication _accountApplication;
-        private readonly IRoleApplication _roleApplication;
-        public EditAccount Command;
-        public SelectList Roles;
+        private readonly IAuthHelper _authHelper;
+        private readonly ICustomerQuery _customerQuery;
+
+        public List<CustomerQueryModel> Customers;
+        public CustomerSearchModel SearchModel;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
-        [TempData] public string Message { get; set; }
 
-        public EditModel(IAccountApplication accountApplication, IRoleApplication roleApplication)
+        public ListCustomersModel(ICustomerQuery customerQuery, IAuthHelper authHelper)
         {
-            _accountApplication = accountApplication;
-            _roleApplication = roleApplication;
+            _customerQuery = customerQuery;
+            _authHelper = authHelper;
         }
 
-        public void OnGet(long id)
+        public void OnGet(CustomerSearchModel searchModel)
         {
-            Command = _accountApplication.GetDetails(id);
-            Roles = new SelectList(_roleApplication.GetAllRoles(), "Id", "Name");
+            Customers = _customerQuery.GetCustomersByProfessorId(searchModel, _authHelper.CurrentAccountId());
             UniTypes = GetUniTypes();
             Unis = GetUnis();
         }
 
-        public IActionResult OnPost(EditAccount command)
-        {
-
-            var result = _accountApplication.Edit(command);
-            if (result.Result.IsSucceeded)
-            {
-                return RedirectToPage("./Index");
-            }
-            Message = result.Result.Message;
-            return RedirectToPage("./Edit");
-        }
 
         private List<SelectListItem> GetUnis(int typeId = 1)
         {
@@ -58,7 +46,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "Ø¯Ø§Ù†Ø´Ú¯Ø§Ù‡ Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯"
+                Text = "ÏÇäÔÇå ÑÇ ÇäÊÎÇÈ ˜ä?Ï"
             };
 
             lstUnis.Insert(0, defItem);
@@ -81,12 +69,13 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "Ù†ÙˆØ¹ Ø¯Ø§Ù†Ø´Ú¯Ø§Ù‡ Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯"
+                Text = "äæÚ ÏÇäÔÇå ÑÇ ÇäÊÎÇÈ ˜ä?Ï"
             };
 
             lstCountries.Insert(0, defItem);
 
             return lstCountries;
         }
+
     }
 }

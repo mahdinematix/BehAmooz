@@ -33,12 +33,12 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
         public IActionResult OnPost(RegisterAccount command)
         {
             var result = _accountApplication.Register(command);
-            if (result.IsSucceeded)
+            if (result.Result.IsSucceeded)
             {
                 return RedirectToPage("./Index");
             }
 
-            Message = result.Message;
+            Message = result.Result.Message;
             return RedirectToPage("./Create");
 
         }

@@ -25,7 +25,7 @@ namespace StudyManagement.Application
 
             foreach (var cartItem in cart.Items)
             {
-                var orderItem = new OrderItem(cartItem.Id,cartItem.SessionPrice,cartItem.SessionNumber,cartItem.ProfessorFullName,cartItem.ClassStartTime,cartItem.ClassEndTime,cartItem.ClassDay,cartItem.CourseName);
+                var orderItem = new OrderItem(cartItem.Id,cartItem.SessionPrice,cartItem.SessionNumber,cartItem.ProfessorFullName,cartItem.ClassStartTime,cartItem.ClassEndTime,cartItem.ClassDay,cartItem.ClassId,cartItem.CourseName);
                 order.AddItem(orderItem);
             }
 
