@@ -1,3 +1,4 @@
+using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using Microsoft.AspNetCore.Mvc;
@@ -9,20 +10,53 @@ namespace ServiceHost.Pages
     public class RegisterModel : PageModel
     {
         private readonly IAccountApplication _accountApplication;
+        private readonly IAuthHelper _authHelper;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
         public RegisterAccount Command;
+        [TempData] public string RegisterMessage { get; set; }
 
-        public RegisterModel(IAccountApplication accountApplication)
+        public RegisterModel(IAccountApplication accountApplication, IAuthHelper authHelper)
         {
             _accountApplication = accountApplication;
+            _authHelper = authHelper;
         }
 
-        [TempData] public string RegisterMessage { get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+
+            if (_authHelper.IsAuthenticated())
+            {
+                var status = _authHelper.CurrentAccountStatus();
+                if (_authHelper.CurrentAccountRole() == Roles.Student)
+                {
+                    return RedirectToPage("/Index");
+                }
+                if (_authHelper.CurrentAccountRole() != Roles.Student)
+                {
+                    return RedirectToPage("/Index", new { area = "Administration" });
+                }
+
+                if (status == Statuses.Waiting)
+                {
+                    return RedirectToPage("/NotConfirmed");
+                }
+
+                if (status == Statuses.Rejected)
+                {
+                    return RedirectToPage("/Reject");
+                }
+
+            }
+            
+
+            Command = new RegisterAccount
+            {
+                RoleId = 3
+            };
             UniTypes = GetUniTypes();
             Unis = GetUnis();
+            return Page();
         }
 
         public IActionResult OnPost(RegisterAccount command)

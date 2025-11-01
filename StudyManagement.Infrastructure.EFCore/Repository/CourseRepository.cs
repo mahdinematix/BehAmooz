@@ -30,7 +30,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Major = x.Major,
                 UniversityType = x.UniversityType,
                 University = x.University,
-                Price = x.Price
+                Price = x.Price,
+                EducationLevel = x.EducationLevel
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
@@ -58,6 +59,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             {
                 query = query.Where(x => x.UniversityType == searchModel.UniversityType);
             }
+            if (searchModel.EducationLevel > 0)
+            {
+                query = query.Where(x => x.EducationLevel == searchModel.EducationLevel);
+            }
 
             return query.OrderByDescending(x => x.Id).ToList();
         }
@@ -74,7 +79,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Major = x.Major,
                 Price = x.Price,
                 UniversityType = x.UniversityType,
-                University = x.University
+                University = x.University,
+                EducationLevel = x.EducationLevel
             }).FirstOrDefault(x => x.Id == id);
         }
 

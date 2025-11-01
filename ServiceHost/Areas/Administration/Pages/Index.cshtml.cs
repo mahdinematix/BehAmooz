@@ -25,7 +25,7 @@ namespace ServiceHost.Areas.Administration.Pages
 
             if (status == Statuses.Rejected)
             {
-                return RedirectToPage("/Rejected");
+                return RedirectToPage("/Reject");
             }
 
             return Page();

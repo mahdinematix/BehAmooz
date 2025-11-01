@@ -15,5 +15,6 @@
         public int TotalSessions { get; set; }
         public int SessionPrice { get; set; }
         public int TotalAmount { get; set; }
+        public int EducationLevel { get; set; }
     }
 }

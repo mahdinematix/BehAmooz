@@ -1,4 +1,5 @@
-﻿using _01_Framework.Infrastructure;
+﻿using _01_Framework.Application;
+using _01_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,20 +10,34 @@ namespace ServiceHost.Areas.Administration.Pages.Course
     public class EditModel : PageModel
     {
         private readonly ICourseApplication _courseApplication;
+        private readonly IAuthHelper _authHelper;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
         public EditCourse Command;
         [TempData] public string Message { get; set; }
-        public EditModel(ICourseApplication courseApplication)
+        public EditModel(ICourseApplication courseApplication, IAuthHelper authHelper)
         {
             _courseApplication = courseApplication;
+            _authHelper = authHelper;
         }
 
-        public void OnGet(long id)
+        public IActionResult OnGet(long id)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Command = _courseApplication.GetDetails(id);
             UniTypes = GetUniTypes();
             Unis = GetUnis();
+            return Page();
         }
 
         public IActionResult OnPost(EditCourse command)
@@ -51,7 +66,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "دانشگاه را انتخاب کنید"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);
@@ -74,7 +89,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "نوع دانشگاه را انتخاب کنید"
+                Text = ApplicationMessages.SelectYourUniversityType
             };
 
             lstCountries.Insert(0, defItem);

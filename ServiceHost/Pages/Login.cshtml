@@ -13,7 +13,7 @@
                     <div class="page-content-wrapper">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 m-auto">
-                                @if (Model.LoginMessage != null)
+                                @if (!string.IsNullOrWhiteSpace(Model.LoginMessage))
                                 {
                                     <div class="alert alert-danger">@Model.LoginMessage</div>
                                 }
@@ -21,18 +21,21 @@
                                     <div class="login-form">
                                         <div class="row">
                                             <div class="col-md-12 col-12">
-                                                <label>کد ملی</label>
-                                                <input class="form-control" maxlength="10" type="text" name="nationalCode" placeholder="کد ملی">
+                                                <label asp-for="Command.NationalCode">کد ملی</label>
+                                                <input asp-for="Command.NationalCode" class="form-control" type="text" maxlength="10" placeholder="کد ملی" autofocus>
+                                                <span asp-validation-for="Command.NationalCode" class="error"></span>
                                             </div>
                                             <div class="col-12">
-                                                <label>کلمه عبور</label>
-                                                <input class="form-control" type="password" name="password" placeholder="کلمه عبور">
+                                                <label asp-for="Command.Password">کلمه عبور</label>
+                                                <input asp-for="Command.Password" class="form-control" type="password" placeholder="کلمه عبور">
+                                                <span asp-validation-for="Command.Password" class="error"></span>
+
                                             </div>
                                             <div class="col-md-12 col-12 text-center">
                                                 <button type="submit" class="btn btn-primary w-100">ورود</button>
                                             </div>
                                             <div class="col-md-12 col-12 text-center">
-                                                <a asp-page="ForgetPassword" class="btn btn-danger mt-3 d-block">فراموشی رمز عبور</a>
+                                                <a asp-page="ForgetNewPassword" class="btn btn-danger mt-3 d-block">فراموشی رمز عبور</a>
 
                                             </div>
                                             <div class="col-md-12 col-12 text-center">
@@ -49,3 +52,15 @@
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script src="~/adminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        });
+    </script>
+}

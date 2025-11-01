@@ -16,9 +16,16 @@
     }
 
 }
+<div class="alert alert-info">اگر لیست دانشگاه برای شما دچار مشکل شد کافیست لیست نوع دانشگاه را یکبار تغییر دهید و مجددا آنرا انتخاب کنید.</div>
 @if (!string.IsNullOrWhiteSpace(Model.Message))
 {
     <div class="alert alert-danger">@Model.Message</div>
+}
+
+@if (AuthHelper.CurrentAccountRole() == Roles.Professor)
+{
+    <div class="alert alert-warning">توجه داشته باشید که در صورت ویرایش، وضعیت اکانت دانشجو به حالت "درانتظار" درخواهد آمد و برای دسترسی مجدد، باید منتظر تایید مدیر سیستم بماند.</div>
+
 }
 
 <div class="row">
@@ -108,7 +115,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <div class="form-group">
                                     <label asp-for="Command.Major" class="control-label">رشته</label>
@@ -117,6 +124,21 @@
                                     </select>
                                     <span asp-validation-for="Command.Major" class="error"></span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                <select class="form-control" asp-for="Command.EducationLevel">
+                                    <option value="0">مقطع تحصیلی</option>
+                                    <option value="@EducationLevels.Kardani">کاردانی</option>
+                                    <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                    <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                    <option value="@EducationLevels.Doktora">دکتری</option>
+                                    <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                    <option value="@EducationLevels.ProfessorOrAdmin">استاد هستم</option>
+                                </select>
+                                <span asp-validation-for="Command.EducationLevel" class="error"></span>
                             </div>
                         </div>
                     </div>
@@ -134,7 +156,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.University" class="control-label">دانشگاه</label>
-                                <select id="lstUnis" class="form-control select22" asp-for="Command.University" asp-items="Model.Unis" data-val="false" placeholder="دانشگاه">
+                                <select id="lstUnis" class="form-control select22" asp-for="Command.University" asp-items="Model.Unis" placeholder="دانشگاه">
                                 </select>
                                 <span asp-validation-for="Command.University" class="error"></span>
                             </div>

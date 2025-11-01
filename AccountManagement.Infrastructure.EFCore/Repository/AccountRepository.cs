@@ -29,7 +29,8 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 Code = x.Code,
                 University = x.UniversityId,
                 RoleId = x.RoleId,
-                UniversityType = x.UniversityTypeId
+                UniversityType = x.UniversityTypeId,
+                EducationLevel = x.EducationLevel
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -50,7 +51,8 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 RoleId = x.RoleId,
                 Role = x.Role.Name,
                 CreationDate = x.CreationDate.ToFarsi(),
-                Status = x.Status
+                Status = x.Status,
+                EducationLevel = x.EducationLevel
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Email))
@@ -94,6 +96,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             if (searchModel.Status > 0)
             {
                 query = query.Where(x => x.Status == searchModel.Status);
+            }
+            if (searchModel.EducationLevel > 0)
+            {
+                query = query.Where(x => x.EducationLevel == searchModel.EducationLevel);
             }
 
             return query.OrderByDescending(x => x.Id).ToList();
@@ -140,7 +146,8 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 UniversityTypeId = x.UniversityTypeId,
                 RoleId = x.RoleId,
                 CreationDate = x.CreationDate.ToFarsi(),
-                Status = x.Status
+                Status = x.Status,
+                EducationLevel = x.EducationLevel
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Email))
@@ -180,6 +187,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             if (searchModel.Status > 0)
             {
                 query = query.Where(x => x.Status == searchModel.Status);
+            }
+            if (searchModel.EducationLevel > 0)
+            {
+                query = query.Where(x => x.EducationLevel == searchModel.EducationLevel);
             }
 
             return query.OrderByDescending(x => x.Id).ToList();
@@ -201,7 +212,8 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 UniversityTypeId = x.UniversityTypeId,
                 RoleId = x.RoleId,
                 CreationDate = x.CreationDate.ToFarsi(),
-                Status = x.Status
+                Status = x.Status,
+                EducationLevel = x.EducationLevel
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Email))
@@ -241,6 +253,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             if (searchModel.Status > 0)
             {
                 query = query.Where(x => x.Status == searchModel.Status);
+            }
+            if (searchModel.EducationLevel > 0)
+            {
+                query = query.Where(x => x.EducationLevel == searchModel.EducationLevel);
             }
 
             return query.OrderByDescending(x => x.Id).ToList();

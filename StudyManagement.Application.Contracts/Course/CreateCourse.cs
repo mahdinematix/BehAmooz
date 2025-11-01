@@ -15,10 +15,15 @@ namespace StudyManagement.Application.Contracts.Course
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         [MaxLength(20,ErrorMessage = ValidationMessages.MaxLength)]
         public string Code { get; set; }
+        [Range(1,int.MaxValue,ErrorMessage = ValidationMessages.IsRequired)]
         public int Major { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
         public int UniversityType { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
         public int University { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
         public int Price { get; set; }
-
+        [Range(1, int.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
+        public int EducationLevel { get; set; }
     }
 }

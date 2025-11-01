@@ -1,24 +1,24 @@
 using _01_Framework.Application;
+using _01_Framework.Application.AwsServices;
 using _01_Framework.Application.Email;
 using _01_Framework.Application.Sms;
 using _01_Framework.Application.ZarinPal;
+using _01_Framework.Hubs;
 using _01_Framework.Infrastructure;
 using AccountManagement.Infrastructure.Configuration;
 using Amazon.S3;
 using MessageManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using ServiceHost;
-using ServiceHost.AwsServices;
-using ServiceHost.Hubs;
 using StudyManagement.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 // Add services to the container.
-services.AddTransient<IAuthHelper, AuthHelper>();
+services.AddScoped<IAuthHelper, AuthHelper>();
+services.AddMemoryCache();
 services.AddHttpContextAccessor();
 services.AddControllers();
 services.AddAWSService<IAmazonS3>();
@@ -30,7 +30,7 @@ services.AddRazorPages()
         options.Conventions.AuthorizeAreaFolder("Administration", "/", "AdminArea");
         options.Conventions.AuthorizeAreaFolder("Administration", "/Course", "Course");
         options.Conventions.AuthorizeAreaFolder("Administration", "/Message", "Message");
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
+        options.Conventions.AuthorizeAreaFolder("Administration", "/Account", "Account");
     });
 var connectionString = builder.Configuration.GetConnectionString("BehAmoozDb");
 
@@ -41,7 +41,7 @@ services.AddTransient<IPasswordHasher, PasswordHasher>();
 services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
 services.AddTransient<ISmsService, SmsService>();
 services.AddTransient<IEmailService, EmailService>();
-services.AddTransient<IFileManager, FileManager>();
+services.AddScoped<IFileManager, FileManager>();
 services.AddScoped<IStorageService, StorageService>();
 
 services.Configure<CookieTempDataProviderOptions>(options => {

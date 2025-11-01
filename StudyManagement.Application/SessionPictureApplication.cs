@@ -25,7 +25,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult Edit(EditSessionPicture command)
+        public async Task<OperationResult> Edit(EditSessionPicture command)
         {
             var operation = new OperationResult();
             var sessionPicture = _sessionPictureRepository.GetBy(command.Id);
@@ -33,8 +33,8 @@ namespace StudyManagement.Application
             {
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
-            var fileName = _fileManager.Upload(command.Picture, false);
-            sessionPicture.Edit(command.SessionId,fileName.ToString());
+            var fileName = await _fileManager.Upload(command.Picture, false);
+            sessionPicture.Edit(command.SessionId,fileName);
             _sessionPictureRepository.Save();
             return operation.Succeed();
         }

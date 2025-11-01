@@ -1,12 +1,15 @@
 ﻿@page "{sessionId}"
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
+@inject IAuthHelper AuthHelper
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Pages.SessionModel
 @{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = $"جلسه {Model.Session.Number} کلاس {Days.GetName(Model.Class.Day)} {Model.Class.StartTime} تا {Model.Class.EndTime} استاد {Model.Class.ProfessorFullName} درس {Model.Course.Name}";
 }
 
-@if (!Model.IsPaid)
+@if (!Model.IsPaid && AuthHelper.CurrentAccountRole() == Roles.Student)
 {
     <div class="row m-5" id="ProductCategoriesDiv">
         <div class="col-md-12">
@@ -145,7 +148,7 @@ else
                                             else
                                             {
                                                 <div>
-                                                    <a href="@Model.Session.Video"><span class="text-success">مشاهده و دانلود فیلم</span></a>
+                                                    <a href="@Model.Session.Video" target="_blank"><span class="btn btn-success">مشاهده و دانلود فیلم</span></a>
                                                 </div>
                                             }
                                             
@@ -159,7 +162,7 @@ else
                                             else
                                             {
                                                 <div>
-                                                    <a href="@Model.Session.Booklet"><span class="text-success">مشاهده و دانلود جزوه</span></a>
+                                                    <a href="@Model.Session.Booklet" target="_blank"><span class="btn btn-success">مشاهده و دانلود جزوه</span></a>
                                                 </div>
                                             }
                                         </div>

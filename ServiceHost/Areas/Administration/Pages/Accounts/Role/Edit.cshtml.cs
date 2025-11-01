@@ -1,3 +1,4 @@
+using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Role;
 using AccountManagement.Infrastructure.Configuration.Permission;
@@ -12,15 +13,28 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
         public EditRole Command;
         public List<SelectListItem> Permissions = new List<SelectListItem>();
         private readonly IRoleApplication _roleApplication;
+        private readonly IAuthHelper _authHelper;
         private readonly IEnumerable<IPermissionExposer> _exposers;
-        public EditModel(IRoleApplication roleApplication, IEnumerable<IPermissionExposer> exposers)
+        public EditModel(IRoleApplication roleApplication, IEnumerable<IPermissionExposer> exposers, IAuthHelper authHelper)
         {
             _roleApplication = roleApplication;
             _exposers = exposers;
+            _authHelper = authHelper;
         }
 
-        public void OnGet(long id)
+        public IActionResult OnGet(long id)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Command = _roleApplication.GetDetails(id);
             var permissions = new List<PermissionDto>();
             foreach (var exposer in _exposers)
@@ -48,6 +62,8 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
                     }
                 }
             }
+
+            return Page();
         }
 
         [NeedsPermissions(AccountPermissions.EditRole)]

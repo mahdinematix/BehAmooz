@@ -11,5 +11,6 @@
         public int University { get; set; }
         public int Price { get; set; }
         public bool IsActive { get; set; }
+        public int EducationLevel { get; set; }
     }
 }

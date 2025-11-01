@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nancy.Json;
 using StudyManagement.Application.Contracts.Order;
 using System.Globalization;
+using AccountManagement.Application.Contract.Wallet;
 
 namespace ServiceHost.Pages
 {
@@ -20,15 +21,18 @@ namespace ServiceHost.Pages
         private readonly IOrderApplication _orderApplication;
         private readonly IAuthHelper _authHelper;
         private readonly IZarinPalFactory _zarinPalFactory;
+        private readonly IWalletApplication _walletApplication;
+        [TempData] public string Message { get; set; }
 
         public CheckoutModel(ICartCalculatorService cartCalculatorService, ICartService cartService, IOrderApplication orderApplication, IAuthHelper authHelper,
-            IZarinPalFactory zarinPalFactory)
+            IZarinPalFactory zarinPalFactory, IWalletApplication walletApplication)
         {
             _cartCalculatorService = cartCalculatorService;
             _cartService = cartService;
             _orderApplication = orderApplication;
             _authHelper = authHelper;
             _zarinPalFactory = zarinPalFactory;
+            _walletApplication = walletApplication;
             Cart = new Cart();
         }
 
@@ -51,9 +55,9 @@ namespace ServiceHost.Pages
             //    return RedirectToPage("/NotConfirmed");
             //}
 
-            //if (status == Statuses.Rejected)
+            //if (status == Statuses.Reject)
             //{
-            //    return RedirectToPage("/Rejected");
+            //    return RedirectToPage("/Reject");
             //}
             var serializer = new JavaScriptSerializer();
             var value = Request.Cookies[CookieName];
@@ -92,7 +96,44 @@ namespace ServiceHost.Pages
 
             
             _orderApplication.PaymentSucceeded(orderId, 0);
+
+            var command = new BuyFromWalletDto
+            {
+                AccountId = _authHelper.CurrentAccountId(),
+                Amount = Convert.ToInt64(cart.TotalAmount)
+            };
+            _walletApplication.BuyFromGateway(command);
             
+            var paymentResult = new PaymentResult();
+            var serializer = new JavaScriptSerializer();
+            var value = Request.Cookies[CookieName];
+            Response.Cookies.Delete(CookieName);
+            var cartItems = serializer.Deserialize<List<CartItem>>(value);
+            cartItems.RemoveAll(x => x.SessionPrice > 0);
+            var options = new CookieOptions { Expires = DateTime.Now.AddDays(2), IsEssential = true, SameSite = SameSiteMode.Lax };
+            Response.Cookies.Append(CookieName, serializer.Serialize(cartItems), options);
+            return RedirectToPage("/PaymentResult",
+                paymentResult.Succeeded(ApplicationMessages.PaymentByCash, "0"));
+        }
+
+        public IActionResult OnPostPayWithWallet()
+        {
+            var cart = _cartService.Get();
+
+            var orderId = _orderApplication.PlaceOrder(cart);
+            var command = new BuyFromWalletDto
+            {
+                AccountId = _authHelper.CurrentAccountId(),
+                Amount = Convert.ToInt64(cart.TotalAmount)
+            };
+            var result = _walletApplication.BuyFromWallet(command);
+            if (!result.IsSucceeded)
+            {
+                Message = result.Message;
+                return RedirectToPage();
+            }
+            _orderApplication.PaymentSucceeded(orderId, 0);
+
             var paymentResult = new PaymentResult();
             var serializer = new JavaScriptSerializer();
             var value = Request.Cookies[CookieName];

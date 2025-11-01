@@ -1,4 +1,4 @@
-﻿namespace BlogManagement.Infrastructure.Configuration.Permission
+﻿namespace MessageManagement.Infrastructure.Configuration.Permission
 {
     public class MessagePermissions
     {

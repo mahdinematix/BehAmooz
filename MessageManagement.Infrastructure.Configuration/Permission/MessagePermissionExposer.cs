@@ -1,5 +1,4 @@
 ﻿using _01_Framework.Infrastructure;
-using BlogManagement.Infrastructure.Configuration.Permission;
 
 namespace MessageManagement.Infrastructure.Configuration.Permission
 {

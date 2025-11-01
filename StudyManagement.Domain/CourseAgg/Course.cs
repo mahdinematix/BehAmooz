@@ -13,11 +13,12 @@ namespace StudyManagement.Domain.CourseAgg
         public int UniversityType { get; set; }
         public int University { get; private set; }
         public int Price { get; private set; }
+        public int EducationLevel { get; set; }
         public bool IsActive { get; private set; }
         public ICollection<Class> Classes { get; private set; }
 
 
-        public Course(string name, int numberOfUnit, string courseKind, string code,int major,int universityType, int university, int price)
+        public Course(string name, int numberOfUnit, string courseKind, string code,int major,int universityType, int university, int price,int educationLevel)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;
@@ -29,9 +30,10 @@ namespace StudyManagement.Domain.CourseAgg
             IsActive = true;
             Classes = new List<Class>();
             Price = price;
+            EducationLevel = educationLevel;
         }
 
-        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major,int universityType, int university, int price)
+        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major,int universityType, int university, int price, int educationLevel)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;
@@ -41,6 +43,7 @@ namespace StudyManagement.Domain.CourseAgg
             UniversityType = universityType;
             University = university;
             Price = price;
+            EducationLevel = educationLevel;
         }
 
         public void Activate()

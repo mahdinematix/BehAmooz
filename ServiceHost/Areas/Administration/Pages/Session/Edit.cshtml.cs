@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,21 +12,35 @@ namespace ServiceHost.Areas.Administration.Pages.Session
         private readonly ISessionApplication _sessionApplication;
         private readonly IClassApplication _classApplication;
         private readonly IFileManager _fileManager;
+        private readonly IAuthHelper _authHelper;
         public EditSession Command;
         public ClassViewModel Class;
         [TempData] public string Message { get; set; }
 
-        public EditModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager)
+        public EditModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper)
         {
             _sessionApplication = sessionApplication;
             _classApplication = classApplication;
             _fileManager = fileManager;
+            _authHelper = authHelper;
         }
 
-        public void OnGet(long id, long classId)
+        public IActionResult OnGet(long id, long classId)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Command = _sessionApplication.GetDetails(id);
             Class = _classApplication.GetClassById(classId);
+            return Page();
         }
 
         public IActionResult OnPost(EditSession command, long classId)
@@ -42,8 +57,8 @@ namespace ServiceHost.Areas.Administration.Pages.Session
 
         public async Task<IActionResult> OnGetCancel(long classId)
         {
-            await _fileManager.Cancel();
-            Message = "›—«?‰œ ¬Å·Êœ »« „Ê›ﬁ?  ·€Ê ‘œ.";
+             _fileManager.Cancel();
+            Message = ApplicationMessages.UploadProgressCanceled;
             return RedirectToPage("./Create", new { classId = classId });
         }
     }

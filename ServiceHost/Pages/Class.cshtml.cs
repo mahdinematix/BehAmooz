@@ -31,7 +31,7 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() != Roles.Student)
+            if (_authHelper.CurrentAccountRole() == Roles.Professor)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }
@@ -43,7 +43,7 @@ namespace ServiceHost.Pages
 
             if (status == Statuses.Rejected)
             {
-                return RedirectToPage("/Rejected");
+                return RedirectToPage("/Reject");
             }
 
             Classes = _classQuery.GetClassesByCourseId(courseId);

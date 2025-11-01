@@ -36,7 +36,8 @@ namespace _01_Framework.Application
                 new Claim("NationalCode",account.NationalCode),
                 new Claim("Code",account.Code),
                 new Claim("permissions",permissions),
-                new Claim("Password",account.Password)
+                new Claim("Password",account.Password),
+                new Claim("EducationLevel", account.EducationLevel.ToString())
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -94,6 +95,8 @@ namespace _01_Framework.Application
             result.NationalCardPicture = claims.FirstOrDefault(x => x.Type == "NationalCardPicture").Value;
             result.Role = Roles.GetRoleBy(result.RoleId);
             result.Password = claims.FirstOrDefault(x => x.Type == "Password").Value;
+            result.EducationLevel = int.Parse(claims.FirstOrDefault(x => x.Type == "EducationLevel").Value);
+
 
             return result;
         }
@@ -120,6 +123,14 @@ namespace _01_Framework.Application
         {
             if (IsAuthenticated())
                 return int.Parse(_contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Status").Value);
+
+            return 0;
+        }
+
+        public int CurrentAccountEducationLevel()
+        {
+            if (IsAuthenticated())
+                return int.Parse(_contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "EducationLevel").Value);
 
             return 0;
         }

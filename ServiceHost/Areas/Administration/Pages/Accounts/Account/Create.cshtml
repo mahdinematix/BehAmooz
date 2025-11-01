@@ -109,7 +109,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <div class="form-group">
                                     <label asp-for="Command.Major" class="control-label">رشته</label>
@@ -118,6 +118,21 @@
                                     </select>
                                     <span asp-validation-for="Command.Major" class="error"></span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                <select class="form-control" asp-for="Command.EducationLevel">
+                                    <option value="0">مقطع تحصیلی</option>
+                                    <option value="@EducationLevels.Kardani">کاردانی</option>
+                                    <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                    <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                    <option value="@EducationLevels.Doktora">دکتری</option>
+                                    <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                    <option value="@EducationLevels.ProfessorOrAdmin">استاد هستم</option>
+                                </select>
+                                <span asp-validation-for="Command.EducationLevel" class="error"></span>
                             </div>
                         </div>
                     </div>
@@ -190,7 +205,7 @@
             $(".select22").select2();
         });
     </script>
-    
+
 
     <script>
         const inputPicture = document.getElementById('inputPicture');

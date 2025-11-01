@@ -1,4 +1,5 @@
-﻿using _01_Framework.Infrastructure;
+﻿using _01_Framework.Application;
+using _01_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -27,7 +28,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             var defItem = new SelectListItem
             {
                 Value = "0",
-                Text = "دانشگاه را انتخاب کنید"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);

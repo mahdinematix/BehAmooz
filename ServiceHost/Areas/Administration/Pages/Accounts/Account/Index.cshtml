@@ -87,6 +87,17 @@
                                 <option value="@Statuses.Rejected">رد</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label class="sr-only" asp-for="SearchModel.EducationLevel"></label>
+                            <select class="form-control" asp-for="SearchModel.EducationLevel" data-val="false" placeholder="مقطع تحصیلی">
+                                <option value="0">مقطع تحصیلی</option>
+                                <option value="@EducationLevels.Kardani">کاردانی</option>
+                                <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                <option value="@EducationLevels.Doktora">دکتری</option>
+                                <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
                         <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
                     </form>
@@ -117,6 +128,7 @@
                                         <th>دانشگاه</th>
                                         <th>موبایل</th>
                                         <th>ایمیل</th>
+                                        <th>مقطع</th>
                                         <th>وضعیت</th>
                                         <th>تاریخ ثبت نام</th>
                                         <th>عملیات</th>
@@ -136,6 +148,7 @@
                                             <td>@Universities.GetName(item.UniversityId)</td>
                                             <td>@item.PhoneNumber.Substring(0, 7) ...</td>
                                             <td>@item.Email.Substring(0, 7) ...</td>
+                                            <td>@EducationLevels.GetEducationLevelById(item.EducationLevel)</td>
                                             <td>
                                                 @if (item.Status == Statuses.Rejected)
                                                 {
@@ -174,6 +187,9 @@
                                                 {
                                                     <a permission="@AccountPermissions.ConfirmOrReject" class="btn btn-success pull-right m-rl-5" asp-page="./Index" asp-route-id="@item.Id" asp-page-handler="Confirm">تایید</a>
                                                 }
+                                                <a permission="@AccountPermissions.Logs" class="btn btn-primary pull-right m-rl-5" href="#showmodal=@Url.Page("./Index", "Log", new { id = item.Id})">
+                                                    <i class="fa fa-recycle"></i> تراکنش ها
+                                                </a>
 
                                             </td>
                                         </tr>

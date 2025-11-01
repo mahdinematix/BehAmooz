@@ -2,12 +2,15 @@
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@using StudyManagement.Application.Contracts
 @model ServiceHost.Pages.CheckoutModel
 @{
+    Layout = "Shared/_Layout";
     ViewData["Title"] = "تایید سبد خرید و پرداخت";
 }
-
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">@Model.Message <a class="text-primary text-decoration-underline" asp-page="Wallet">مشاهده موجودی</a></div>
+}
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
         <div class="row">
@@ -98,7 +101,8 @@
                                             
                                         </div>
                                         <div class="cart-summary-button">
-                                            <button class="checkout-btn" asp-page-handler="Pay">پرداخت</button>
+                                            <button class="checkout-btn" asp-page-handler="Pay">پرداخت مستقیم با درگاه اینترنتی</button>
+                                            <button class="checkout-btn" asp-page-handler="PayWithWallet">پرداخت از طریق کیف پول</button>
                                         </div>
                                     </div>
                                 </div>

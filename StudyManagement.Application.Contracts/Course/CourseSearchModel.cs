@@ -8,4 +8,6 @@ public class CourseSearchModel
     public int Major { get; set; }
     public int UniversityType { get; set; }
     public int University { get; set; }
+    public int EducationLevel { get; set; }
+
 }

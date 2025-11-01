@@ -16,4 +16,5 @@ public class CourseViewModel
     public string CreationDate { get; set; }
     public bool IsActive { get; set; }
     public long ClassesCount { get; set; }
+    public int EducationLevel { get; set; }
 }

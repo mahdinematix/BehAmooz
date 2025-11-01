@@ -1,4 +1,5 @@
 ﻿using AccountManagement.Domain.AccountAgg;
+using AccountManagement.Domain.WalletAgg;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,6 +23,7 @@ namespace AccountManagement.Infrastructure.EFCore.Mapping
 
 
             builder.HasOne(x => x.Role).WithMany(x => x.Accounts).HasForeignKey(x => x.RoleId);
+            builder.HasOne(x => x.Wallet).WithOne(x => x.Account).HasForeignKey<Wallet>(x => x.AccountId);
 
         }
     }

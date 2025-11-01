@@ -1,3 +1,4 @@
+using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,22 +10,36 @@ namespace ServiceHost.Areas.Administration.Pages.Course
     public class IndexModel : PageModel
     {
         private readonly ICourseApplication _courseApplication;
+        private readonly IAuthHelper _authHelper;
 
         public CourseSearchModel SearchModel;
         public List<CourseViewModel> Courses;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
 
-        public IndexModel(ICourseApplication courseApplication)
+        public IndexModel(ICourseApplication courseApplication, IAuthHelper authHelper)
         {
             _courseApplication = courseApplication;
+            _authHelper = authHelper;
         }
 
-        public void OnGet(CourseSearchModel searchModel)
+        public IActionResult OnGet(CourseSearchModel searchModel)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Courses = _courseApplication.Search(searchModel);
             UniTypes = GetUniTypes();
             Unis = GetUnis();
+            return Page();
         }
 
         public IActionResult OnGetActivate(long id)
@@ -54,7 +69,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "œ«‰‘ê«Â —« «‰ Œ«» ò‰?œ"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);
@@ -77,7 +92,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "‰Ê⁄ œ«‰‘ê«Â —« «‰ Œ«» ò‰?œ"
+                Text = ApplicationMessages.SelectYourUniversityType
             };
 
             lstCountries.Insert(0, defItem);

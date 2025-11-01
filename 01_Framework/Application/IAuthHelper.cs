@@ -9,7 +9,8 @@ namespace _01_Framework.Application
         string CurrentAccountRole();
         AuthViewModel GetAccountInfo();
         List<int> GetPermissions();
-        long CurrentAccountId();
-        public int CurrentAccountStatus();
+        long CurrentAccountId(); 
+        int CurrentAccountStatus();
+        int CurrentAccountEducationLevel();
     }
 }

@@ -1,8 +1,11 @@
 ﻿@page
+@using _01_Framework.Application
 @using _01_Framework.Infrastructure
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Pages.RegisterModel
 @{
+    ViewData["Title"] = "ثبت نام";
+    Layout = "Shared/_Layout";
 }
 @section Css
 {
@@ -27,7 +30,7 @@
                     <div class="page-content-wrapper">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 m-auto">
-                                @if (Model.RegisterMessage != null)
+                                @if (!string.IsNullOrWhiteSpace(Model.RegisterMessage))
                                 {
                                     <div class="alert alert-danger">@Model.RegisterMessage</div>
                                 }
@@ -36,13 +39,26 @@
                                         <div class="row">
                                             <div class="col-12 mb-20">
                                                 <div class="text-center form-check">
-                                                    <input type="radio" class="btn-check" value="@Roles.Student" name="roleId" id="student" autocomplete="off" checked>
-                                                    <label class="btn btn-outline-primary" for="student">دانشجو هستم</label>
+                                                    <input type="radio"
+                                                           class="btn-check"
+                                                           name="Command.RoleId"
+                                                           id="roleStudent"
+                                                           value="@Roles.Student"
+                                                           autocomplete="off"
+                                                           @(Model.Command.RoleId == 3 ? "checked" : "")>
+                                                    <label class="btn btn-outline-primary" for="roleStudent">دانشجو هستم</label>
 
-                                                    <input type="radio" class="btn-check" value="@Roles.Professor" name="roleId" id="proffessor" autocomplete="off">
-                                                    <label class="btn btn-outline-danger" for="proffessor">استاد هستم</label>
+                                                    <input type="radio"
+                                                           class="btn-check"
+                                                           name="Command.RoleId"
+                                                           id="roleProfessor"
+                                                           value="@Roles.Professor"
+                                                           autocomplete="off"
+                                                           @(Model.Command.RoleId == 2 ? "checked" : "")>
+                                                    <label class="btn btn-outline-danger" for="roleProfessor">استاد هستم</label>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label class="control-label" asp-for="Command.FirstName">نام <span class="red-star">*</span></label>
                                                 <input class="form-control" maxlength="150" type="text" asp-for="Command.FirstName" placeholder="نام">
@@ -98,7 +114,19 @@
                                                 <label class="control-label" asp-for="Command.PhoneNumber">موبایل <span class="red-star">*</span></label>
                                                 <input class="form-control" maxlength="11" type="text" asp-for="Command.PhoneNumber" placeholder="موبایل">
                                                 <span asp-validation-for="Command.PhoneNumber" class="error"></span>
-
+                                            </div>
+                                            <div id="educationLevelWrapper" class="col-md-6 col-12 mb-20">
+                                                <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                                <select id="educationLevelSelect" class="form-control" asp-for="Command.EducationLevel">
+                                                    <option value="0">مقطع تحصیلی</option>
+                                                    <option value="@EducationLevels.Kardani">کاردانی</option>
+                                                    <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                                    <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                                    <option value="@EducationLevels.Doktora">دکتری</option>
+                                                    <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                                    <option value="@EducationLevels.ProfessorOrAdmin">استاد هستم</option>
+                                                </select>
+                                                <span asp-validation-for="Command.EducationLevel" class="error"></span>
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label class="control-label" asp-for="Command.Email">ایمیل <span class="red-star">*</span></label>
@@ -168,4 +196,34 @@
             }
         });
     </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleProfessorRadio = document.getElementById('roleProfessor');
+            const roleStudentRadio = document.getElementById('roleStudent');
+            const educationLevelWrapper = document.getElementById('educationLevelWrapper');
+            const educationLevelSelect = document.getElementById('educationLevelSelect');
+            const professorEducationLevelValue = '6';
+            const professorOption = educationLevelSelect.querySelector(`option[value='${professorEducationLevelValue}']`);
+
+
+            function updateEducationLevelAndVisibility() {
+                if (roleProfessorRadio.checked) {
+                    educationLevelSelect.value = professorEducationLevelValue;
+                    educationLevelWrapper.style.display = 'none';
+                } else if (roleStudentRadio.checked) {
+                    educationLevelSelect.value = '0';
+                    educationLevelWrapper.style.display = 'block'; 
+                    professorOption.style.display = 'none';
+                }
+            }
+
+            roleProfessorRadio.addEventListener('change', updateEducationLevelAndVisibility);
+            roleStudentRadio.addEventListener('change', updateEducationLevelAndVisibility);
+
+            updateEducationLevelAndVisibility();
+        });
+    </script>
+
+
 }

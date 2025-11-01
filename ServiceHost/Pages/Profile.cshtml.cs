@@ -29,6 +29,11 @@ namespace ServiceHost.Pages
             {
                 return RedirectToPage("/Login");
             }
+
+            if (_authHelper.CurrentAccountRole()!=Roles.Student)
+            {
+                return RedirectToPage("/Profile", new { area = "Administration" });
+            }
             UniTypes = GetUniTypes();
             Unis = GetUnis();
             var id = _authHelper.CurrentAccountId();
@@ -50,6 +55,18 @@ namespace ServiceHost.Pages
             _accountApplication.Logout();
             _accountApplication.Login(loginDto);
             return RedirectToPage("./Profile");
+        }
+
+        public IActionResult OnGetChangePassword(long id)
+        {
+            var command = new ChangePassword { Id = id };
+            return Partial("ChangePassword", command);
+        }
+
+        public JsonResult OnPostChangePassword(ChangePassword command)
+        {
+            var result = _accountApplication.ChangePasswordByUser(command);
+            return new JsonResult(result);
         }
 
         private List<SelectListItem> GetUnis(int typeId = 1)

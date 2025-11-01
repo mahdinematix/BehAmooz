@@ -29,11 +29,23 @@ namespace ServiceHost.Areas.Administration.Pages.Class
             _authHelper = authHelper;
         }
 
-        public void OnGet(ClassSearchModel searchModel, long courseId)
+        public IActionResult OnGet(ClassSearchModel searchModel, long courseId)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Classes = _classApplication.Search(searchModel, courseId);
             Course = _courseApplication.GetByCourseId(courseId);
             Professors = new SelectList(_accountApplication.GetProfessors(), "Id", "FullName");
+            return Page();
         }
 
         public IActionResult OnGetActivate(long id)
@@ -50,13 +62,12 @@ namespace ServiceHost.Areas.Administration.Pages.Class
 
         public IActionResult OnGetCopy(long id)
         {
-            var courseId = _classApplication.GetClassById(id).CourseId;
             CopyClass command;
             if (_authHelper.CurrentAccountRole() == Roles.Professor)
             {
                 command = new CopyClass
                 {
-                    Classes = _classApplication.GetClassesForCopy(courseId,id),
+                    Classes = _classApplication.GetClassesForCopy(id),
                     ClassCode = _classApplication.GetClassCodeById(id),
                     ClassId = id
                 };

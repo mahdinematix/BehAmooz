@@ -8,5 +8,6 @@ public class CustomerSearchModel
     public string ClassCode { get; set; }
     public int ClassDay { get; set; }
     public string ClassStartTime { get; set; }
+    public int EducationLevel { get; set; }
 }
 

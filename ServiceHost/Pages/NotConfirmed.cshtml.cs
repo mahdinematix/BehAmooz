@@ -16,12 +16,6 @@ namespace ServiceHost.Pages
 
         public IActionResult OnGet()
         {
-            StatusChecker();
-            return Page();
-        }
-
-        private IActionResult StatusChecker()
-        {
             var status = _authHelper.CurrentAccountStatus();
 
             if (!_authHelper.IsAuthenticated())
@@ -31,14 +25,19 @@ namespace ServiceHost.Pages
 
             if (status == Statuses.Rejected)
             {
-                return RedirectToPage("/Rejected");
+                return RedirectToPage("/Reject");
             }
 
-            if (status == Statuses.Confirmed)
+            if (status == Statuses.Confirmed && _authHelper.CurrentAccountRole()== Roles.Student)
             {
                 return RedirectToPage("/Index");
             }
 
+
+            if (status == Statuses.Confirmed && _authHelper.CurrentAccountRole() != Roles.Student)
+            {
+                return RedirectToPage("/Index", new { area = "Administration" });
+            }
             return Page();
         }
     }

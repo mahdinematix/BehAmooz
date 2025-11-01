@@ -1,4 +1,5 @@
 ﻿@page
+@using _01_Framework.Application
 @using _01_Framework.Infrastructure
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Course.CreateModel
@@ -27,7 +28,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="Command.Price" class="control-label">قیمت هر جلسه</label>
+                                <label asp-for="Command.Price" class="control-label">قیمت هر جلسه (تومان)</label>
                                 <input type="text" class="form-control" asp-for="Command.Price" />
                                 <span asp-validation-for="Command.Price" class="error"></span>
                             </div>
@@ -48,6 +49,22 @@
                                     <option value="0">رشته درس را انتخاب کنید ...</option>
                                 </select>
                                 <span asp-validation-for="Command.Major" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                <select class="form-control" asp-for="Command.EducationLevel">
+                                    <option value="0">مقطع تحصیلی</option>
+                                    <option value="@EducationLevels.Kardani">کاردانی</option>
+                                    <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                    <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                    <option value="@EducationLevels.Doktora">دکتری</option>
+                                    <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                </select>
+                                <span asp-validation-for="Command.EducationLevel" class="error"></span>
                             </div>
                         </div>
                     </div>

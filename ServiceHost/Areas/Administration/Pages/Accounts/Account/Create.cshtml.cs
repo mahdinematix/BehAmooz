@@ -1,9 +1,11 @@
+using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Application.Contract.Role;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
 {
@@ -11,23 +13,38 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
     {
         private readonly IAccountApplication _accountApplication;
         private readonly IRoleApplication _roleApplication;
+        private readonly IAuthHelper _authHelper;
         public RegisterAccount Command;
         public SelectList Roles;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
-        public CreateModel(IAccountApplication accountApplication, IRoleApplication roleApplication)
+        public CreateModel(IAccountApplication accountApplication, IRoleApplication roleApplication, IAuthHelper authHelper)
         {
             _accountApplication = accountApplication;
             _roleApplication = roleApplication;
+            _authHelper = authHelper;
         }
 
         [TempData]
         public string Message { get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Roles = new SelectList(_roleApplication.GetAllRoles(), "Id", "Name");
             UniTypes = GetUniTypes();
             Unis = GetUnis();
+
+            return Page();
         }
 
         public IActionResult OnPost(RegisterAccount command)
@@ -58,7 +75,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "œ«‰‘ê«Â —« «‰ Œ«» ò‰?œ"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);
@@ -81,7 +98,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "‰Ê⁄ œ«‰‘ê«Â —« «‰ Œ«» ò‰?œ"
+                Text = ApplicationMessages.SelectYourUniversityType
             };
 
             lstCountries.Insert(0, defItem);

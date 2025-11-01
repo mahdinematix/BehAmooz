@@ -1,4 +1,5 @@
-﻿using _01_Framework.Infrastructure;
+﻿using _01_Framework.Application;
+using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Application.Contract.Role;
 using Microsoft.AspNetCore.Mvc;
@@ -11,24 +12,46 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
     {
         private readonly IAccountApplication _accountApplication;
         private readonly IRoleApplication _roleApplication;
+        private readonly IAuthHelper _authHelper;
         public EditAccount Command;
         public SelectList Roles;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
         [TempData] public string Message { get; set; }
 
-        public EditModel(IAccountApplication accountApplication, IRoleApplication roleApplication)
+        public EditModel(IAccountApplication accountApplication, IRoleApplication roleApplication, IAuthHelper authHelper)
         {
             _accountApplication = accountApplication;
             _roleApplication = roleApplication;
+            _authHelper = authHelper;
         }
 
-        public void OnGet(long id)
+        public IActionResult OnGet(long id)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Command = _accountApplication.GetDetails(id);
+            if (Command.RoleId == 2 || Command.RoleId == 1)
+            {
+                if (_authHelper.CurrentAccountRole()!=_01_Framework.Infrastructure.Roles.Administrator)
+                {
+                    return RedirectToPage("/Accounts/Account/Index");
+                }
+            }
             Roles = new SelectList(_roleApplication.GetAllRoles(), "Id", "Name");
             UniTypes = GetUniTypes();
             Unis = GetUnis();
+
+            return Page();
         }
 
         public IActionResult OnPost(EditAccount command)
@@ -58,7 +81,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "دانشگاه را انتخاب کنید"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);
@@ -81,7 +104,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "نوع دانشگاه را انتخاب کنید"
+                Text = ApplicationMessages.SelectYourUniversityType
             };
 
             lstCountries.Insert(0, defItem);

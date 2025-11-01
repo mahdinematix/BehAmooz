@@ -8,6 +8,7 @@
         public const int EditAccount = 62;
         public const int ChangePassword = 63;
         public const int ConfirmOrReject = 64;
+        public const int Logs = 65;
 
 
         //Role

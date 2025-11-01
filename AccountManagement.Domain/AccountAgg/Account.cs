@@ -1,6 +1,7 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Domain;
 using AccountManagement.Domain.RoleAgg;
+using AccountManagement.Domain.WalletAgg;
 
 namespace AccountManagement.Domain.AccountAgg
 {
@@ -18,11 +19,12 @@ namespace AccountManagement.Domain.AccountAgg
         public int MajorId { get; private set; }
         public string NationalCardPicture { get; private set; }
         public int Status { get; private set; }
+        public int EducationLevel { get; private set; }
         public Role Role { get; set; }
         public long RoleId { get; private set; }
+        public Wallet Wallet { get; private set; }
 
-
-        public Account(string firstName, string lastName, string password, string email, string phoneNumber, string nationalCode, string code, int universityTypeId, int universityId, int majorId, string nationalCardPicture, long roleId)
+        public Account(string firstName, string lastName, string password, string email, string phoneNumber, string nationalCode, string code, int universityTypeId, int universityId, int majorId, string nationalCardPicture, long roleId, int educationLevel)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -37,9 +39,10 @@ namespace AccountManagement.Domain.AccountAgg
             NationalCardPicture = nationalCardPicture;
             Status = Statuses.Waiting;
             RoleId = roleId;
+            EducationLevel = educationLevel;
         }
 
-        public void Edit(string firstName, string lastName, string email, string phoneNumber, string nationalCode, string code, int universityType, int university, int major, string nationalCardPicture, long roleId)
+        public void Edit(string firstName, string lastName, string email, string phoneNumber, string nationalCode, string code, int universityType, int university, int major, string nationalCardPicture, long roleId, int educationLevel)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -55,6 +58,7 @@ namespace AccountManagement.Domain.AccountAgg
                 NationalCardPicture = nationalCardPicture;
             }
             RoleId = roleId;
+            EducationLevel = educationLevel;
         }
 
         public void Confirm()

@@ -1,0 +1,55 @@
+﻿@using _01_Framework.Application
+@model List<AccountManagement.Application.Contract.Wallet.SettlementRequestViewModel>
+@{
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">تراکنش های کاربر </h4>
+</div>
+
+<div class="modal-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>شماره کارت یا شبا</th>
+                <th>مبلغ (تومان)</th>
+                <th>وضعیت</th>
+                <th>توضیحات</th>
+                <th>تاریخ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CreditCardNo</td>
+                    <td>@item.Amount.ToMoney()</td>
+                    <td>
+                        @if (item.Status == TransactionStatuses.Rejected)
+                        {
+                            <span class="text-danger">رد شده</span>
+                        }
+                        @if (item.Status == TransactionStatuses.Paid)
+                        {
+                            <span class="text-success">واریز شده</span>
+                        }
+                        @if (item.Status == TransactionStatuses.Pending)
+                        {
+                            <span class="text-warning">در انتظار پرداخت</span>
+                        }
+                        @if (item.Status == TransactionStatuses.Canceled)
+                        {
+                            <span class="text-danger">لغو شده</span>
+                        }
+                    </td>
+                    <td>@item.Description</td>
+                    <td>@item.CreationDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+</div>

@@ -10,46 +10,60 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
     public class EditModel : PageModel
     {
         private readonly ISessionApplication _sessionApplication;
+        private readonly IFileManager _fileManager;
         private readonly ISessionPictureApplication _sessionPictureApplication;
         private readonly IClassApplication _classApplication;
-        private readonly IFileManager _FileManager;
+        private readonly IAuthHelper _authHelper;
         public EditSessionPicture Command;
         public SessionViewModel Session;
         public ClassViewModel Class;
         [TempData] public string Message { get; set; }
 
-        public EditModel(ISessionApplication sessionApplication, ISessionPictureApplication sessionPictureApplication, IClassApplication classApplication, IFileManager fileManager)
+        public EditModel(ISessionApplication sessionApplication, ISessionPictureApplication sessionPictureApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper)
         {
             _sessionApplication = sessionApplication;
             _sessionPictureApplication = sessionPictureApplication;
             _classApplication = classApplication;
-            _FileManager = fileManager;
+            _fileManager = fileManager;
+            _authHelper = authHelper;
         }
 
-        public void OnGet(long id, long sessionId)
+        public IActionResult OnGet(long id, long sessionId)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Command = _sessionPictureApplication.GetDetails(id);
             Session = _sessionApplication.GetBySessionId(sessionId);
             Class = _classApplication.GetClassById(Session.ClassId);
+            return Page();
         }
 
-        public IActionResult OnPost(EditSessionPicture command, long sessionId)
+        public IActionResult OnPost(EditSessionPicture command)
         {
-            command.SessionId = sessionId;
             var result = _sessionPictureApplication.Edit(command);
-            if (result.IsSucceeded)
+            if (result.Result.IsSucceeded)
             {
-                return RedirectToPage("./Index", new { sessionId = sessionId });
+                return RedirectToPage("./Index", new { sessionId = command.SessionId });
             }
-            Message = result.Message;
-            return RedirectToPage("./Edit", new { sessionId = sessionId });
+            Message = result.Result.Message;
+            return RedirectToPage("./Edit", new { sessionId = command.SessionId });
         }
 
-        public async Task<IActionResult> OnGetCancel(long classId)
+        public async Task<IActionResult> OnGetCancel(long sessionId,long id)
         {
-            await _FileManager.Cancel();
-            Message = "›—«?‰œ ¬Å·Êœ »« „Ê›ﬁ?  ·€Ê ‘œ.";
-            return RedirectToPage("./Create", new { classId = classId });
+             _fileManager.Cancel();
+            Message = ApplicationMessages.UploadProgressCanceled;
+            return RedirectToPage("./Edit", new { sessionId, id });
         }
+
     }
 }

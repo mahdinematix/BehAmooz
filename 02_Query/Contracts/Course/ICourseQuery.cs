@@ -2,7 +2,7 @@
 {
     public interface ICourseQuery
     {
-        List<CourseQueryModel> GetCourses();
+        List<CourseQueryModel> Search(CourseSearchModel searchModel);
         string GetCourseNameById(long courseId);
     }
 }

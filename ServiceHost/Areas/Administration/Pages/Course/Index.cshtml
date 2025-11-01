@@ -58,6 +58,17 @@
                             <option value="عملی">عملی</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.EducationLevel"></label>
+                        <select class="form-control" asp-for="SearchModel.EducationLevel" data-val="false" placeholder="مقطع تحصیلی">
+                            <option value="0">مقطع تحصیلی</option>
+                            <option value="@EducationLevels.Kardani">کاردانی</option>
+                            <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                            <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                            <option value="@EducationLevels.Doktora">دکتری</option>
+                            <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
                     <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
                 </form>
@@ -85,6 +96,7 @@
                                     <th>دانشگاه</th>
                                     <th>تعداد واحد</th>
                                     <th>نوع درس</th>
+                                    <th>مقطع</th>
                                     <th>تعداد کلاس</th>
                                     <th>قیمت هر جلسه</th>
                                     <th>وضعیت</th>
@@ -103,6 +115,7 @@
                                         <td>@Universities.GetName(item.University)</td>
                                         <td>@item.NumberOfUnit</td>
                                         <td>@item.CourseKind</td>
+                                        <td>@EducationLevels.GetEducationLevelById(item.EducationLevel)</td>
                                         <td>@item.ClassesCount</td>
                                         <td>@item.Price.ToMoney() تومان</td>
                                         <td>

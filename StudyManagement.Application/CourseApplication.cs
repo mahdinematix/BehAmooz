@@ -1,5 +1,4 @@
 ﻿using _01_Framework.Application;
-using _01_Framework.Infrastructure;
 using StudyManagement.Application.Contracts.Course;
 using StudyManagement.Domain.CourseAgg;
 
@@ -8,18 +7,16 @@ namespace StudyManagement.Application
     public class CourseApplication : ICourseApplication
     {
         private readonly ICourseRepository _courseRepository;
-        private readonly IAuthHelper _authHelper;
 
-        public CourseApplication(ICourseRepository courseRepository, IAuthHelper authHelper)
+        public CourseApplication(ICourseRepository courseRepository)
         {
             _courseRepository = courseRepository;
-            _authHelper = authHelper;
         }
 
         public OperationResult Create(CreateCourse command)
         {
             var operation = new OperationResult();
-            if (_courseRepository.Exists(x => x.Name == command.Name))
+            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.EducationLevel == command.EducationLevel))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
@@ -29,7 +26,7 @@ namespace StudyManagement.Application
             }
 
 
-            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price);
+            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price,command.EducationLevel);
             _courseRepository.Create(course);
             _courseRepository.Save();
             return operation.Succeed();
@@ -44,13 +41,13 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
 
-            if (_courseRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
+            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.Id != command.Id))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
 
-            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price);
+            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price, command.EducationLevel);
             _courseRepository.Save();
             return operation.Succeed();
         }

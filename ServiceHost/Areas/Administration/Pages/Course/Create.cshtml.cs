@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,19 +12,33 @@ namespace ServiceHost.Areas.Administration.Pages.Course
     {
         public CreateCourse Command;
         private readonly ICourseApplication _courseApplication;
+        private readonly IAuthHelper _authHelper;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
 
-        public CreateModel(ICourseApplication courseApplication)
+        public CreateModel(ICourseApplication courseApplication, IAuthHelper authHelper)
         {
             _courseApplication = courseApplication;
+            _authHelper = authHelper;
         }
 
         [TempData] public string Message { get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             UniTypes = GetUniTypes();
             Unis = GetUnis();
+            return Page();
         }
 
         public IActionResult OnPost(CreateCourse command)
@@ -51,7 +67,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "œ«‰‘ê«Â —« «‰ Œ«» ò‰?œ"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);
@@ -74,7 +90,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "‰Ê⁄ œ«‰‘ê«Â —« «‰ Œ«» ò‰?œ"
+                Text = ApplicationMessages.SelectYourUniversityType
             };
 
             lstCountries.Insert(0, defItem);

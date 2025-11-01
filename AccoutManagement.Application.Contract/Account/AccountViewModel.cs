@@ -16,4 +16,5 @@ public class AccountViewModel
     public string Role { get; set; }
     public string CreationDate { get; set; }
     public int Status { get; set; }
+    public int EducationLevel { get; set; }
 }

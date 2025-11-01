@@ -18,6 +18,7 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.2.2" />
     <PackageReference Include="AWSSDK.S3" Version="4.0.6.12" />
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -28,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\01_Framework\01_Framework.csproj" />
     <ProjectReference Include="..\02_Query\02_Query.csproj" />
     <ProjectReference Include="..\AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\MessageManagement.Infrastructure.Configuration\MessageManagement.Infrastructure.Configuration.csproj" />

@@ -2,7 +2,6 @@
 using AccountManagement.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using StudyManagement.Infrastructure.EFCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace _02_Query.Query
 {
@@ -19,14 +18,12 @@ namespace _02_Query.Query
 
         public List<CustomerQueryModel> GetCustomersByProfessorId(CustomerSearchModel searchModel, long professorId)
         {
-            // گرفتن کلاس‌های استاد
             var classes = _studyContext.Classes
                 .Where(c => c.ProfessorId == professorId && c.IsActive)
                 .Include(c => c.Course)
                 .ToList();
 
 
-            // گرفتن سفارشاتی که شامل کلاس‌های استاد هستند و پرداخت شده‌اند
             var ordersWithItems = _studyContext.Orders
                 .Where(o => o.IsPayed)
                 .Include(o => o.Items)
@@ -37,7 +34,6 @@ namespace _02_Query.Query
                 .Where(i => classes.Any(c => c.Id == i.ClassId))
                 .ToList();
 
-            // گرفتن شناسه دانشجویان
             var accountIds = orderItemsForClasses
                 .Select(i => i.Order.AccountId)
                 .ToList();
@@ -46,7 +42,6 @@ namespace _02_Query.Query
                 .Where(a => accountIds.Contains(a.Id))
                 .ToList();
 
-            // ساخت مدل ویو
             var customers = new List<CustomerQueryModel>();
 
             var groupedItems = orderItemsForClasses
@@ -65,7 +60,6 @@ namespace _02_Query.Query
                 var sessionCounts = new Dictionary<int, int>();
                 for (int i = 1; i <= 16; i++)
                 {
-                    // مجموع تعداد جلسات هر شماره جلسه برای آن دانشجو و کلاس
                     sessionCounts[i] = group.Count(it => it.SessionNumber == i);
                 }
 
@@ -87,7 +81,8 @@ namespace _02_Query.Query
                     SessionCounts = sessionCounts,
                     TotalSessions = totalSessions,
                     SessionPrice = sessionPrice,
-                    TotalAmount = totalAmount
+                    TotalAmount = totalAmount,
+                    EducationLevel = account.EducationLevel
                 });
             }
 
@@ -125,7 +120,10 @@ namespace _02_Query.Query
             {
                 customers = customers.Where(x => x.UniversityId == searchModel.UniversityId).ToList();
             }
-
+            if (searchModel.EducationLevel > 0)
+            {
+                customers = customers.Where(x => x.EducationLevel == searchModel.EducationLevel).ToList();
+            }
 
             return customers;
         }

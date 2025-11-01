@@ -1,6 +1,8 @@
-﻿using _01_Framework.Infrastructure;
+﻿using _01_Framework.Application;
+using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Application.Contract.Role;
+using AccountManagement.Application.Contract.Wallet;
 using AccountManagement.Infrastructure.Configuration.Permission;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,21 +20,37 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
         private readonly IAccountApplication _accountApplication;
+        private readonly IAuthHelper _authHelper;
         private readonly IRoleApplication _roleApplication;
+        private readonly IWalletApplication _walletApplication;
 
-        public IndexModel(IAccountApplication accountApplication, IRoleApplication roleApplication)
+        public IndexModel(IAccountApplication accountApplication, IRoleApplication roleApplication, IAuthHelper authHelper, IWalletApplication walletApplication)
         {
             _accountApplication = accountApplication;
             _roleApplication = roleApplication;
+            _authHelper = authHelper;
+            _walletApplication = walletApplication;
         }
         [NeedsPermissions(AccountPermissions.ListAccounts)]
-        public void OnGet(AccountSearchModel searchModel)
+        public IActionResult OnGet(AccountSearchModel searchModel)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Roles = new SelectList(_roleApplication.GetAllRoles(), "Id", "Name");
             Accounts = _accountApplication.Search(searchModel);
             Students = _accountApplication.SearchInStudents(searchModel);
             UniTypes = GetUniTypes();
             Unis = GetUnis();
+            return Page();
         }
 
         public IActionResult OnGetChangePassword(long id)
@@ -62,6 +80,14 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return RedirectToPage("./Index");
         }
 
+
+        [NeedsPermissions(AccountPermissions.Logs)]
+        public IActionResult OnGetLog(long id)
+        {
+            var logs = _walletApplication.GetLogsByAccountId(null,id);
+            return Partial("Log", logs);
+        }
+
         private List<SelectListItem> GetUnis(int typeId = 1)
         {
 
@@ -77,7 +103,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "دانشگاه را انتخاب کنید"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);
@@ -100,7 +126,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "نوع دانشگاه را انتخاب کنید"
+                Text = ApplicationMessages.SelectYourUniversityType
             };
 
             lstCountries.Insert(0, defItem);

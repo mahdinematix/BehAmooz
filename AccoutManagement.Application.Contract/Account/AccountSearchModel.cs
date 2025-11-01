@@ -12,4 +12,5 @@ public class AccountSearchModel
     public string Code { get; set; }
     public long RoleId { get; set; }
     public int Status { get; set; }
+    public int EducationLevel { get; set; }
 }

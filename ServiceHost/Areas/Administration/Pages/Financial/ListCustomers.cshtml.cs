@@ -1,7 +1,8 @@
 using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Customer;
-using AccountManagement.Application.Contract.Account;
+using ClosedXML.Excel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -13,7 +14,10 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
         private readonly ICustomerQuery _customerQuery;
 
         public List<CustomerQueryModel> Customers;
-        public CustomerSearchModel SearchModel;
+
+        [BindProperty(SupportsGet = true)]
+        public CustomerSearchModel SearchModel { get; set; }
+
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
 
@@ -23,12 +27,109 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
             _authHelper = authHelper;
         }
 
-        public void OnGet(CustomerSearchModel searchModel)
+        public IActionResult OnGet()
         {
-            Customers = _customerQuery.GetCustomersByProfessorId(searchModel, _authHelper.CurrentAccountId());
+            if (_authHelper.CurrentAccountRole() != Roles.Professor)
+            {
+                return RedirectToPage("/Index");
+            }
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
+            Customers = _customerQuery.GetCustomersByProfessorId(SearchModel, _authHelper.CurrentAccountId());
             UniTypes = GetUniTypes();
             Unis = GetUnis();
+            return Page();
         }
+
+        public IActionResult OnGetExportToExcel(CustomerSearchModel searchModel)
+        {
+
+            Customers = _customerQuery.GetCustomersByProfessorId(searchModel, _authHelper.CurrentAccountId());
+
+            using (var workbook = new XLWorkbook())
+            {
+                var ws = workbook.Worksheets.Add("Customers");
+
+                int col = 1;
+
+                ws.Cell(1, col++).Value = "‰«„";
+                ws.Cell(1, col++).Value = "òœ œ«‰‘ÃÊ";
+                ws.Cell(1, col++).Value = "œ«‰‘ê«Â";
+                ws.Cell(1, col++).Value = "œ—”";
+                ws.Cell(1, col++).Value = "òœ ò·«”";
+                ws.Cell(1, col++).Value = "—Ê“ ò·«”";
+                ws.Cell(1, col++).Value = "”«⁄  ò·«”";
+
+                for (int i = 1; i <= 16; i++)
+                {
+                    ws.Cell(1, col++).Value = $"Ã·”Â {i}";
+                }
+
+                ws.Cell(1, col++).Value = "Ã„⁄ Ã·”« ";
+                ws.Cell(1, col++).Value = "„»·€ Â— Ã·”Â ( Ê„«‰)";
+                ws.Cell(1, col++).Value = "Ã„⁄ ò· ( Ê„«‰)";
+
+                var headerRange = ws.Range(1, 1, 1, col - 1);
+                headerRange.Style.Font.Bold = true;
+                headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+                headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                int row = 2;
+                foreach (var c in Customers)
+                {
+                    col = 1;
+                    ws.Cell(row, col++).Value = c.FullName;
+                    ws.Cell(row, col++).Value = c.Code;
+                    ws.Cell(row, col++).Value = Universities.GetName(c.UniversityId);
+                    ws.Cell(row, col++).Value = c.CourseName;
+                    ws.Cell(row, col++).Value = c.ClassCode;
+                    ws.Cell(row, col++).Value = Days.GetName(c.ClassDay);
+                    ws.Cell(row, col++).Value = $"{c.ClassStartTime}  « {c.ClassEndTime}";
+
+                    
+                    for (int i = 1; i <= 16; i++)
+                    {
+                        bool attended = false;
+
+                        if (c.SessionCounts != null && c.SessionCounts.TryGetValue(i, out int value))
+                        {
+                            attended = value > 0;
+                        }
+
+                        ws.Cell(row, col++).Value = attended ? "*" : "";
+                    }
+
+                    ws.Cell(row, col++).Value = c.TotalSessions;
+                    ws.Cell(row, col++).Value = c.SessionPrice;
+                    ws.Cell(row, col++).Value = c.TotalAmount;
+
+                    row++;
+                }
+
+                ws.Columns().AdjustToContents();
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Customers.xlsx");
+                }
+            }
+        }
+
+
+
 
 
         private List<SelectListItem> GetUnis(int typeId = 1)
@@ -46,7 +147,7 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "œ«‰‘ê«Â —« «‰ Œ«» ò‰?œ"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);
@@ -69,7 +170,7 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "‰Ê⁄ œ«‰‘ê«Â —« «‰ Œ«» ò‰?œ"
+                Text = ApplicationMessages.SelectYourUniversityType
             };
 
             lstCountries.Insert(0, defItem);

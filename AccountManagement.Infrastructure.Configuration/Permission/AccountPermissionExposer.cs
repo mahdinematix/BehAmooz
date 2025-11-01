@@ -16,6 +16,7 @@ namespace AccountManagement.Infrastructure.Configuration.Permission
                         new PermissionDto(AccountPermissions.EditAccount,"EditAccount"),
                         new PermissionDto(AccountPermissions.ChangePassword,"ChangePassword"),
                         new PermissionDto(AccountPermissions.ConfirmOrReject,"ConfirmOrReject"),
+                        new PermissionDto(AccountPermissions.Logs,"Logs"),
 
                     }
                 },

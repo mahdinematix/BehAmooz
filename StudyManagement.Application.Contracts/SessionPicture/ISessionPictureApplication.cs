@@ -5,7 +5,7 @@ namespace StudyManagement.Application.Contracts.SessionPicture
     public interface ISessionPictureApplication
     {
         Task<OperationResult> CreateAsync(CreateSessionPicture command);
-        OperationResult Edit(EditSessionPicture command);
+        Task<OperationResult> Edit(EditSessionPicture command);
         OperationResult Remove(long id);
         OperationResult Restore(long id);
         EditSessionPicture GetDetails(long id);

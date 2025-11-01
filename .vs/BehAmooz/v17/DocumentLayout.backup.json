@@ -3,60 +3,36 @@
   "WorkspaceRootPath": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\financial\\listcustomers.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\financial\\listcustomers.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\query\\customerquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\query\\customerquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\contracts\\customer\\customerquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\contracts\\customer\\customerquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\class\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\class\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{84AADB69-5AAF-EF38-EE58-4714C5256EBB}|StudyManagement.Domain\\StudyManagement.Domain.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.domain\\orderagg\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84AADB69-5AAF-EF38-EE58-4714C5256EBB}|StudyManagement.Domain\\StudyManagement.Domain.csproj|solutionrelative:studymanagement.domain\\orderagg\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\session.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\session.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\contracts\\customer\\customersearchmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\contracts\\customer\\customersearchmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\financial\\listcustomers.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\financial\\listcustomers.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|d:\\programming\\asp .net projects\\behamooz\\02_query\\contracts\\customer\\icustomerquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76CBBD43-E9F4-A9D2-614B-2A97E684101A}|02_Query\\02_Query.csproj|solutionrelative:02_query\\contracts\\customer\\icustomerquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\order\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\order\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application.contracts\\order\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{384262B3-CEE2-5520-C43B-5A6FF93217F1}|StudyManagement.Application.Contracts\\StudyManagement.Application.Contracts.csproj|solutionrelative:studymanagement.application.contracts\\order\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application\\orderapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|solutionrelative:studymanagement.application\\orderapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\wwwroot\\theme\\assets\\js\\custom.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\wwwroot\\theme\\assets\\js\\custom.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\cart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\cart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\cart.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\cart.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\pages\\checkout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\pages\\checkout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D95E8BE-3984-4024-9C38-FD001B9EF0AD}|AccountManagement.Application\\AccountManagement.Application.csproj|d:\\programming\\asp .net projects\\behamooz\\accountmanagement.application\\walletapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D95E8BE-3984-4024-9C38-FD001B9EF0AD}|AccountManagement.Application\\AccountManagement.Application.csproj|solutionrelative:accountmanagement.application\\walletapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61EED481-F72F-4946-1DB6-868B1ECD89E9}|AccountManagement.Domain\\AccountManagement.Domain.csproj|d:\\programming\\asp .net projects\\behamooz\\accountmanagement.domain\\walletagg\\wallet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61EED481-F72F-4946-1DB6-868B1ECD89E9}|AccountManagement.Domain\\AccountManagement.Domain.csproj|solutionrelative:accountmanagement.domain\\walletagg\\wallet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}|AccoutManagement.Application.Contract\\AccountManagement.Application.Contract.csproj|d:\\programming\\asp .net projects\\behamooz\\accoutmanagement.application.contract\\wallet\\iwalletapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EE2BDA7-EA55-D5FC-B05D-49E9ECCDA709}|AccoutManagement.Application.Contract\\AccountManagement.Application.Contract.csproj|solutionrelative:accoutmanagement.application.contract\\wallet\\iwalletapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 19,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -98,181 +74,106 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Class\\Index.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-09T07:59:03.223Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CustomerSearchModel.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Customer\\CustomerSearchModel.cs",
-              "RelativeDocumentMoniker": "02_Query\\Contracts\\Customer\\CustomerSearchModel.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Customer\\CustomerSearchModel.cs",
-              "RelativeToolTip": "02_Query\\Contracts\\Customer\\CustomerSearchModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T07:49:29.274Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Program.cs",
-              "RelativeDocumentMoniker": "ServiceHost\\Program.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Program.cs",
-              "RelativeToolTip": "ServiceHost\\Program.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T13:04:46.918Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "CartItem.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Order\\CartItem.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Order\\CartItem.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Order\\CartItem.cs",
-              "RelativeToolTip": "StudyManagement.Application.Contracts\\Order\\CartItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T12:56:18.411Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Cart.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Order\\Cart.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application.Contracts\\Order\\Cart.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application.Contracts\\Order\\Cart.cs",
-              "RelativeToolTip": "StudyManagement.Application.Contracts\\Order\\Cart.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T12:56:11.473Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "OrderApplication.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\OrderApplication.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application\\OrderApplication.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\OrderApplication.cs",
-              "RelativeToolTip": "StudyManagement.Application\\OrderApplication.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T12:55:39.591Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 0,
               "Title": "custom.js",
               "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\wwwroot\\Theme\\assets\\js\\custom.js",
               "RelativeDocumentMoniker": "ServiceHost\\wwwroot\\Theme\\assets\\js\\custom.js",
               "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\wwwroot\\Theme\\assets\\js\\custom.js",
               "RelativeToolTip": "ServiceHost\\wwwroot\\Theme\\assets\\js\\custom.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAFoAAAAAAAAAAAA6wHEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-10-08T12:53:36.649Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Session.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Session.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Session.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Session.cshtml",
-              "RelativeToolTip": "ServiceHost\\Pages\\Session.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAADEAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-08T12:50:30.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "OrderItem.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Domain\\OrderAgg\\OrderItem.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Domain\\OrderAgg\\OrderItem.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Domain\\OrderAgg\\OrderItem.cs",
-              "RelativeToolTip": "StudyManagement.Domain\\OrderAgg\\OrderItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T12:42:12.355Z",
+              "WhenOpened": "2025-11-01T11:39:56.824Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CustomerQuery.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\CustomerQuery.cs",
-              "RelativeDocumentMoniker": "02_Query\\Query\\CustomerQuery.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Query\\CustomerQuery.cs",
-              "RelativeToolTip": "02_Query\\Query\\CustomerQuery.cs",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAewEQAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T12:38:43.814Z",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "ServiceHost\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-01T11:38:43.867Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ICustomerQuery.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Customer\\ICustomerQuery.cs",
-              "RelativeDocumentMoniker": "02_Query\\Contracts\\Customer\\ICustomerQuery.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Customer\\ICustomerQuery.cs",
-              "RelativeToolTip": "02_Query\\Contracts\\Customer\\ICustomerQuery.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "Cart.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Cart.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Cart.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Cart.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Pages\\Cart.cshtml.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAiwIUAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T12:38:06.051Z",
+              "WhenOpened": "2025-11-01T11:26:19.153Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "CustomerQueryModel.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Customer\\CustomerQueryModel.cs",
-              "RelativeDocumentMoniker": "02_Query\\Contracts\\Customer\\CustomerQueryModel.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\02_Query\\Contracts\\Customer\\CustomerQueryModel.cs",
-              "RelativeToolTip": "02_Query\\Contracts\\Customer\\CustomerQueryModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T12:36:24.302Z",
+              "Title": "Cart.cshtml",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Cart.cshtml",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Cart.cshtml",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Cart.cshtml",
+              "RelativeToolTip": "ServiceHost\\Pages\\Cart.cshtml",
+              "ViewState": "AgIAADMAAAAAAAAAAAAiwDoAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-01T11:26:08.313Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ListCustomers.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Financial\\ListCustomers.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Financial\\ListCustomers.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Financial\\ListCustomers.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Financial\\ListCustomers.cshtml",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAswCYAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-08T08:07:56.518Z",
+              "DocumentIndex": 6,
+              "Title": "Wallet.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Domain\\WalletAgg\\Wallet.cs",
+              "RelativeDocumentMoniker": "AccountManagement.Domain\\WalletAgg\\Wallet.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Domain\\WalletAgg\\Wallet.cs",
+              "RelativeToolTip": "AccountManagement.Domain\\WalletAgg\\Wallet.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAYwCUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-01T11:20:58.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "WalletApplication.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Application\\WalletApplication.cs",
+              "RelativeDocumentMoniker": "AccountManagement.Application\\WalletApplication.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccountManagement.Application\\WalletApplication.cs",
+              "RelativeToolTip": "AccountManagement.Application\\WalletApplication.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA8wCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-01T11:20:08.862Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "ListCustomers.cshtml.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Financial\\ListCustomers.cshtml.cs",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Financial\\ListCustomers.cshtml.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Financial\\ListCustomers.cshtml.cs",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Financial\\ListCustomers.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAJAAAAAAAAAA==",
+              "Title": "IWalletApplication.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccoutManagement.Application.Contract\\Wallet\\IWalletApplication.cs",
+              "RelativeDocumentMoniker": "AccoutManagement.Application.Contract\\Wallet\\IWalletApplication.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\AccoutManagement.Application.Contract\\Wallet\\IWalletApplication.cs",
+              "RelativeToolTip": "AccoutManagement.Application.Contract\\Wallet\\IWalletApplication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T08:07:58.175Z",
+              "WhenOpened": "2025-11-01T11:19:16.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Checkout.cshtml.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Checkout.cshtml.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Pages\\Checkout.cshtml.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Pages\\Checkout.cshtml.cs",
+              "RelativeToolTip": "ServiceHost\\Pages\\Checkout.cshtml.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAQwGUAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-01T11:18:42.33Z",
               "EditorCaption": ""
             }
           ]

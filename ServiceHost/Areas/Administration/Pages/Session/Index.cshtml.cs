@@ -1,3 +1,4 @@
+using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
@@ -10,21 +11,35 @@ namespace ServiceHost.Areas.Administration.Pages.Session
     {
         private readonly IClassApplication _classApplication;
         private readonly ISessionApplication _sessionApplication;
+        private readonly IAuthHelper _authHelper;
 
         public List<SessionViewModel> Sessions;
         public ClassViewModel Class { get; set; }
 
 
-        public IndexModel(IClassApplication classApplication, ISessionApplication sessionApplication)
+        public IndexModel(IClassApplication classApplication, ISessionApplication sessionApplication, IAuthHelper authHelper)
         {
             _classApplication = classApplication;
             _sessionApplication = sessionApplication;
+            _authHelper = authHelper;
         }
 
-        public void OnGet(long classId)
+        public IActionResult OnGet(long classId)
         {
+            var status = _authHelper.CurrentAccountStatus();
+
+            if (status == Statuses.Waiting)
+            {
+                return RedirectToPage("/NotConfirmed");
+            }
+
+            if (status == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             Sessions = _sessionApplication.GetAllByClassId(classId);
             Class = _classApplication.GetClassById(classId);
+            return Page();
         }
         public IActionResult OnGetActivate(long id, long classId)
         {

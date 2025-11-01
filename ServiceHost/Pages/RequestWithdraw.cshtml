@@ -1,0 +1,47 @@
+﻿@page
+@using _01_Framework.Application
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ServiceHost.Pages.RequestWithdrawModel
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "درخواست برداشت از کیف پول";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+<div class="text-center">
+    <h2>موجودی کیف پول شما:</h2>
+    <h3 id="wallet-amount">@Model.Balance.ToMoney() تومان</h3>
+    <form method="post">
+        <p class="mt-5">برداشت</p>
+        <div class="col-md-12 col-12 mb-3">
+            <label asp-for="Command.Amount">مبلغ (تومان):</label>
+            <input asp-for="Command.Amount" class="form-control" id="amount-input" step="10000" type="number" placeholder="مثال: 1000 معادل هزار تومان">
+            <button class="btn btn-info text-center m-3" id="copy-button">وارد کردن کل موجودی</button>
+        </div>
+        <div class="col-md-12 col-12 mb-3">
+            <label asp-for="Command.CreditCardNo">شماره کارت به نام خودتان را وارد کنید (مبلغ بیش از 10 میلیون تومان شماره شبا):</label>
+            <input asp-for="Command.CreditCardNo" class="form-control" type="text" placeholder="مثال: 6037111111111111">
+        </div>
+        <button type="submit" class="btn btn-warning m-3 text-center">برداشت</button>
+    </form>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        document.getElementById("copy-button").addEventListener("click", function(e) {
+            e.preventDefault();
+            var amountText = document.getElementById("wallet-amount").innerText;
+            debugger;
+            var amountValue = amountText.replace(/[^\d]/g, '');
+
+
+            document.getElementById("amount-input").value = amountValue;
+        });
+    </script>
+}
+

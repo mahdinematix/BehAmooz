@@ -100,6 +100,11 @@ namespace _01_Framework.Application
             return myMoney.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
         }
 
+        public static string ToMoney(this long myMoney)
+        {
+            return myMoney.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
+        }
+
         public static string ToFileName(this DateTime date)
         {
             return $"{date.Year:0000}-{date.Month:00}-{date.Day:00}-{date.Hour:00}-{date.Minute:00}-{date.Second:00}";

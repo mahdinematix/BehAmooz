@@ -4,6 +4,7 @@ using StudyManagement.Domain.CourseAgg;
 using StudyManagement.Domain.OrderAgg;
 using StudyManagement.Domain.SessionAgg;
 using StudyManagement.Domain.SessionPictureAgg;
+using StudyManagement.Infrastructure.EFCore.Mapping;
 
 namespace StudyManagement.Infrastructure.EFCore
 {
@@ -21,7 +22,7 @@ namespace StudyManagement.Infrastructure.EFCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var assembly = typeof(StudyContext).Assembly;
+            var assembly = typeof(CourseMapping).Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
             base.OnModelCreating(modelBuilder);
         }

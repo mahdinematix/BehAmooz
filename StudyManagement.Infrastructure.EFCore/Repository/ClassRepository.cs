@@ -125,10 +125,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             return _context.Classes.FirstOrDefault(x => x.Id == id).Code;
         }
 
-        public List<ClassViewModel> GetClassesForCopy(long courseId, long classId)
+        public List<ClassViewModel> GetClassesForCopy(long classId)
         {
 
-            return _context.Classes.Where(x => x.ProfessorId == _authHelper.CurrentAccountId()).Where(x => x.CourseId == courseId).Where(x => x.Id != classId).Select(x => new ClassViewModel
+            return _context.Classes.Where(x => x.ProfessorId == _authHelper.CurrentAccountId()).Where(x => x.Id != classId).Select(x => new ClassViewModel
             {
                 Id = x.Id,
                 Code = x.Code

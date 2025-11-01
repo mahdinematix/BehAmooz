@@ -1,4 +1,5 @@
 ﻿@using _01_Framework.Application
+@using _01_Framework.Infrastructure
 @inject IAuthHelper AuthHelper
 @{
 }
@@ -19,7 +20,7 @@
                                 <li>
                                     <a asp-page="/Index">صفحه اصلی</a>
                                 </li>
-                                @if (AuthHelper.IsAuthenticated())
+                                @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() == Roles.Student)
                                 {
                                     <li>
                                         <a asp-page="/MySessions">جلسات من</a>
@@ -31,6 +32,25 @@
                                 <li>
                                     <a asp-page="ContactUs">ارتباط با ما</a>
                                 </li>
+
+                                @if (AuthHelper.IsAuthenticated())
+                                {
+                                    <li>
+                                        <a asp-page="Profile">ویرایش پروفایل</a>
+                                    </li>
+                                }
+                                @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() != Roles.Student)
+                                {
+                                    <li>
+                                        <a asp-page="Index" asp-area="Administration">مدیریت سایت</a>
+                                    </li>
+                                }
+                                @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() == Roles.Student)
+                                {
+                                    <li>
+                                        <a asp-page="Log">تراکنش های من</a>
+                                    </li>
+                                }
                                 @if (AuthHelper.IsAuthenticated())
                                 {
                                     <li>
@@ -48,7 +68,7 @@
                     </div>
                     <div class="header-icon-wrapper">
                         <ul class="icon-list">
-                            @if (AuthHelper.IsAuthenticated())
+                            @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() == Roles.Student)
                             {
                                 <li>
                                     <a asp-page="/Cart">
@@ -66,19 +86,15 @@
                                     <a asp-page="/Wallet">
                                         <div class="header-cart-icon">
                                             <img src="~/Theme/assets/img/wallet.png" width="30px" />
-                                            <span class="counter cart_items_count">0</span>
-                                            <div class="mini-cart">
-                                                <div class="cart-items-wrapper ps-scroll">
-                                                </div>
-                                            </div>
                                         </div>
                                     </a>
                                 </li>
+
+                            }
+                            @if (AuthHelper.IsAuthenticated())
+                            {
                                 <li>
-                                    <a asp-page="Profile">
-                                        <i class="fa fa-user-circle"></i>
-                                    </a>
-                                    <p><strong>@AuthHelper.GetAccountInfo().Fullname</strong></p>
+                                    <p><strong>@AuthHelper.GetAccountInfo().Fullname عزیز خوش آمدید.</strong></p>
                                 </li>
                             }
                         </ul>
@@ -94,30 +110,34 @@
                                 </a>
                             </div>
                         </div>
+
                         <div class="col-6 col-md-6">
                             <div class="mobile-navigation text-right">
                                 <div class="header-icon-wrapper">
                                     <ul class="icon-list justify-content-end">
-                                        <li>
-                                            <div class="header-cart-icon">
-                                                <a asp-page="/Cart">
-                                                    <i class="ion-bag"></i>
-                                                    <span class="counter cart_items_count">0</span>
-                                                </a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a asp-page="/Wallet">
+                                        @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() == Roles.Student)
+                                        {
+                                            <li>
                                                 <div class="header-cart-icon">
-                                                    <img src="~/Theme/assets/img/wallet.png" width="30px" />
-                                                    <span class="counter cart_items_count">0 ریال</span>
-                                                    <div class="mini-cart" id="mini-cart">
-                                                        <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
+                                                    <a asp-page="/Cart">
+                                                        <i class="ion-bag"></i>
+                                                        <span class="counter cart_items_count">0</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a asp-page="/Wallet">
+                                                    <div class="header-cart-icon">
+                                                        <img src="~/Theme/assets/img/wallet.png" width="30px"/>
+                                                        <span class="counter cart_items_count">0 ریال</span>
+                                                        <div class="mini-cart" id="mini-cart">
+                                                            <div class="cart-items-wrapper ps-scroll" id="cart_items_wrapper">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        </li>
+                                                </a>
+                                            </li>
+                                        }
                                         <li>
                                             <a href="javascript:void(0)" class="mobile-menu-icon"
                                                id="mobile-menu-trigger">
@@ -128,6 +148,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -147,10 +169,13 @@
         <div class="offcanvas-inner-content">
             <nav class="offcanvas-navigation">
                 <ul>
+                    <li>
+                        <p><strong>@AuthHelper.GetAccountInfo().Fullname عزیز خوش آمدید.</strong></p>
+                    </li>
                     <li class="">
                         <a asp-page="/Index">صفحه اصلی</a>
                     </li>
-                    @if (AuthHelper.IsAuthenticated())
+                    @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() == Roles.Student)
                     {
                         <li>
                             <a asp-page="/MySessions">جلسات من</a>
@@ -162,9 +187,31 @@
                     <li>
                         <a href="#contactUs" onclick="hideOffcanvas()">درباره ما</a>
                     </li>
-                    <li>
-                        <a asp-page="/Login" onclick="hideOffcanvas()">ورود/ثبت نام</a>
-                    </li>
+                    @if (AuthHelper.IsAuthenticated())
+                    {
+                        <li>
+                            <a asp-page="Profile">ویرایش پروفایل</a>
+                        </li>
+                    }
+                    @if (AuthHelper.IsAuthenticated() && AuthHelper.CurrentAccountRole() != Roles.Student)
+                    {
+                        <li>
+                            <a asp-page="Index" asp-area="Administration">مدیریت سایت</a>
+                        </li>
+                    }
+
+                    @if (AuthHelper.IsAuthenticated())
+                    {
+                        <li>
+                            <a asp-page="/Login" asp-page-handler="Logout">خروج</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a asp-page="/Account" onclick="hideOffcanvas()">ورود | ثبت نام</a>
+                        </li>
+                    }
                 </ul>
             </nav>
 

@@ -193,9 +193,9 @@ namespace StudyManagement.Application
             return _classRepository.GetClassCodeById(id);
         }
 
-        public List<ClassViewModel> GetClassesForCopy(long courseId, long classId)
+        public List<ClassViewModel> GetClassesForCopy(long classId)
         { 
-            return _classRepository.GetClassesForCopy(courseId,classId);
+            return _classRepository.GetClassesForCopy(classId);
         }
     }
 }
