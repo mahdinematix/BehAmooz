@@ -60,7 +60,7 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
 
         public async Task<IActionResult> OnGetCancel(long sessionId,long id)
         {
-             _fileManager.Cancel();
+            await _fileManager.Cancel();
             Message = ApplicationMessages.UploadProgressCanceled;
             return RedirectToPage("./Edit", new { sessionId, id });
         }

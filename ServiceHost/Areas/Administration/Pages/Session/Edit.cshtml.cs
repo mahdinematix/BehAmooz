@@ -1,9 +1,10 @@
-using System.Runtime.CompilerServices;
 using _01_Framework.Application;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
+using System.Runtime.CompilerServices;
 
 namespace ServiceHost.Areas.Administration.Pages.Session
 {
@@ -55,11 +56,11 @@ namespace ServiceHost.Areas.Administration.Pages.Session
             return RedirectToPage("./Edit", new { classId = classId });
         }
 
-        public async Task<IActionResult> OnGetCancel(long classId)
+        public async Task<IActionResult> OnGetCancel(long classId , long id)
         {
-             _fileManager.Cancel();
+            await _fileManager.Cancel();
             Message = ApplicationMessages.UploadProgressCanceled;
-            return RedirectToPage("./Create", new { classId = classId });
+            return RedirectToPage("./Edit", new {classId , id });
         }
     }
 }

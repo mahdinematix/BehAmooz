@@ -63,8 +63,6 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
 
             await _fileManager.Cancel();
             Message = ApplicationMessages.UploadProgressCanceled;
-
-
             return RedirectToPage("./Create", new { sessionId });
         }
 

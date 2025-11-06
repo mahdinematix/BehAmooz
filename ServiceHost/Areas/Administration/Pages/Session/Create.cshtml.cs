@@ -60,11 +60,11 @@ namespace ServiceHost.Areas.Administration.Pages.Session
 
         }
 
-        public IActionResult OnGetCancel(long classId)
+        public async Task<IActionResult> OnGetCancel(long classId)
         { 
-            _FileManager.Cancel();
+            await _FileManager.Cancel();
             Message = ApplicationMessages.UploadProgressCanceled;
-            return RedirectToPage("./Create", new { classId = classId });
+            return RedirectToPage("./Create", new { classId });
         }
     }
 }

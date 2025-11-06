@@ -27,23 +27,59 @@ public class StorageService : IStorageService
         return new AmazonS3Client(credentials, config);
     }
 
-    public async Task<string> UploadFileAsync(S3Object s3Object, AwsCredentials awsCredentials, bool isVideo, CancellationToken cancellationToken)
+
+    public async Task<string> InitiateUploadAsync(S3Object s3Object, AwsCredentials awsCredentials)
     {
         using var s3Client = CreateS3Client(awsCredentials);
-
-        List<UploadPartResponse> uploadResponses = new();
-        InitiateMultipartUploadRequest initiateRequest = new()
+        var request = new InitiateMultipartUploadRequest
         {
             BucketName = s3Object.BucketName,
-            Key = s3Object.Name,
+            Key = s3Object.Name
         };
-        var initResponse =
-            await s3Client.InitiateMultipartUploadAsync(new InitiateMultipartUploadRequest
+        var response = await s3Client.InitiateMultipartUploadAsync(request);
+        return response.UploadId;
+    }
+
+    public string GetObject(S3Object s3Object, AwsCredentials awsCredentials)
+    {
+        using var s3Client = CreateS3Client(awsCredentials);
+        try
+        {
+
+            try
+            {
+                var metadata = s3Client.GetObjectMetadataAsync(s3Object.BucketName, s3Object.Name).Result;
+            }
+            catch (AmazonS3Exception ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return "";
+            }
+
+            var getPreSignedUrlRequest = new GetPreSignedUrlRequest
             {
                 BucketName = s3Object.BucketName,
-                Key = s3Object.Name
-            }, cancellationToken);
-        var uploadId = initResponse.UploadId;
+                Key = s3Object.Name,
+                Expires = DateTime.Now.AddYears(20),
+                Verb = HttpVerb.GET
+            };
+
+            string url = s3Client.GetPreSignedURL(getPreSignedUrlRequest);
+
+            if (string.IsNullOrEmpty(url) || url.Contains("<Error>") || url.Contains("NoSuchKey"))
+                return "";
+            return url;
+        }
+        catch (Exception e)
+        {
+            return "";
+        }
+    }
+
+    public async Task<string> UploadPartsAsync(S3Object s3Object, AwsCredentials awsCredentials, bool isVideo, CancellationToken token, string uploadId)
+    {
+        using var s3Client = CreateS3Client(awsCredentials);
+        List<UploadPartResponse> uploadResponses = new();
+
         long contentLength = s3Object.InputStream.Length;
         const int partSize = 5 * 1024 * 1024;
 
@@ -53,7 +89,7 @@ public class StorageService : IStorageService
             long filePosition = 0;
             for (int i = 1; filePosition < contentLength; i++)
             {
-                cancellationToken.ThrowIfCancellationRequested();
+                token.ThrowIfCancellationRequested();
 
                 s3Object.InputStream.Position = filePosition;
                 var uploadPartRequest = new UploadPartRequest
@@ -66,7 +102,7 @@ public class StorageService : IStorageService
                     FilePosition = filePosition,
                     InputStream = s3Object.InputStream
                 };
-                uploadResponses.Add(await s3Client.UploadPartAsync(uploadPartRequest, cancellationToken));
+                uploadResponses.Add(await s3Client.UploadPartAsync(uploadPartRequest, token));
                 filePosition += partSize;
                 if (numOfParts > 0)
                 {
@@ -82,6 +118,8 @@ public class StorageService : IStorageService
                 }
             }
 
+            token.ThrowIfCancellationRequested();
+
             var completeRequest = new CompleteMultipartUploadRequest
             {
                 BucketName = s3Object.BucketName,
@@ -90,7 +128,7 @@ public class StorageService : IStorageService
             };
 
             completeRequest.AddPartETags(uploadResponses);
-            await s3Client.CompleteMultipartUploadAsync(completeRequest, cancellationToken);
+            await s3Client.CompleteMultipartUploadAsync(completeRequest, token);
 
             if (isVideo)
             {
@@ -105,56 +143,44 @@ public class StorageService : IStorageService
         }
         catch (Exception ex)
         {
-            var abortRequest = new AbortMultipartUploadRequest
-            {
-                BucketName = s3Object.BucketName,
-                Key = s3Object.Name,
-                UploadId = uploadId
-            };
-            await s3Client.AbortMultipartUploadAsync(abortRequest);
+            await AbortUploadAsync(s3Object, awsCredentials, uploadId);
+
+            using var s3Client2 = CreateS3Client(awsCredentials);
+            await s3Client2.DeleteObjectAsync(s3Object.BucketName, s3Object.Name);
+
+
+            Console.WriteLine($"Upload aborted due to: {ex.Message}");
             return "";
+        }
+
+        finally
+        {
+            s3Object.InputStream?.Dispose();
         }
     }
 
-
-
-    public string GetObject(S3Object s3Object, AwsCredentials awsCredentials)
+    public async Task AbortUploadAsync(S3Object s3Object, AwsCredentials awsCredentials, string uploadId)
     {
         using var s3Client = CreateS3Client(awsCredentials);
 
         try
         {
-            var getPreSignedUrlRequest = new GetPreSignedUrlRequest
-            {
-                BucketName = s3Object.BucketName,
-                Key = s3Object.Name,
-                Expires = DateTime.Now.AddYears(20),
-                Verb = HttpVerb.GET
-            };
-
-            string url = s3Client.GetPreSignedURL(getPreSignedUrlRequest);
-            return url;
-        }
-        catch (Exception e)
-        {
-            return "";
-        }
-    }
-
-    public async Task AbortMultipartUploadAsync(S3Object s3Object, AwsCredentials awsCredentials, string uploadId)
-    {
-        using var s3Client = CreateS3Client(awsCredentials);
-
-        try
-        {
-            AbortMultipartUploadRequest request = new()
+            var request = new AbortMultipartUploadRequest
             {
                 BucketName = s3Object.BucketName,
                 Key = s3Object.Name,
                 UploadId = uploadId
             };
-            
+
             await s3Client.AbortMultipartUploadAsync(request);
+
+            var deleteRequest = new DeleteObjectsRequest
+            {
+                BucketName = s3Object.BucketName,
+                Objects = new List<KeyVersion> { new() { Key = s3Object.Name } }
+            };
+
+            await s3Client.DeleteObjectsAsync(deleteRequest);
 
         }
         catch (Exception e)

@@ -22,8 +22,30 @@ namespace StudyManagement.Application
             {
                 return operation.Failed(ApplicationMessages.ASessionWithThatNumberExists);
             }
-            var fileUrlForVideo = await _fileManager.Upload(command.Video,true);
-            var fileUrlForBooklet = await _fileManager.Upload(command.Booklet,false);
+            string fileUrlForVideo = "";
+            string fileUrlForBooklet = "";
+
+            if (command.Video != null)
+                fileUrlForVideo = await _fileManager.Upload(command.Video, true);
+
+            if (command.Booklet != null)
+                fileUrlForBooklet = await _fileManager.Upload(command.Booklet, false);
+            bool videoCanceledOrInvalid = command.Video != null &&
+                                          (string.IsNullOrWhiteSpace(fileUrlForVideo) || !fileUrlForVideo.StartsWith("http", StringComparison.OrdinalIgnoreCase));
+
+            bool bookletCanceledOrInvalid = command.Booklet != null &&
+                                            (string.IsNullOrWhiteSpace(fileUrlForBooklet) || !fileUrlForBooklet.StartsWith("http", StringComparison.OrdinalIgnoreCase));
+
+            if (videoCanceledOrInvalid || bookletCanceledOrInvalid)
+                return operation.Failed(ApplicationMessages.UploadProgressCanceled);
+
+            bool videoCanceled = command.Video != null && string.IsNullOrWhiteSpace(fileUrlForVideo);
+            bool bookletCanceled = command.Booklet != null && string.IsNullOrWhiteSpace(fileUrlForBooklet);
+
+            if (videoCanceled || bookletCanceled)
+                return operation.Failed(ApplicationMessages.UploadProgressCanceled);
+
+
             var session = new Session(command.Number, command.Title, fileUrlForVideo, fileUrlForBooklet,
                 command.Description, command.ClassId);
             _sessionRepository.Create(session);
@@ -44,8 +66,21 @@ namespace StudyManagement.Application
             {
                 return operation.Failed(ApplicationMessages.ASessionWithThatNumberExists);
             }
-            var fileUrlForVideo = await _fileManager.Upload(command.Video,true);
-            var fileUrlForBooklet = await _fileManager.Upload(command.Booklet,false);
+            string fileUrlForVideo = "";
+            string fileUrlForBooklet = "";
+
+            if (command.Video != null)
+                fileUrlForVideo = await _fileManager.Upload(command.Video, true);
+
+            if (command.Booklet != null)
+                fileUrlForBooklet = await _fileManager.Upload(command.Booklet, false);
+
+            bool videoCanceled = command.Video != null && string.IsNullOrWhiteSpace(fileUrlForVideo);
+            bool bookletCanceled = command.Booklet != null && string.IsNullOrWhiteSpace(fileUrlForBooklet);
+
+            if (videoCanceled || bookletCanceled)
+                return operation.Failed(ApplicationMessages.UploadProgressCanceled);
+
             session.Edit(command.Number, command.Title, fileUrlForVideo, fileUrlForBooklet,
                 command.Description, command.ClassId);
             _sessionRepository.Save();

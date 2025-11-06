@@ -25,7 +25,6 @@
 
 }
 <div class="alert alert-warning">حداکثر حجم تصویر باید 5 مگابایت باشد.</div>
-<div class="alert alert-warning">برای آپلود فایل باید vpn خود را خاموش کنید.</div>
 <div class="alert alert-warning">لطفا تا پایان اپلود صبر کنید. در صورت موفقیت به صفحه قبل ارجاع داده خواهید شد</div>
 
 
@@ -112,6 +111,16 @@
                 makeFileInputReadOnly(fileInput);
             }
         };
+
+        document.getElementById("cancelButton").addEventListener("click", function (event) {
+            const cancelButton = document.getElementById("cancelButton");
+            if (cancelButton.classList.contains('readonly-button')) {
+                event.preventDefault();
+                return false;
+            }
+
+            cancelButton.classList.add('readonly-button');
+        });
 
     </script>
 }

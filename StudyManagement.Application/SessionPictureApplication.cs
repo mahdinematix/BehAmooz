@@ -19,6 +19,10 @@ namespace StudyManagement.Application
         {
             var operation = new OperationResult();
             var fileUrl = await _fileManager.Upload(command.Picture, false);
+            if (string.IsNullOrWhiteSpace(fileUrl))
+            {
+                return operation.Failed(ApplicationMessages.UploadProgressCanceled);
+            }
             var sessionPicture = new SessionPicture(command.SessionId, fileUrl);
             _sessionPictureRepository.Create(sessionPicture);
             _sessionPictureRepository.Save();
@@ -34,6 +38,10 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
             var fileName = await _fileManager.Upload(command.Picture, false);
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return operation.Failed(ApplicationMessages.UploadProgressCanceled);
+            }
             sessionPicture.Edit(command.SessionId,fileName);
             _sessionPictureRepository.Save();
             return operation.Succeed();

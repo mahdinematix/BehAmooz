@@ -1,13 +1,14 @@
 using _01_Framework.Application;
 using _01_Framework.Application.ZarinPal;
 using _02_Query.Contracts;
+using AccountManagement.Application.Contract.Wallet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nancy.Json;
 using StudyManagement.Application.Contracts.Order;
 using System.Globalization;
-using AccountManagement.Application.Contract.Wallet;
 
 namespace ServiceHost.Pages
 {
@@ -15,7 +16,6 @@ namespace ServiceHost.Pages
     public class CheckoutModel : PageModel
     {
         private readonly ICartCalculatorService _cartCalculatorService;
-        public const string CookieName = "cart-items";
         public Cart Cart;
         private readonly ICartService _cartService;
         private readonly IOrderApplication _orderApplication;
@@ -34,6 +34,12 @@ namespace ServiceHost.Pages
             _zarinPalFactory = zarinPalFactory;
             _walletApplication = walletApplication;
             Cart = new Cart();
+        }
+
+        private string GetCartCookieName()
+        {
+            var accountId = _authHelper.CurrentAccountId();
+            return $"cart-items-{accountId}";
         }
 
         public void OnGet()
@@ -60,7 +66,7 @@ namespace ServiceHost.Pages
             //    return RedirectToPage("/Reject");
             //}
             var serializer = new JavaScriptSerializer();
-            var value = Request.Cookies[CookieName];
+            var value = Request.Cookies[GetCartCookieName()];
             var cartItems = serializer.Deserialize<List<CartItem>>(value);
             
 
@@ -106,12 +112,12 @@ namespace ServiceHost.Pages
             
             var paymentResult = new PaymentResult();
             var serializer = new JavaScriptSerializer();
-            var value = Request.Cookies[CookieName];
-            Response.Cookies.Delete(CookieName);
+            var value = Request.Cookies[GetCartCookieName()];
+            Response.Cookies.Delete(GetCartCookieName());
             var cartItems = serializer.Deserialize<List<CartItem>>(value);
             cartItems.RemoveAll(x => x.SessionPrice > 0);
             var options = new CookieOptions { Expires = DateTime.Now.AddDays(2), IsEssential = true, SameSite = SameSiteMode.Lax };
-            Response.Cookies.Append(CookieName, serializer.Serialize(cartItems), options);
+            Response.Cookies.Append(GetCartCookieName(), serializer.Serialize(cartItems), options);
             return RedirectToPage("/PaymentResult",
                 paymentResult.Succeeded(ApplicationMessages.PaymentByCash, "0"));
         }
@@ -136,12 +142,12 @@ namespace ServiceHost.Pages
 
             var paymentResult = new PaymentResult();
             var serializer = new JavaScriptSerializer();
-            var value = Request.Cookies[CookieName];
-            Response.Cookies.Delete(CookieName);
+            var value = Request.Cookies[GetCartCookieName()];
+            Response.Cookies.Delete(GetCartCookieName());
             var cartItems = serializer.Deserialize<List<CartItem>>(value);
             cartItems.RemoveAll(x => x.SessionPrice > 0);
             var options = new CookieOptions { Expires = DateTime.Now.AddDays(2), IsEssential = true, SameSite = SameSiteMode.Lax };
-            Response.Cookies.Append(CookieName, serializer.Serialize(cartItems), options);
+            Response.Cookies.Append(GetCartCookieName(), serializer.Serialize(cartItems), options);
             return RedirectToPage("/PaymentResult",
                 paymentResult.Succeeded(ApplicationMessages.PaymentByCash, "0"));
         }
@@ -157,7 +163,7 @@ namespace ServiceHost.Pages
             if (status == "OK" && verificationResponse.Status >= 100)
             {
                 var issueTrackingNo = _orderApplication.PaymentSucceeded(oId, verificationResponse.RefID);
-                Response.Cookies.Delete(CookieName);
+                Response.Cookies.Delete(GetCartCookieName());
                 result = result.Succeeded(ApplicationMessages.PaymentSuccessful, issueTrackingNo);
                 return RedirectToPage("/PaymentResult", result);
             }

@@ -31,9 +31,7 @@
 
 }
 
-<div class="alert alert-warning">حداکثر حجم فیلم باید یک گیگابایت باشد.</div>
-<div class="alert alert-warning">حداکثر حجم جزوه باید 100 مگابایت باشد.</div>
-<div class="alert alert-warning">برای آپلود فایل باید vpn خود را خاموش کنید.</div>
+<div class="alert alert-warning">حداکثر حجم فیلم باید یک گیگابایت باشد و حداکثر حجم جزوه باید 100 مگابایت باشد.</div>
 <div class="alert alert-warning">لطفا تا پایان اپلود صبر کنید. در صورت موفقیت به صفحه قبل ارجاع داده خواهید شد</div>
 
 
@@ -226,5 +224,16 @@
 
             
         }
+
+        document.getElementById("cancelButton").addEventListener("click", function (event) {
+            const cancelButton = document.getElementById("cancelButton");
+            if (cancelButton.classList.contains('readonly-button')) {
+                event.preventDefault();
+                return false;
+            }
+
+            cancelButton.classList.add('readonly-button');
+        });
+
     </script>
 }

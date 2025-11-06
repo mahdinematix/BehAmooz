@@ -40,7 +40,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 ClassId = x.ClassId,
                 CreationDate = x.CreationDate.ToFarsi(),
 
-            }).OrderByDescending(x => x.Id).ToList();
+            }).OrderBy(x => x.Number).ToList();
         }
 
         public ICollection<Session> GetAllByClassIdForCopy(long classId)

@@ -5,5 +5,6 @@
         public string BucketName { get; set; }
         public string ObjectName { get; set; }
         public string UploadId { get; set; }
+        public UploadStatus UploadStatus { get; set; }
     }
 }
