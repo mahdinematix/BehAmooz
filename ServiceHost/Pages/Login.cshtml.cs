@@ -49,6 +49,10 @@ namespace ServiceHost.Pages
             var result = _accountApplication.Login(command);
             if (result.IsSucceeded)
             {
+                if (_authHelper.CurrentAccountRole() != Roles.Student)
+                {
+                    return RedirectToPage("/Index", new { area = "Administration" });
+                }
                 return RedirectToPage("/Index");
             }
             LoginMessage = result.Message;

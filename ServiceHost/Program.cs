@@ -9,6 +9,7 @@ using AccountManagement.Infrastructure.Configuration;
 using Amazon.S3;
 using MessageManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using ServiceHost;
 using StudyManagement.Infrastructure.Configuration;
@@ -77,6 +78,22 @@ services.AddAuthorization(options =>
     options.AddPolicy("Account",
         builder => builder.RequireRole(new List<string> { Roles.Administrator, Roles.Professor }));
 });
+
+builder.WebHost.ConfigureKestrel(o =>
+{
+    o.Limits.MaxRequestBodySize = 1_073_741_824;
+    o.AddServerHeader = false;
+    o.Limits.MaxRequestBodySize = null;
+
+});
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 1_073_741_824;
+    options.ValueLengthLimit = int.MaxValue;
+    options.MultipartHeadersLengthLimit = int.MaxValue;
+});
+
 
 
 

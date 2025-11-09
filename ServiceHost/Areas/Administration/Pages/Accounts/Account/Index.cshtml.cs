@@ -84,7 +84,12 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
         [NeedsPermissions(AccountPermissions.Logs)]
         public IActionResult OnGetLog(long id)
         {
-            var logs = _walletApplication.GetLogsByAccountId(null,id);
+            var searchModel = new LogSearchModel
+            {
+                Status = 0,
+                Type = 0
+            };
+            var logs = _walletApplication.GetLogsByAccountId(searchModel,id);
             return Partial("Log", logs);
         }
 

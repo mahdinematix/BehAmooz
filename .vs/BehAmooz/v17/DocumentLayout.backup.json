@@ -3,48 +3,8 @@
   "WorkspaceRootPath": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\session\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\session\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\session\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\session\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\sessionpicture\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\sessionpicture\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\sessionpicture\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\sessionpicture\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\areas\\administration\\pages\\sessionpicture\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\areas\\administration\\pages\\sessionpicture\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\filemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\filemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application\\sessionapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|solutionrelative:studymanagement.application\\sessionapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|d:\\programming\\asp .net projects\\behamooz\\01_framework\\application\\ifilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|solutionrelative:01_framework\\application\\ifilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|d:\\programming\\asp .net projects\\behamooz\\01_framework\\application\\awsservices\\storageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|solutionrelative:01_framework\\application\\awsservices\\storageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|d:\\programming\\asp .net projects\\behamooz\\01_framework\\application\\awsservices\\istorageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93E9EB7A-AB24-6BD2-3929-297F362DE215}|01_Framework\\01_Framework.csproj|solutionrelative:01_framework\\application\\awsservices\\istorageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|d:\\programming\\asp .net projects\\behamooz\\studymanagement.application\\sessionpictureapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92BD57EE-21E8-EC1B-684E-8E87A8344381}|StudyManagement.Application\\StudyManagement.Application.csproj|solutionrelative:studymanagement.application\\sessionpictureapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,177 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Session\\Edit.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Session\\Edit.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Session\\Edit.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Session\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-06T15:17:07.491Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Session\\Create.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\Session\\Create.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\Session\\Create.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\Session\\Create.cshtml",
-              "ViewState": "AgIAANMAAAAAAAAAAAAiwOwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-06T15:16:53.669Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Edit.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Edit.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Edit.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Edit.cshtml",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-06T15:16:42.195Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SessionApplication.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\SessionApplication.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application\\SessionApplication.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\SessionApplication.cs",
-              "RelativeToolTip": "StudyManagement.Application\\SessionApplication.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAIwBIAAAAIAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Program.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Program.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Program.cs",
+              "RelativeToolTip": "ServiceHost\\Program.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAFcAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T10:06:22.332Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "SessionPictureApplication.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\SessionPictureApplication.cs",
-              "RelativeDocumentMoniker": "StudyManagement.Application\\SessionPictureApplication.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\StudyManagement.Application\\SessionPictureApplication.cs",
-              "RelativeToolTip": "StudyManagement.Application\\SessionPictureApplication.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAxwBIAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T09:50:16.785Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Create.cshtml.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Create.cshtml.cs",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Create.cshtml.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Create.cshtml.cs",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Create.cshtml.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAwwDkAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T09:49:58.374Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Create.cshtml",
-              "RelativeDocumentMoniker": "ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Create.cshtml",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Create.cshtml",
-              "RelativeToolTip": "ServiceHost\\Areas\\Administration\\Pages\\SessionPicture\\Create.cshtml",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAiwHsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-06T09:49:55.245Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IFileManager.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\IFileManager.cs",
-              "RelativeDocumentMoniker": "01_Framework\\Application\\IFileManager.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\IFileManager.cs",
-              "RelativeToolTip": "01_Framework\\Application\\IFileManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T09:49:47.23Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FileManager.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\FileManager.cs",
-              "RelativeDocumentMoniker": "ServiceHost\\FileManager.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\FileManager.cs",
-              "RelativeToolTip": "ServiceHost\\FileManager.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAwwEsAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T09:47:13.054Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IStorageService.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AwsServices\\IStorageService.cs",
-              "RelativeDocumentMoniker": "01_Framework\\Application\\AwsServices\\IStorageService.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AwsServices\\IStorageService.cs",
-              "RelativeToolTip": "01_Framework\\Application\\AwsServices\\IStorageService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T09:48:16.603Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "StorageService.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AwsServices\\StorageService.cs",
-              "RelativeDocumentMoniker": "01_Framework\\Application\\AwsServices\\StorageService.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\01_Framework\\Application\\AwsServices\\StorageService.cs",
-              "RelativeToolTip": "01_Framework\\Application\\AwsServices\\StorageService.cs",
-              "ViewState": "AgIAALwAAAAAAAAAAAAmwL4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T09:48:33.035Z",
+              "WhenOpened": "2025-11-09T21:15:31.419Z",
               "EditorCaption": ""
             }
           ]

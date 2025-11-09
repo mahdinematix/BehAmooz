@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,6 +43,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Program.cs",
+              "RelativeDocumentMoniker": "ServiceHost\\Program.cs",
+              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Program.cs",
+              "RelativeToolTip": "ServiceHost\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHUAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-09T21:15:31.419Z",
+              "EditorCaption": ""
             }
           ]
         }
