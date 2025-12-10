@@ -4,12 +4,12 @@ using StudyManagement.Infrastructure.EFCore;
 
 namespace _02_Query.Query
 {
-    public class OrderItemQuery : IOrderItemQuery
+    public class OrderQuery : IOrderQuery
     {
         private readonly StudyContext _studyContext;
         private readonly IAuthHelper _authHelper;
 
-        public OrderItemQuery(StudyContext studyContext, IAuthHelper authHelper)
+        public OrderQuery(StudyContext studyContext, IAuthHelper authHelper)
         {
             _studyContext = studyContext;
             _authHelper = authHelper;
@@ -33,7 +33,9 @@ namespace _02_Query.Query
                         SessionNumber = orderItem.SessionNumber,
                         ProfessorFullName = orderItem.ProfessorFullName,
                         OrderId = orderItem.OrderId,
-                        PayDate = orderItem.CreationDate.ToFarsi()
+                        PayDate = orderItem.CreationDate.ToFarsi(),
+                        IsPaid = order.IsPayed,
+                        SessionPrice = orderItem.SessionPrice
                     });
                 }
             }
@@ -58,6 +60,25 @@ namespace _02_Query.Query
                 }
             }
             return isPaid;
+        }
+
+        public List<OrderQueryModel> GetOrdersThatPaid()
+        {
+            var orders = _studyContext.Orders.Where(x => x.IsPayed).Where(x => x.AccountId == _authHelper.CurrentAccountId()).ToList();
+            var result = new List<OrderQueryModel>();
+            foreach (var order in orders)
+            {
+                result.Add(new OrderQueryModel
+                {
+                    Amount = order.TotalAmount,
+                    PayDate = order.CreationDate.ToFarsi(),
+                    IsPaid = order.IsPayed,
+                    IssueTrackingNo = order.IssueTrackingNo,
+                    Id = order.Id
+                });
+
+            }
+            return result.OrderByDescending(x=>x.Id).ToList();
         }
     }
 }

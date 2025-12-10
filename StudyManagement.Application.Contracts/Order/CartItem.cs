@@ -12,5 +12,6 @@
         public int SessionNumber { get; set; }
         public int SessionPrice { get; set; }
         public long SessionId { get; set; }
+        public long ProfessorId { get; set; }
     }
 }

@@ -2,7 +2,7 @@
     return "cart-items-" + window.currentAccountId;
 }
 
-function addToCart(id, sessionPrice, sessionNumber, classId, classDay, classStartTime, classEndTime, professorFullName, courseName) {
+function addToCart(id, sessionPrice, sessionNumber, classId, classDay, classStartTime, classEndTime, professorId, professorFullName, courseName) {
     const cookieName = getCartCookieName(); 
     let sessions = $.cookie(cookieName);
     if (sessions === undefined) {
@@ -23,6 +23,7 @@ function addToCart(id, sessionPrice, sessionNumber, classId, classDay, classStar
             classDay,
             classStartTime,
             classEndTime,
+            professorId,
             professorFullName,
             courseName
         };

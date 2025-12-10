@@ -68,13 +68,13 @@
                             <div class="form-group">
                                 @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
                                 {
-                                    <label asp-for="Command.Code" class="control-label">کد دانشجویی/استادی</label>
+                                    <label asp-for="Command.Code"  class="control-label">کد دانشجویی/استادی</label>
                                 }
                                 else
                                 {
                                     <label asp-for="Command.Code" class="control-label">کد دانشجویی</label>
                                 }
-                                <input type="text" class="form-control" asp-for="Command.Code">
+                                <input type="text" maxlength="14" class="form-control" asp-for="Command.Code">
                                 <span asp-validation-for="Command.Code" class="error"></span>
                             </div>
                         </div>

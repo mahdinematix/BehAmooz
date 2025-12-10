@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MessageManagement.Infrastructure.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class MessageModuleAddedAndCreated : Migration
+    public partial class MessageModuleRegistered : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

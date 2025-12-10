@@ -1,7 +1,6 @@
 ﻿@page
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Pages.RegisterModel
 @{
     ViewData["Title"] = "ثبت نام";
@@ -19,6 +18,50 @@
         input[type="number"] {
             -moz-appearance: textfield;
         }
+
+        .password-help-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+            .password-help-box ul {
+                list-style-type: none;
+                padding-left: 0;
+            }
+
+            .password-help-box li {
+                margin-bottom: 5px;
+                display: flex;
+                align-items: center;
+            }
+
+            .password-help-box span {
+                font-weight: bold;
+            }
+
+            .password-help-box .check-icon {
+                width: 15px;
+                height: 15px;
+                margin-left: 10px;
+                background-image: url('check-icon.png'); 
+                background-size: cover;
+                display: none;
+            }
+
+            .password-help-box .text-success {
+                color: #28a745;
+            }
+
+            .password-help-box .text-danger {
+                color: #dc3545;
+            }
+
+
+
     </style>
 }
 <div class="alert alert-warning">حداکثر حجم تصویر کارت ملی 5 مگابایت می‌باشد.</div>
@@ -84,7 +127,7 @@
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label class="control-label" asp-for="Command.Code">کد استادی/دانشجویی <span class="red-star">*</span></label>
-                                                <input asp-for="Command.Code" class="form-control" maxlength="20" type="text" placeholder="کد استادی/دانشجویی">
+                                                <input asp-for="Command.Code" class="form-control" maxlength="14" type="text" placeholder="کد استادی/دانشجویی">
                                                 <span asp-validation-for="Command.Code" class="error"></span>
 
                                             </div>
@@ -138,6 +181,27 @@
                                                 <label class="control-label" asp-for="Command.Password">کلمه عبور <span class="red-star">*</span></label>
                                                 <input class="form-control" type="password" id="password" asp-for="Command.Password" placeholder="کلمه عبور">
                                                 <span asp-validation-for="Command.Password" class="error"></span>
+                                                
+                                                <div class="password-help-box">
+                                                    <ul>
+                                                        <li id="lengthCheck" class="password-condition">
+                                                            <span>طول رمز عبور باید حداقل 8 کاراکتر باشد.</span>
+                                                            <span class="check-icon"></span>
+                                                        </li>
+                                                        <li id="caseCheck" class="password-condition">
+                                                            <span>باید شامل حروف بزرگ و کوچک لاتین باشد.</span>
+                                                            <span class="check-icon"></span>
+                                                        </li>
+                                                        <li id="persianCheck" class="password-condition">
+                                                            <span>از حروف فارسی استفاده نکنید.</span>
+                                                            <span class="check-icon"></span>
+                                                        </li>
+                                                        <li id="specialCharCheck" class="password-condition">
+                                                            <span>باید حداقل از یک کاراکتر خاص استفاده کنید.</span>
+                                                            <span class="check-icon"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
 
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
@@ -223,6 +287,55 @@
 
             updateEducationLevelAndVisibility();
         });
+    </script>
+    
+    <script>
+        document.getElementById('password').addEventListener('input', function() {
+    const password = this.value;
+
+    
+    const lengthCheck = document.getElementById('lengthCheck');
+    const caseCheck = document.getElementById('caseCheck');
+    const persianCheck = document.getElementById('persianCheck');
+    const specialCharCheck = document.getElementById('specialCharCheck');
+
+    
+    if (password.length >= 8) {
+        lengthCheck.querySelector('.check-icon').style.display = 'inline-block';
+        lengthCheck.style.color = '#28a745';
+    } else {
+        lengthCheck.querySelector('.check-icon').style.display = 'none'; 
+        lengthCheck.style.color = '#dc3545'; 
+    }
+
+    
+    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+        caseCheck.querySelector('.check-icon').style.display = 'inline-block';
+        caseCheck.style.color = '#28a745';
+    } else {
+        caseCheck.querySelector('.check-icon').style.display = 'none';
+        caseCheck.style.color = '#dc3545';
+    }
+
+    
+    if (!/[آ-ی]/.test(password)) {
+        persianCheck.querySelector('.check-icon').style.display = 'inline-block';
+        persianCheck.style.color = '#28a745';
+    } else {
+        persianCheck.querySelector('.check-icon').style.display = 'none';
+        persianCheck.style.color = '#dc3545';
+    }
+
+    
+    if (/[!@@#$%^&*(),.?":{}|<>]/.test(password)) {
+        specialCharCheck.querySelector('.check-icon').style.display = 'inline-block';
+        specialCharCheck.style.color = '#28a745';
+    } else {
+        specialCharCheck.querySelector('.check-icon').style.display = 'none';
+        specialCharCheck.style.color = '#dc3545';
+    }
+        });
+
     </script>
 
 

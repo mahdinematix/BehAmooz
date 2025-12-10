@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccountManagement.Infrastructure.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class AccountAndRoleAndRolePermissionAndWalletAndWalletTransactionAddedAndCreated : Migration
+    public partial class AccountManagementModuleRegistered : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,7 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
                     Email = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     NationalCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     UniversityTypeId = table.Column<int>(type: "int", nullable: false),
                     UniversityId = table.Column<int>(type: "int", nullable: false),
                     MajorId = table.Column<int>(type: "int", nullable: false),

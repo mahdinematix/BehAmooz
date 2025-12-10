@@ -61,22 +61,25 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
 
                 int col = 1;
 
-                ws.Cell(1, col++).Value = "äÇã";
-                ws.Cell(1, col++).Value = "˜Ï ÏÇäÔÌæ";
-                ws.Cell(1, col++).Value = "ÏÇäÔÇå";
-                ws.Cell(1, col++).Value = "ÏÑÓ";
-                ws.Cell(1, col++).Value = "˜Ï ˜áÇÓ";
-                ws.Cell(1, col++).Value = "ÑæÒ ˜áÇÓ";
-                ws.Cell(1, col++).Value = "ÓÇÚÊ ˜áÇÓ";
+                ws.Cell(1, col++).Value = "Ù†Ø§Ù…";
+                ws.Cell(1, col++).Value = "Ú©Ø¯ Ø¯Ø§Ù†Ø´Ø¬Ùˆ";
+                ws.Cell(1, col++).Value = "Ø¯Ø§Ù†Ø´Ú¯Ø§Ù‡";
+                ws.Cell(1, col++).Value = "Ø¯Ø±Ø³";
+                ws.Cell(1, col++).Value = "Ú©Ø¯ Ú©Ù„Ø§Ø³";
+                ws.Cell(1, col++).Value = "Ø±ÙˆØ² Ú©Ù„Ø§Ø³";
+                ws.Cell(1, col++).Value = "Ø³Ø§Ø¹Øª Ú©Ù„Ø§Ø³";
 
                 for (int i = 1; i <= 16; i++)
                 {
-                    ws.Cell(1, col++).Value = $"ÌáÓå {i}";
+                    ws.Cell(1, col++).Value = $"Ø¬Ù„Ø³Ù‡ {i}";
                 }
 
-                ws.Cell(1, col++).Value = "ÌãÚ ÌáÓÇÊ";
-                ws.Cell(1, col++).Value = "ãÈáÛ åÑ ÌáÓå (ÊæãÇä)";
-                ws.Cell(1, col++).Value = "ÌãÚ ˜á (ÊæãÇä)";
+                ws.Cell(1, col++).Value = "Ø¬Ù…Ø¹ Ø¬Ù„Ø³Ø§Øª";
+                ws.Cell(1, col++).Value = "Ù…Ø¨Ù„Øº Ù‡Ø± Ø¬Ù„Ø³Ù‡ (ØªÙˆÙ…Ø§Ù†)";
+                ws.Cell(1, col++).Value = "Ø¬Ù…Ø¹ Ø³ÙØ§Ø±Ø´Ø§Øª (ØªÙˆÙ…Ø§Ù†)";
+                ws.Cell(1, col++).Value = "Ø³Ù‡Ù… Ø³Ø§Ø²Ù…Ø§Ù† (ØªÙˆÙ…Ø§Ù†)";
+                ws.Cell(1, col++).Value = "Ù…Ø§Ù„ÛŒØ§Øª (ØªÙˆÙ…Ø§Ù†)";
+                ws.Cell(1, col++).Value = "Ø³Ù‡Ù… Ø§Ø³ØªØ§Ø¯ (ØªÙˆÙ…Ø§Ù†)";
 
                 var headerRange = ws.Range(1, 1, 1, col - 1);
                 headerRange.Style.Font.Bold = true;
@@ -93,7 +96,7 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
                     ws.Cell(row, col++).Value = c.CourseName;
                     ws.Cell(row, col++).Value = c.ClassCode;
                     ws.Cell(row, col++).Value = Days.GetName(c.ClassDay);
-                    ws.Cell(row, col++).Value = $"{c.ClassStartTime} ÊÇ {c.ClassEndTime}";
+                    ws.Cell(row, col++).Value = $"{c.ClassStartTime} ØªØ§ {c.ClassEndTime}";
 
                     
                     for (int i = 1; i <= 16; i++)
@@ -111,6 +114,9 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
                     ws.Cell(row, col++).Value = c.TotalSessions;
                     ws.Cell(row, col++).Value = c.SessionPrice;
                     ws.Cell(row, col++).Value = c.TotalAmount;
+                    ws.Cell(row, col++).Value = c.OrganShare;
+                    ws.Cell(row, col++).Value = c.Tax;
+                    ws.Cell(row, col++).Value = c.ProfessorShare;
 
                     row++;
                 }

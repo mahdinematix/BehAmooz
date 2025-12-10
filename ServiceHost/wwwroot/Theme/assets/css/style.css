@@ -3108,6 +3108,30 @@ select {
 =            quick view            =
 =============================================*/
 
+
+
+.modal-full {
+    width: 98%;
+}
+
+/* Modal-use */
+
+.modal-content .nav.nav-tabs + .tab-content, .tabs-vertical-env .tab-content, .modal-content .panel-group {
+    margin-bottom: 0px;
+}
+
+.modal-content .panel {
+    border-top: none;
+}
+
+.table > thead > tr > td.middle-align, .table > tbody > tr > td.middle-align, .table > tfood > tr > td.middle-align, .table > thead > tr > th.middle-align, .table > tbody > tr > th.middle-align, .table > tfood > tr > th.middle-align {
+    vertical-align: middle;
+}
+
+.legendLabel {
+    padding-left: 10px !important;
+}
+
 .quick-view-modal-container {
     z-index: -1;
     display: block !important;

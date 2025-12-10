@@ -1,6 +1,6 @@
 ﻿namespace AccountManagement.Application.Contract.Wallet
 {
-    public class ChargeWalletDto : BuyFromWalletDto
+    public class ChargeWalletDto :BuyFromWalletDto
     {
     }
 }

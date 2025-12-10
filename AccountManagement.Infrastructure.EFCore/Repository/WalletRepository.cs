@@ -9,7 +9,6 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
     public class WalletRepository : RepositoryBase<long , Wallet>, IWalletRepository
     {
         private readonly AccountContext _context;
-
         public WalletRepository(AccountContext context) : base(context) 
         {
             _context = context;
@@ -90,7 +89,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 Status = x.Transaction.Status,
                 CreationDate = x.Transaction.CreationDate.ToFarsi(),
                 Description = x.Transaction.Description,
-                Type = x.Transaction.Type
+                Type = x.Transaction.Type, 
             }).OrderByDescending(x => x.TransactionId).ToList();
 
             return result;
@@ -110,5 +109,6 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 TransactionId = x.Id
             }).FirstOrDefault(x => x.TransactionId == transactionId);
         }
+
     }
 }

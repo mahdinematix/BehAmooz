@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccountManagement.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    [Migration("20251026090245_AccountAndRoleAndRolePermissionAndWalletAndWalletTransactionAddedAndCreated")]
-    partial class AccountAndRoleAndRolePermissionAndWalletAndWalletTransactionAddedAndCreated
+    [Migration("20251125063918_AccountManagementModuleRegistered")]
+    partial class AccountManagementModuleRegistered
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,8 +35,8 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");

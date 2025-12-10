@@ -16,5 +16,6 @@ namespace AccountManagement.Application.Contract.Wallet
         List<LogViewModel> GetLogsByAccountId(LogSearchModel searchModel, long accountId);
         OperationResult EditDescription(EditDescription command);
         EditDescription GetDetailsByTransactionId(long transactionId);
+        void PayToProfessor(int sessionPrice, long professorId);
     }
 }

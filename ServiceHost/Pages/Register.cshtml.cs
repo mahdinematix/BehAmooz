@@ -85,7 +85,7 @@ namespace ServiceHost.Pages
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "ÏÇäÔÇå ÑÇ ÇäÊÎÇÈ ˜ä?Ï"
+                Text = "Ø¯Ø§Ù†Ø´Ú¯Ø§Ù‡ Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯"
             };
 
             lstUnis.Insert(0, defItem);
@@ -108,7 +108,7 @@ namespace ServiceHost.Pages
             var defItem = new SelectListItem()
             {
                 Value = "0",
-                Text = "äæÚ ÏÇäÔÇå ÑÇ ÇäÊÎÇÈ ˜ä?Ï"
+                Text = "Ù†ÙˆØ¹ Ø¯Ø§Ù†Ø´Ú¯Ø§Ù‡ Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯"
             };
 
             lstCountries.Insert(0, defItem);

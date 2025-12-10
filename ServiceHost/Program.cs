@@ -2,6 +2,7 @@ using _01_Framework.Application;
 using _01_Framework.Application.AwsServices;
 using _01_Framework.Application.Email;
 using _01_Framework.Application.Sms;
+using _01_Framework.Application.TusServices;
 using _01_Framework.Application.ZarinPal;
 using _01_Framework.Hubs;
 using _01_Framework.Infrastructure;
@@ -14,11 +15,11 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceHost;
 using StudyManagement.Infrastructure.Configuration;
 
+
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 // Add services to the container.
-services.AddScoped<IAuthHelper, AuthHelper>();
 services.AddMemoryCache();
 services.AddHttpContextAccessor();
 services.AddControllers();
@@ -38,12 +39,15 @@ var connectionString = builder.Configuration.GetConnectionString("BehAmoozDb");
 StudyManagementBootstrapper.Configure(services,connectionString); 
 MessageManagementBootstrapper.Configure(services,connectionString);
 AccountManagementBootstrapper.Configure(services,connectionString);
+services.AddTransient<IAuthHelper, AuthHelper>();
 services.AddTransient<IPasswordHasher, PasswordHasher>();
 services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
 services.AddTransient<ISmsService, SmsService>();
 services.AddTransient<IEmailService, EmailService>();
 services.AddScoped<IFileManager, FileManager>();
-services.AddScoped<IStorageService, StorageService>();
+services.AddScoped<IStorageServiceAws, StorageServiceAws>();
+services.AddScoped<IStorageServiceTus, StorageServiceTus>();
+
 
 services.Configure<CookieTempDataProviderOptions>(options => {
     options.Cookie.IsEssential = true;
@@ -110,6 +114,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 app.UseCookiePolicy();
 

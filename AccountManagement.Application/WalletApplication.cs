@@ -151,5 +151,14 @@ namespace AccountManagement.Application
         {
             return _walletRepository.GetDetailsByTransactionId(transactionId);
         }
+
+        public void PayToProfessor(int sessionPrice, long professorId)
+        {
+            var wallet = _walletRepository.GetByAccountId(professorId);
+            int organShare = (int)(sessionPrice * 0.25);
+            int tax = (int)(sessionPrice * 0.10);
+            int professorShare = sessionPrice - organShare - tax;
+            wallet.Charge(professorShare,professorId);
+        }
     }
 }

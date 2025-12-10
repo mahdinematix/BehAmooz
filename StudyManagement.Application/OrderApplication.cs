@@ -1,5 +1,6 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Application.Sms;
+using AccountManagement.Application.Contract.Wallet;
 using StudyManagement.Application.Contracts.Order;
 using StudyManagement.Domain.OrderAgg;
 
@@ -10,12 +11,14 @@ namespace StudyManagement.Application
         private readonly IAuthHelper _authHelper;
         private readonly IOrderRepository _orderRepository;
         private readonly ISmsService _smsService;
+        private readonly IWalletApplication _walletApplication;
 
-        public OrderApplication(IAuthHelper authHelper, IOrderRepository orderRepository,  ISmsService smsService)
+        public OrderApplication(IAuthHelper authHelper, IOrderRepository orderRepository,  ISmsService smsService, IWalletApplication walletApplication)
         {
             _authHelper = authHelper;
             _orderRepository = orderRepository;
             _smsService = smsService;
+            _walletApplication = walletApplication;
         }
 
         public long PlaceOrder(Cart cart)
@@ -25,7 +28,7 @@ namespace StudyManagement.Application
 
             foreach (var cartItem in cart.Items)
             {
-                var orderItem = new OrderItem(cartItem.Id,cartItem.SessionPrice,cartItem.SessionNumber,cartItem.ProfessorFullName,cartItem.ClassStartTime,cartItem.ClassEndTime,cartItem.ClassDay,cartItem.ClassId,cartItem.CourseName);
+                var orderItem = new OrderItem(cartItem.Id,cartItem.SessionPrice,cartItem.SessionNumber,cartItem.ProfessorId,cartItem.ProfessorFullName,cartItem.ClassStartTime,cartItem.ClassEndTime,cartItem.ClassDay,cartItem.ClassId,cartItem.CourseName);
                 order.AddItem(orderItem);
             }
 
@@ -40,6 +43,10 @@ namespace StudyManagement.Application
             order.PaymentSucceeded(refId);
             var issueTrackingNo = CodeGenerator.Generate("S");
             order.SetIssueTrackingNo(issueTrackingNo);
+            foreach (var orderItem in order.Items)
+            {
+                _walletApplication.PayToProfessor(orderItem.SessionPrice,orderItem.ProfessorId);
+            }
             _orderRepository.Save();
             return issueTrackingNo;
         }
@@ -58,5 +65,7 @@ namespace StudyManagement.Application
         {
             return _orderRepository.GetItems(orderId);
         }
+
+        
     }
 }

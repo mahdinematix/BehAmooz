@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using _01_Framework.Application;
+﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Domain.AccountAgg;
@@ -66,10 +65,29 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.InvalidNationalCode);
             }
 
+            if (command.Password.Length < 8)
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (!command.Password.Any(char.IsLower) || !command.Password.Any(char.IsUpper))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (command.Password.Any(c => c >= 0x0600 && c <= 0x06FF)) 
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (!command.Password.Any(c => "!@#$%^&*(),.?\":{}|<>".Contains(c)))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+
             if (command.Password != command.RePassword)
             {
                 return operation.Failed(ApplicationMessages.PasswordsNotMatch);
             }
+
+
             var password = _passwordHasher.Hash(command.Password);
             var fileUrlForNationalCardPicture = await _FileManager.Upload(command.NationalCardPicture, false);
             var account = new Account(command.FirstName, command.LastName, password, command.Email, command.PhoneNumber,
@@ -190,6 +208,23 @@ namespace AccountManagement.Application
             {
                 return operation.Failed(ApplicationMessages.PasswordsNotMatch);
             }
+            if (command.NewPassword.Length < 8)
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (!command.NewPassword.Any(char.IsLower) || !command.NewPassword.Any(char.IsUpper))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (command.NewPassword.Any(c => c >= 0x0600 && c <= 0x06FF))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (!command.NewPassword.Any(c => "!@#$%^&*(),.?\":{}|<>".Contains(c)))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+
 
             var password = _passwordHasher.Hash(command.NewPassword);
             account.ChangePassword(password);
@@ -217,6 +252,23 @@ namespace AccountManagement.Application
             {
                 return operation.Failed(ApplicationMessages.PasswordsNotMatch);
             }
+            if (command.NewPassword.Length < 8)
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (!command.NewPassword.Any(char.IsLower) || !command.NewPassword.Any(char.IsUpper))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (command.NewPassword.Any(c => c >= 0x0600 && c <= 0x06FF))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (!command.NewPassword.Any(c => "!@#$%^&*(),.?\":{}|<>".Contains(c)))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+
 
             var password = _passwordHasher.Hash(command.NewPassword);
             account.ChangePassword(password);

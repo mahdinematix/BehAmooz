@@ -44,7 +44,7 @@ namespace StudyManagement.Infrastructure.Configuration
             services.AddTransient<ICourseQuery, CourseQuery>();
             services.AddTransient<IClassQuery, ClassQuery>();
             services.AddTransient<ISessionQuery, SessionQuery>();
-            services.AddTransient<IOrderItemQuery, OrderItemQuery>();
+            services.AddTransient<IOrderQuery, OrderQuery>();
             services.AddTransient<ICustomerQuery, CustomerQuery>();
 
 

@@ -102,7 +102,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 query = query.Where(x => x.EducationLevel == searchModel.EducationLevel);
             }
 
-            return query.OrderByDescending(x => x.Id).ToList();
+            return query.Where(x=>x.RoleId != long.Parse(Roles.Administrator)).OrderByDescending(x => x.Id).ToList();
         }
 
         public Account GetByNationalCode(string nationalCode)

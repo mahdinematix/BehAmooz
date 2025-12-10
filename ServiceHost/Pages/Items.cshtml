@@ -1,0 +1,37 @@
+﻿@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@model List<StudyManagement.Application.Contracts.Order.OrderItemViewModel>
+@{
+}
+
+
+
+<div class="modal-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>درس</th>
+                <th>نام استاد</th>
+                <th>روز کلاس</th>
+                <th>ساعت شروع</th>
+                <th>ساعت پایان</th>
+                <th>شماره جلسه</th>
+                <th>قیمت واحد</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CourseName</td>
+                    <td>@item.ProfessorFullName</td>
+                    <td>@Days.GetName(item.ClassDay)</td>
+                    <td>@item.ClassStartTime</td>
+                    <td>@item.ClassEndTime</td>
+                    <td>@item.SessionNumber</td>
+                    <td>@item.UnitPrice.ToMoney()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

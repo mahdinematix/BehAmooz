@@ -32,8 +32,8 @@ namespace AccountManagement.Infrastructure.EFCore.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");

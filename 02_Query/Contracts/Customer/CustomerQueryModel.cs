@@ -16,5 +16,8 @@
         public int SessionPrice { get; set; }
         public int TotalAmount { get; set; }
         public int EducationLevel { get; set; }
+        public int OrganShare { get; set; }
+        public int Tax { get; set; }
+        public int ProfessorShare { get; set; }
     }
 }

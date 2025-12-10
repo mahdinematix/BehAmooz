@@ -30,7 +30,7 @@ namespace StudyManagement.Application
 
             if (command.Booklet != null)
                 fileUrlForBooklet = await _fileManager.Upload(command.Booklet, false);
-            bool videoCanceledOrInvalid = command.Video != null &&
+            bool videoCanceledOrInvalid = command.Video == null &&
                                           (string.IsNullOrWhiteSpace(fileUrlForVideo) || !fileUrlForVideo.StartsWith("http", StringComparison.OrdinalIgnoreCase));
 
             bool bookletCanceledOrInvalid = command.Booklet != null &&

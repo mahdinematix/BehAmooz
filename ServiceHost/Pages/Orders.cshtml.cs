@@ -3,36 +3,35 @@ using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Order;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StudyManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Pages
 {
-    public class MySessionsModel : PageModel
+    public class OrdersModel : PageModel
     {
-        private readonly IAuthHelper _authHelper;
         private readonly IOrderQuery _orderQuery;
-        public List<OrderItemQueryModel> OrderItems;
+        private readonly IAuthHelper _authHelper;
+        private readonly IOrderApplication _orderApplication;
+        public List<OrderQueryModel> Orders;
 
-        public MySessionsModel(IAuthHelper authHelper, IOrderQuery orderQuery)
+        public OrdersModel(IAuthHelper authHelper, IOrderQuery orderQuery, IOrderApplication orderApplication)
         {
             _authHelper = authHelper;
             _orderQuery = orderQuery;
+            _orderApplication = orderApplication;
         }
-
 
         public IActionResult OnGet()
         {
-
-            var status = _authHelper.CurrentAccountStatus();
-
             if (!_authHelper.IsAuthenticated())
             {
                 return RedirectToPage("/Login");
             }
-
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (_authHelper.CurrentAccountRole() != Roles.Student)
             {
-                return RedirectToPage("/Index", new { area = "Administration" });
+                return RedirectToPage("/Financial/Log", new { area = "Administration" });
             }
+            var status = _authHelper.CurrentAccountStatus();
 
             if (status == Statuses.Waiting)
             {
@@ -44,9 +43,15 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/Reject");
             }
 
-            OrderItems = _orderQuery.GetItemsThatPaid();
+            Orders = _orderQuery.GetOrdersThatPaid();
+
 
             return Page();
+        }
+        public IActionResult OnGetItems(long id)
+        {
+            var items = _orderApplication.GetItems(id);
+            return Partial("Items", items);
         }
     }
 }

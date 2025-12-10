@@ -16,5 +16,6 @@ namespace StudyManagement.Application.Contracts.Class
         OperationResult Copy(CopyClass command);
         string GetClassCodeById(long id);
         List<ClassViewModel> GetClassesForCopy(long classId);
+        
     }
 }

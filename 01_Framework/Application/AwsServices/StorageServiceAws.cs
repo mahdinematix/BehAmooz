@@ -8,11 +8,11 @@ using S3Object = _01_Framework.Application.AwsServices.AwsDto.S3Object;
 
 namespace _01_Framework.Application.AwsServices;
 
-public class StorageService : IStorageService
+public class StorageServiceAws : IStorageServiceAws
 {
     private readonly IHubContext<UploadHub> _hubContext;
 
-    public StorageService(IHubContext<UploadHub> hubContext)
+    public StorageServiceAws(IHubContext<UploadHub> hubContext)
     {
         _hubContext = hubContext;
     }
@@ -40,7 +40,7 @@ public class StorageService : IStorageService
         return response.UploadId;
     }
 
-    public string GetObject(S3Object s3Object, AwsCredentials awsCredentials)
+    public async Task<string> GetObject(S3Object s3Object, AwsCredentials awsCredentials)
     {
         using var s3Client = CreateS3Client(awsCredentials);
         try
@@ -64,7 +64,6 @@ public class StorageService : IStorageService
             };
 
             string url = s3Client.GetPreSignedURL(getPreSignedUrlRequest);
-
             if (string.IsNullOrEmpty(url) || url.Contains("<Error>") || url.Contains("NoSuchKey"))
                 return "";
             return url;
@@ -75,7 +74,7 @@ public class StorageService : IStorageService
         }
     }
 
-    public async Task<string> UploadPartsAsync(S3Object s3Object, AwsCredentials awsCredentials, bool isVideo, CancellationToken token, string uploadId)
+    public async Task<string> UploadPartsAsync(S3Object s3Object, AwsCredentials awsCredentials, CancellationToken token, string uploadId)
     {
         using var s3Client = CreateS3Client(awsCredentials);
         List<UploadPartResponse> uploadResponses = new();
@@ -107,14 +106,8 @@ public class StorageService : IStorageService
                 if (numOfParts > 0)
                 {
                     long percent = (i * 100) / numOfParts;
-                    if (isVideo)
-                    {
-                        await _hubContext.Clients.All.SendAsync("ReceiveVideoProgress", percent);
-                    }
-                    else
-                    {
-                        await _hubContext.Clients.All.SendAsync("ReceiveBookletProgress", percent);
-                    }
+                    await _hubContext.Clients.All.SendAsync("ReceiveBookletProgress", percent);
+
                 }
             }
 
@@ -130,14 +123,9 @@ public class StorageService : IStorageService
             completeRequest.AddPartETags(uploadResponses);
             await s3Client.CompleteMultipartUploadAsync(completeRequest, token);
 
-            if (isVideo)
-            {
-                await _hubContext.Clients.All.SendAsync("ReceiveVideoProgress", 100);
-            }
-            else
-            {
-                await _hubContext.Clients.All.SendAsync("ReceiveBookletProgress", 100);
-            }
+
+            await _hubContext.Clients.All.SendAsync("ReceiveBookletProgress", 100);
+
 
             return uploadId;
         }

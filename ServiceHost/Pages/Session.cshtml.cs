@@ -14,18 +14,18 @@ namespace ServiceHost.Pages
         private readonly IAuthHelper _authHelper;
         private readonly ISessionQuery _sessionQuery;
         private readonly IClassQuery _classQuery;
-        private readonly IOrderItemQuery _orderItemQuery;
+        private readonly IOrderQuery _orderQuery;
         public SessionQueryModel Session;
         public ClassQueryModel Class;
         public CourseQueryModel Course;
         public bool IsPaid;
 
-        public SessionModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery, IOrderItemQuery orderItemQuery)
+        public SessionModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery, IOrderQuery orderQuery)
         {
             _authHelper = authHelper;
             _sessionQuery = sessionQuery;
             _classQuery = classQuery;
-            _orderItemQuery = orderItemQuery;
+            _orderQuery = orderQuery;
         }
 
         public IActionResult OnGet(long sessionId)
@@ -52,7 +52,7 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/Reject");
             }
 
-            IsPaid = _orderItemQuery.IsPaid(sessionId);
+            IsPaid = _orderQuery.IsPaid(sessionId);
             Session = _sessionQuery.GetSessionById(sessionId);
             Class = _classQuery.GetClassById(Session.ClassId);
             Course = _classQuery.GetCourseNameAndPriceByClassId(Class.CourseId);

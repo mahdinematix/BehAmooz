@@ -30,7 +30,7 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (_authHelper.CurrentAccountRole() != Roles.Student)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }

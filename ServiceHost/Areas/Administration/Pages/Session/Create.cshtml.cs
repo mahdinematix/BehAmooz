@@ -41,18 +41,18 @@ namespace ServiceHost.Areas.Administration.Pages.Session
             return Page();
         }
 
-        public IActionResult OnPost(CreateSession command, long classId)
+        public async Task<IActionResult> OnPost(CreateSession command, long classId)
         {
             if (ModelState.IsValid)
             {
                 command.ClassId = classId;
-                var result = _sessionApplication.Create(command);
-                if (result.Result.IsSucceeded)
+                var result = await _sessionApplication.Create(command);
+                if (result.IsSucceeded)
                 {
                     return RedirectToPage("./Index", new { classId = classId });
                 }
 
-                Message = result.Result.Message;
+                Message = result.Message;
                 return RedirectToPage("./Create", new { classId = classId });
             }
             Message = ApplicationMessages.FillTheForms;

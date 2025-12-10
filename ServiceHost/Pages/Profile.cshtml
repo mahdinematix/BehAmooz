@@ -1,104 +1,121 @@
 ﻿@page
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
-@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IAuthHelper AuthHelper
 @model ServiceHost.Pages.ProfileModel
 @{
     ViewData["Title"] = "ویرایش پروفایل";
 }
+@if (AuthHelper.CurrentAccountStatus() != Statuses.Confirmed)
+{
+    <div class="page-content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-wrapper">
+                        <div class="page-content-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 m-auto">
+                                    <div class="alert alert-primary">اگر لیست دانشگاه برای شما دچار مشکل شد کافیست لیست نوع دانشگاه را یکبار تغییر دهید و مجددا آنرا انتخاب کنید.</div>
 
-<div class="page-content-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="page-wrapper">
-                    <div class="page-content-wrapper">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 m-auto">
-                                <div class="alert alert-warning">توجه: پس از ویرایش اطلاعات، وضعیت اکانت شما به حالت "در انتظار" تغییر خواهد یافت و برای دسترسی مجدد به سایت باید منتظر تایید مدیر سیستم بمانید</div>
-                                <div class="alert alert-primary">اگر لیست دانشگاه برای شما دچار مشکل شد کافیست لیست نوع دانشگاه را یکبار تغییر دهید و مجددا آنرا انتخاب کنید.</div>
-
-                                @if (Model.Message != null)
-                                {
-                                    if (Model.IsSucceeded)
+                                    @if (Model.Message != null)
                                     {
-                                        <div class="alert alert-success">@Model.Message</div>
+                                        if (Model.IsSucceeded)
+                                        {
+                                            <div class="alert alert-success">@Model.Message</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-danger">@Model.Message</div>
+                                        }
                                     }
-                                    else
-                                    {
-                                        <div class="alert alert-danger">@Model.Message</div>
-                                    }
-                                }
-                                <form method="post">
-                                    <div class="login-form">
-                                        <div class="row">
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.Code">کد دانشجویی</label>
-                                                <input class="form-control" maxlength="20" type="text" asp-for="Command.Code" placeholder="کد استادی/دانشجویی" required>
-                                                <span class="error" asp-validation-for="Command.Code"></span>
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.Major">رشته</label>
-                                                <select class="form-control my-1 mr-sm-2 select22" asp-for="Command.Major" asp-items='new SelectList(Majors.List, "Id", "Name")'>
-                                                    <option value="0">رشته</option>
-                                                </select>
-                                                <span class="error" asp-validation-for="Command.Major"></span>
+                                    <form method="post">
+                                        <div class="login-form">
+                                            <div class="row">
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.Code">نام</label>
+                                                    <input class="form-control" maxlength="20" type="text" asp-for="Command.Code" placeholder="نام" required>
+                                                    <span class="error" asp-validation-for="Command.Code"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.Code">نام خانوادگی</label>
+                                                    <input class="form-control" maxlength="20" type="text" asp-for="Command.Code" placeholder="نام خانوادگی" required>
+                                                    <span class="error" asp-validation-for="Command.Code"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.Code">کد ملی</label>
+                                                    <input class="form-control" maxlength="20" type="text" asp-for="Command.Code" placeholder="کد ملی" required>
+                                                    <span class="error" asp-validation-for="Command.Code"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.NationalCardPicture">کارت ملی </label>
+                                                    <input asp-for="Command.NationalCardPicture" id="inputPicture" placeholder="کارت ملی" class="form-control" type="file" accept="image/*">
+                                                    <span class="error" asp-validation-for="Command.NationalCardPicture"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.Code">کد دانشجویی</label>
+                                                    <input class="form-control" maxlength="14" type="text" asp-for="Command.Code" placeholder="کد دانشجویی" required>
+                                                    <span class="error" asp-validation-for="Command.Code"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.Major">رشته</label>
+                                                    <select class="form-control my-1 mr-sm-2 select22" asp-for="Command.Major" asp-items='new SelectList(Majors.List, "Id", "Name")'>
+                                                        <option value="0">رشته</option>
+                                                    </select>
+                                                    <span class="error" asp-validation-for="Command.Major"></span>
 
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.PhoneNumber">موبایل</label>
-                                                <input class="form-control" maxlength="11" type="text" asp-for="Command.PhoneNumber" placeholder="موبایل">
-                                                <span class="error" asp-validation-for="Command.PhoneNumber"></span>
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.Email">ایمیل</label>
-                                                <input maxlength="300" class="form-control" type="email" asp-for="Command.Email" placeholder="ایمیل" style="direction: rtl">
-                                                <span class="error" asp-validation-for="Command.Email"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.PhoneNumber">موبایل</label>
+                                                    <input class="form-control" maxlength="11" type="text" asp-for="Command.PhoneNumber" placeholder="موبایل">
+                                                    <span class="error" asp-validation-for="Command.PhoneNumber"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.Email">ایمیل</label>
+                                                    <input maxlength="300" class="form-control" type="email" asp-for="Command.Email" placeholder="ایمیل" style="direction: rtl">
+                                                    <span class="error" asp-validation-for="Command.Email"></span>
 
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.UniversityType">نوع دانشگاه</label>
-                                                <select class="custom-select my-1 mr-sm-2" asp-for="Command.UniversityType" asp-items="Model.UniTypes" onchange="FillUnis(this);" required>
-                                                </select>
-                                                <span class="error" asp-validation-for="Command.UniversityType"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.UniversityType">نوع دانشگاه</label>
+                                                    <select class="custom-select my-1 mr-sm-2" asp-for="Command.UniversityType" asp-items="Model.UniTypes" onchange="FillUnis(this);" required>
+                                                    </select>
+                                                    <span class="error" asp-validation-for="Command.UniversityType"></span>
 
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.University">دانشگاه</label>
-                                                <select class="form-control select22 my-1 mr-sm-2" asp-for="Command.University" asp-items='new SelectList(Universities.List, "Id", "Name")' required>
-                                                </select>
-                                                <span class="error" asp-validation-for="Command.University"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.University">دانشگاه</label>
+                                                    <select class="form-control select22 my-1 mr-sm-2" asp-for="Command.University" asp-items='new SelectList(Universities.List, "Id", "Name")' required>
+                                                    </select>
+                                                    <span class="error" asp-validation-for="Command.University"></span>
 
-                                            </div>
-                                            <div id="educationLevelWrapper" class="col-md-6 col-12 mb-20">
-                                                <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
-                                                <select id="educationLevelSelect" class="form-control" asp-for="Command.EducationLevel">
-                                                    <option value="0">مقطع تحصیلی</option>
-                                                    <option value="@EducationLevels.Kardani">کاردانی</option>
-                                                    <option value="@EducationLevels.Karshenasi">کارشناسی</option>
-                                                    <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
-                                                    <option value="@EducationLevels.Doktora">دکتری</option>
-                                                    <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
-                                                    <option value="@EducationLevels.ProfessorOrAdmin">استاد هستم</option>
-                                                </select>
-                                                <span asp-validation-for="Command.EducationLevel" class="error"></span>
-                                            </div>
-                                            <div class="col-md-6 col-12 mb-20">
-                                                <a class="btn btn-primary" asp-page="/ChangePassword" asp-area="">تغییر کلمه عبور
-                                                </a>
-                                            </div>
-                                            <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id" />
-                                            <input type="hidden" value="@Model.Command.RoleId" asp-for="Command.RoleId" />
-                                            <input type="hidden" value="@Model.Command.FirstName" asp-for="Command.FirstName" />
-                                            <input type="hidden" value="@Model.Command.LastName" asp-for="Command.LastName" />
-                                            <input type="hidden" value="@Model.Command.NationalCode" asp-for="Command.NationalCode" />
-                                            <input type="hidden" value="@Model.Command.NationalCardPicture" asp-for="Command.NationalCardPicture" />
-                                            <div class="col-12">
-                                                <button type="submit" class="btn btn-primary w-100 mt-3">ویرایش</button>
+                                                </div>
+                                                <div id="educationLevelWrapper" class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                                    <select id="educationLevelSelect" class="form-control" asp-for="Command.EducationLevel">
+                                                        <option value="0">مقطع تحصیلی</option>
+                                                        <option value="@EducationLevels.Kardani">کاردانی</option>
+                                                        <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                                        <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                                        <option value="@EducationLevels.Doktora">دکتری</option>
+                                                        <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                                        <option value="@EducationLevels.ProfessorOrAdmin">استاد هستم</option>
+                                                    </select>
+                                                    <span asp-validation-for="Command.EducationLevel" class="error"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <a class="btn btn-primary" asp-page="/ChangePassword">تغییر کلمه عبور
+                                                    </a>
+                                                </div>
+                                                <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id"/>
+                                                <input type="hidden" value="@Model.Command.RoleId" asp-for="Command.RoleId"/>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary w-100 mt-3">ویرایش</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -106,7 +123,102 @@
             </div>
         </div>
     </div>
-</div>
+
+}
+else
+{
+    <div class="page-content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-wrapper">
+                        <div class="page-content-wrapper">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 m-auto">
+                                    <div class="alert alert-warning">توجه: پس از ویرایش اطلاعات، وضعیت اکانت شما به حالت "در انتظار" تغییر خواهد یافت و برای دسترسی مجدد به سایت باید منتظر تایید مدیر سیستم بمانید</div>
+                                    <div class="alert alert-primary">اگر لیست دانشگاه برای شما دچار مشکل شد کافیست لیست نوع دانشگاه را یکبار تغییر دهید و مجددا آنرا انتخاب کنید.</div>
+
+                                    @if (Model.Message != null)
+                                    {
+                                        if (Model.IsSucceeded)
+                                        {
+                                            <div class="alert alert-success">@Model.Message</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-danger">@Model.Message</div>
+                                        }
+                                    }
+                                    <form method="post">
+                                        <div class="login-form">
+                                            <div class="row">
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.Code">کد دانشجویی</label>
+                                                    <input class="form-control" maxlength="14" type="text" asp-for="Command.Code" placeholder="کد دانشجویی" required>
+                                                    <span class="error" asp-validation-for="Command.Code"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.Major">رشته</label>
+                                                    <select class="form-control my-1 mr-sm-2 select22" asp-for="Command.Major" asp-items='new SelectList(Majors.List, "Id", "Name")'>
+                                                        <option value="0">رشته</option>
+                                                    </select>
+                                                    <span class="error" asp-validation-for="Command.Major"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.UniversityType">نوع دانشگاه</label>
+                                                    <select class="custom-select my-1 mr-sm-2" asp-for="Command.UniversityType" asp-items="Model.UniTypes" onchange="FillUnis(this);" required>
+                                                    </select>
+                                                    <span class="error" asp-validation-for="Command.UniversityType"></span>
+
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.University">دانشگاه</label>
+                                                    <select class="form-control select22 my-1 mr-sm-2" asp-for="Command.University" asp-items='new SelectList(Universities.List, "Id", "Name")' required>
+                                                    </select>
+                                                    <span class="error" asp-validation-for="Command.University"></span>
+
+                                                </div>
+                                                <div id="educationLevelWrapper" class="col-md-6 col-12 mb-20">
+                                                    <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                                    <select id="educationLevelSelect" class="form-control" asp-for="Command.EducationLevel">
+                                                        <option value="0">مقطع تحصیلی</option>
+                                                        <option value="@EducationLevels.Kardani">کاردانی</option>
+                                                        <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                                        <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                                        <option value="@EducationLevels.Doktora">دکتری</option>
+                                                        <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                                        <option value="@EducationLevels.ProfessorOrAdmin">استاد هستم</option>
+                                                    </select>
+                                                    <span asp-validation-for="Command.EducationLevel" class="error"></span>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-20">
+                                                    <a class="btn btn-primary" asp-page="/ChangePassword" asp-area="">
+                                                        تغییر کلمه عبور
+                                                    </a>
+                                                </div>
+                                                <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id"/>
+                                                <input type="hidden" value="@Model.Command.RoleId" asp-for="Command.RoleId"/>
+                                                <input type="hidden" value="@Model.Command.FirstName" asp-for="Command.FirstName"/>
+                                                <input type="hidden" value="@Model.Command.LastName" asp-for="Command.LastName"/>
+                                                <input type="hidden" value="@Model.Command.NationalCode" asp-for="Command.NationalCode"/>
+                                                <input type="hidden" value="@Model.Command.NationalCardPicture" asp-for="Command.NationalCardPicture"/>
+                                                <input type="hidden" value="@Model.Command.PhoneNumber" asp-for="Command.PhoneNumber"/>
+                                                <input type="hidden" value="@Model.Command.Email" asp-for="Command.Email"/>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary w-100 mt-3">ویرایش</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @section Scripts
 {

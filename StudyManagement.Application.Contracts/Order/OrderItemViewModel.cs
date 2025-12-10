@@ -10,7 +10,7 @@
         public string ClassEndTime { get; set; }
         public int ClassDay { get; set; }
         public string CourseName { get; set; }
-        public double UnitPrice { get; set; }
+        public int UnitPrice { get; set; }
         public long OrderId { get; set; }
     }
 }

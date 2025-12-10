@@ -87,5 +87,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
 
             return items;
         }
+
     }
 }

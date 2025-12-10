@@ -67,7 +67,7 @@
                                 {
                                     <label asp-for="Command.Code" class="control-label">کد دانشجویی</label>
                                 }
-                                <input type="text" class="form-control" asp-for="Command.Code">
+                                <input maxlength="14" type="text" class="form-control" asp-for="Command.Code">
                                 <span asp-validation-for="Command.Code" class="error"></span>
                             </div>
                         </div>

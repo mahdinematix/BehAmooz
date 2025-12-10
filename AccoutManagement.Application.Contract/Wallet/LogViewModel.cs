@@ -2,5 +2,6 @@
 {
     public class LogViewModel : SettlementRequestViewModel
     {
+        public long OrderId { get; set; }
     }
 }

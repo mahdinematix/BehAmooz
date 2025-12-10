@@ -27,7 +27,7 @@ public class ApplicationMessages
     public const string FillTheForms = "نوع دانشگاه را انتخاب کنید...";
 
 
-
+    public static string PasswordRulesAreNotPassed = "شروط کلمه عبور را رعایت نکردید!";
 }
 
 

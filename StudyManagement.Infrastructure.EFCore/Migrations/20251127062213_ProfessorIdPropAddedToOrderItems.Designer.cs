@@ -12,8 +12,8 @@ using StudyManagement.Infrastructure.EFCore;
 namespace StudyManagement.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(StudyContext))]
-    [Migration("20251026090217_CourseAndClassAndSessionAndSessionPictureAddedAndCreated")]
-    partial class CourseAndClassAndSessionAndSessionPictureAddedAndCreated
+    [Migration("20251127062213_ProfessorIdPropAddedToOrderItems")]
+    partial class ProfessorIdPropAddedToOrderItems
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -279,6 +279,9 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                             b1.Property<string>("ProfessorFullName")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
+
+                            b1.Property<long>("ProfessorId")
+                                .HasColumnType("bigint");
 
                             b1.Property<long>("SessionId")
                                 .HasColumnType("bigint");

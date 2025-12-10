@@ -3,8 +3,7 @@
   "WorkspaceRootPath": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|d:\\programming\\asp .net projects\\behamooz\\servicehost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40745A28-E50E-9372-63BD-63FCD7C3B447}|ServiceHost\\ServiceHost.csproj|solutionrelative:servicehost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\10.0.100\\Roslyn\\Microsoft.CSharp.Core.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,47 +13,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Program.cs",
-              "RelativeDocumentMoniker": "ServiceHost\\Program.cs",
-              "ToolTip": "D:\\Programming\\ASP .NET Projects\\BehAmooz\\ServiceHost\\Program.cs",
-              "RelativeToolTip": "ServiceHost\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHUAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-09T21:15:31.419Z",
+              "Title": "Microsoft.CSharp.Core.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\10.0.100\\Roslyn\\Microsoft.CSharp.Core.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\10.0.100\\Roslyn\\Microsoft.CSharp.Core.targets",
+              "ViewState": "AgIAAD8AAAAAAAAAAAApwFMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-11-19T09:13:16.721Z",
               "EditorCaption": ""
             }
           ]

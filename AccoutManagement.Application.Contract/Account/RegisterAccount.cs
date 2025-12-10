@@ -35,7 +35,8 @@ namespace AccountManagement.Application.Contract.Account
         [MaxFileSize(5 * 1024 * 1024 , ErrorMessage = ValidationMessages.MaxFileSizePicture)]
         public IFormFile? NationalCardPicture { get; set; }
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        [MaxLength(20, ErrorMessage = ValidationMessages.MaxLength)]
+        [MaxLength(14, ErrorMessage = ValidationMessages.MaxLength)]
+        [MinLength(8,ErrorMessage = ValidationMessages.MinLength)]
         public string Code { get; set; }
         [Range(1, long.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
         public long RoleId { get; set; }

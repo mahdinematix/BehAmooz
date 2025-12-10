@@ -1,6 +1,8 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Domain;
 using AccountManagement.Domain.AccountAgg;
+using MailKit.Search;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountManagement.Domain.WalletAgg;
 public class Wallet : EntityBase

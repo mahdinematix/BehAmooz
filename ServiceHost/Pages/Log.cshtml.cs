@@ -3,6 +3,7 @@ using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Wallet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StudyManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Pages
 {
@@ -28,7 +29,7 @@ namespace ServiceHost.Pages
             }
             if (_authHelper.CurrentAccountRole() != Roles.Student)
             {
-                return RedirectToPage("/Financial/Wallet" , new {area = "Administration"});
+                return RedirectToPage("/Financial/Log" , new {area = "Administration"});
             }
             var status = _authHelper.CurrentAccountStatus();
 
@@ -58,5 +59,8 @@ namespace ServiceHost.Pages
             }
             return RedirectToPage("./Log");
         }
+
+
+        
     }
 }

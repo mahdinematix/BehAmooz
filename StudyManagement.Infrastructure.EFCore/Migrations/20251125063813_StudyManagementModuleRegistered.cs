@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StudyManagement.Infrastructure.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class CourseAndClassAndSessionAndSessionPictureAddedAndCreated : Migration
+    public partial class StudyManagementModuleRegistered : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

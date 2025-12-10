@@ -1,4 +1,4 @@
-﻿function remove(){
+﻿function remove() {
     var selectElement = document.getElementById("MembershipType").value;
     var selectMembership1 = document.getElementById("selectMembership1");
     var selectMembership2 = document.getElementById("selectMembership2");
