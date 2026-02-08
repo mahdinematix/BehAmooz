@@ -57,6 +57,15 @@
 
                     </li>
                 }
+                
+                @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                {
+                    <li>
+                        <a asp-page="/Log/Index" class="waves-effect">
+                            <i class="fa fa-recycle"></i><span> تاریخچه عملیات ها </span>
+                        </a>
+                    </li>
+                }
 
                 @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
                 {

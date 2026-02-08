@@ -21,24 +21,27 @@ namespace ServiceHost.Pages
         [TempData] public string LoginMessage { get; set; }
         public IActionResult OnGet()
         {
-            var status = _authHelper.CurrentAccountStatus();
-            if (_authHelper.IsAuthenticated() && _authHelper.CurrentAccountRole() == Roles.Student)
+            if (_authHelper.IsAuthenticated())
             {
-                return RedirectToPage("/Index");
-            }
-            if (_authHelper.IsAuthenticated() && _authHelper.CurrentAccountRole() != Roles.Student)
-            {
-                return RedirectToPage("/Index", new { area = "Administration" });
-            }
+                var status = _authHelper.CurrentAccountStatus();
+                if (_authHelper.CurrentAccountRole() == Roles.Student)
+                {
+                    return RedirectToPage("/Index");
+                }
+                if (_authHelper.CurrentAccountRole() != Roles.Student)
+                {
+                    return RedirectToPage("/Index", new { area = "Administration" });
+                }
 
-            if (status == Statuses.Waiting)
-            {
-                return RedirectToPage("/NotConfirmed");
-            }
+                if (status == Statuses.Waiting)
+                {
+                    return RedirectToPage("/NotConfirmed");
+                }
 
-            if (status == Statuses.Rejected)
-            {
-                return RedirectToPage("/Reject");
+                if (status == Statuses.Rejected)
+                {
+                    return RedirectToPage("/Reject");
+                }
             }
 
             return Page();
@@ -59,6 +62,7 @@ namespace ServiceHost.Pages
         public IActionResult OnGetLogout()
         {
             _accountApplication.Logout();
+            TempData.Remove("AdminFirstRedirect");
             return RedirectToPage("/Login");
         }
     }

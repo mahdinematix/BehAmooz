@@ -13,7 +13,7 @@ namespace AccountManagement.Application.Contract.Wallet
         OperationResult CancelRequestWithdrawByUser(CancelRequestWithdrawByUserDto command);
         long GetBalanceByAccountId(long accountId);
         List<SettlementRequestViewModel> Search(SettlementRequestSearchModel searchModel);
-        List<LogViewModel> GetLogsByAccountId(LogSearchModel searchModel, long accountId);
+        List<LogViewModel> GetLogsByAccountId(TransactionLogSearchModel searchModel, long accountId);
         OperationResult EditDescription(EditDescription command);
         EditDescription GetDetailsByTransactionId(long transactionId);
         void PayToProfessor(int sessionPrice, long professorId);

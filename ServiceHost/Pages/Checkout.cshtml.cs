@@ -106,7 +106,8 @@ namespace ServiceHost.Pages
             var command = new BuyFromWalletDto
             {
                 AccountId = _authHelper.CurrentAccountId(),
-                Amount = Convert.ToInt64(cart.TotalAmount)
+                Amount = Convert.ToInt64(cart.FinalAmount),
+                OrderId = orderId
             };
             _walletApplication.BuyFromGateway(command);
             
@@ -130,7 +131,7 @@ namespace ServiceHost.Pages
             var command = new BuyFromWalletDto
             {
                 AccountId = _authHelper.CurrentAccountId(),
-                Amount = Convert.ToInt64(cart.TotalAmount)
+                Amount = Convert.ToInt64(cart.FinalAmount)
             };
             var result = _walletApplication.BuyFromWallet(command);
             if (!result.IsSucceeded)

@@ -132,7 +132,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         public List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel)
         {
-            var query = _context.Accounts.Where(x=>x.RoleId == RolesInt.Student).Select(x => new AccountViewModel
+            var query = _context.Accounts.Where(x=>x.RoleId == RolesId.Student).Select(x => new AccountViewModel
             {
                 Id = x.Id,
                 Email = x.Email,
@@ -198,7 +198,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         public List<AccountViewModel> SearchInCustomers(AccountSearchModel searchModel)
         {
-            var query = _context.Accounts.Where(x => x.RoleId == RolesInt.Student).Select(x => new AccountViewModel
+            var query = _context.Accounts.Where(x => x.RoleId == RolesId.Student).Select(x => new AccountViewModel
             {
                 Id = x.Id,
                 Email = x.Email,

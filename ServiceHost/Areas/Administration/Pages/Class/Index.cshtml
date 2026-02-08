@@ -1,6 +1,7 @@
 ﻿@page "{courseId}"
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
+@using LogManagement.Infrastructure.Configuration.Permissions
 @inject IAuthHelper AuthHelper
 @model ServiceHost.Areas.Administration.Pages.Class.IndexModel
 @{
@@ -82,7 +83,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>استاد</th>
+                                @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                                    {
+                                        <th>استاد</th>
+                                    }
                                     <th>کد کلاس</th>
                                     <th>روز</th>
                                     <th>ساعت شروع</th>
@@ -98,7 +102,10 @@
                                 {
                                     <tr>
                                         <td>@item.Id</td>
-                                        <td>@item.ProfessorFullName</td>
+                                    @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                                        {
+                                            <td>@item.ProfessorFullName</td>
+                                        }
                                         <td>@item.Code</td>
                                         <td>@item.Day</td>
                                         <td>@item.StartTime.ToShownTime()</td>
@@ -130,7 +137,14 @@
                                             }
 
                                             <a class="btn btn-primary pull-right m-rl-5" asp-page="/Session/Index" asp-route-classId="@item.Id">مشاهده جلسات</a>
-                                            <a class="btn btn-info pull-right m-rl-5" href="#showmodal=@Url.Page("./Index", "Copy", new { id = item.Id })">کپی جلسات</a>
+                                            <a class="btn btn-info pull-right m-rl-5" href="#showmodal=@Url.Page("./Index", "Copy", new { id = item.Id , courseId = Model.Course.Id })">کپی جلسات این کلاس</a>
+                                            @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                                            {
+                                                <a permission="@LogPermissions.ShowLogs" class="btn btn-pink pull-right m-rl-5"
+                                                   href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id })">
+                                                    <i class="fa fa-recycle"></i> تاریخچه عملیات
+                                                </a>
+                                            }
                                         </td>
                                     </tr>
                                 }

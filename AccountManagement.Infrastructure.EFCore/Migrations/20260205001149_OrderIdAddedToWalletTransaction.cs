@@ -2,17 +2,17 @@
 
 #nullable disable
 
-namespace StudyManagement.Infrastructure.EFCore.Migrations
+namespace AccountManagement.Infrastructure.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class ProfessorIdPropAddedToOrderItems : Migration
+    public partial class OrderIdAddedToWalletTransaction : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<long>(
-                name: "ProfessorId",
-                table: "OrderItems",
+                name: "OrderId",
+                table: "WalletTransactions",
                 type: "bigint",
                 nullable: false,
                 defaultValue: 0L);
@@ -22,8 +22,8 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ProfessorId",
-                table: "OrderItems");
+                name: "OrderId",
+                table: "WalletTransactions");
         }
     }
 }

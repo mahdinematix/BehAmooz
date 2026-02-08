@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using _01_Framework.Application;
-using AccountManagement.Application.Contract.Account;
-using StudyManagement.Application.Contracts.Course;
 
 namespace StudyManagement.Application.Contracts.Class
 {

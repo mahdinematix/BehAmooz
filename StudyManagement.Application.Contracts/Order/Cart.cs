@@ -2,7 +2,10 @@
 
 public class Cart
 {
+    public int Tax { get; set; }
     public int TotalAmount { get; set; }
+    public int FinalAmount { get; set; }
+    
 
     public List<CartItem> Items { get; set; }
 
@@ -15,6 +18,8 @@ public class Cart
     {
         Items.Add(cartItem);
         TotalAmount += cartItem.SessionPrice;
+        Tax = TotalAmount * 10 / 100;
+        FinalAmount = TotalAmount + Tax;
     }
 
 }

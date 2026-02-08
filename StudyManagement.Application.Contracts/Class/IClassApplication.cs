@@ -11,11 +11,13 @@ namespace StudyManagement.Application.Contracts.Class
         OperationResult DeActivate(long id);
         EditClass GetDetails(long id);
         List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId);
-        List<ClassViewModel> GetClasses();
+        List<ClassViewModel> GetClasses(long classId);
         ClassViewModel GetClassById(long id);
         OperationResult Copy(CopyClass command);
         string GetClassCodeById(long id);
-        List<ClassViewModel> GetClassesForCopy(long classId);
-        
+        List<ClassViewModel> GetClassesForCopy(long classId, long courseId);
+        string GetCourseNameByClassId(long classId);
+
+
     }
 }

@@ -64,7 +64,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
 
         }
 
-        public List<LogViewModel> GetLogsByAccountId(LogSearchModel searchModel, long accountId)
+        public List<LogViewModel> GetLogsByAccountId(TransactionLogSearchModel searchModel, long accountId)
         {
             var query = _context.Wallets
                 .Include(w => w.Account).Where(x=>x.AccountId == accountId)
@@ -90,6 +90,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 CreationDate = x.Transaction.CreationDate.ToFarsi(),
                 Description = x.Transaction.Description,
                 Type = x.Transaction.Type, 
+                OrderId = x.Transaction.OrderId
             }).OrderByDescending(x => x.TransactionId).ToList();
 
             return result;

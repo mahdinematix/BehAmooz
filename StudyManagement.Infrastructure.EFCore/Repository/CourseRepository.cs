@@ -9,30 +9,56 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
     public class CourseRepository : RepositoryBase<long,Course> , ICourseRepository
     {
         private readonly StudyContext _context;
+        private readonly IAuthHelper _authHelper;
 
-        public CourseRepository(StudyContext context) : base(context)
+        public CourseRepository(StudyContext context, IAuthHelper authHelper) : base(context)
         {
             _context = context;
+            _authHelper = authHelper;
         }
 
         public List<CourseViewModel> Search(CourseSearchModel searchModel)
         {
-            var query = _context.Courses.Include(x=>x.Classes).Select(x => new CourseViewModel
+            IQueryable<CourseViewModel> query;
+            if (_authHelper.CurrentAccountRole()==Roles.Professor)
             {
-                Id = x.Id,
-                Name = x.Name,
-                Code = x.Code,
-                NumberOfUnit = x.NumberOfUnit,
-                CourseKind = x.CourseKind,
-                IsActive = x.IsActive,
-                CreationDate = x.CreationDate.ToFarsi(),
-                ClassesCount = x.Classes.Count,
-                Major = x.Major,
-                UniversityType = x.UniversityType,
-                University = x.University,
-                Price = x.Price,
-                EducationLevel = x.EducationLevel
-            });
+                query = _context.Courses.Include(x => x.Classes).Select(x => new CourseViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Code = x.Code,
+                    NumberOfUnit = x.NumberOfUnit,
+                    CourseKind = x.CourseKind,
+                    IsActive = x.IsActive,
+                    CreationDate = x.CreationDate.ToFarsi(),
+                    ClassesCount = x.Classes.Count(x => x.ProfessorId == _authHelper.CurrentAccountId()),
+                    Major = x.Major,
+                    UniversityType = x.UniversityType,
+                    University = x.University,
+                    Price = x.Price,
+                    EducationLevel = x.EducationLevel
+                });
+            }
+            else
+            {
+                query = _context.Courses.Include(x => x.Classes).Select(x => new CourseViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Code = x.Code,
+                    NumberOfUnit = x.NumberOfUnit,
+                    CourseKind = x.CourseKind,
+                    IsActive = x.IsActive,
+                    CreationDate = x.CreationDate.ToFarsi(),
+                    ClassesCount = x.Classes.Count,
+                    Major = x.Major,
+                    UniversityType = x.UniversityType,
+                    University = x.University,
+                    Price = x.Price,
+                    EducationLevel = x.EducationLevel
+                });
+            }
+
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
             {

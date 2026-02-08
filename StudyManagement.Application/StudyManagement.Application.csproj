@@ -9,6 +9,8 @@
 
 
 	<ItemGroup>
+    <ProjectReference Include="..\AccountManagement.Domain\AccountManagement.Domain.csproj" />
+    <ProjectReference Include="..\LogManagement.Application.Conracts\LogManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\StudyManagement.Application.Contracts\StudyManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\StudyManagement.Domain\StudyManagement.Domain.csproj" />
   </ItemGroup>

@@ -35,7 +35,6 @@ namespace ServiceHost.Pages
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }
-
             if (status == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");

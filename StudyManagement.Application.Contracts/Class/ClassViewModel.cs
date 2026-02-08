@@ -14,5 +14,6 @@ public class ClassViewModel
     public int DayId { get; set; }
     public string Day { get; set; }
     public long ProfessorId { get; set; }
+    public int AccessType { get; set; }
     public string ProfessorFullName { get; set; }
 }

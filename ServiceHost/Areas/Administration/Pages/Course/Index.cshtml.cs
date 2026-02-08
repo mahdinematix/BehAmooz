@@ -1,5 +1,7 @@
 using _01_Framework.Application;
 using _01_Framework.Infrastructure;
+using LogManagement.Application.Contracts.Log;
+using LogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,16 +13,18 @@ namespace ServiceHost.Areas.Administration.Pages.Course
     {
         private readonly ICourseApplication _courseApplication;
         private readonly IAuthHelper _authHelper;
+        private readonly ILogApplication _logApplication;
 
         public CourseSearchModel SearchModel;
         public List<CourseViewModel> Courses;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
 
-        public IndexModel(ICourseApplication courseApplication, IAuthHelper authHelper)
+        public IndexModel(ICourseApplication courseApplication, IAuthHelper authHelper, ILogApplication logApplication)
         {
             _courseApplication = courseApplication;
             _authHelper = authHelper;
+            _logApplication = logApplication;
         }
 
         public IActionResult OnGet(CourseSearchModel searchModel)
@@ -98,6 +102,13 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             lstCountries.Insert(0, defItem);
 
             return lstCountries;
+        }
+
+        [NeedsPermissions(LogPermissions.ShowLogs)]
+        public IActionResult OnGetLogs(long id)
+        {
+            var logs = _logApplication.GetCourseLogsById(id);
+            return Partial("./Logs", logs);
         }
     }
 }

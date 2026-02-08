@@ -1,6 +1,6 @@
 ﻿namespace _01_Framework.Infrastructure
 {
-    public static class RolesInt
+    public static class RolesId
     {
         public const long Administrator = 1;
         public const long Professor = 2;

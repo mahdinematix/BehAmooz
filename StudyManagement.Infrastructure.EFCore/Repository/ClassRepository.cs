@@ -96,9 +96,9 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             return classes;
         }
 
-        public List<ClassViewModel> GetClasses()
+        public List<ClassViewModel> GetClasses(long classId)
         {
-            return _context.Classes.Select(x => new ClassViewModel
+            return _context.Classes.Where(x => x.Id != classId).Select(x => new ClassViewModel
             {
                 Id = x.Id,
                 Code = x.Code
@@ -114,6 +114,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Day = Days.GetName(x.Day),
                 DayId = x.Day,
                 StartTime = x.StartTime,
+                EndTime = x.EndTime,
                 Course = x.Course.Name,
                 CourseId = x.Course.Id,
                 SessionsCount = x.Sessions.Count
@@ -125,10 +126,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             return _context.Classes.FirstOrDefault(x => x.Id == id).Code;
         }
 
-        public List<ClassViewModel> GetClassesForCopy(long classId)
+        public List<ClassViewModel> GetClassesForCopy(long classId, long courseId)
         {
 
-            return _context.Classes.Where(x => x.ProfessorId == _authHelper.CurrentAccountId()).Where(x => x.Id != classId).Select(x => new ClassViewModel
+            return _context.Classes.Where(x => x.ProfessorId == _authHelper.CurrentAccountId()).Where(x => x.CourseId == courseId).Where(x => x.Id != classId).Select(x => new ClassViewModel
             {
                 Id = x.Id,
                 Code = x.Code
@@ -139,6 +140,16 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
         public Class GetClassByCode(string code)
         {
             return _context.Classes.FirstOrDefault(x => x.Code == code);
+        }
+
+        public string GetCourseNameByClassId(long classId)
+        {
+
+            return _context.Classes
+                .Where(c => c.Id == classId)
+                .Select(c => c.Course.Name)
+                .FirstOrDefault();
+
         }
     }
 }

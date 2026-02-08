@@ -24,7 +24,7 @@ namespace StudyManagement.Application
         public long PlaceOrder(Cart cart)
         {
             var currentAccountId = _authHelper.CurrentAccountId();
-            var order = new Order(currentAccountId, cart.TotalAmount);
+            var order = new Order(currentAccountId, cart.FinalAmount);
 
             foreach (var cartItem in cart.Items)
             {

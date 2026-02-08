@@ -84,7 +84,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
         [NeedsPermissions(AccountPermissions.Logs)]
         public IActionResult OnGetLog(long id)
         {
-            var searchModel = new LogSearchModel
+            var searchModel = new TransactionLogSearchModel
             {
                 Status = 0,
                 Type = 0

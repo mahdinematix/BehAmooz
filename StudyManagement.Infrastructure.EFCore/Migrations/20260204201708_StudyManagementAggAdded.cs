@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StudyManagement.Infrastructure.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class StudyManagementModuleRegistered : Migration
+    public partial class StudyManagementAggAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,6 +87,7 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     SessionId = table.Column<long>(type: "bigint", nullable: false),
                     SessionPrice = table.Column<int>(type: "int", nullable: false),
                     SessionNumber = table.Column<int>(type: "int", nullable: false),
+                    ProfessorId = table.Column<long>(type: "bigint", nullable: false),
                     ProfessorFullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClassStartTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClassEndTime = table.Column<string>(type: "nvarchar(max)", nullable: false),

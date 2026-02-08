@@ -1,4 +1,6 @@
 ﻿using _01_Framework.Application;
+using _01_Framework.Infrastructure;
+using LogManagement.Application.Contracts.Log;
 using StudyManagement.Application.Contracts.Session;
 using StudyManagement.Domain.SessionAgg;
 
@@ -8,17 +10,21 @@ namespace StudyManagement.Application
     {
         private readonly ISessionRepository _sessionRepository;
         private readonly IFileManager _fileManager;
+        private readonly ILogApplication _logApplication;
+        private readonly IAuthHelper _authHelper;
 
-        public SessionApplication(ISessionRepository sessionRepository, IFileManager fileManager)
+        public SessionApplication(ISessionRepository sessionRepository, IFileManager fileManager, ILogApplication logApplication, IAuthHelper authHelper)
         {
             _sessionRepository = sessionRepository;
             _fileManager = fileManager;
+            _logApplication = logApplication;
+            _authHelper = authHelper;
         }
 
         public async Task<OperationResult> Create(CreateSession command)
         {
             var operation = new OperationResult();
-            if (_sessionRepository.Exists(x=>x.Number == command.Number && x.ClassId == command.ClassId))
+            if (_sessionRepository.Exists(x => x.Number == command.Number && x.ClassId == command.ClassId))
             {
                 return operation.Failed(ApplicationMessages.ASessionWithThatNumberExists);
             }
@@ -30,7 +36,7 @@ namespace StudyManagement.Application
 
             if (command.Booklet != null)
                 fileUrlForBooklet = await _fileManager.Upload(command.Booklet, false);
-            bool videoCanceledOrInvalid = command.Video == null &&
+            bool videoCanceledOrInvalid = command.Video != null &&
                                           (string.IsNullOrWhiteSpace(fileUrlForVideo) || !fileUrlForVideo.StartsWith("http", StringComparison.OrdinalIgnoreCase));
 
             bool bookletCanceledOrInvalid = command.Booklet != null &&
@@ -50,6 +56,13 @@ namespace StudyManagement.Application
                 command.Description, command.ClassId);
             _sessionRepository.Create(session);
             _sessionRepository.Save();
+            _logApplication.Create(new CreateLog
+            {
+                AccountId = _authHelper.CurrentAccountId(),
+                Operation = Operations.Create,
+                TargetId = session.Id,
+                TargetType = TargetTypes.Session
+            });
             return operation.Succeed();
         }
 
@@ -62,7 +75,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
 
-            if (_sessionRepository.Exists(x => x.Number == command.Number && x.Id != command.Id  && x.ClassId == command.ClassId))
+            if (_sessionRepository.Exists(x => x.Number == command.Number && x.Id != command.Id && x.ClassId == command.ClassId))
             {
                 return operation.Failed(ApplicationMessages.ASessionWithThatNumberExists);
             }
@@ -81,9 +94,59 @@ namespace StudyManagement.Application
             if (videoCanceled || bookletCanceled)
                 return operation.Failed(ApplicationMessages.UploadProgressCanceled);
 
+            var oldNumber = session.Number;
+            var oldTitle = session.Title;
+            var oldVideoUrl = fileUrlForVideo;
+            var oldBookletUrl = fileUrlForBooklet;
+            var oldDescription = session.Description;
+            var oldDesc = string.IsNullOrWhiteSpace(oldDescription)
+                ? string.Empty
+                : oldDescription.Trim();
+
+            var newDesc = string.IsNullOrWhiteSpace(command.Description)
+                ? string.Empty
+                : command.Description.Trim();
+
             session.Edit(command.Number, command.Title, fileUrlForVideo, fileUrlForBooklet,
                 command.Description, command.ClassId);
             _sessionRepository.Save();
+
+            if (!(oldNumber == command.Number && oldTitle == command.Title && oldVideoUrl == fileUrlForVideo && oldBookletUrl == fileUrlForBooklet && oldDesc == newDesc))
+            {
+                var changes = new List<string>();
+
+
+                if (oldNumber != command.Number)
+                    changes.Add($"شماره از «{oldNumber}» به «{command.Number}»");
+
+                if (oldTitle != command.Title)
+                    changes.Add($"عنوان از «{oldTitle}» به «{command.Title}»");
+
+                if (oldVideoUrl != fileUrlForVideo)
+                    changes.Add($"ویدیوی جلسه");
+
+                if (oldBookletUrl != fileUrlForBooklet)
+                    changes.Add($"جزوه جلسه");
+
+
+
+                if (oldDesc != newDesc)
+                {
+                    changes.Add($"توضیحات از «{oldDesc}» به «{newDesc}»");
+                }
+
+
+                var description = string.Join(" | ", changes);
+
+                _logApplication.Create(new CreateLog
+                {
+                    AccountId = _authHelper.CurrentAccountId(),
+                    Operation = Operations.Edit,
+                    TargetId = session.Id,
+                    TargetType = TargetTypes.Session,
+                    Description = description
+                });
+            }
             return operation.Succeed();
         }
 
@@ -97,6 +160,13 @@ namespace StudyManagement.Application
             }
             session.Activate();
             _sessionRepository.Save();
+            _logApplication.Create(new CreateLog
+            {
+                AccountId = _authHelper.CurrentAccountId(),
+                Operation = Operations.Activate,
+                TargetId = session.Id,
+                TargetType = TargetTypes.Session,
+            });
             return operation.Succeed();
         }
 
@@ -110,6 +180,13 @@ namespace StudyManagement.Application
             }
             session.DeActivate();
             _sessionRepository.Save();
+            _logApplication.Create(new CreateLog
+            {
+                AccountId = _authHelper.CurrentAccountId(),
+                Operation = Operations.Deactivate,
+                TargetId = session.Id,
+                TargetType = TargetTypes.Session,
+            });
             return operation.Succeed();
         }
 

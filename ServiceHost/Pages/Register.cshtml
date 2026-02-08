@@ -47,7 +47,7 @@
                 width: 15px;
                 height: 15px;
                 margin-left: 10px;
-                background-image: url('check-icon.png'); 
+                background-image: url('check-icon.png');
                 background-size: cover;
                 display: none;
             }
@@ -60,7 +60,24 @@
                 color: #dc3545;
             }
 
+        .position-relative {
+            position: relative;
+        }
 
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+        }
+
+            .toggle-password:hover {
+                color: #000;
+            }
 
     </style>
 }
@@ -179,9 +196,18 @@
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label class="control-label" asp-for="Command.Password">کلمه عبور <span class="red-star">*</span></label>
-                                                <input class="form-control" type="password" id="password" asp-for="Command.Password" placeholder="کلمه عبور">
-                                                <span asp-validation-for="Command.Password" class="error"></span>
-                                                
+                                                <div class="position-relative">
+                                                    <input class="form-control" type="password" id="password" asp-for="Command.Password" placeholder="کلمه عبور" style="padding-left: 40px;">
+                                                    <span class="toggle-password" onclick="togglePassword('password', this)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                        </svg>
+                                                    </span>
+                                                    <span asp-validation-for="Command.Password" class="error"></span>
+                                                </div>
+
+
                                                 <div class="password-help-box">
                                                     <ul>
                                                         <li id="lengthCheck" class="password-condition">
@@ -206,7 +232,15 @@
                                             </div>
                                             <div class="col-md-6 col-12 mb-20">
                                                 <label class="control-label" asp-for="Command.RePassword">تکرار کلمه عبور <span class="red-star">*</span></label>
-                                                <input class="form-control" id="rePassword" type="password" asp-for="Command.RePassword" placeholder="تکرار کلمه عبور">
+                                                <div class="position-relative">
+                                                    <input class="form-control" type="password" id="rePassword" asp-for="Command.RePassword" placeholder="تکرار کلمه عبور" style="padding-left: 40px;">
+                                                    <span class="toggle-password" onclick="togglePassword('rePassword', this)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                        </svg>
+                                                    </span>
+                                                </div>
                                                 <span asp-validation-for="Command.RePassword" class="error"></span>
 
                                             </div>
@@ -260,7 +294,7 @@
             }
         });
     </script>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const roleProfessorRadio = document.getElementById('roleProfessor');
@@ -277,7 +311,7 @@
                     educationLevelWrapper.style.display = 'none';
                 } else if (roleStudentRadio.checked) {
                     educationLevelSelect.value = '0';
-                    educationLevelWrapper.style.display = 'block'; 
+                    educationLevelWrapper.style.display = 'block';
                     professorOption.style.display = 'none';
                 }
             }
@@ -288,54 +322,68 @@
             updateEducationLevelAndVisibility();
         });
     </script>
+
+    <script>
+            document.getElementById('password').addEventListener('input', function() {
+        const password = this.value;
+
+
+        const lengthCheck = document.getElementById('lengthCheck');
+        const caseCheck = document.getElementById('caseCheck');
+        const persianCheck = document.getElementById('persianCheck');
+        const specialCharCheck = document.getElementById('specialCharCheck');
+
+
+        if (password.length >= 8) {
+            lengthCheck.querySelector('.check-icon').style.display = 'inline-block';
+            lengthCheck.style.color = '#28a745';
+        } else {
+            lengthCheck.querySelector('.check-icon').style.display = 'none';
+            lengthCheck.style.color = '#dc3545';
+        }
+
+
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+            caseCheck.querySelector('.check-icon').style.display = 'inline-block';
+            caseCheck.style.color = '#28a745';
+        } else {
+            caseCheck.querySelector('.check-icon').style.display = 'none';
+            caseCheck.style.color = '#dc3545';
+        }
+
+
+        if (!/[آ-ی]/.test(password)) {
+            persianCheck.querySelector('.check-icon').style.display = 'inline-block';
+            persianCheck.style.color = '#28a745';
+        } else {
+            persianCheck.querySelector('.check-icon').style.display = 'none';
+            persianCheck.style.color = '#dc3545';
+        }
+
+
+        if (/[!@@#$%^&*(),.?":{}|<>]/.test(password)) {
+            specialCharCheck.querySelector('.check-icon').style.display = 'inline-block';
+            specialCharCheck.style.color = '#28a745';
+        } else {
+            specialCharCheck.querySelector('.check-icon').style.display = 'none';
+            specialCharCheck.style.color = '#dc3545';
+        }
+            });
+
+    </script>
     
     <script>
-        document.getElementById('password').addEventListener('input', function() {
-    const password = this.value;
-
+        function togglePassword(inputId, element) {
+    const passwordInput = document.getElementById(inputId);
     
-    const lengthCheck = document.getElementById('lengthCheck');
-    const caseCheck = document.getElementById('caseCheck');
-    const persianCheck = document.getElementById('persianCheck');
-    const specialCharCheck = document.getElementById('specialCharCheck');
-
-    
-    if (password.length >= 8) {
-        lengthCheck.querySelector('.check-icon').style.display = 'inline-block';
-        lengthCheck.style.color = '#28a745';
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        element.style.opacity = "0.5";
     } else {
-        lengthCheck.querySelector('.check-icon').style.display = 'none'; 
-        lengthCheck.style.color = '#dc3545'; 
+        passwordInput.type = "password";
+        element.style.opacity = "1";
     }
-
-    
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
-        caseCheck.querySelector('.check-icon').style.display = 'inline-block';
-        caseCheck.style.color = '#28a745';
-    } else {
-        caseCheck.querySelector('.check-icon').style.display = 'none';
-        caseCheck.style.color = '#dc3545';
-    }
-
-    
-    if (!/[آ-ی]/.test(password)) {
-        persianCheck.querySelector('.check-icon').style.display = 'inline-block';
-        persianCheck.style.color = '#28a745';
-    } else {
-        persianCheck.querySelector('.check-icon').style.display = 'none';
-        persianCheck.style.color = '#dc3545';
-    }
-
-    
-    if (/[!@@#$%^&*(),.?":{}|<>]/.test(password)) {
-        specialCharCheck.querySelector('.check-icon').style.display = 'inline-block';
-        specialCharCheck.style.color = '#28a745';
-    } else {
-        specialCharCheck.querySelector('.check-icon').style.display = 'none';
-        specialCharCheck.style.color = '#dc3545';
-    }
-        });
-
+        }
     </script>
 
 

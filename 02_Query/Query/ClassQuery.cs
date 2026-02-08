@@ -34,7 +34,7 @@ namespace _02_Query.Query
                 EndTime = x.EndTime,
                 IsActive = x.IsActive,
                 ProfessorId = x.ProfessorId,
-                SessionsCount = x.Sessions.Count,
+                SessionsCount = x.Sessions.Count(x=>x.IsActive),
             }).OrderByDescending(x=>x.Id).ToList();
 
             classes.ForEach(item =>

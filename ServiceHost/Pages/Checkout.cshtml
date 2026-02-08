@@ -97,7 +97,9 @@
                                     <div class="cart-summary">
                                         <div class="cart-summary-wrap">
                                             <h4>خلاصه وضعیت فاکتور</h4>
-                                            <p>مبلغ نهایی <span>@Model.Cart.TotalAmount.ToMoney() تومان</span></p>
+                                            <p>جمع کل<span>@Model.Cart.TotalAmount.ToMoney() تومان</span></p>
+                                            <p>مالیات<span>@Model.Cart.Tax.ToMoney() تومان</span></p>
+                                            <p>مبلغ نهایی <span>@Model.Cart.FinalAmount.ToMoney() تومان</span></p>
                                             
                                         </div>
                                         <div class="cart-summary-button">

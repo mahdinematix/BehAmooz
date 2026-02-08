@@ -1,0 +1,40 @@
+﻿@model List<LogManagement.Application.Contracts.Log.LogViewModel>
+@{
+}
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">تاریخچه عملیات</h4>
+</div>
+
+<div class="modal-body">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>کاربر</th>
+            <th>کد ملی</th>
+            <th>نقش</th>
+            <th>عملیات</th>
+            <th>توضیحات</th>
+            <th>تاریخ</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AccountName</td>
+                <td>@item.AccountNationalCode</td>
+                <td>@item.AccountRole</td>
+                <td>@item.Operation</td>
+                <td>@item.Description</td>
+                <td>@item.CreationDate</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+</div>

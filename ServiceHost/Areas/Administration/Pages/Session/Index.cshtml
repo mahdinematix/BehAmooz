@@ -1,5 +1,9 @@
 ﻿@page "{classId}"
+@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@using LogManagement.Infrastructure.Configuration.Permissions
 @model ServiceHost.Areas.Administration.Pages.Session.IndexModel
+@inject IAuthHelper AuthHelper
 @{
     Layout = "Shared/_AdminLayout";
     ViewBag.Title = $"مدیریت جلسات کلاس {Model.Class.Code}";
@@ -64,7 +68,8 @@
                                         }
                                         else
                                         {
-                                            <td><a href="@item.Video" target="_blank">مشاهده</a></td>
+                                            <td><a asp-page="./WatchVideo"
+                                                   asp-route-videoUrl="@item.Video"7/>مشاهده</td>
                                         }
                                         @if (item.Booklet == "" || !item.Booklet.StartsWith("https://behamooz"))
                                         {
@@ -72,7 +77,7 @@
                                         }
                                         else
                                         {
-                                            <td><a href="@item.Booklet" target="_blank">مشاهده</a></td>
+                                            <td><a href="@item.Booklet">مشاهده</a></td>
                                         }
                                         <td><a asp-page="/SessionPicture/Index" asp-route-sessionId="@item.Id">مشاهده</a></td>
                                         <td>@item.Description</td>
@@ -98,6 +103,13 @@
                                             else
                                             {
                                                 <a class="btn btn-success" asp-page="/Session/Index" asp-page-handler="Activate" asp-route-id="@item.Id" asp-route-classId="@item.ClassId">فعالسازی</a>
+                                            }
+                                            @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
+                                            {
+                                                <a permission="@LogPermissions.ShowLogs" class="btn btn-pink pull-right m-rl-5"
+                                                   href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id })">
+                                                    <i class="fa fa-recycle"></i> تاریخچه عملیات
+                                                </a>
                                             }
                                         </td>
                                     </tr>

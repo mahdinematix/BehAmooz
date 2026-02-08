@@ -11,7 +11,7 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
         private readonly IAuthHelper _authHelper;
         private readonly IWalletApplication _walletApplication;
         public List<LogViewModel> Logs;
-        public LogSearchModel SearchModel;
+        public TransactionLogSearchModel SearchModel;
         [TempData] public string Message { get; set; }
 
         public LogModel(IAuthHelper authHelper, IWalletApplication walletApplication)
@@ -20,7 +20,7 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
             _walletApplication = walletApplication;
         }
 
-        public IActionResult OnGet(LogSearchModel searchModel)
+        public IActionResult OnGet(TransactionLogSearchModel searchModel)
         {
             if (_authHelper.CurrentAccountRole() != Roles.Professor)
             {

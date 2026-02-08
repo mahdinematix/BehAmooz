@@ -22,23 +22,33 @@ public class Wallet : EntityBase
     public void Charge(long amount, long accountId)
     {
         Balance += amount;
-        var transaction = new WalletTransaction(accountId, amount, TransactionTypes.Deposit, TransactionStatuses.Paid);
+        var transaction = new WalletTransaction(accountId, amount, TransactionTypes.Deposit, TransactionStatuses.Paid,0);
         Transactions.Add(transaction);
     }
 
-    public bool BuyFromWallet(long amount, long accountId)
+    public bool BuyFromWallet(long amount, long accountId, long orderId)
     {
         if (Balance < amount)
             return false;
 
         Balance -= amount;
-        var transaction = new WalletTransaction(accountId, amount, TransactionTypes.PayFromWallet, TransactionStatuses.Paid);
+        var transaction = new WalletTransaction(
+            accountId,
+            amount,
+            TransactionTypes.PayFromWallet,
+            TransactionStatuses.Paid,
+            orderId);
         Transactions.Add(transaction);
         return true;
     }
-    public bool BuyFromGateway(long amount, long accountId)
+    public bool BuyFromGateway(long amount, long accountId, long orderId)
     {
-        var transaction = new WalletTransaction(accountId, amount, TransactionTypes.PayFromGateway, TransactionStatuses.Paid);
+        var transaction = new WalletTransaction(
+            accountId,
+            amount,
+            TransactionTypes.PayFromGateway,
+            TransactionStatuses.Paid,
+            orderId);
         Transactions.Add(transaction);
         return true;
     }
@@ -49,7 +59,7 @@ public class Wallet : EntityBase
             return false;
 
         Balance -= amount;
-        var transaction = new WalletTransaction(accountId, amount, TransactionTypes.Withdraw, TransactionStatuses.Pending, creditCardNo);
+        var transaction = new WalletTransaction(accountId, amount, TransactionTypes.Withdraw, TransactionStatuses.Pending, 0,creditCardNo);
         Transactions.Add(transaction);
         return true;
     }

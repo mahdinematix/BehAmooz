@@ -20,7 +20,7 @@ namespace AccountManagement.Application
             if (wallet == null)
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
 
-            var result = wallet.BuyFromWallet(command.Amount, command.AccountId);
+            var result = wallet.BuyFromWallet(command.Amount, command.AccountId, command.OrderId);
             if (!result)
             {
                 return operation.Failed(ApplicationMessages.RequestedAmountMoreThanYourBalance);
@@ -36,7 +36,7 @@ namespace AccountManagement.Application
             if (wallet == null)
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
 
-            wallet.BuyFromGateway(command.Amount, command.AccountId);
+            wallet.BuyFromGateway(command.Amount, command.AccountId, command.OrderId);
             _walletRepository.Save();
             return operation.Succeed();
         }
@@ -129,7 +129,7 @@ namespace AccountManagement.Application
             return _walletRepository.Search(searchModel);
         }
 
-        public List<LogViewModel> GetLogsByAccountId(LogSearchModel searchModel, long accountId)
+        public List<LogViewModel> GetLogsByAccountId(TransactionLogSearchModel searchModel, long accountId)
         {
             return _walletRepository.GetLogsByAccountId(searchModel, accountId);
         }

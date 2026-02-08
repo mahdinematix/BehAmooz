@@ -14,6 +14,8 @@
                     return "مدیر سیستم";
                 case 2:
                     return "استاد";
+                case 3:
+                    return "دانشجو";
                 default:
                     return "";
             }

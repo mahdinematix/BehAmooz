@@ -12,8 +12,8 @@ using StudyManagement.Infrastructure.EFCore;
 namespace StudyManagement.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(StudyContext))]
-    [Migration("20251127062213_ProfessorIdPropAddedToOrderItems")]
-    partial class ProfessorIdPropAddedToOrderItems
+    [Migration("20260204201708_StudyManagementAggAdded")]
+    partial class StudyManagementAggAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

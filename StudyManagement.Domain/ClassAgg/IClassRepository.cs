@@ -7,10 +7,12 @@ namespace StudyManagement.Domain.ClassAgg
     {
         EditClass GetDetails(long id);
         List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId);
-        List<ClassViewModel> GetClasses();
+        List<ClassViewModel> GetClasses(long classId);
         ClassViewModel GetClassById(long id);
         string GetClassCodeById(long id);
-        List<ClassViewModel> GetClassesForCopy(long classId);
+        List<ClassViewModel> GetClassesForCopy(long classId, long courseId);
         Class GetClassByCode(string code);
+        string GetCourseNameByClassId(long classId);
+
     }
 }

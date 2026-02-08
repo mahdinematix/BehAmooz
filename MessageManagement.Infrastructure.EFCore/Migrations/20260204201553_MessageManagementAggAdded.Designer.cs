@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MessageManagement.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MessageContext))]
-    [Migration("20251125061756_MessageModuleRegistered")]
-    partial class MessageModuleRegistered
+    [Migration("20260204201553_MessageManagementAggAdded")]
+    partial class MessageManagementAggAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,6 +1,8 @@
 using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
+using LogManagement.Application.Contracts.Log;
+using LogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,18 +17,20 @@ namespace ServiceHost.Areas.Administration.Pages.Class
         private readonly IClassApplication _classApplication;
         private readonly IAccountApplication _accountApplication;
         private readonly IAuthHelper _authHelper;
+        private readonly ILogApplication _logApplication;
 
         public ClassSearchModel SearchModel;
         public List<ClassViewModel> Classes;
         public SelectList Professors;
         public CourseViewModel Course { get; set; }
 
-        public IndexModel(ICourseApplication courseApplication, IClassApplication classApplication, IAccountApplication accountApplication, IAuthHelper authHelper)
+        public IndexModel(ICourseApplication courseApplication, IClassApplication classApplication, IAccountApplication accountApplication, IAuthHelper authHelper, ILogApplication logApplication)
         {
             _courseApplication = courseApplication;
             _classApplication = classApplication;
             _accountApplication = accountApplication;
             _authHelper = authHelper;
+            _logApplication = logApplication;
         }
 
         public IActionResult OnGet(ClassSearchModel searchModel, long courseId)
@@ -60,14 +64,14 @@ namespace ServiceHost.Areas.Administration.Pages.Class
             return RedirectToPage("./Index");
         }
 
-        public IActionResult OnGetCopy(long id)
+        public IActionResult OnGetCopy(long id, long courseId)
         {
             CopyClass command;
             if (_authHelper.CurrentAccountRole() == Roles.Professor)
             {
                 command = new CopyClass
                 {
-                    Classes = _classApplication.GetClassesForCopy(id),
+                    Classes = _classApplication.GetClassesForCopy(id, courseId),
                     ClassCode = _classApplication.GetClassCodeById(id),
                     ClassId = id
                 };
@@ -76,7 +80,7 @@ namespace ServiceHost.Areas.Administration.Pages.Class
             {
                 command = new CopyClass
                 {
-                    Classes = _classApplication.GetClasses(),
+                    Classes = _classApplication.GetClasses(id),
                     ClassCode = _classApplication.GetClassCodeById(id),
                     ClassId = id
                 };
@@ -89,6 +93,13 @@ namespace ServiceHost.Areas.Administration.Pages.Class
         {
             var result = _classApplication.Copy(command);
             return new JsonResult(result);
+        }
+
+        [NeedsPermissions(LogPermissions.ShowLogs)]
+        public IActionResult OnGetLogs(long id)
+        {
+            var logs = _logApplication.GetClassLogsById(id);
+            return Partial("./Logs", logs);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using _01_Framework.Application;
+using _01_Framework.Infrastructure;
+using LogManagement.Application.Contracts.Log;
 using StudyManagement.Application.Contracts.Course;
 using StudyManagement.Domain.CourseAgg;
 
@@ -7,10 +9,15 @@ namespace StudyManagement.Application
     public class CourseApplication : ICourseApplication
     {
         private readonly ICourseRepository _courseRepository;
+        private readonly ILogApplication _logApplication; 
+        private readonly IAuthHelper _authHelper;
+        
 
-        public CourseApplication(ICourseRepository courseRepository)
+        public CourseApplication(ICourseRepository courseRepository, ILogApplication logApplication, IAuthHelper authHelper)
         {
             _courseRepository = courseRepository;
+            _logApplication = logApplication;
+            _authHelper = authHelper;
         }
 
         public OperationResult Create(CreateCourse command)
@@ -29,6 +36,13 @@ namespace StudyManagement.Application
             var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price,command.EducationLevel);
             _courseRepository.Create(course);
             _courseRepository.Save();
+            _logApplication.Create(new CreateLog
+            {
+                AccountId = _authHelper.CurrentAccountId(),
+                Operation = Operations.Create,
+                TargetId = course.Id,
+                TargetType = TargetTypes.Course
+            });
             return operation.Succeed();
         }
 
@@ -46,9 +60,72 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
+            var oldName = course.Name;
+            var oldPrice = course.Price;
+            var oldMajor = course.Major;
+            var oldNumberOfUnit = course.NumberOfUnit;
+            var oldUniversity = course.University;
+            var oldUniversityType = course.UniversityType;
+            var oldEducationLevel = course.EducationLevel;
+            var oldCourseKind = course.CourseKind;
+            var oldCode = course.Code;
+
 
             course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price, command.EducationLevel);
             _courseRepository.Save();
+
+            if (!(oldName == command.Name && oldPrice == command.Price && oldMajor == command.Major &&
+                  oldNumberOfUnit == command.NumberOfUnit && oldUniversity == command.University &&
+                  oldUniversityType == command.UniversityType && oldEducationLevel == command.EducationLevel &&
+                  oldCode == command.Code && oldCourseKind == command.CourseKind))
+            {
+
+
+                var changes = new List<string>();
+
+                if (oldName != command.Name)
+                    changes.Add($"نام از «{oldName}» به «{command.Name}»");
+
+                if (oldPrice != command.Price)
+                    changes.Add($"قیمت از «{oldPrice.ToMoney()}» به «{command.Price.ToMoney()}»");
+
+                if (oldMajor != command.Major)
+                    changes.Add($"رشته از «{oldMajor}» به «{command.Major}»");
+
+                if (oldNumberOfUnit != command.NumberOfUnit)
+                    changes.Add($"تعداد واحد از «{oldNumberOfUnit}» به «{command.NumberOfUnit}»");
+
+                if (oldUniversity != command.University)
+                    changes.Add(
+                        $"دانشگاه از «{Universities.GetName(oldUniversity)}» به «{Universities.GetName(command.University)}»");
+
+                if (oldUniversityType != command.UniversityType)
+                    changes.Add(
+                        $"نوع دانشگاه از «{UniversityTypes.GetName(oldUniversityType)}» به «{UniversityTypes.GetName(command.UniversityType)}»");
+
+                if (oldEducationLevel != command.EducationLevel)
+                    changes.Add($"مقطع از «{oldEducationLevel}» به «{command.EducationLevel}»");
+
+                if (oldCode != command.Code)
+                    changes.Add($"کد از «{oldCode}» به «{command.Code}»");
+
+                if (oldCourseKind != command.CourseKind)
+                    changes.Add($"نوع درس از «{oldCourseKind}» به «{command.CourseKind}»");
+
+
+
+                var description = string.Join(" | ", changes);
+
+                _logApplication.Create(new CreateLog
+                {
+                    AccountId = _authHelper.CurrentAccountId(),
+                    Operation = Operations.Edit,
+                    TargetId = course.Id,
+                    TargetType = TargetTypes.Course,
+                    Description = description
+                });
+            }
+
             return operation.Succeed();
         }
 
@@ -62,6 +139,13 @@ namespace StudyManagement.Application
             }
             course.Activate();
             _courseRepository.Save();
+            _logApplication.Create(new CreateLog
+            {
+                AccountId = _authHelper.CurrentAccountId(),
+                Operation = Operations.Activate,
+                TargetId = course.Id,
+                TargetType = TargetTypes.Course,
+            });
             return operation.Succeed();
         }
 
@@ -75,6 +159,13 @@ namespace StudyManagement.Application
             }
             course.DeActivate();
             _courseRepository.Save();
+            _logApplication.Create(new CreateLog
+            {
+                AccountId = _authHelper.CurrentAccountId(),
+                Operation = Operations.Deactivate,
+                TargetId = course.Id,
+                TargetType = TargetTypes.Course,
+            });
             return operation.Succeed();
         }
 
