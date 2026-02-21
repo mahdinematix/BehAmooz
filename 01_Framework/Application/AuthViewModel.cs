@@ -8,7 +8,7 @@ public class AuthViewModel
     public string NationalCode { get; set; }
     public string Code { get; set; }
     public int UniversityTypeId { get; set; }
-    public int UniversityId { get; set; }
+    public long UniversityId { get; set; }
     public int MajorId { get; set; }
     public string NationalCardPicture { get; set; }
     public int Status { get; set; }

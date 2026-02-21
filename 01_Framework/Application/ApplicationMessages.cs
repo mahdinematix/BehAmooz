@@ -28,6 +28,8 @@ public class ApplicationMessages
 
 
     public static string PasswordRulesAreNotPassed = "شروط کلمه عبور را رعایت نکردید!";
+    public static string VideoWatched3 = "شما ۳ بار این ویدیو را مشاهده کرده‌اید.";
+    public static string TheClassHasNotAnySessions = "این کلاس هیچ جلسه‌ای ندارد.";
 }
 
 

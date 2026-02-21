@@ -12,7 +12,7 @@ namespace AccountManagement.Application.Contract.Account
         OperationResult ChangePassword(ChangePassword command);
         OperationResult ChangePasswordByUser(ChangePassword command);
         EditAccount GetDetails(long id);
-        List<AccountViewModel> Search(AccountSearchModel searchModel);
+        List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId);
         OperationResult Login(Login command);
         void Logout();
         List<AccountViewModel> GetProfessors();

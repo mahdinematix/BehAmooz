@@ -1,6 +1,7 @@
 ﻿using _02_Query.Contracts.Customer;
 using AccountManagement.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
+using StudyManagement.Application.Contracts.University;
 using StudyManagement.Infrastructure.EFCore;
 
 namespace _02_Query.Query;
@@ -9,11 +10,13 @@ public class CustomerQuery : ICustomerQuery
 {
     private readonly StudyContext _studyContext;
     private readonly AccountContext _accountContext;
+    private readonly IUniversityApplication _universityApplication;
 
-    public CustomerQuery(StudyContext studyContext, AccountContext accountContext)
+    public CustomerQuery(StudyContext studyContext, AccountContext accountContext, IUniversityApplication universityApplication)
     {
         _studyContext = studyContext;
         _accountContext = accountContext;
+        _universityApplication = universityApplication;
     }
 
     public List<CustomerQueryModel> GetCustomersByProfessorId(CustomerSearchModel searchModel, long professorId)
@@ -77,6 +80,7 @@ public class CustomerQuery : ICustomerQuery
                 FullName = $"{account.FirstName} {account.LastName}",
                 Code = account.Code,
                 UniversityId = account.UniversityId,
+                UniversityName = _universityApplication.GetNameBy(account.UniversityId),
                 CourseName = classInfo.Course.Name,
                 ClassCode = classInfo.Code,
                 ClassDay = classInfo.Day,

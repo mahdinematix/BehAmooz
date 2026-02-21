@@ -1,39 +1,34 @@
 using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Course;
-using AccountManagement.Domain.RoleAgg;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : UserContextPageModel
     {
-        private readonly IAuthHelper _authHelper;
         private readonly ICourseQuery _courseQuery;
         public List<CourseQueryModel> Courses { get; set; }
         public CourseSearchModel SearchModel;
 
-        public IndexModel(IAuthHelper authHelper, ICourseQuery courseQuery)
+        public IndexModel(IAuthHelper authHelper, ICourseQuery courseQuery):base(authHelper)
         {
-            _authHelper = authHelper;
             _courseQuery = courseQuery;
         }
 
         public IActionResult OnGet(CourseSearchModel searchModel)
         {
-            var status = _authHelper.CurrentAccountStatus();
 
-            if (!_authHelper.IsAuthenticated())
+            if (!IsAuthenticated)
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (CurrentAccountRole == Roles.Professor)
             {
-                return RedirectToPage("/Index", new { area = "Administration" });
+                return RedirectToPage("/Index", new { area = "Professor" });
             }
-            if (_authHelper.CurrentAccountRole() == Roles.Administrator)
+            if (CurrentAccountRole == Roles.Administrator || CurrentAccountRole == Roles.SuperAdministrator)
             {
                 var redirectedBefore = TempData.Peek("AdminFirstRedirect");
 
@@ -44,12 +39,12 @@ namespace ServiceHost.Pages
                 }
             }
 
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }

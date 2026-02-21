@@ -1,4 +1,7 @@
-﻿@model MessageManagement.Application.Contract.Message.CreateMessage
+﻿@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@model MessageManagement.Application.Contract.Message.CreateMessage
+@inject IAuthHelper AuthHelper
 @{
 }
 
@@ -59,6 +62,44 @@
                 </div>
             </div>
         </div>
+        @if (AuthHelper.CurrentAccountRole() == Roles.SuperAdministrator)
+        {
+            <div id="UniversitySection">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="UniversityTypeId" class="control-label">نوع دانشگاه</label>
+                            <select id="UniversityTypeSelect" type="text" class="form-control select22" asp-for="UniversityTypeId" asp-items='new SelectList(Model.UniversityTypes, "Id", "Name")'>
+                                <option value="0">نوع دانشگاه را انتخاب کنید</option>
+                            </select>
+                            <span asp-validation-for="UniversityTypeId" class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="UniversityId" class="control-label">دانشگاه</label>
+                            <select id="UniversitySelect" type="text" class="form-control select22" asp-for="UniversityId" asp-items='new SelectList(Model.Universities, "Id", "Name")'>
+                            </select>
+                            <span asp-validation-for="UniversityId" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="checkbox checkbox-primary">
+                        <input type="checkbox" asp-for="ForAllUniversities" id="ForAllUniversities" />
+                        <label for="ForAllUniversities">اعمال پیام برای همه دانشگاه‌ها</label>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <input type="hidden" asp-for="UniversityTypeId" value="@Model.UniversityTypeId" />
+            <input type="hidden" asp-for="UniversityId" value="@Model.UniversityId" />
+            <input type="hidden" value="false" asp-for="ForAllUniversities" />
+        }
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>

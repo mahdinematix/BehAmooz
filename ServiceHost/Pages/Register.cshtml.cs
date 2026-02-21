@@ -2,60 +2,38 @@ using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using StudyManagement.Application.Contracts.University;
 
 namespace ServiceHost.Pages
 {
-    public class RegisterModel : PageModel
+    public class RegisterModel : UserContextPageModel
     {
         private readonly IAccountApplication _accountApplication;
-        private readonly IAuthHelper _authHelper;
+        private readonly IUniversityApplication _universityApplication;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
         public RegisterAccount Command;
         [TempData] public string RegisterMessage { get; set; }
 
-        public RegisterModel(IAccountApplication accountApplication, IAuthHelper authHelper)
+        public RegisterModel(IAccountApplication accountApplication, IAuthHelper authHelper, IUniversityApplication universityApplication) : base(authHelper)
         {
             _accountApplication = accountApplication;
-            _authHelper = authHelper;
+            _universityApplication = universityApplication;
         }
 
         public IActionResult OnGet()
         {
-
-            if (_authHelper.IsAuthenticated())
+            if (!IsAuthenticated)
             {
-                var status = _authHelper.CurrentAccountStatus();
-                if (_authHelper.CurrentAccountRole() == Roles.Student)
+                Command = new RegisterAccount
                 {
-                    return RedirectToPage("/Index");
-                }
-                if (_authHelper.CurrentAccountRole() != Roles.Student)
-                {
-                    return RedirectToPage("/Index", new { area = "Administration" });
-                }
-
-                if (status == Statuses.Waiting)
-                {
-                    return RedirectToPage("/NotConfirmed");
-                }
-
-                if (status == Statuses.Rejected)
-                {
-                    return RedirectToPage("/Reject");
-                }
-
+                    RoleId = 3
+                };
+                UniTypes = GetUniTypes();
+                Unis = GetUnis();
             }
-            
 
-            Command = new RegisterAccount
-            {
-                RoleId = 3
-            };
-            UniTypes = GetUniTypes();
-            Unis = GetUnis();
             return Page();
         }
 
@@ -73,9 +51,7 @@ namespace ServiceHost.Pages
         private List<SelectListItem> GetUnis(int typeId = 1)
         {
 
-            List<SelectListItem> lstUnis = Universities.List
-                .Where(c => c.UniversityTypeId == typeId)
-                .Select(n =>
+            List<SelectListItem> lstUnis = _universityApplication.GetUniversitiesByType(typeId).Select(n =>
                     new SelectListItem
                     {
                         Value = n.Id.ToString(),

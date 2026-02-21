@@ -1,9 +1,10 @@
 ﻿@page
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Course.CreateModel
 @{
+    Layout = "Shared/_AdminLayout";
+    ViewBag.Title = "تعریف درس جدید";
 }
 @if (!string.IsNullOrWhiteSpace(Model.Message))
 {
@@ -86,26 +87,6 @@
                                     <option value="نظری-عملی">نظری-عملی</option>
                                 </select>
                                 <span asp-validation-for="Command.CourseKind" class="error"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <label asp-for="Command.UniversityType" class="control-label">نوع دانشگاه</label>
-                                    <select onchange="FillUnivirsities(this);" class="form-control" asp-for="Command.UniversityType" asp-items="Model.UniTypes" data-val="false" placeholder="نوع دانشگاه">
-                                    </select>
-                                    <span asp-validation-for="Command.UniversityType" class="error"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="Command.University" class="control-label">دانشگاه</label>
-                                <select id="lstUnis" class="form-control select22" asp-for="Command.University" asp-items="Model.Unis" data-val="false" placeholder="دانشگاه">
-                                </select>
-                                <span asp-validation-for="Command.University" class="error"></span>
                             </div>
                         </div>
                     </div>

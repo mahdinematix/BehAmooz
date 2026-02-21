@@ -4,11 +4,11 @@ namespace StudyManagement.Application.Contracts.Course
 {
     public interface ICourseApplication
     {
-        OperationResult Create(CreateCourse command);
-        OperationResult Edit(EditCourse command);
-        OperationResult Activate(long id);
-        OperationResult DeActivate(long id);
-        List<CourseViewModel> Search(CourseSearchModel searchModel);
+        OperationResult Create(CreateCourse command, long currentAccountId);
+        OperationResult Edit(EditCourse command, long currentAccountId);
+        OperationResult Activate(long id, long currentAccountId);
+        OperationResult DeActivate(long id, long currentAccountId);
+        List<CourseViewModel> Search(CourseSearchModel searchModel, long universityId, long currentAccountId, string currentAccountRole);
         EditCourse GetDetails(long id);
         List<CourseViewModel> GetCourses();
         CourseViewModel GetByCourseId(long courseId);

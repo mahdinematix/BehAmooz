@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AccountManagement.Domain\AccountManagement.Domain.csproj" />
+    <ProjectReference Include="..\StudyManagement.Application.Contracts\StudyManagement.Application.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

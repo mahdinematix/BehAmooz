@@ -7,6 +7,6 @@ namespace MessageManagement.Application.Contract.Message
         OperationResult Create(CreateMessage command);
         OperationResult Edit(EditMessage command);
         EditMessage GetDetails(long id);
-        List<MessageViewModel> Search(MessageSearchModel searchModel);
+        List<MessageViewModel> Search(MessageSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId);
     }
 }

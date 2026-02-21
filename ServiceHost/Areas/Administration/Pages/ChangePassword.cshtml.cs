@@ -2,44 +2,38 @@ using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Areas.Administration.Pages
 {
-    public class ChangePasswordModel : PageModel
+    public class ChangePasswordModel : UserContextPageModel
     {
-        private readonly IAuthHelper _authHelper;
         private readonly IAccountApplication _accountApplication;
         public ChangePassword Command;
         [TempData] public string Message { get; set; } 
 
-        public ChangePasswordModel(IAuthHelper authHelper, IAccountApplication accountApplication)
+        public ChangePasswordModel(IAuthHelper authHelper, IAccountApplication accountApplication) : base(authHelper)
         {
-            _authHelper = authHelper;
             _accountApplication = accountApplication;
         }
 
         public IActionResult OnGet()
         {
-
-            var status = _authHelper.CurrentAccountStatus();
-
-            if (!_authHelper.IsAuthenticated())
+            if (IsAuthenticated)
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (CurrentAccountRole == Roles.Professor)
             {
                 return RedirectToPage("/Index", new {area = "Administration"});
             }
 
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }
@@ -49,7 +43,7 @@ namespace ServiceHost.Areas.Administration.Pages
 
         public IActionResult OnPost(ChangePassword command)
         {
-            command.Id = _authHelper.CurrentAccountId();
+            command.Id = CurrentAccountId;
             var result = _accountApplication.ChangePasswordByUser(command);
             if (result.IsSucceeded)
             {

@@ -6,7 +6,6 @@ namespace _01_Framework.Infrastructure
     {
         public int Id { get; private set; }
         public string Name { get; set; }
-        public List<UniversityViewModel> Universities { get; set; }
 
         public UniversityTypeViewModel(int id, string name)
         {

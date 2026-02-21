@@ -10,5 +10,6 @@ namespace StudyManagement.Domain.SessionAgg
         ICollection<Session> GetAllByClassIdForCopy(long classId);
         SessionViewModel GetBySessionId(long sessionId);
         void Delete(Session session);
+        bool HasAnySessionsByClassId(long classId);
     }
 }

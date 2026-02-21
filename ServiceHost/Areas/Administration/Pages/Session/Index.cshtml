@@ -1,9 +1,6 @@
 ﻿@page "{classId}"
-@using _01_Framework.Application
-@using _01_Framework.Infrastructure
 @using LogManagement.Infrastructure.Configuration.Permissions
 @model ServiceHost.Areas.Administration.Pages.Session.IndexModel
-@inject IAuthHelper AuthHelper
 @{
     Layout = "Shared/_AdminLayout";
     ViewBag.Title = $"مدیریت جلسات کلاس {Model.Class.Code}";
@@ -11,9 +8,9 @@
 
 
 <div class="row">
-<div class="col-md-12">
-<div class="panel panel-default">
-<div class="panel-heading">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <h3 class="panel-title">مدیریت جلسات کلاس @Model.Class.Code در روز های @Model.Class.Day ساعت @Model.Class.StartTime تا @Model.Class.EndTime درس @Model.Class.Course</h3>
             </div>
         </div>
@@ -30,7 +27,6 @@
         </p>
     </div>
 </div>
-
 <div class="row" id="ProductCategoriesDiv">
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -68,8 +64,10 @@
                                         }
                                         else
                                         {
-                                            <td><a asp-page="./WatchVideo"
-                                                   asp-route-videoUrl="@item.Video"7/>مشاهده</td>
+                                            <td>
+                                                <a asp-page="./WatchVideo"
+                                                   asp-route-videoUrl="@item.Video" 7 />مشاهده
+                                            </td>
                                         }
                                         @if (item.Booklet == "" || !item.Booklet.StartsWith("https://behamooz"))
                                         {
@@ -104,13 +102,12 @@
                                             {
                                                 <a class="btn btn-success" asp-page="/Session/Index" asp-page-handler="Activate" asp-route-id="@item.Id" asp-route-classId="@item.ClassId">فعالسازی</a>
                                             }
-                                            @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
-                                            {
-                                                <a permission="@LogPermissions.ShowLogs" class="btn btn-pink pull-right m-rl-5"
-                                                   href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id })">
-                                                    <i class="fa fa-recycle"></i> تاریخچه عملیات
-                                                </a>
-                                            }
+
+                                            <a permission="@ActivityLogPermissions.ShowActivityLog" class="btn btn-pink pull-right m-rl-5"
+                                               href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id })">
+                                                <i class="fa fa-recycle"></i> تاریخچه عملیات
+                                            </a>
+
                                         </td>
                                     </tr>
                                 }

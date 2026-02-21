@@ -1,29 +1,22 @@
 using _01_Framework.Application;
-using _01_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Areas.Administration.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : UserContextPageModel
     {
-        private readonly IAuthHelper _authHelper;
-
-        public IndexModel(IAuthHelper authHelper)
+        public IndexModel(IAuthHelper authHelper): base(authHelper)
         {
-            _authHelper = authHelper;
         }
 
         public IActionResult OnGet()
         {
-            var status = _authHelper.CurrentAccountStatus();
-
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }

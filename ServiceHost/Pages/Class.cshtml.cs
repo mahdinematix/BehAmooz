@@ -3,44 +3,40 @@ using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Class;
 using _02_Query.Contracts.Course;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Pages
 {
-    public class ClassModel : PageModel
+    public class ClassModel : UserContextPageModel
     {
         private readonly IClassQuery _classQuery;
         private readonly ICourseQuery _courseQuery;
-        private readonly IAuthHelper _authHelper;
         public List<ClassQueryModel> Classes;
         public string Course;
 
-        public ClassModel(IClassQuery classQuery, ICourseQuery courseQuery, IAuthHelper authHelper)
+        public ClassModel(IClassQuery classQuery, ICourseQuery courseQuery, IAuthHelper authHelper):base(authHelper)
         {
             _classQuery = classQuery;
             _courseQuery = courseQuery;
-            _authHelper = authHelper;
         }
 
         public IActionResult OnGet(long courseId)
         {
-            var status = _authHelper.CurrentAccountStatus();
 
-            if (!_authHelper.IsAuthenticated())
+            if (!IsAuthenticated)
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (CurrentAccountRole == Roles.Professor)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }

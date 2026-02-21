@@ -1,0 +1,193 @@
+﻿@page
+@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@model ServiceHost.Areas.Administration.Pages.Account.CreateModel
+@{
+    Layout = "Shared/_AdminLayout";
+    ViewBag.Title = "ثبت نام کاربر جدید";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">@Model.Message</div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">ثبت نام کاربر جدید</h3>
+            </div>
+
+            <div class="panel-body">
+                <form method="post"
+                      enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.RoleId" class="control-label">نقش</label>
+                                <select class="form-control" asp-for="Command.RoleId" asp-items="Model.Roles">
+                                    <option value="0">نقش...</option>
+                                </select>
+                                <span asp-validation-for="Command.RoleId" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                <label asp-for="Command.Code" class="control-label">کد دانشجویی/استادی</label>
+
+                                <input maxlength="14" type="text" class="form-control" asp-for="Command.Code">
+                                <span asp-validation-for="Command.Code" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.FirstName" class="control-label">نام</label>
+                                <input type="text" class="form-control" asp-for="Command.FirstName">
+                                <span asp-validation-for="Command.FirstName" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.LastName" class="control-label">نام خانوادگی</label>
+                                <input type="text" class="form-control" asp-for="Command.LastName">
+                                <span asp-validation-for="Command.LastName" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label asp-for="Command.NationalCode" class="control-label">کد ملی</label>
+                                    <input type="text" class="form-control" asp-for="Command.NationalCode">
+                                    <span asp-validation-for="Command.NationalCode" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.NationalCardPicture" class="control-label">کارت ملی</label>
+                                <input id="inputPicture" type="file" class="form-control" asp-for="Command.NationalCardPicture" accept="image/*">
+                                <span asp-validation-for="Command.NationalCardPicture" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label asp-for="Command.Major" class="control-label">رشته</label>
+                                    <select class="form-control select22" asp-for="Command.Major" asp-items='new SelectList(Majors.List, "Id", "Name")'>
+                                        <option value="0">رشته</option>
+                                    </select>
+                                    <span asp-validation-for="Command.Major" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                <select class="form-control" asp-for="Command.EducationLevel">
+                                    <option value="0">مقطع تحصیلی</option>
+                                    <option value="@EducationLevels.Kardani">کاردانی</option>
+                                    <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                    <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                    <option value="@EducationLevels.Doktora">دکتری</option>
+                                    <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                    <option value="@EducationLevels.ProfessorOrAdmin">استاد هستم</option>
+                                </select>
+                                <span asp-validation-for="Command.EducationLevel" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label asp-for="Command.UniversityType" class="control-label">نوع دانشگاه</label>
+                                    <select onchange="FillUnis(this);" class="form-control" asp-for="Command.UniversityType" asp-items="Model.UniTypes" data-val="false" placeholder="نوع دانشگاه">
+                                    </select>
+                                    <span asp-validation-for="Command.UniversityType" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.University" class="control-label">دانشگاه</label>
+                                <select id="lstUnis" class="form-control select22" asp-for="Command.University" asp-items="Model.Unis" data-val="false" placeholder="دانشگاه">
+                                </select>
+                                <span asp-validation-for="Command.University" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.PhoneNumber" class="control-label">موبایل</label>
+                                <input type="text" class="form-control" asp-for="Command.PhoneNumber">
+                                <span asp-validation-for="Command.PhoneNumber" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Email" class="control-label">ایمیل</label>
+                                <input type="text" class="form-control" data-val="false" asp-for="Command.Email">
+                                <span asp-validation-for="Command.Email" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Password" class="control-label">کلمه عبور</label>
+                                <input type="password" class="form-control" asp-for="Command.Password">
+                                <span asp-validation-for="Command.Password" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.RePassword" class="control-label">تکرار کلمه عبور</label>
+                                <input type="password" class="form-control" data-val="false" asp-for="Command.RePassword">
+                                <span asp-validation-for="Command.RePassword" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ثبت نام</button>
+                    <a asp-page="./Index" class="btn btn-default waves-effect">بازگشت</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+
+
+    <script>
+        const inputPicture = document.getElementById('inputPicture');
+        const maxSize = 5*1024*1024;
+
+        inputPicture.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                if (file.size > maxSize) {
+                    alert('حجم فایل تصویر نباید بیشتر از 5 مگابایت باشد.');
+                    this.value = '';
+                }
+            }
+        });
+    </script>
+}

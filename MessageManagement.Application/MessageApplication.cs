@@ -23,7 +23,7 @@ namespace MessageManagement.Application
 
             var startDate = command.StartDate.ToGeorgianDateTime();
             var endDate = command.EndDate.ToGeorgianDateTime();
-            var message = new Message(command.Title, command.Body, command.MessageFor, startDate, endDate);
+            var message = new Message(command.Title, command.Body, command.MessageFor,command.UniversityTypeId, command.UniversityId, command.ForAllUniversities, startDate, endDate);
             _messageRepository.Create(message);
             _messageRepository.Save();
             return operation.Succeed();
@@ -44,7 +44,7 @@ namespace MessageManagement.Application
             }
             var startDate = command.StartDate.ToGeorgianDateTime();
             var endDate = command.EndDate.ToGeorgianDateTime();
-            message.Edit(command.Title, command.Body, command.MessageFor, startDate, endDate);
+            message.Edit(command.Title, command.Body, command.MessageFor, command.UniversityTypeId, command.UniversityId, command.ForAllUniversities, startDate, endDate);
             _messageRepository.Save();
             return operation.Succeed();
         }
@@ -54,9 +54,10 @@ namespace MessageManagement.Application
             return _messageRepository.GetDetails(id);
         }
 
-        public List<MessageViewModel> Search(MessageSearchModel searchModel)
+        public List<MessageViewModel> Search(MessageSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId)
         {
-            return _messageRepository.Search(searchModel);
+            return _messageRepository.Search(searchModel,currentAccountRole, currentAccountUniversityId);
         }
+
     }
 }

@@ -1,10 +1,9 @@
 ﻿@page "{courseId}/{id}"
-@inject IAuthHelper AuthHelper
-@using _01_Framework.Application
 @using _01_Framework.Infrastructure
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Class.EditModel
 @{
+    Layout = "Shared/_AdminLayout";
+    ViewBag.Title = $"ویرایش کلاس {Model.Command.Code}";
 }
 @if (!string.IsNullOrWhiteSpace(Model.Message))
 {
@@ -56,20 +55,17 @@
                             </div>
                         </div>
                     </div>
-                    @if (AuthHelper.CurrentAccountRole() != Roles.Professor)
-                    {
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label asp-for="Command.ProfessorId" class="control-label">استاد</label>
-                                    <select type="text" class="form-control select22" asp-for="Command.ProfessorId" asp-items="@Model.Professors">
-                                        <option value="0">استاد</option>
-                                    </select>
-                                    <span asp-validation-for="Command.ProfessorId" class="error"></span>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Command.ProfessorId" class="control-label">استاد</label>
+                                <select type="text" class="form-control select22" asp-for="Command.ProfessorId" asp-items="@Model.Professors">
+                                    <option value="0">استاد</option>
+                                </select>
+                                <span asp-validation-for="Command.ProfessorId" class="error"></span>
                             </div>
                         </div>
-                    }
+                    </div>
                     <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id" />
                     <input type="hidden" value="@Model.Course.Id" asp-for="Course.Id" />
                     <a asp-page="./Index" asp-route-courseId="@Model.Course.Id" class="btn btn-default waves-effect">بازگشت</a>

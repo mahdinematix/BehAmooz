@@ -1,36 +1,32 @@
 using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Pages
 {
-    public class RejectedModel : PageModel
+    public class RejectedModel : UserContextPageModel
     {
-        private readonly IAuthHelper _authHelper;
 
-        public RejectedModel(IAuthHelper authHelper)
+        public RejectedModel(IAuthHelper authHelper):base(authHelper)
         {
-            _authHelper = authHelper;
         }
 
         public IActionResult OnGet()
         {
 
-            var status = _authHelper.CurrentAccountStatus();
 
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Confirmed && _authHelper.CurrentAccountRole() == Roles.Student)
+            if (CurrentAccountStatus == Statuses.Confirmed && CurrentAccountRole == Roles.Student)
             {
                 return RedirectToPage("/Index");
             }
 
 
-            if (status == Statuses.Confirmed && _authHelper.CurrentAccountRole() != Roles.Student)
+            if (CurrentAccountStatus == Statuses.Confirmed && CurrentAccountRole != Roles.Student)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }

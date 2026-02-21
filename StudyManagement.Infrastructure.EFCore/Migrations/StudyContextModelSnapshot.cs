@@ -108,13 +108,17 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("University")
-                        .HasColumnType("int");
+                    b.Property<long>("SemesterId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("UniversityType")
-                        .HasColumnType("int");
+                    b.Property<long>("UniversityId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SemesterId");
+
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("Courses", (string)null);
                 });
@@ -150,6 +154,39 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Orders", (string)null);
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.SemesterAgg.Semester", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsCurrent")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MidYear")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UniversityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("Semesters", (string)null);
                 });
 
             modelBuilder.Entity("StudyManagement.Domain.SessionAgg.Session", b =>
@@ -228,6 +265,64 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.ToTable("SessionPictures", (string)null);
                 });
 
+            modelBuilder.Entity("StudyManagement.Domain.SessionVideoViewAgg.SessionVideoView", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("SessionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("ViewCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId", "SessionId")
+                        .IsUnique();
+
+                    b.ToTable("SessionVideoViews", (string)null);
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.UniversityAgg.University", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CurrentSemesterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Universities", (string)null);
+                });
+
             modelBuilder.Entity("StudyManagement.Domain.ClassAgg.Class", b =>
                 {
                     b.HasOne("StudyManagement.Domain.CourseAgg.Course", "Course")
@@ -237,6 +332,25 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.CourseAgg.Course", b =>
+                {
+                    b.HasOne("StudyManagement.Domain.SemesterAgg.Semester", "Semester")
+                        .WithMany("Courses")
+                        .HasForeignKey("SemesterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudyManagement.Domain.UniversityAgg.University", "University")
+                        .WithMany("Courses")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Semester");
+
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("StudyManagement.Domain.OrderAgg.Order", b =>
@@ -304,6 +418,17 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Navigation("Items");
                 });
 
+            modelBuilder.Entity("StudyManagement.Domain.SemesterAgg.Semester", b =>
+                {
+                    b.HasOne("StudyManagement.Domain.UniversityAgg.University", "University")
+                        .WithMany("Semesters")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
             modelBuilder.Entity("StudyManagement.Domain.SessionAgg.Session", b =>
                 {
                     b.HasOne("StudyManagement.Domain.ClassAgg.Class", "Class")
@@ -336,9 +461,21 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Navigation("Classes");
                 });
 
+            modelBuilder.Entity("StudyManagement.Domain.SemesterAgg.Semester", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
             modelBuilder.Entity("StudyManagement.Domain.SessionAgg.Session", b =>
                 {
                     b.Navigation("SessionPictures");
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.UniversityAgg.University", b =>
+                {
+                    b.Navigation("Courses");
+
+                    b.Navigation("Semesters");
                 });
 #pragma warning restore 612, 618
         }

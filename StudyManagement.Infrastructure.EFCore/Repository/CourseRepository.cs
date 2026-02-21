@@ -6,91 +6,65 @@ using StudyManagement.Domain.CourseAgg;
 
 namespace StudyManagement.Infrastructure.EFCore.Repository
 {
-    public class CourseRepository : RepositoryBase<long,Course> , ICourseRepository
+    public class CourseRepository : RepositoryBase<long, Course>, ICourseRepository
     {
         private readonly StudyContext _context;
-        private readonly IAuthHelper _authHelper;
 
-        public CourseRepository(StudyContext context, IAuthHelper authHelper) : base(context)
+        public CourseRepository(StudyContext context) : base(context)
         {
             _context = context;
-            _authHelper = authHelper;
         }
 
-        public List<CourseViewModel> Search(CourseSearchModel searchModel)
+        public List<CourseViewModel> Search(CourseSearchModel searchModel, long universityId, long currentAccountId, string currentAccountRole)
         {
-            IQueryable<CourseViewModel> query;
-            if (_authHelper.CurrentAccountRole()==Roles.Professor)
-            {
-                query = _context.Courses.Include(x => x.Classes).Select(x => new CourseViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Code = x.Code,
-                    NumberOfUnit = x.NumberOfUnit,
-                    CourseKind = x.CourseKind,
-                    IsActive = x.IsActive,
-                    CreationDate = x.CreationDate.ToFarsi(),
-                    ClassesCount = x.Classes.Count(x => x.ProfessorId == _authHelper.CurrentAccountId()),
-                    Major = x.Major,
-                    UniversityType = x.UniversityType,
-                    University = x.University,
-                    Price = x.Price,
-                    EducationLevel = x.EducationLevel
-                });
-            }
-            else
-            {
-                query = _context.Courses.Include(x => x.Classes).Select(x => new CourseViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Code = x.Code,
-                    NumberOfUnit = x.NumberOfUnit,
-                    CourseKind = x.CourseKind,
-                    IsActive = x.IsActive,
-                    CreationDate = x.CreationDate.ToFarsi(),
-                    ClassesCount = x.Classes.Count,
-                    Major = x.Major,
-                    UniversityType = x.UniversityType,
-                    University = x.University,
-                    Price = x.Price,
-                    EducationLevel = x.EducationLevel
-                });
-            }
-
+            var coursesQuery = _context.Courses
+                    .Include(x => x.Classes).Include(x => x.Semester).Where(x => x.UniversityId == universityId)
+                    .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
-            {
-                query = query.Where(x => x.Name.Contains(searchModel.Name));
-            }
+                coursesQuery = coursesQuery.Where(x => x.Name.Contains(searchModel.Name));
 
             if (!string.IsNullOrWhiteSpace(searchModel.Code))
-            {
-                query = query.Where(x => x.Code == searchModel.Code);
-            }
-            if (searchModel.CourseKind != "0" && searchModel.CourseKind != null)
-            {
-                query = query.Where(x => x.CourseKind == searchModel.CourseKind);
-            }
-            if (searchModel.Major >0)
-            {
-                query = query.Where(x => x.Major == searchModel.Major);
-            }
-            if (searchModel.University > 0)
-            {
-                query = query.Where(x => x.University == searchModel.University);
-            }
-            if (searchModel.UniversityType > 0)
-            {
-                query = query.Where(x => x.UniversityType == searchModel.UniversityType);
-            }
-            if (searchModel.EducationLevel > 0)
-            {
-                query = query.Where(x => x.EducationLevel == searchModel.EducationLevel);
-            }
+                coursesQuery = coursesQuery.Where(x => x.Code == searchModel.Code);
 
-            return query.OrderByDescending(x => x.Id).ToList();
+            if (searchModel.CourseKind != "0" && searchModel.CourseKind != null)
+                coursesQuery = coursesQuery.Where(x => x.CourseKind == searchModel.CourseKind);
+
+            if (searchModel.Major > 0)
+                coursesQuery = coursesQuery.Where(x => x.Major == searchModel.Major);
+
+            if (searchModel.EducationLevel > 0)
+                coursesQuery = coursesQuery.Where(x => x.EducationLevel == searchModel.EducationLevel);
+
+            if (searchModel.SemesterId > 0)
+                coursesQuery = coursesQuery.Where(x => x.SemesterId == searchModel.SemesterId);
+
+            var courses = coursesQuery
+                .AsEnumerable()
+                .Select(x => new CourseViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Code = x.Code,
+                    NumberOfUnit = x.NumberOfUnit,
+                    CourseKind = x.CourseKind,
+                    IsActive = x.IsActive,
+                    CreationDate = x.CreationDate.ToFarsi(),
+                    ClassesCount = currentAccountRole == Roles.Professor
+                        ? x.Classes.Count(c => c.ProfessorId == currentAccountId)
+                        : x.Classes.Count,
+                    Major = x.Major,
+                    Price = x.Price,
+                    EducationLevel = x.EducationLevel,
+                    SemesterCode = x.Semester.Code,
+                    SemesterId = x.SemesterId,
+                    UniversityId = x.UniversityId,
+                    UniversityName = x.University.Name
+                })
+                .OrderByDescending(x => x.Id)
+                .ToList();
+
+            return courses;
         }
 
         public EditCourse GetDetails(long id)
@@ -104,15 +78,15 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 CourseKind = x.CourseKind,
                 Major = x.Major,
                 Price = x.Price,
-                UniversityType = x.UniversityType,
-                University = x.University,
-                EducationLevel = x.EducationLevel
+                EducationLevel = x.EducationLevel,
+                SemesterId = x.SemesterId,
+                UniversityId = x.UniversityId
             }).FirstOrDefault(x => x.Id == id);
         }
 
         public List<CourseViewModel> GetCourses()
         {
-            return _context.Courses.Where(x=>x.IsActive).Select(x => new CourseViewModel
+            return _context.Courses.Where(x => x.IsActive).Select(x => new CourseViewModel
             {
                 Id = x.Id,
                 Name = x.Name

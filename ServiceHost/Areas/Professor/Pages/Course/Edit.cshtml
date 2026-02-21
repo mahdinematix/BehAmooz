@@ -1,0 +1,121 @@
+﻿@page "{id}"
+@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@model ServiceHost.Areas.Professor.Pages.Course.EditModel
+@{
+    Layout = "Shared/_ProfessorLayout";
+    ViewBag.Title = $"ویرایش درس {Model.Command.Name}";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">@Model.Message</div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">ویرایش درس @Model.Command.Name</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Name" class="control-label">نام درس</label>
+                                <input type="text" class="form-control" asp-for="Command.Name" />
+                                <span asp-validation-for="Command.Name" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Price" class="control-label">قیمت هر جلسه (تومان)</label>
+                                <input type="text" class="form-control" asp-for="Command.Price" />
+                                <span asp-validation-for="Command.Price" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Code" class="control-label">کد درس</label>
+                                <input type="text" class="form-control" asp-for="Command.Code" maxlength="10" />
+                                <span asp-validation-for="Command.Code" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Major" class="control-label">رشته</label>
+                                <select asp-for="Command.Major" class="form-control select22" asp-items='new SelectList(Majors.List, "Id", "Name")'>
+                                    <option value="0">رشته درس را انتخاب کنید ...</option>
+                                </select>
+                                <span asp-validation-for="Command.Major" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                <select class="form-control" asp-for="Command.EducationLevel">
+                                    <option value="0">مقطع تحصیلی</option>
+                                    <option value="@EducationLevels.Kardani">کاردانی</option>
+                                    <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                    <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                    <option value="@EducationLevels.Doktora">دکتری</option>
+                                    <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                </select>
+                                <span asp-validation-for="Command.EducationLevel" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.SemesterId" class="control-label">ترم</label>
+                                <select class="form-control" asp-for="Command.SemesterId"
+                                        asp-items='new SelectList(Model.SemesterCodes, "Id", "Code")'>
+                                    <option value="0">ترم</option>
+                                </select>
+                                <span asp-validation-for="Command.SemesterId" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.NumberOfUnit" class="control-label">تعداد واحد درسی</label>
+                                <input type="number" max="3" min="1" class="form-control" asp-for="Command.NumberOfUnit" />
+                                <span asp-validation-for="Command.NumberOfUnit" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.CourseKind" class="control-label">نوع درس</label>
+                                <select type="text" class="form-control" asp-for="Command.CourseKind">
+                                    <option value="0">نوع درس را انتخاب کنید ...</option>
+                                    <option value="نظری">نظری</option>
+                                    <option value="عملی">عملی</option>
+                                    <option value="نظری-عملی">نظری-عملی</option>
+                                </select>
+                                <span asp-validation-for="Command.CourseKind" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id" />
+                    <a class="btn btn-default waves-effect" asp-page="./Index">بازگشت</a>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+
+}

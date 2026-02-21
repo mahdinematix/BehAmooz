@@ -1,7 +1,7 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
-using LogManagement.Application.Contracts.Log;
+using LogManagement.Application.Contracts.LogContracts;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Domain.ClassAgg;
 using StudyManagement.Domain.SessionAgg;
@@ -11,21 +11,19 @@ namespace StudyManagement.Application
     public class ClassApplication : IClassApplication
     {
         private readonly IClassRepository _classRepository;
-        private readonly IAuthHelper _authHelper;
         private readonly ISessionRepository _sessionRepository;
         private readonly ILogApplication _logApplication;
         private readonly IAccountApplication _accountApplication;
 
-        public ClassApplication(IClassRepository classRepository, IAuthHelper authHelper, ISessionRepository sessionRepository, ILogApplication logApplication, IAccountApplication accountApplication)
+        public ClassApplication(IClassRepository classRepository, ISessionRepository sessionRepository, ILogApplication logApplication, IAccountApplication accountApplication)
         {
             _classRepository = classRepository;
-            _authHelper = authHelper;
             _sessionRepository = sessionRepository;
             _logApplication = logApplication;
             _accountApplication = accountApplication;
         }
 
-        public OperationResult Create(CreateClass command)
+        public OperationResult Create(CreateClass command, long currentAccountId)
         {
             var operation = new OperationResult();
             if (_classRepository.Exists(x => x.Code == command.Code))
@@ -49,27 +47,18 @@ namespace StudyManagement.Application
                 }
             }
 
-            long professorId;
-            if (_authHelper.CurrentAccountRole() == "2")
-            {
-                professorId = _authHelper.CurrentAccountId();
-            }
-            else
-            {
-                professorId = command.ProfessorId;
-            }
 
-            if (_classRepository.Exists(x => x.ProfessorId == professorId && x.StartTime == command.StartTime && x.Day == command.Day))
+            if (_classRepository.Exists(x => x.ProfessorId == command.ProfessorId && x.StartTime == command.StartTime && x.Day == command.Day))
             {
                 return operation.Failed(ApplicationMessages.AClassExistsWithTheStartTime);
             }
             var classs = new Class(command.Code, command.StartTime, command.EndTime,
-                command.CourseId, command.Day, professorId);
+                command.CourseId, command.Day, command.ProfessorId);
             _classRepository.Create(classs);
             _classRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Create,
                 TargetId = classs.Id,
                 TargetType = TargetTypes.Class
@@ -77,7 +66,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult Edit(EditClass command)
+        public OperationResult Edit(EditClass command, long currentAccountId)
         {
             var operation = new OperationResult();
             var classs = _classRepository.GetBy(command.Id);
@@ -107,17 +96,7 @@ namespace StudyManagement.Application
                 }
             }
 
-            long professorId;
-            if (_authHelper.CurrentAccountRole() == "2")
-            {
-                professorId = _authHelper.CurrentAccountId();
-            }
-            else
-            {
-                professorId = command.ProfessorId;
-            }
-
-            if (_classRepository.Exists(x => x.ProfessorId == professorId && x.StartTime == command.StartTime && x.Day == command.Day && x.Id != command.Id))
+            if (_classRepository.Exists(x => x.ProfessorId == command.ProfessorId && x.StartTime == command.StartTime && x.Day == command.Day && x.Id != command.Id))
             {
                 return operation.Failed(ApplicationMessages.AClassExistsWithTheStartTime);
             }
@@ -128,7 +107,7 @@ namespace StudyManagement.Application
             var oldDay = classs.Day;
             var oldProfessorId = classs.ProfessorId;
 
-            classs.Edit(command.Code, command.StartTime, command.EndTime, command.CourseId, command.Day, professorId);
+            classs.Edit(command.Code, command.StartTime, command.EndTime, command.CourseId, command.Day, command.ProfessorId);
             _classRepository.Save();
 
             if (!(oldCode == command.Code && oldStartTime == command.StartTime && oldEndTime == command.EndTime && oldDay == command.Day && oldProfessorId == command.ProfessorId))
@@ -154,7 +133,7 @@ namespace StudyManagement.Application
 
                 _logApplication.Create(new CreateLog
                 {
-                    AccountId = _authHelper.CurrentAccountId(),
+                    AccountId = currentAccountId,
                     Operation = Operations.Edit,
                     TargetId = classs.Id,
                     TargetType = TargetTypes.Class,
@@ -165,7 +144,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult Activate(long id)
+        public OperationResult Activate(long id, long currentAccountId)
         {
             var operation = new OperationResult();
             var classs = _classRepository.GetBy(id);
@@ -178,7 +157,7 @@ namespace StudyManagement.Application
             _classRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Activate,
                 TargetId = classs.Id,
                 TargetType = TargetTypes.Class,
@@ -186,7 +165,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult DeActivate(long id)
+        public OperationResult DeActivate(long id, long currentAccountId)
         {
             var operation = new OperationResult();
             var classs = _classRepository.GetBy(id);
@@ -199,7 +178,7 @@ namespace StudyManagement.Application
             _classRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Deactivate,
                 TargetId = classs.Id,
                 TargetType = TargetTypes.Class,
@@ -227,7 +206,7 @@ namespace StudyManagement.Application
             return _classRepository.GetClassById(id);
         }
 
-        public OperationResult Copy(CopyClass command)
+        public OperationResult Copy(CopyClass command, long currentAccountId)
         {
             var operation = new OperationResult();
             var classThatFromCopy = _classRepository.GetBy(command.ClassId);
@@ -243,16 +222,21 @@ namespace StudyManagement.Application
                 _sessionRepository.Delete(session);
             }
             var classThatFromCopySessions = _sessionRepository.GetAllByClassIdForCopy(classThatFromCopy.Id);
+
+            if (classThatFromCopySessions == null || classThatFromCopySessions.Count == 0)
+            {
+                return operation.Failed(ApplicationMessages.TheClassHasNotAnySessions);
+            }
             foreach (var session in classThatFromCopySessions)
             {
-                var newSession = new Session(session.Number, session.Title, session.Video, session.Booklet, session.Description, session.ClassId);
+                var newSession = new Session(session.Number, session.Title, session.Video, session.Booklet, session.Description, classThatToCopy.Id);
 
                 classThatToCopy.Sessions.Add(newSession);
             }
             _classRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Copy,
                 TargetId = classThatFromCopy.Id,
                 TargetType = TargetTypes.Class,
@@ -266,14 +250,19 @@ namespace StudyManagement.Application
             return _classRepository.GetClassCodeById(id);
         }
 
-        public List<ClassViewModel> GetClassesForCopy(long classId, long courseId)
+        public List<ClassViewModel> GetClassesForCopy(long classId)
         {
-            return _classRepository.GetClassesForCopy(classId, courseId);
+            return _classRepository.GetClassesForCopy(classId);
         }
 
         public string GetCourseNameByClassId(long classId)
         {
             return _classRepository.GetCourseNameByClassId(classId);
+        }
+
+        public ClassInfoForCopy GetClassInfoByClassCode(string classCode)
+        {
+            return _classRepository.GetClassInfoByClassCode(classCode);
         }
     }
 }

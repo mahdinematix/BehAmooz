@@ -2,7 +2,6 @@
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
 @using LogManagement.Infrastructure.Configuration.Permissions
-@inject IAuthHelper AuthHelper
 @model ServiceHost.Areas.Administration.Pages.Class.IndexModel
 @{
     Layout = "Shared/_AdminLayout";
@@ -45,15 +44,12 @@
                             <option value="0">روز</option>
                         </select>
                     </div>
-                    @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
-                    {
-                        <div class="form-group">
-                            <label asp-for="SearchModel.ProfessorId" class="control-label">استاد</label>
-                            <select type="text" class="form-control select22" data-val="false" asp-for="SearchModel.ProfessorId" asp-items="@Model.Professors">
-                                <option value="0">استاد</option>
-                            </select>
-                        </div>
-                    }
+                    <div class="form-group">
+                        <label asp-for="SearchModel.ProfessorId" class="control-label">استاد</label>
+                        <select type="text" class="form-control select22" data-val="false" asp-for="SearchModel.ProfessorId" asp-items="@Model.Professors">
+                            <option value="0">استاد</option>
+                        </select>
+                    </div>
                     <div class="form-group m-r-10">
                         <div class="checkbox checkbox-primary">
                             <input asp-for="SearchModel.IsActive">
@@ -62,7 +58,7 @@
                             </label>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-success" value="جستجو"/>
+                    <input type="submit" class="btn btn-success" value="جستجو" />
                     <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index" asp-route-courseId="@Model.Course.Id">مشاهده همه</a>
                 </form>
             </div>
@@ -83,10 +79,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
-                                    {
-                                        <th>استاد</th>
-                                    }
+                                    <th>استاد</th>
                                     <th>کد کلاس</th>
                                     <th>روز</th>
                                     <th>ساعت شروع</th>
@@ -102,10 +95,7 @@
                                 {
                                     <tr>
                                         <td>@item.Id</td>
-                                    @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
-                                        {
-                                            <td>@item.ProfessorFullName</td>
-                                        }
+                                        <td>@item.ProfessorFullName</td>
                                         <td>@item.Code</td>
                                         <td>@item.Day</td>
                                         <td>@item.StartTime.ToShownTime()</td>
@@ -137,14 +127,12 @@
                                             }
 
                                             <a class="btn btn-primary pull-right m-rl-5" asp-page="/Session/Index" asp-route-classId="@item.Id">مشاهده جلسات</a>
-                                            <a class="btn btn-info pull-right m-rl-5" href="#showmodal=@Url.Page("./Index", "Copy", new { id = item.Id , courseId = Model.Course.Id })">کپی جلسات این کلاس</a>
-                                            @if (AuthHelper.CurrentAccountRole() == Roles.Administrator)
-                                            {
-                                                <a permission="@LogPermissions.ShowLogs" class="btn btn-pink pull-right m-rl-5"
-                                                   href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id })">
-                                                    <i class="fa fa-recycle"></i> تاریخچه عملیات
-                                                </a>
-                                            }
+                                            <a class="btn btn-info pull-right m-rl-5" onclick="openCopyModal(@item.Id)">کپی جلسات این کلاس</a>
+
+                                            <a permission="@ActivityLogPermissions.ShowActivityLog" class="btn btn-pink pull-right m-rl-5"
+                                               href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id })">
+                                                <i class="fa fa-recycle"></i> تاریخچه عملیات
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -172,5 +160,90 @@
             $(".select22").select2();
         });
     </script>
-    
+
+    <script>
+        function openCopyModal(classId) {
+
+
+          $.get(`?handler=CopyCheck&id=${classId}`)
+            .done(function (res) {
+
+              if (!res.isSucceeded) {
+                alert(res.message);
+                return;
+              }
+
+
+              $.get(`?handler=Copy&id=${classId}`)
+                .done(function (html) {
+
+                  $('#ModalContent').html(html);
+                  $('#MainModal').appendTo(document.body);
+                  $('#MainModal').modal('show');
+
+
+                  $('#select22').select2({
+                    dropdownParent: $('#MainModal')
+                  });
+
+
+                  $('#SelectedClassInfo').hide().html('');
+
+
+                  $('#select22')
+                    .off('change.classInfo')
+                    .on('change.classInfo', function () {
+
+                      var selectedCode = $(this).val();
+
+                      if (!selectedCode || selectedCode === "0") {
+                        $('#SelectedClassInfo').hide().html('');
+                        return;
+                      }
+
+                      $.get(`?handler=ClassInfoByCode&classCode=${encodeURIComponent(selectedCode)}`)
+                        .done(function (r) {
+                          if (r.isSucceeded) {
+                            $('#SelectedClassInfo')
+                              .removeClass('alert-danger')
+                              .addClass('alert-info')
+                              .html(`
+                                <div><b>نام درس:</b> ${r.courseName}</div>
+                                <div><b>روز:</b> ${r.day}</div>
+                                <div><b>ساعت:</b> ${r.startTime} تا ${r.endTime}</div>
+                              `)
+                              .show();
+                          } else {
+                            $('#SelectedClassInfo')
+                              .removeClass('alert-info')
+                              .addClass('alert-danger')
+                              .text('اطلاعات کلاس پیدا نشد.')
+                              .show();
+                          }
+                        })
+                        .fail(function () {
+                          $('#SelectedClassInfo')
+                            .removeClass('alert-info')
+                            .addClass('alert-danger')
+                            .text('خطا در دریافت اطلاعات کلاس.')
+                            .show();
+                        });
+
+                    });
+
+                })
+                .fail(function () {
+                  alert('خطا در دریافت محتوای مدال. (Copy)');
+                });
+
+            })
+            .fail(function () {
+              alert('خطا در بررسی/دریافت اطلاعات. (CopyCheck)');
+            });
+        }
+    </script>
+
+
+
+
 }

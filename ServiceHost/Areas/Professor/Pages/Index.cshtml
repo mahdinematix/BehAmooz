@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = "Shared/_ProfessorLayout";
+    ViewBag.Title = "مدیریت سایت";
+}
+
+@section Css
+{
+    <style>
+
+        .message {
+            border: 1px solid #0077cc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .date {
+            color: #0077cc;
+            font-style: italic;
+        }
+    </style>
+}
+
+
+@foreach (var message in Model.ProfessorMessages)
+{
+    <div class="message">
+        <h4>@message.Title</h4>
+        <p class="date">@message.CreationDate</p>
+        <p>@message.Body</p>
+    </div>
+}

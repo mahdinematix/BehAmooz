@@ -5,7 +5,7 @@ using StudyManagement.Domain.SessionAgg;
 
 namespace StudyManagement.Infrastructure.EFCore.Repository
 {
-    public class SessionRepository : RepositoryBase<long, Session> , ISessionRepository
+    public class SessionRepository : RepositoryBase<long, Session>, ISessionRepository
     {
         private readonly StudyContext _context;
 
@@ -28,7 +28,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
 
         public List<SessionViewModel> GetAllByClassId(long classId)
         {
-           return _context.Sessions.Where(x=>x.ClassId == classId).Select(x => new SessionViewModel
+            return _context.Sessions.Where(x => x.ClassId == classId).Select(x => new SessionViewModel
             {
                 Id = x.Id,
                 Booklet = x.Booklet,
@@ -63,6 +63,11 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
         {
             _context.Sessions.Remove(session);
             Save();
+        }
+
+        public bool HasAnySessionsByClassId(long classId)
+        {
+            return _context.Sessions.Any(x => x.ClassId == classId);
         }
     }
 }

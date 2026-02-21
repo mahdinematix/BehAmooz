@@ -1,100 +1,54 @@
 ﻿using _01_Framework.Application;
-using _01_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using StudyManagement.Application.Contracts.Course;
+using StudyManagement.Application.Contracts.Semester;
 
 namespace ServiceHost.Areas.Administration.Pages.Course
 {
-    public class EditModel : PageModel
+    public class EditModel : UserContextPageModel
     {
         private readonly ICourseApplication _courseApplication;
-        private readonly IAuthHelper _authHelper;
-        public List<SelectListItem> Unis;
-        public List<SelectListItem> UniTypes;
-        public EditCourse Command;
+        private readonly ISemesterApplication _semesterApplication;
+        [BindProperty] public EditCourse Command { get; set; }
+        public List<SemesterViewModel> SemesterCodes { get; set; }
+
         [TempData] public string Message { get; set; }
-        public EditModel(ICourseApplication courseApplication, IAuthHelper authHelper)
+        public EditModel(ICourseApplication courseApplication, IAuthHelper authHelper, ISemesterApplication semesterApplication):base(authHelper)
         {
             _courseApplication = courseApplication;
-            _authHelper = authHelper;
+            _semesterApplication = semesterApplication;
         }
 
         public IActionResult OnGet(long id)
         {
-            var status = _authHelper.CurrentAccountStatus();
-
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }
+
+            SemesterCodes = _semesterApplication.GetSemesters();
             Command = _courseApplication.GetDetails(id);
-            UniTypes = GetUniTypes();
-            Unis = GetUnis();
             return Page();
         }
 
         public IActionResult OnPost(EditCourse command)
         {
-            var result = _courseApplication.Edit(command);
+            var result = _courseApplication.Edit(command, CurrentAccountId);
             if (result.IsSucceeded)
             {
                 return RedirectToPage("./Index");
             }
             Message = result.Message;
-            return RedirectToPage("./Edit", new {id = command.Id});
-        }
 
-        private List<SelectListItem> GetUnis(int typeId = 1)
-        {
+            SemesterCodes = _semesterApplication.GetSemesters();
 
-            List<SelectListItem> lstUnis = Universities.List
-                .Where(c => c.UniversityTypeId == typeId)
-                .Select(n =>
-                    new SelectListItem
-                    {
-                        Value = n.Id.ToString(),
-                        Text = n.Name
-                    }).ToList();
-
-            var defItem = new SelectListItem()
-            {
-                Value = "0",
-                Text = ApplicationMessages.SelectYourUniversity
-            };
-
-            lstUnis.Insert(0, defItem);
-
-            return lstUnis;
-        }
-
-        private List<SelectListItem> GetUniTypes()
-        {
-            var lstCountries = new List<SelectListItem>();
-
-            List<UniversityTypeViewModel> Countries = UniversityTypes.List;
-
-            lstCountries = Countries.Select(ct => new SelectListItem()
-            {
-                Value = ct.Id.ToString(),
-                Text = ct.Name
-            }).ToList();
-
-            var defItem = new SelectListItem()
-            {
-                Value = "0",
-                Text = ApplicationMessages.SelectYourUniversityType
-            };
-
-            lstCountries.Insert(0, defItem);
-
-            return lstCountries;
+            return Page();
         }
     }
 }

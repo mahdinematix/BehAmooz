@@ -1,4 +1,4 @@
-﻿using LogManagement.Application.Contracts.Log;
+﻿using LogManagement.Application.Contracts.LogContracts;
 using LogManagement.Domain.LogAgg;
 
 namespace LogManagement.Application
@@ -20,9 +20,9 @@ namespace LogManagement.Application
             _logRepository.Save();
         }
 
-        public List<LogViewModel> Search(LogSearchModel searchModel)
+        public List<LogViewModel> Search(LogSearchModel searchModel, long currentAccountUniversityId,string currentAccountRole)
         {
-            return _logRepository.Search(searchModel);
+            return _logRepository.Search(searchModel, currentAccountUniversityId, currentAccountRole);
         }
 
         public List<LogViewModel> GetCourseLogsById(long id)

@@ -1,5 +1,4 @@
 ﻿using _01_Framework.Application;
-using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Message;
 using MessageManagement.Infrastructure.EFCore;
 
@@ -8,29 +7,16 @@ namespace _02_Query.Query
     public class MessageQuery : IMessageQuery
     {
         private readonly MessageContext _messageContext;
-        private readonly IAuthHelper _authHelper;
 
-        public MessageQuery(MessageContext messageContext, IAuthHelper authHelper)
+        public MessageQuery(MessageContext messageContext)
         {
             _messageContext = messageContext;
-            _authHelper = authHelper;
         }
 
-        public List<MessageQueryModel> GetAdminMessages()
+        public List<MessageQueryModel> GetAdminMessages(long currentAccountUniversity)
 
         {
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
-            {
-                return _messageContext.Messages.Where(x => x.MessageFor == "اساتید").Where(x => x.EndDate >= DateTime.Now).Select(x => new MessageQueryModel
-                {
-                    Title = x.Title,
-                    Body = x.Body,
-                    CreationDate = x.CreationDate.ToFarsi()
-                })
-                    .ToList();
-            }
-
-            return _messageContext.Messages.Where(x => x.MessageFor == "مدیر سیستم ها").Where(x => x.EndDate >= DateTime.Now).Select(x => new MessageQueryModel
+            return _messageContext.Messages.Where(x => x.MessageFor == "مدیر سیستم ها").Where(x => x.EndDate >= DateTime.Now).Where(x=>x.UniversityId==currentAccountUniversity || x.ForAllUniversities).Select(x => new MessageQueryModel
             {
                 Title = x.Title,
                 Body = x.Body,
@@ -39,9 +25,22 @@ namespace _02_Query.Query
                 .ToList();
         }
 
-        public List<MessageQueryModel> GetStudentMessages()
+        public List<MessageQueryModel> GetProfessorMessages(long currentAccountUniversity)
         {
-            return _messageContext.Messages.Where(x => x.MessageFor == "دانشجویان").Where(x => x.EndDate >= DateTime.Now).Select(x => new MessageQueryModel
+
+            return _messageContext.Messages.Where(x => x.MessageFor == "اساتید").Where(x => x.EndDate >= DateTime.Now).Where(x => x.UniversityId == currentAccountUniversity || x.ForAllUniversities).Select(x => new MessageQueryModel
+            {
+                Title = x.Title,
+                Body = x.Body,
+                CreationDate = x.CreationDate.ToFarsi()
+            })
+                .ToList();
+        }
+
+
+        public List<MessageQueryModel> GetStudentMessages(long currentAccountUniversity)
+        {
+            return _messageContext.Messages.Where(x => x.MessageFor == "دانشجویان").Where(x => x.EndDate >= DateTime.Now).Where(x => x.UniversityId == currentAccountUniversity || x.ForAllUniversities).Select(x => new MessageQueryModel
             {
                 Title = x.Title,
                 Body = x.Body,

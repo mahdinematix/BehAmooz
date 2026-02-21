@@ -6,6 +6,10 @@ public class MessageViewModel
     public string Title { get; set; }
     public string Body { get; set; }
     public string MessageFor { get; set; }
+    public int UniversityTypeId { get; set; }
+    public long UniversityId { get; set; }
+    public string UniversityName { get; set; }
+    public bool ForAllUniversities { get; set; }
     public string StartDate { get; set; }
     public string EndDate { get; set; }
     public DateTime StartDateGr { get; set; }

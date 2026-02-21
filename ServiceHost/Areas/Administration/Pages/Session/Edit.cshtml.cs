@@ -1,41 +1,35 @@
 using _01_Framework.Application;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
-using System.Runtime.CompilerServices;
 
 namespace ServiceHost.Areas.Administration.Pages.Session
 {
-    public class EditModel : PageModel
+    public class EditModel : UserContextPageModel
     {
         private readonly ISessionApplication _sessionApplication;
         private readonly IClassApplication _classApplication;
         private readonly IFileManager _fileManager;
-        private readonly IAuthHelper _authHelper;
         public EditSession Command;
         public ClassViewModel Class;
         [TempData] public string Message { get; set; }
 
-        public EditModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper)
+        public EditModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper):base(authHelper)
         {
             _sessionApplication = sessionApplication;
             _classApplication = classApplication;
             _fileManager = fileManager;
-            _authHelper = authHelper;
         }
 
         public IActionResult OnGet(long id, long classId)
         {
-            var status = _authHelper.CurrentAccountStatus();
-
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }
@@ -47,7 +41,7 @@ namespace ServiceHost.Areas.Administration.Pages.Session
         public IActionResult OnPost(EditSession command, long classId)
         {
             command.ClassId = classId;
-            var result = _sessionApplication.Edit(command);
+            var result = _sessionApplication.Edit(command, CurrentAccountId);
             if (result.Result.IsSucceeded)
             {
                 return RedirectToPage("./Index", new { classId = classId });

@@ -4,6 +4,7 @@ using AccountManagement.Application.Contract.Account;
 using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Domain.RoleAgg;
 using AccountManagement.Domain.WalletAgg;
+using StudyManagement.Domain.UniversityAgg;
 
 namespace AccountManagement.Application
 {
@@ -15,8 +16,9 @@ namespace AccountManagement.Application
         private readonly IAuthHelper _authHelper;
         private readonly IFileManager _FileManager;
         private readonly IWalletRepository _walletRepository;
+        private readonly IUniversityRepository _universityRepository; 
 
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IRoleRepository roleRepository, IAuthHelper authHelper, IFileManager fileManager, IWalletRepository walletRepository)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IRoleRepository roleRepository, IAuthHelper authHelper, IFileManager fileManager, IWalletRepository walletRepository, IUniversityRepository universityRepository)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
@@ -24,6 +26,7 @@ namespace AccountManagement.Application
             _authHelper = authHelper;
             _FileManager = fileManager;
             _walletRepository = walletRepository;
+            _universityRepository = universityRepository;
         }
 
         public async Task<OperationResult> Register(RegisterAccount command)
@@ -157,7 +160,7 @@ namespace AccountManagement.Application
                 fileUrlForNationalCardPicture, command.RoleId, command.EducationLevel);
             if (account.RoleId != 1)
             {
-                if (_authHelper.CurrentAccountRole() == Roles.Professor)
+                if (command.RoleId == long.Parse(Roles.Professor))
                 {
                     account.ChangeStatusToWaiting();
                 }
@@ -178,6 +181,14 @@ namespace AccountManagement.Application
 
             account.Confirm();
             _accountRepository.Save();
+            var uniId = (long)account.UniversityId;
+
+            var university = _universityRepository.GetBy(uniId);
+            if (university != null && !university.IsActive)
+            {
+                university.Activate();
+            }
+            _universityRepository.Save();
             return operation.Succeed();
         }
 
@@ -281,9 +292,9 @@ namespace AccountManagement.Application
             return _accountRepository.GetDetails(id);
         }
 
-        public List<AccountViewModel> Search(AccountSearchModel searchModel)
+        public List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId)
         {
-            return _accountRepository.Search(searchModel);
+            return _accountRepository.Search(searchModel,currentAccountRole,currentAccountUniversityId);
         }
 
         public OperationResult Login(Login command)

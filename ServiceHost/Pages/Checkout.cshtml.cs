@@ -51,7 +51,7 @@ namespace ServiceHost.Pages
             //    return RedirectToPage("/Login");
             //}
 
-            //if (_authHelper.CurrentAccountRole() != Roles.Student)
+            //if (_authHelper.CurrentAccountRole() != RolesList.Student)
             //{
             //    return RedirectToPage("/Index", new { area = "Administration" });
             //}

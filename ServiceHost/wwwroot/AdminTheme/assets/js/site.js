@@ -209,6 +209,64 @@ function FillUnis(lstUniTypes) {
     return;
 }
 
+
+function FillActiveUnisP(lstUniTypes) {
+    var lstUnis = $("#lstUnis");
+    lstUnis.empty();
+
+    var selectedType = lstUniTypes.value;
+
+
+    lstUnis.append($('<option/>', { value: "0", text: "دانشگاه را انتخاب کنید" }));
+
+    if (!selectedType || selectedType === "0") {
+        return;
+    }
+
+    $.getJSON('/Professor/Unis/GetUnisByType', { typeId: selectedType })
+        .done(function (unis) {
+            lstUnis.empty();
+            $.each(unis, function (index, uni) {
+                lstUnis.append($('<option/>', {
+                    value: uni.value,
+                    text: uni.text
+                }));
+            });
+        })
+        .fail(function (xhr) {
+            alert('خطا در دریافت لیست دانشگاه‌ها');
+        });
+}
+
+function FillActiveUnisA(lstUniTypes) {
+    var lstUnis = $("#lstUnis");
+    lstUnis.empty();
+
+    var selectedType = lstUniTypes.value;
+
+
+    lstUnis.append($('<option/>', { value: "0", text: "دانشگاه را انتخاب کنید" }));
+
+    if (!selectedType || selectedType === "0") {
+        return;
+    }
+
+    $.getJSON('/Administration/ActiveUni/GetUnisByType', { typeId: selectedType })
+        .done(function (unis) {
+            lstUnis.empty();
+            $.each(unis, function (index, uni) {
+                lstUnis.append($('<option/>', {
+                    value: uni.value,
+                    text: uni.text
+                }));
+            });
+        })
+        .fail(function (xhr) {
+            alert('خطا در دریافت لیست دانشگاه‌ها');
+        });
+}
+
+
 function FillUnivirsities(lstUniTypes) {
     var lstUnis = $("#lstUnis");
     lstUnis.empty();

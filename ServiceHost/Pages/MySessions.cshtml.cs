@@ -2,44 +2,38 @@ using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Order;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Pages
 {
-    public class MySessionsModel : PageModel
+    public class MySessionsModel : UserContextPageModel
     {
-        private readonly IAuthHelper _authHelper;
         private readonly IOrderQuery _orderQuery;
         public List<OrderItemQueryModel> OrderItems;
 
-        public MySessionsModel(IAuthHelper authHelper, IOrderQuery orderQuery)
+        public MySessionsModel(IAuthHelper authHelper, IOrderQuery orderQuery):base(authHelper)
         {
-            _authHelper = authHelper;
             _orderQuery = orderQuery;
         }
 
 
         public IActionResult OnGet()
         {
-
-            var status = _authHelper.CurrentAccountStatus();
-
-            if (!_authHelper.IsAuthenticated())
+            if (!IsAuthenticated)
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (CurrentAccountRole == Roles.Professor)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }
 
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }

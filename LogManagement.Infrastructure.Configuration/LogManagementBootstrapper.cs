@@ -1,6 +1,8 @@
-﻿using LogManagement.Application;
-using LogManagement.Application.Contracts.Log;
+﻿using _01_Framework.Infrastructure;
+using LogManagement.Application;
+using LogManagement.Application.Contracts.LogContracts;
 using LogManagement.Domain.LogAgg;
+using LogManagement.Infrastructure.Configuration.Permissions;
 using LogManagement.Infrastructure.EFCore;
 using LogManagement.Infrastructure.EFCore.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,8 @@ namespace LogManagement.Infrastructure.Configuration
         {
             services.AddTransient<ILogApplication, LogApplication>();
             services.AddTransient<ILogRepository, LogRepository>();
+
+            services.AddTransient<IPermissionExposer, ActivityLogPermissionExposer>();
 
             services.AddDbContext<LogContext>(x => x.UseSqlServer(connectionString));
         }

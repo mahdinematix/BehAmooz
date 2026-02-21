@@ -1,16 +1,14 @@
 ﻿@page
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
-@inject IAuthHelper AuthHelper
 @model ServiceHost.Areas.Administration.Pages.ProfileModel
 @{
     ViewData["Title"] = "ویرایش پروفایل";
     Layout = "Shared/_AdminLayout";
 }
 
-@if (AuthHelper.CurrentAccountStatus() != Statuses.Confirmed)
+@if (Model.ShowSomeField)
 {
-    <div class="alert alert-info">اگر لیست دانشگاه برای شما دچار مشکل شد کافیست لیست نوع دانشگاه را یکبار تغییر دهید و مجددا آنرا انتخاب کنید.</div>
     @if (!string.IsNullOrWhiteSpace(Model.Message))
     {
         <div class="alert alert-danger">@Model.Message</div>
@@ -132,7 +130,6 @@
 else
 {
     <div class="alert alert-warning">توجه: پس از ویرایش اطلاعات، وضعیت اکانت شما به حالت "در انتظار" تغییر خواهد یافت و برای دسترسی مجدد به سایت باید منتظر تایید مدیر سیستم بمانید</div>
-    <div class="alert alert-info">اگر لیست دانشگاه برای شما دچار مشکل شد کافیست لیست نوع دانشگاه را یکبار تغییر دهید و مجددا آنرا انتخاب کنید.</div>
     @if (!string.IsNullOrWhiteSpace(Model.Message))
     {
         <div class="alert alert-danger">@Model.Message</div>

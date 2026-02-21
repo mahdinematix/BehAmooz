@@ -1,34 +1,33 @@
 using _01_Framework.Application;
-using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Wallet;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Areas.Administration.Pages.Financial
 {
-    public class SettlementRequestsModel : PageModel
+    public class SettlementRequestsModel : UserContextPageModel
     {
-        private readonly IAuthHelper _authHelper;
         public List<SettlementRequestViewModel> SettlementRequests;
         public SettlementRequestSearchModel SearchModel;
         private readonly IWalletApplication _walletApplication;
         [TempData] public string Message { get; set; }
 
-        public SettlementRequestsModel(IAuthHelper authHelper, IWalletApplication walletApplication)
+        public SettlementRequestsModel(IAuthHelper authHelper, IWalletApplication walletApplication) : base(authHelper)
         {
-            _authHelper = authHelper;
             _walletApplication = walletApplication;
         }
 
         public IActionResult OnGet(SettlementRequestSearchModel searchModel)
         {
-            if (_authHelper.CurrentAccountRole() != Roles.Administrator)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/NotConfirmed");
             }
 
+            if (CurrentAccountStatus == Statuses.Rejected)
+            {
+                return RedirectToPage("/Reject");
+            }
             SettlementRequests = _walletApplication.Search(searchModel);
-
             return Page();
         }
 
@@ -36,7 +35,7 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
         {
             var command = new PayRequestWithdrawDto
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = CurrentAccountId,
                 TransactionId = transactionId
             };
             return Partial("TrackingCode", command);
@@ -52,7 +51,7 @@ namespace ServiceHost.Areas.Administration.Pages.Financial
         {
             var command = new RejectRequestWithdrawDto
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = CurrentAccountId,
                 TransactionId = transactionId
             };
             return Partial("Description", command);

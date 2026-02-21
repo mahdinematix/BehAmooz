@@ -17,6 +17,10 @@ namespace StudyManagement.Infrastructure.EFCore.Mapping
 
             builder.HasMany(x => x.Classes).WithOne(x => x.Course).HasForeignKey(x => x.CourseId);
 
+            builder.HasOne(x => x.Semester).WithMany(x => x.Courses).HasForeignKey(x => x.SemesterId);
+
+            builder.HasOne(x => x.University).WithMany(x => x.Courses).HasForeignKey(x => x.UniversityId);
+
 
         }
     }

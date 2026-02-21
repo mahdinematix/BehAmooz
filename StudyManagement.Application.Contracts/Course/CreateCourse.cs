@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using _01_Framework.Application;
 
 namespace StudyManagement.Application.Contracts.Course
@@ -18,12 +17,10 @@ namespace StudyManagement.Application.Contracts.Course
         [Range(1,int.MaxValue,ErrorMessage = ValidationMessages.IsRequired)]
         public int Major { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
-        public int UniversityType { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
-        public int University { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
         public int Price { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
         public int EducationLevel { get; set; }
+        public long SemesterId { get; set; }
+        public long UniversityId { get; set; }
     }
 }

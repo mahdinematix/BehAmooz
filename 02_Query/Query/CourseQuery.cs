@@ -1,6 +1,8 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Course;
+using Microsoft.EntityFrameworkCore;
+using StudyManagement.Domain.CourseAgg;
 using StudyManagement.Infrastructure.EFCore;
 
 namespace _02_Query.Query
@@ -18,65 +20,53 @@ namespace _02_Query.Query
 
         public List<CourseQueryModel> Search(CourseSearchModel searchModel)
         {
-            IQueryable<CourseQueryModel> query;
+            var semesters = _studyContext.Semesters
+        .Select(x => new { x.Id, x.Code, x.IsCurrent })
+        .ToList();
+            var currentSemester = semesters.FirstOrDefault(x => x.IsCurrent).Id;
+            IQueryable<Course> courseQuery;
             if (_authHelper.CurrentAccountRole()==Roles.Student)
             {
-                query = _studyContext.Courses.Where(x => x.IsActive)
-                    .Where(x => x.Major == _authHelper.GetAccountInfo().MajorId)
-                    .Where(x => x.University == _authHelper.GetAccountInfo().UniversityId)
-                    .Where(x => x.EducationLevel == _authHelper.CurrentAccountEducationLevel()).Select(x =>
-                        new CourseQueryModel
-                        {
-                            University = x.University,
-                            Major = x.Major,
-                            Code = x.Code,
-                            IsActive = x.IsActive,
-                            CourseKind = x.CourseKind,
-                            Name = x.Name,
-                            NumberOfUnit = x.NumberOfUnit,
-                            Id = x.Id,
-                            Price = x.Price,
-                            EducationLevel = x.EducationLevel
-                        });
+                courseQuery = _studyContext.Courses.Where(x=>x.Major==_authHelper.GetAccountInfo().MajorId).Where(x=>x.IsActive).Where(x=>x.SemesterId==currentSemester).Where(x=>x.EducationLevel==_authHelper.CurrentAccountEducationLevel())
+                    .Include(x => x.Classes)
+                    .AsQueryable();
             }
             else
-            { 
-                query = _studyContext.Courses.Where(x => x.IsActive)
-                    .Where(x => x.University == _authHelper.GetAccountInfo().UniversityId)
-                    .Select(x =>
-                        new CourseQueryModel
-                        {
-                            University = x.University,
-                            Major = x.Major,
-                            Code = x.Code,
-                            IsActive = x.IsActive,
-                            CourseKind = x.CourseKind,
-                            Name = x.Name,
-                            NumberOfUnit = x.NumberOfUnit,
-                            Id = x.Id,
-                            Price = x.Price,
-                            EducationLevel = x.EducationLevel
-                        });
+            {
+                courseQuery = _studyContext.Courses.Where(x => x.IsActive).Where(x => x.SemesterId == currentSemester)
+                    .Include(x => x.Classes)
+                    .AsQueryable();
             }
-            
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
-            {
-                query = query.Where(x => x.Name.Contains(searchModel.Name));
-            }
+                courseQuery = courseQuery.Where(x=>x.Name.Contains(searchModel.Name));
 
             if (!string.IsNullOrWhiteSpace(searchModel.Code))
-            {
-                query = query.Where(x => x.Code.Contains(searchModel.Code));
-            }
+                courseQuery = courseQuery.Where(x => x.Code == searchModel.Code);
 
             if (searchModel.CourseKind != "0" && searchModel.CourseKind != null)
-            {
-                query = query.Where(x => x.CourseKind == searchModel.CourseKind);
-            }
+                courseQuery = courseQuery.Where(x => x.CourseKind == searchModel.CourseKind);
 
 
-            return query.ToList();
+            var courses = courseQuery
+                .AsEnumerable()
+                .Select(x => new CourseQueryModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Code = x.Code,
+                    NumberOfUnit = x.NumberOfUnit,
+                    CourseKind = x.CourseKind,
+                    IsActive = x.IsActive,
+                    Major = x.Major,
+                    Price = x.Price,
+                    EducationLevel = x.EducationLevel,
+                    SemesterCode = semesters.FirstOrDefault(s=>s.Id ==x.SemesterId).Code
+                })
+                .OrderByDescending(x => x.Id)
+                .ToList();
+
+            return courses;
         }
 
         public string GetCourseNameById(long courseId)

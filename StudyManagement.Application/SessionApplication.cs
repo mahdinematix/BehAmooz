@@ -1,6 +1,6 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
-using LogManagement.Application.Contracts.Log;
+using LogManagement.Application.Contracts.LogContracts;
 using StudyManagement.Application.Contracts.Session;
 using StudyManagement.Domain.SessionAgg;
 
@@ -11,17 +11,15 @@ namespace StudyManagement.Application
         private readonly ISessionRepository _sessionRepository;
         private readonly IFileManager _fileManager;
         private readonly ILogApplication _logApplication;
-        private readonly IAuthHelper _authHelper;
 
-        public SessionApplication(ISessionRepository sessionRepository, IFileManager fileManager, ILogApplication logApplication, IAuthHelper authHelper)
+        public SessionApplication(ISessionRepository sessionRepository, IFileManager fileManager, ILogApplication logApplication)
         {
             _sessionRepository = sessionRepository;
             _fileManager = fileManager;
             _logApplication = logApplication;
-            _authHelper = authHelper;
         }
 
-        public async Task<OperationResult> Create(CreateSession command)
+        public async Task<OperationResult> Create(CreateSession command, long currentAccountId)
         {
             var operation = new OperationResult();
             if (_sessionRepository.Exists(x => x.Number == command.Number && x.ClassId == command.ClassId))
@@ -58,7 +56,7 @@ namespace StudyManagement.Application
             _sessionRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Create,
                 TargetId = session.Id,
                 TargetType = TargetTypes.Session
@@ -66,7 +64,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public async Task<OperationResult> Edit(EditSession command)
+        public async Task<OperationResult> Edit(EditSession command, long currentAccountId)
         {
             var operation = new OperationResult();
             var session = _sessionRepository.GetBy(command.Id);
@@ -140,7 +138,7 @@ namespace StudyManagement.Application
 
                 _logApplication.Create(new CreateLog
                 {
-                    AccountId = _authHelper.CurrentAccountId(),
+                    AccountId = currentAccountId,
                     Operation = Operations.Edit,
                     TargetId = session.Id,
                     TargetType = TargetTypes.Session,
@@ -150,7 +148,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult Activate(long id)
+        public OperationResult Activate(long id, long currentAccountId)
         {
             var operation = new OperationResult();
             var session = _sessionRepository.GetBy(id);
@@ -162,7 +160,7 @@ namespace StudyManagement.Application
             _sessionRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Activate,
                 TargetId = session.Id,
                 TargetType = TargetTypes.Session,
@@ -170,7 +168,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult DeActivate(long id)
+        public OperationResult DeActivate(long id, long currentAccountId)
         {
             var operation = new OperationResult();
             var session = _sessionRepository.GetBy(id);
@@ -182,7 +180,7 @@ namespace StudyManagement.Application
             _sessionRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Deactivate,
                 TargetId = session.Id,
                 TargetType = TargetTypes.Session,
@@ -205,5 +203,9 @@ namespace StudyManagement.Application
             return _sessionRepository.GetBySessionId(sessionId);
         }
 
+        public bool HasAnySessionsByClassId(long classId)
+        {
+            return _sessionRepository.HasAnySessionsByClassId(classId);
+        }
     }
 }

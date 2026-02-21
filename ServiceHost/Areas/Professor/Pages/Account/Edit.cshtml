@@ -1,0 +1,175 @@
+﻿@page "{id}"
+@using _01_Framework.Application
+@using _01_Framework.Infrastructure
+@model ServiceHost.Areas.Professor.Pages.Account.EditModel
+@{
+    Layout = "Shared/_ProfessorLayout";
+    ViewBag.Title = $"ویرایش دانشجوی {Model.Command.FirstName} {Model.Command.LastName}";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">@Model.Message</div>
+}
+
+<div class="alert alert-warning">توجه داشته باشید که در صورت ویرایش، وضعیت اکانت دانشجو به حالت "درانتظار" درخواهد آمد و برای دسترسی مجدد، باید منتظر تایید مدیر سیستم بماند.</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">ویرایش دانشجوی @Model.Command.FirstName @Model.Command.LastName</h3>
+            </div>
+
+            <div class="panel-body">
+                <form method="post"
+                      enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                <label asp-for="Command.Code" class="control-label">کد دانشجویی</label>
+
+                                <input type="text" maxlength="14" class="form-control" asp-for="Command.Code">
+                                <span asp-validation-for="Command.Code" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.FirstName" class="control-label">نام</label>
+                                <input type="text" class="form-control" asp-for="Command.FirstName">
+                                <span asp-validation-for="Command.FirstName" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.LastName" class="control-label">نام خانوادگی</label>
+                                <input type="text" class="form-control" asp-for="Command.LastName">
+                                <span asp-validation-for="Command.LastName" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label asp-for="Command.NationalCode" class="control-label">کد ملی</label>
+                                    <input type="text" class="form-control" asp-for="Command.NationalCode">
+                                    <span asp-validation-for="Command.NationalCode" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.NationalCardPicture" class="control-label">کارت ملی</label>
+                                <input id="inputPicture" type="file" class="form-control" asp-for="Command.NationalCardPicture" accept="image/*">
+                                <span asp-validation-for="Command.NationalCardPicture" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label asp-for="Command.Major" class="control-label">رشته</label>
+                                    <select class="form-control select22" asp-for="Command.Major" asp-items='new SelectList(Majors.List, "Id", "Name")'>
+                                        <option value="0">رشته</option>
+                                    </select>
+                                    <span asp-validation-for="Command.Major" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
+                                <select class="form-control" asp-for="Command.EducationLevel">
+                                    <option value="0">مقطع تحصیلی</option>
+                                    <option value="@EducationLevels.Kardani">کاردانی</option>
+                                    <option value="@EducationLevels.Karshenasi">کارشناسی</option>
+                                    <option value="@EducationLevels.Arshad">کارشناسی ارشد</option>
+                                    <option value="@EducationLevels.Doktora">دکتری</option>
+                                    <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
+                                    <option value="@EducationLevels.ProfessorOrAdmin">استاد هستم</option>
+                                </select>
+                                <span asp-validation-for="Command.EducationLevel" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label asp-for="Command.UniversityType" class="control-label">نوع دانشگاه</label>
+                                    <select onchange="FillUnis(this);" class="form-control" asp-for="Command.UniversityType" asp-items="Model.UniTypes" data-val="false" placeholder="نوع دانشگاه">
+                                    </select>
+                                    <span asp-validation-for="Command.UniversityType" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.University" class="control-label">دانشگاه</label>
+                                <select id="lstUnis" class="form-control select22" asp-for="Command.University" asp-items="Model.Unis" placeholder="دانشگاه">
+                                </select>
+                                <span asp-validation-for="Command.University" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.PhoneNumber" class="control-label">موبایل</label>
+                                <input type="text" class="form-control" asp-for="Command.PhoneNumber">
+                                <span asp-validation-for="Command.PhoneNumber" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Email" class="control-label">ایمیل</label>
+                                <input type="text" class="form-control" data-val="false" asp-for="Command.Email">
+                                <span asp-validation-for="Command.Email" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="@Model.Command.Id" asp-for="Command.Id" />
+                    <input type="hidden" value="@Roles.Student" class="form-control" asp-for="Command.RoleId" readonly />
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+                    <a asp-page="./Index" class="btn btn-default waves-effect">بازگشت</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+
+
+
+    <script>
+        const inputPicture = document.getElementById('inputPicture');
+        const maxSize = 5*1024*1024;
+
+        inputPicture.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                if (file.size > maxSize) {
+                    alert('حجم فایل تصویر نباید بیشتر از 5 مگابایت باشد.');
+                    this.value = '';
+                }
+            }
+        });
+    </script>
+}

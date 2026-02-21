@@ -1,0 +1,39 @@
+﻿@model StudyManagement.Application.Contracts.Class.CopyClass
+@{
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">کپی کردن جلسات کلاس @Model.ClassCode</h4>
+</div>
+    <div class="alert alert-info">لطفا بعد از انتخاب کد کلاس از صحت اطلاعات ان اطمینان حاصل فرمایید.</div>
+
+
+
+<form asp-page="./Index" asp-page-handler="Copy"
+      method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="ClassCode" class="control-label">کد ارائه کلاس موردنظر برای وارد کردن جلسات کلاس @Model.ClassCode</label>
+                    <select type="text" class="form-control" id="select22" asp-for="ClassCode" asp-items='new SelectList(Model.Classes, "Code", "Code")'>
+                        <option value="0">کد ارائه کلاس موردنظر را جهت کپی کردن جلسات انتخاب کنید ...</option>
+                    </select>
+                    <span asp-validation-for="ClassCode" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div id="SelectedClassInfo" class="alert alert-info m-t-10" style="display:none;"></div>
+
+
+        <input value="@Model.ClassId" type="hidden" asp-for="ClassId"/>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">کپی</button>
+    </div>
+</form>

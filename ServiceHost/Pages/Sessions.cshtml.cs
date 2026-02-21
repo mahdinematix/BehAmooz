@@ -4,23 +4,20 @@ using _02_Query.Contracts.Class;
 using _02_Query.Contracts.Course;
 using _02_Query.Contracts.Session;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Pages
 {
-    public class SessionsModel : PageModel
+    public class SessionsModel : UserContextPageModel
     {
-        private readonly IAuthHelper _authHelper;
         private readonly ISessionQuery _sessionQuery;
         private readonly IClassQuery _classQuery;
         public ClassQueryModel Class;
         public List<CartItem> Sessions;
         public CourseQueryModel Course { get; set; }
 
-        public SessionsModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery)
+        public SessionsModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery) : base(authHelper)
         {
-            _authHelper = authHelper;
             _sessionQuery = sessionQuery;
             _classQuery = classQuery;
         }
@@ -29,24 +26,23 @@ namespace ServiceHost.Pages
         public IActionResult OnGet(long classId)
         {
 
-            var status = _authHelper.CurrentAccountStatus();
 
-            if (!_authHelper.IsAuthenticated())
+            if (!IsAuthenticated)
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (CurrentAccountRole == Roles.Professor)
             {
                 return RedirectToPage("/Index", new { area = "Administration" });
             }
 
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }

@@ -12,5 +12,6 @@ namespace _01_Framework.Application
         long CurrentAccountId(); 
         int CurrentAccountStatus();
         int CurrentAccountEducationLevel();
+        long CurrentAccountUniversityId();
     }
 }

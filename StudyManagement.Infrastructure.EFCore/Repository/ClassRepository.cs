@@ -126,10 +126,10 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             return _context.Classes.FirstOrDefault(x => x.Id == id).Code;
         }
 
-        public List<ClassViewModel> GetClassesForCopy(long classId, long courseId)
+        public List<ClassViewModel> GetClassesForCopy(long classId)
         {
 
-            return _context.Classes.Where(x => x.ProfessorId == _authHelper.CurrentAccountId()).Where(x => x.CourseId == courseId).Where(x => x.Id != classId).Select(x => new ClassViewModel
+            return _context.Classes.Where(x => x.ProfessorId == _authHelper.CurrentAccountId()).Where(x => x.Id != classId).Select(x => new ClassViewModel
             {
                 Id = x.Id,
                 Code = x.Code
@@ -151,5 +151,33 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 .FirstOrDefault();
 
         }
+
+        public ClassInfoForCopy GetClassInfoByClassCode(string classCode)
+        {
+
+            var cls = _context.Classes
+                .Where(x => x.Code == classCode)
+                .Select(x => new
+                {
+                    x.Day,
+                    x.StartTime,
+                    x.EndTime,
+                    CourseName = x.Course.Name
+                })
+                .FirstOrDefault();
+
+            if (cls == null) return null;
+
+            return new ClassInfoForCopy
+            {
+                CourseName = cls.CourseName,
+                Day = Days.GetName(cls.Day),
+                StartTime = cls.StartTime,
+                EndTime = cls.EndTime
+            };
+
+
+        }
+
     }
 }

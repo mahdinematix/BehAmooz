@@ -5,6 +5,7 @@
         public const string Administrator = "1";
         public const string Professor = "2";
         public const string Student = "3";
+        public const string SuperAdministrator = "4";
 
         public static string GetRoleBy(long id)
         {
@@ -16,6 +17,8 @@
                     return "استاد";
                 case 3:
                     return "دانشجو";
+                case 4:
+                    return "سوپر مدیر سیستم";
                 default:
                     return "";
             }

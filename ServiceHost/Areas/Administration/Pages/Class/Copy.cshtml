@@ -1,8 +1,5 @@
-﻿@using StudyManagement.Application.Contracts.Class
-@model StudyManagement.Application.Contracts.Class.CopyClass
-@inject IClassApplication ClassApplication
+﻿@model StudyManagement.Application.Contracts.Class.CopyClass
 @{
-    var course = ClassApplication.GetCourseNameByClassId(Model.ClassId);
 }
 
 <div class="modal-header">
@@ -10,7 +7,8 @@
     <h4 class="modal-title">کپی کردن جلسات کلاس @Model.ClassCode</h4>
 </div>
 
-<div class="alert alert-info"> می توانید جلسات این کلاس را روی کلاس های دیگر درس @course کپی کنید.</div>
+<div class="alert alert-info">لطفا بعد از انتخاب کد کلاس از صحت اطلاعات آن اطمینان حاصل فرمایید.</div>
+
 
 
 <form asp-page="./Index" asp-page-handler="Copy"
@@ -30,24 +28,11 @@
                 </div>
             </div>
         </div>
-        <input value="@Model.ClassId" type="hidden" asp-for="ClassId"/>
+        <div id="SelectedClassInfo" class="alert alert-info m-t-10" style="display:none;"></div>
+        <input value="@Model.ClassId" type="hidden" asp-for="ClassId" />
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
         <button type="submit" class="btn btn-info waves-effect waves-light">کپی</button>
     </div>
 </form>
-
-                    
-
-@section Scripts {
-
-    <script>
-        $(document).ready(function () {
-            $("#select22").select2({
-                dropdownParent: $("#MainModal")
-            });
-        });
-    </script>
-
-}

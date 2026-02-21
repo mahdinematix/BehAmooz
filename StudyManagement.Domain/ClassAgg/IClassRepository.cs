@@ -10,9 +10,10 @@ namespace StudyManagement.Domain.ClassAgg
         List<ClassViewModel> GetClasses(long classId);
         ClassViewModel GetClassById(long id);
         string GetClassCodeById(long id);
-        List<ClassViewModel> GetClassesForCopy(long classId, long courseId);
+        List<ClassViewModel> GetClassesForCopy(long classId);
         Class GetClassByCode(string code);
         string GetCourseNameByClassId(long classId);
 
+        ClassInfoForCopy GetClassInfoByClassCode(string classCode);
     }
 }

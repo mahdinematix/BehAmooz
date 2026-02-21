@@ -2,57 +2,53 @@ using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Wallet;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Pages
 {
-    public class RequestWithdrawModel : PageModel
+    public class RequestWithdrawModel : UserContextPageModel
     {
-        private readonly IAuthHelper _authHelper;
         private readonly IWalletApplication _walletApplication;
         public long Balance;
         public RequestWithdrawDto Command;
         [TempData] public string Message { get; set; }
 
 
-        public RequestWithdrawModel(IAuthHelper authHelper, IWalletApplication walletApplication)
+        public RequestWithdrawModel(IAuthHelper authHelper, IWalletApplication walletApplication):base(authHelper)
         {
-            _authHelper = authHelper;
             _walletApplication = walletApplication;
         }
 
         public IActionResult OnGet()
         {
-            var status = _authHelper.CurrentAccountStatus();
 
-            if (!_authHelper.IsAuthenticated())
+            if (!IsAuthenticated)
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole() == Roles.Professor)
+            if (CurrentAccountRole == Roles.Professor)
             {
                 return RedirectToPage("/Financial/Wallet", new { area = "Administration" });
             }
 
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }
 
-            Balance = _walletApplication.GetBalanceByAccountId(_authHelper.CurrentAccountId());
+            Balance = _walletApplication.GetBalanceByAccountId(CurrentAccountId);
 
             return Page();
         }
 
         public IActionResult OnPost(RequestWithdrawDto command)
         {
-            command.AccountId= _authHelper.CurrentAccountId();
+            command.AccountId= CurrentAccountId;
             var result = _walletApplication.RequestWithdraw(command);
             Message = result.Message;
             return RedirectToPage();

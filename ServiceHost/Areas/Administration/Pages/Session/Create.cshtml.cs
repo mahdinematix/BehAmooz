@@ -1,39 +1,34 @@
 using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
 
 namespace ServiceHost.Areas.Administration.Pages.Session
 {
-    public class CreateModel : PageModel
+    public class CreateModel : UserContextPageModel
     {
         private readonly ISessionApplication _sessionApplication;
         private readonly IClassApplication _classApplication;
         private readonly IFileManager _FileManager;
-        private readonly IAuthHelper _authHelper;
         public CreateSession Command;
         public ClassViewModel Class;
         [TempData] public string Message { get; set; }
 
-        public CreateModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper)
+        public CreateModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper):base(authHelper)
         {
             _sessionApplication = sessionApplication;
             _classApplication = classApplication;
             _FileManager = fileManager;
-            _authHelper = authHelper;
         }
 
         public IActionResult OnGet(long classId)
         {
-            var status = _authHelper.CurrentAccountStatus();
-
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }
@@ -46,7 +41,7 @@ namespace ServiceHost.Areas.Administration.Pages.Session
             if (ModelState.IsValid)
             {
                 command.ClassId = classId;
-                var result = await _sessionApplication.Create(command);
+                var result = await _sessionApplication.Create(command,CurrentAccountId);
                 if (result.IsSucceeded)
                 {
                     return RedirectToPage("./Index", new { classId = classId });

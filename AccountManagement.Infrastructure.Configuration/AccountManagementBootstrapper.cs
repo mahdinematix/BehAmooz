@@ -23,10 +23,11 @@ namespace AccountManagement.Infrastructure.Configuration
 
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IRoleApplication, RoleApplication>();
-            services.AddTransient<IPermissionExposer, AccountPermissionExposer>();
 
             services.AddTransient<IWalletRepository, WalletRepository>();
             services.AddTransient<IWalletApplication, WalletApplication>();
+
+            services.AddTransient<IPermissionExposer, AccountPermissionExposer>();
 
 
             services.AddDbContext<AccountContext>(x => x.UseSqlServer(connectionString));

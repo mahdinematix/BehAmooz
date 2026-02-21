@@ -1,11 +1,18 @@
-﻿using _01_Framework.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using StudyManagement.Application.Contracts.University;
 
 namespace ServiceHost.Pages
 {
     public class UniController : Controller
     {
+        private readonly IUniversityApplication _universityApplication;
+
+        public UniController(IUniversityApplication universityApplication)
+        {
+            _universityApplication = universityApplication;
+        }
+
         [HttpGet]
         public JsonResult GetUnisByType(string typeId)
         {
@@ -13,11 +20,9 @@ namespace ServiceHost.Pages
             return Json(unis);
         }
 
-        private List<SelectListItem> GetUnis(int typeId = 1)
+        private List<SelectListItem> GetUnis(int typeId = 0)
         {
-            List<SelectListItem> lstUnis = Universities.List
-                .Where(c => c.UniversityTypeId == typeId)
-                .Select(n =>
+            List<SelectListItem> lstUnis = _universityApplication.GetUniversitiesByType(typeId).Select(n =>
                     new SelectListItem
                     {
                         Value = n.Id.ToString(),

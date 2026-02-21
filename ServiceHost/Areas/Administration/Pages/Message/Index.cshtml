@@ -37,6 +37,20 @@
                             <option value="مدیر سیستم ها">مدیر سیستم ها</option>
                         </select>
                     </div>
+                    @if (Model.ShowUniversityField)
+                    {
+                        <div class="form-group">
+                            <label class="sr-only" asp-for="SearchModel.UniversityTypeId"></label>
+                            <select class="form-control" asp-for="SearchModel.UniversityTypeId" asp-items="Model.UniTypes" data-val="false" onchange="FillActiveUnisA(this);">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" asp-for="SearchModel.UniversityId"></label>
+                            <select class="form-control select22" asp-for="SearchModel.UniversityId" asp-items="Model.Unis" data-val="false" id="lstUnis">
+                            </select>
+                        </div>
+                    }
+
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
                     <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
                 </form>
@@ -63,6 +77,10 @@
                                     <th>تاریخ شروع نمایش</th>
                                     <th>تاریخ پایان نمایش</th>
                                     <th>سطح نمایش</th>
+                                    @if (Model.ShowUniversityField)
+                                    {
+                                        <th>دانشگاه</th>
+                                    }
                                     <th>تاریخ تعریف</th>
                                     <th>عملیات</th>
                                 </tr>
@@ -77,10 +95,14 @@
                                         <td>@item.StartDate</td>
                                         <td>@item.EndDate</td>
                                         <td>@item.MessageFor</td>
+                                        @if (Model.ShowUniversityField)
+                                        {
+                                            <td>@item.UniversityName</td>
+                                        }
                                         <td>@item.CreationDate</td>
                                         <td>
                                             <a permission="@MessagePermissions.EditMessage" class="btn btn-warning pull-right m-rl-5"
-                                               href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id})">
+                                               href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                         </td>
@@ -103,6 +125,73 @@
         $(document).ready(function () {
             $('#datatable').dataTable();
         });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+
+    <script>
+        (function () {
+          $(document).off('change', '#UniversityTypeSelect').on('change', '#UniversityTypeSelect', function () {
+            var typeId = $(this).val();
+            var $uni = $('#UniversitySelect');
+
+            $uni.empty().append($('<option/>', { value: 0, text: 'دانشگاه را انتخاب کنید...' }));
+
+            if (!typeId || typeId === "0") return;
+
+            $.getJSON('/Administration/ActiveUnis/GetUnisByType', { typeId: typeId })
+              .done(function (res) {
+                if (!res || !res.isSucceeded) return;
+
+                $.each(res.unis, function (_, u) {
+                  $uni.append($('<option/>', { value: u.id, text: u.name }));
+                });
+
+                var selected = $uni.data('selected');
+                if (selected) $uni.val(selected);
+              })
+              .fail(function () {
+                alert('خطا در دریافت لیست دانشگاه‌ها');
+              });
+          });
+
+          var currentUniId = $('#UniversitySelect').val();
+          if (currentUniId && currentUniId !== "0") {
+            $('#UniversitySelect').data('selected', currentUniId);
+          }
+
+          $('.select22').select2({
+            dropdownParent: $('#MainModal')
+          });
+        })();
+    </script>
+
+    <script>
+        $(document).off('change', '#ForAllUniversities')
+          .on('change', '#ForAllUniversities', function () {
+
+            var checked = $(this).is(':checked');
+
+            if (checked) {
+
+         
+                $('#UniversitySection').css('display', 'none');
+
+            
+                $('#UniversityTypeSelect').val('0').trigger('change');
+                $('#UniversitySelect').val('0').trigger('change');
+
+            } else {
+
+            
+                $('#UniversitySection').css('display', 'block');
+
+            }
+                });
     </script>
 }
 

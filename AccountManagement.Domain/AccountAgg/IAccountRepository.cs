@@ -6,7 +6,7 @@ namespace AccountManagement.Domain.AccountAgg
     public interface IAccountRepository : IRepositoryBase<long,Account>
     {
         EditAccount GetDetails(long id);
-        List<AccountViewModel> Search(AccountSearchModel searchModel);
+        List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId);
         Account GetByNationalCode(string nationalCode);
         List<AccountViewModel> GetProfessors();
         string GetProfessorById(long professorId);

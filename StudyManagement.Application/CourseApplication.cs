@@ -1,8 +1,9 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
-using LogManagement.Application.Contracts.Log;
+using LogManagement.Application.Contracts.LogContracts;
 using StudyManagement.Application.Contracts.Course;
 using StudyManagement.Domain.CourseAgg;
+using StudyManagement.Domain.SemesterAgg;
 
 namespace StudyManagement.Application
 {
@@ -10,20 +11,20 @@ namespace StudyManagement.Application
     {
         private readonly ICourseRepository _courseRepository;
         private readonly ILogApplication _logApplication; 
-        private readonly IAuthHelper _authHelper;
+        private readonly ISemesterRepository _semesterRepository;
         
 
-        public CourseApplication(ICourseRepository courseRepository, ILogApplication logApplication, IAuthHelper authHelper)
+        public CourseApplication(ICourseRepository courseRepository, ILogApplication logApplication, ISemesterRepository semesterRepository)
         {
             _courseRepository = courseRepository;
             _logApplication = logApplication;
-            _authHelper = authHelper;
+            _semesterRepository = semesterRepository;
         }
 
-        public OperationResult Create(CreateCourse command)
+        public OperationResult Create(CreateCourse command, long currentAccountId)
         {
             var operation = new OperationResult();
-            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.EducationLevel == command.EducationLevel))
+            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.EducationLevel == command.EducationLevel && x.SemesterId == command.SemesterId))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
@@ -32,13 +33,13 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
-
-            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price,command.EducationLevel);
+            var currentSemester = _semesterRepository.GetCurrent().Id;
+            var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.Price,command.EducationLevel,currentSemester, command.UniversityId);
             _courseRepository.Create(course);
             _courseRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Create,
                 TargetId = course.Id,
                 TargetType = TargetTypes.Course
@@ -46,7 +47,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult Edit(EditCourse command)
+        public OperationResult Edit(EditCourse command, long currentAccountId)
         {
             var operation = new OperationResult();
             var course = _courseRepository.GetBy(command.Id);
@@ -55,7 +56,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
 
-            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.Id != command.Id))
+            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.SemesterId == command.SemesterId && x.Id != command.Id))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
@@ -64,20 +65,18 @@ namespace StudyManagement.Application
             var oldPrice = course.Price;
             var oldMajor = course.Major;
             var oldNumberOfUnit = course.NumberOfUnit;
-            var oldUniversity = course.University;
-            var oldUniversityType = course.UniversityType;
             var oldEducationLevel = course.EducationLevel;
             var oldCourseKind = course.CourseKind;
             var oldCode = course.Code;
+            var oldSemesterId = course.SemesterId;
 
 
-            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.UniversityType,command.University,command.Price, command.EducationLevel);
+            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.Price, command.EducationLevel, command.SemesterId,command.UniversityId);
             _courseRepository.Save();
 
             if (!(oldName == command.Name && oldPrice == command.Price && oldMajor == command.Major &&
-                  oldNumberOfUnit == command.NumberOfUnit && oldUniversity == command.University &&
-                  oldUniversityType == command.UniversityType && oldEducationLevel == command.EducationLevel &&
-                  oldCode == command.Code && oldCourseKind == command.CourseKind))
+                  oldNumberOfUnit == command.NumberOfUnit && oldEducationLevel == command.EducationLevel &&
+                  oldCode == command.Code && oldCourseKind == command.CourseKind && oldSemesterId == command.SemesterId))
             {
 
 
@@ -95,14 +94,6 @@ namespace StudyManagement.Application
                 if (oldNumberOfUnit != command.NumberOfUnit)
                     changes.Add($"تعداد واحد از «{oldNumberOfUnit}» به «{command.NumberOfUnit}»");
 
-                if (oldUniversity != command.University)
-                    changes.Add(
-                        $"دانشگاه از «{Universities.GetName(oldUniversity)}» به «{Universities.GetName(command.University)}»");
-
-                if (oldUniversityType != command.UniversityType)
-                    changes.Add(
-                        $"نوع دانشگاه از «{UniversityTypes.GetName(oldUniversityType)}» به «{UniversityTypes.GetName(command.UniversityType)}»");
-
                 if (oldEducationLevel != command.EducationLevel)
                     changes.Add($"مقطع از «{oldEducationLevel}» به «{command.EducationLevel}»");
 
@@ -112,13 +103,17 @@ namespace StudyManagement.Application
                 if (oldCourseKind != command.CourseKind)
                     changes.Add($"نوع درس از «{oldCourseKind}» به «{command.CourseKind}»");
 
+                if (oldSemesterId != command.SemesterId)
+                {
+                    changes.Add($"ترم از «{_semesterRepository.GetSemesterCodeBy(oldSemesterId)}» به «{_semesterRepository.GetSemesterCodeBy(command.SemesterId)}»");
+                }
 
 
                 var description = string.Join(" | ", changes);
 
                 _logApplication.Create(new CreateLog
                 {
-                    AccountId = _authHelper.CurrentAccountId(),
+                    AccountId = currentAccountId,
                     Operation = Operations.Edit,
                     TargetId = course.Id,
                     TargetType = TargetTypes.Course,
@@ -129,7 +124,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult Activate(long id)
+        public OperationResult Activate(long id, long currentAccountId)
         {
             var operation = new OperationResult();
             var course = _courseRepository.GetBy(id);
@@ -141,7 +136,7 @@ namespace StudyManagement.Application
             _courseRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Activate,
                 TargetId = course.Id,
                 TargetType = TargetTypes.Course,
@@ -149,7 +144,7 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult DeActivate(long id)
+        public OperationResult DeActivate(long id, long currentAccountId)
         {
             var operation = new OperationResult();
             var course = _courseRepository.GetBy(id);
@@ -161,7 +156,7 @@ namespace StudyManagement.Application
             _courseRepository.Save();
             _logApplication.Create(new CreateLog
             {
-                AccountId = _authHelper.CurrentAccountId(),
+                AccountId = currentAccountId,
                 Operation = Operations.Deactivate,
                 TargetId = course.Id,
                 TargetType = TargetTypes.Course,
@@ -169,9 +164,9 @@ namespace StudyManagement.Application
             return operation.Succeed();
         }
 
-        public List<CourseViewModel> Search(CourseSearchModel searchModel)
+        public List<CourseViewModel> Search(CourseSearchModel searchModel, long universityId, long currentAccountId, string currentAccountRole)
         {
-            return _courseRepository.Search(searchModel);
+            return _courseRepository.Search(searchModel,universityId, currentAccountId, currentAccountRole);
         }
 
         public EditCourse GetDetails(long id)

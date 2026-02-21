@@ -18,6 +18,12 @@ namespace _01_Framework.Application
             return $"{pc.GetYear(date)}/{pc.GetMonth(date):00}/{pc.GetDayOfMonth(date):00}";
         }
 
+        public static int ToFarsiYear(this DateTime date)
+        {
+            var pc = new PersianCalendar();
+            return pc.GetYear(date);
+        }
+
         public static string GetTime(this DateTime date)
         {
             return $"_{date.Hour:00}_{date.Minute:00}_{date.Second:00}";

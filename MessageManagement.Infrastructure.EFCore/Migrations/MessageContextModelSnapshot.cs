@@ -41,6 +41,9 @@ namespace MessageManagement.Infrastructure.EFCore.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("ForAllUniversities")
+                        .HasColumnType("bit");
+
                     b.Property<string>("MessageFor")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -53,6 +56,12 @@ namespace MessageManagement.Infrastructure.EFCore.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<long>("UniversityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("UniversityTypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

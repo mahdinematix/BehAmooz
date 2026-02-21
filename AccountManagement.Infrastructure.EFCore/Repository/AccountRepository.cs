@@ -3,16 +3,19 @@ using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Domain.AccountAgg;
 using Microsoft.EntityFrameworkCore;
+using StudyManagement.Application.Contracts.University;
 
 namespace AccountManagement.Infrastructure.EFCore.Repository
 {
     public class AccountRepository : RepositoryBase<long, Account> , IAccountRepository
     {
         private readonly AccountContext _context;
+        private readonly IUniversityApplication _universityApplication;
 
-        public AccountRepository(AccountContext context) : base(context)
+        public AccountRepository(AccountContext context, IUniversityApplication universityApplication) : base(context)
         {
             _context = context;
+            _universityApplication = universityApplication;
         }
 
         public EditAccount GetDetails(long id)
@@ -34,7 +37,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             }).FirstOrDefault(x => x.Id == id);
         }
 
-        public List<AccountViewModel> Search(AccountSearchModel searchModel)
+        public List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId)
         {
             var query = _context.Accounts.Include(x=>x.Role).Select(x => new AccountViewModel
             {
@@ -47,6 +50,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 PhoneNumber = x.PhoneNumber,
                 Code = x.Code,
                 UniversityId = x.UniversityId,
+                UniversityName = _universityApplication.GetNameBy(x.UniversityId),
                 UniversityTypeId = x.UniversityTypeId,
                 RoleId = x.RoleId,
                 Role = x.Role.Name,
@@ -75,13 +79,20 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             {
                 query = query.Where(x => x.Code.Contains(searchModel.Code));
             }
-            if (searchModel.UniversityId > 0)
+            if (currentAccountRole == Roles.SuperAdministrator)
             {
-                query = query.Where(x => x.UniversityId == searchModel.UniversityId);
+                if (searchModel.UniversityTypeId > 0)
+                {
+                    query = query.Where(x => x.UniversityTypeId == searchModel.UniversityTypeId);
+                }
+                if (searchModel.UniversityId > 0)
+                {
+                    query = query.Where(x => x.UniversityId == searchModel.UniversityId);
+                }
             }
-            if (searchModel.UniversityTypeId > 0)
+            if (currentAccountRole == Roles.Administrator)
             {
-                query = query.Where(x => x.UniversityTypeId == searchModel.UniversityTypeId);
+                query = query.Where(x => x.UniversityId == currentAccountUniversityId);
             }
 
             if (searchModel.MajorId >0)
@@ -102,7 +113,11 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 query = query.Where(x => x.EducationLevel == searchModel.EducationLevel);
             }
 
-            return query.Where(x=>x.RoleId != long.Parse(Roles.Administrator)).OrderByDescending(x => x.Id).ToList();
+            if (currentAccountRole==Roles.Administrator)
+            {
+                return query.Where(x => x.RoleId != long.Parse(Roles.Administrator)).Where(x => x.RoleId != long.Parse(Roles.SuperAdministrator)).OrderByDescending(x => x.Id).ToList();
+            }
+            return query.OrderByDescending(x => x.Id).ToList();
         }
 
         public Account GetByNationalCode(string nationalCode)
@@ -143,6 +158,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 PhoneNumber = x.PhoneNumber,
                 Code = x.Code,
                 UniversityId = x.UniversityId,
+                UniversityName = _universityApplication.GetNameBy(x.UniversityId),
                 UniversityTypeId = x.UniversityTypeId,
                 RoleId = x.RoleId,
                 CreationDate = x.CreationDate.ToFarsi(),
@@ -170,14 +186,15 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             {
                 query = query.Where(x => x.Code.Contains(searchModel.Code));
             }
-            if (searchModel.UniversityId > 0)
-            {
-                query = query.Where(x => x.UniversityId == searchModel.UniversityId);
-            }
             if (searchModel.UniversityTypeId > 0)
             {
                 query = query.Where(x => x.UniversityTypeId == searchModel.UniversityTypeId);
             }
+            if (searchModel.UniversityId > 0)
+            {
+                query = query.Where(x => x.UniversityId == searchModel.UniversityId);
+            }
+            
 
             if (searchModel.MajorId > 0)
             {
@@ -209,6 +226,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 PhoneNumber = x.PhoneNumber,
                 Code = x.Code,
                 UniversityId = x.UniversityId,
+                UniversityName = _universityApplication.GetNameBy(x.UniversityId),
                 UniversityTypeId = x.UniversityTypeId,
                 RoleId = x.RoleId,
                 CreationDate = x.CreationDate.ToFarsi(),

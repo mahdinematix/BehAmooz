@@ -46,14 +46,14 @@ namespace AccountManagement.Application
             var permissions = new List<RolePermission>();
             command.Permissions.ForEach(code => permissions.Add(new RolePermission(code)));
 
-            role.Edit(command.Name, permissions);
+            role.Edit(permissions);
             _roleRepository.Save();
             return operation.Succeed();
         }
 
-        public List<RoleViewModel> GetAllRoles()
+        public List<RoleViewModel> GetAllRoles(string currentAccountRole)
         {
-            return _roleRepository.GetAllRoles();
+            return _roleRepository.GetAllRoles(currentAccountRole);
         }
 
         public EditRole GetDetails(long id)

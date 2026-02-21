@@ -1,9 +1,9 @@
 ﻿@page "{courseId}"
-@inject IAuthHelper AuthHelper
-@using _01_Framework.Application
 @using _01_Framework.Infrastructure
 @model ServiceHost.Areas.Administration.Pages.Class.CreateModel
 @{
+    Layout = "Shared/_AdminLayout";
+    ViewBag.Title = "تعریف کلاس جدید";
 }
 @if (!string.IsNullOrWhiteSpace(Model.Message))
 {
@@ -29,7 +29,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.Day" class="control-label">روز کلاس</label>
-                                <select class="form-control" asp-for="Command.Day" asp-items='new SelectList(Days.List,"Id", "Name")'>
+                                <select class="form-control" asp-for="Command.Day" asp-items='new SelectList(Days.List, "Id", "Name")'>
                                     <option value="0">روز کلاس را انتخاب کنید ...</option>
                                 </select>
                                 <span asp-validation-for="Command.Day" class="error"></span>
@@ -40,7 +40,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.StartTime" class="control-label">ساعت شروع</label>
-                                <select type="text" class="form-control" asp-for="Command.StartTime" asp-items='new SelectList(Times.List,"Value", "Value")'>
+                                <select type="text" class="form-control" asp-for="Command.StartTime" asp-items='new SelectList(Times.List, "Value", "Value")'>
                                     <option value="0">ساعت شروع</option>
                                 </select>
                                 <span asp-validation-for="Command.StartTime" class="error"></span>
@@ -49,30 +49,26 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.EndTime" class="control-label">ساعت پایان</label>
-                                <select type="text" class="form-control" asp-for="Command.EndTime" asp-items='new SelectList(Times.List,"Value", "Value")'>
+                                <select type="text" class="form-control" asp-for="Command.EndTime" asp-items='new SelectList(Times.List, "Value", "Value")'>
                                     <option value="0">ساعت پایان</option>
                                 </select>
                                 <span asp-validation-for="Command.EndTime" class="error"></span>
                             </div>
                         </div>
-
                     </div>
-                    @if (AuthHelper.CurrentAccountRole() != Roles.Professor)
-                    {
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label asp-for="Command.ProfessorId" class="control-label">استاد</label>
-                                    <select type="text" class="form-control select22" asp-for="Command.ProfessorId" asp-items="@Model.Professors">
-                                        <option value="0">استاد</option>
-                                    </select>
-                                    <span asp-validation-for="Command.ProfessorId" class="error"></span>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Command.ProfessorId" class="control-label">استاد</label>
+                                <select type="text" class="form-control select22" asp-for="Command.ProfessorId" asp-items="@Model.Professors">
+                                    <option value="0">استاد</option>
+                                </select>
+                                <span asp-validation-for="Command.ProfessorId" class="error"></span>
                             </div>
                         </div>
-                    }
+                    </div>
 
-                    <input type="hidden" value="@Model.Course.Id" asp-for="Command.CourseId"/>
+                    <input type="hidden" value="@Model.Course.Id" asp-for="Command.CourseId" />
 
                     <button type="submit" class="btn btn-info waves-effect waves-light">تعریف</button>
                     <a asp-page="./Index" asp-route-courseId="@Model.Course.Id" class="btn btn-default waves-effect">بازگشت</a>

@@ -4,40 +4,48 @@ using AccountManagement.Application.Contract.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using StudyManagement.Application.Contracts.University;
 
 namespace ServiceHost.Pages
 {
-    public class ProfileModel : PageModel
+    public class ProfileModel : UserContextPageModel
     {
         private readonly IAccountApplication _accountApplication;
-        private readonly IAuthHelper _authHelper;
-        public EditAccount Command;
-        public List<SelectListItem> Unis;
-        public List<SelectListItem> UniTypes;
+        private readonly IUniversityApplication _universityApplication;
+
+        public bool ShowSomeFields { get; set; }
+        [BindProperty] public EditAccount Command { get; set; }
+        public List<SelectListItem> Unis { get; set; }
+        public List<SelectListItem> UniTypes { get; set; }
         [TempData] public bool IsSucceeded { get; set; }
         [TempData] public string Message { get; set; }
 
-        public ProfileModel(IAccountApplication accountApplication, IAuthHelper authHelper)
+        public ProfileModel(IAccountApplication accountApplication, IAuthHelper authHelper, IUniversityApplication universityApplication):base(authHelper)
         {
             _accountApplication = accountApplication;
-            _authHelper = authHelper;
+            _universityApplication = universityApplication;
         }
 
         public IActionResult OnGet()
         {
-            if (!_authHelper.IsAuthenticated())
+            if (!IsAuthenticated)
             {
                 return RedirectToPage("/Login");
             }
 
-            if (_authHelper.CurrentAccountRole()!=Roles.Student)
+            if (CurrentAccountRole==Roles.Administrator || CurrentAccountRole == Roles.SuperAdministrator)
             {
                 return RedirectToPage("/Profile", new { area = "Administration" });
             }
+            if(CurrentAccountRole == Roles.Professor)
+            {
+                return RedirectToPage("/Profile", new { area = "Professor" });
+            }
+
+            Command = _accountApplication.GetDetails(CurrentAccountId);
             UniTypes = GetUniTypes();
-            Unis = GetUnis();
-            var id = _authHelper.CurrentAccountId();
-            Command = _accountApplication.GetDetails(id);
+            Unis = GetUnis(Command.UniversityType);
+            ShowSomeFields = CurrentAccountStatus != Statuses.Confirmed;
 
             return Page();
         }
@@ -49,12 +57,14 @@ namespace ServiceHost.Pages
             Message = result.Result.Message;
             var loginDto = new Login
             {
-                NationalCode = _authHelper.GetAccountInfo().NationalCode,
-                Password = _authHelper.GetAccountInfo().Password
+                NationalCode = CurrentAccountNationalCode,
+                Password = CurrentAccountPassword
             };
             _accountApplication.Logout();
             _accountApplication.Login(loginDto);
-            return RedirectToPage("./Profile");
+            UniTypes = GetUniTypes();
+            Unis = GetUnis(Command.UniversityType);
+            return Page();
         }
 
         public IActionResult OnGetChangePassword(long id)
@@ -69,12 +79,10 @@ namespace ServiceHost.Pages
             return new JsonResult(result);
         }
 
-        private List<SelectListItem> GetUnis(int typeId = 1)
+        private List<SelectListItem> GetUnis(int typeId = 0)
         {
 
-            List<SelectListItem> lstUnis = Universities.List
-                .Where(c => c.UniversityTypeId == typeId)
-                .Select(n =>
+            List<SelectListItem> lstUnis = _universityApplication.GetUniversitiesByType(typeId).Select(n =>
                     new SelectListItem
                     {
                         Value = n.Id.ToString(),

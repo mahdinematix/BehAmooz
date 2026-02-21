@@ -3,7 +3,7 @@ public class CustomerSearchModel
 {
     public string FullName { get; set; }
     public string Code { get; set; }
-    public int UniversityId { get; set; }
+    public long UniversityId { get; set; }
     public string CourseName { get; set; }
     public string ClassCode { get; set; }
     public int ClassDay { get; set; }

@@ -7,34 +7,30 @@ using StudyManagement.Application.Contracts.SessionPicture;
 
 namespace ServiceHost.Areas.Administration.Pages.SessionPicture
 {
-    public class IndexModel : PageModel
+    public class IndexModel : UserContextPageModel
     {
         private readonly ISessionPictureApplication _sessionPictureApplication;
         private readonly ISessionApplication _sessionApplication;
         private readonly IClassApplication _classApplication;
-        private readonly IAuthHelper _authHelper;
         public SessionViewModel Session;
         public ClassViewModel Class;
         public List<SessionPictureViewModel> SessionPictures;
 
-        public IndexModel(ISessionPictureApplication sessionPictureApplication, ISessionApplication sessionApplication, IClassApplication classApplication, IAuthHelper authHelper)
+        public IndexModel(ISessionPictureApplication sessionPictureApplication, ISessionApplication sessionApplication, IClassApplication classApplication, IAuthHelper authHelper):base(authHelper)
         {
             _sessionPictureApplication = sessionPictureApplication;
             _sessionApplication = sessionApplication;
             _classApplication = classApplication;
-            _authHelper = authHelper;
         }
 
         public IActionResult OnGet(long sessionId)
         {
-            var status = _authHelper.CurrentAccountStatus();
-
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }

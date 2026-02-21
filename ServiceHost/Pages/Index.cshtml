@@ -1,7 +1,6 @@
 ﻿@page
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IndexModel
 @{
     Layout = "Shared/_Layout";
@@ -61,8 +60,8 @@
                                     <th>رشته</th>
                                     <th>تعداد واحد</th>
                                     <th>نوع درس</th>
-                                    <th>دانشگاه</th>
                                     <th>مقطع</th>
+                                    <th>ترم</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
@@ -76,8 +75,8 @@
                                         <td>@Majors.GetName(item.Major)</td>
                                         <td>@item.NumberOfUnit</td>
                                         <td>@item.CourseKind</td>
-                                        <td>@Universities.GetName(item.University)</td>
                                         <td>@EducationLevels.GetEducationLevelById(item.EducationLevel)</td>
+                                        <td>@item.SemesterCode</td>
                                         <td><a class="btn btn-success" asp-page="/Class" asp-route-courseId="@item.Id">مشاهده کلاس‌ها</a></td>
                                     </tr>
                                 }

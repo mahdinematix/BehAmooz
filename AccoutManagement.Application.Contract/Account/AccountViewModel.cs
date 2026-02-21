@@ -9,6 +9,7 @@ public class AccountViewModel
     public string NationalCode { get; set; }
     public int UniversityTypeId { get; set; }
     public int UniversityId { get; set; }
+    public string UniversityName { get; set; }
     public int MajorId { get; set; }
     public string NationalCardPicture { get; set; }
     public string Code { get; set; }

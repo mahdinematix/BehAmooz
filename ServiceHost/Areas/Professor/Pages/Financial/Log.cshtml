@@ -1,0 +1,113 @@
+﻿@page
+@using _01_Framework.Application
+@model ServiceHost.Areas.Professor.Pages.Financial.LogModel
+@{
+    Layout = "Shared/_ProfessorLayout";
+    ViewData["title"] = "تراکنش های من";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">جستجو در تراکنش ها</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" role="form" method="get">
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.Status"></label>
+                        <select class="form-control" asp-for="SearchModel.Status" data-val="false">
+                            <option value="0">وضعیت را انتخاب کنید</option>
+                            <option value="@TransactionStatuses.Rejected">رد شده</option>
+                            <option value="@TransactionStatuses.Canceled">لغو شده</option>
+                            <option value="@TransactionStatuses.Paid">پرداخت شده</option>
+                            <option value="@TransactionStatuses.Pending">در انتظار پرداخت</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
+                    <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Log">مشاهده همه</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">لیست تراکنش های من</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>شماره کارت یا شبا</th>
+                                    <th>مبلغ (تومان)</th>
+                                    <th>وضعیت</th>
+                                    <th>توضیحات</th>
+                                    <th>تاریخ</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Logs)
+                                {
+                                    <tr>
+                                        <td>@item.CreditCardNo</td>
+                                        <td>@item.Amount.ToMoney()</td>
+                                        <td>
+                                            @if (item.Status == TransactionStatuses.Rejected)
+                                            {
+                                                <span class="text-danger">رد شده</span>
+                                            }
+                                            @if (item.Status == TransactionStatuses.Paid)
+                                            {
+                                                <span class="text-success">واریز شده</span>
+                                            }
+                                            @if (item.Status == TransactionStatuses.Pending)
+                                            {
+                                                <span class="text-warning">در انتظار پرداخت</span>
+                                            }
+                                            @if (item.Status == TransactionStatuses.Canceled)
+                                            {
+                                                <span class="text-danger">لغو شده</span>
+                                            }
+                                        </td>
+                                        <td>@item.Description</td>
+                                        <td>@item.CreationDate</td>
+                                        <td>
+                                            @if (item.Status == TransactionStatuses.Pending)
+                                            {
+                                                <a class="btn btn-danger pull-right m-rl-5" asp-page-handler="Cancel" asp-route-transactionId="@item.TransactionId">
+                                                    <i class="fa fa-close"></i> لغو
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/adminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+        });
+    </script>
+}
+

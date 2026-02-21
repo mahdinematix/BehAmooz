@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using _01_Framework.Application;
 using AccountManagement.Application.Contract.Account;
 using Microsoft.AspNetCore.Mvc;
@@ -9,35 +8,31 @@ using StudyManagement.Application.Contracts.Course;
 
 namespace ServiceHost.Areas.Administration.Pages.Class
 {
-    public class EditModel : PageModel
+    public class EditModel : UserContextPageModel
     {
         private readonly IClassApplication _classApplication;
         private readonly IAccountApplication _accountApplication;
-        private readonly IAuthHelper _authHelper;
         private readonly ICourseApplication _courseApplication;
         [TempData] public string Message { get; set; }
         public EditClass Command;
         public SelectList Professors;
         public CourseViewModel Course { get; set; }
 
-        public EditModel(IClassApplication classApplication, IAccountApplication accountApplication, ICourseApplication courseApplication, IAuthHelper authHelper)
+        public EditModel(IClassApplication classApplication, IAccountApplication accountApplication, ICourseApplication courseApplication, IAuthHelper authHelper):base(authHelper)
         {
             _classApplication = classApplication;
             _accountApplication = accountApplication;
             _courseApplication = courseApplication;
-            _authHelper = authHelper;
         }
 
         public IActionResult OnGet(long id, long courseId)
         {
-            var status = _authHelper.CurrentAccountStatus();
-
-            if (status == Statuses.Waiting)
+            if (CurrentAccountStatus == Statuses.Waiting)
             {
                 return RedirectToPage("/NotConfirmed");
             }
 
-            if (status == Statuses.Rejected)
+            if (CurrentAccountStatus == Statuses.Rejected)
             {
                 return RedirectToPage("/Reject");
             }
@@ -50,7 +45,7 @@ namespace ServiceHost.Areas.Administration.Pages.Class
         public IActionResult OnPost(EditClass command, long courseId)
         {
             command.CourseId = courseId;
-            var result = _classApplication.Edit(command);
+            var result = _classApplication.Edit(command,CurrentAccountId);
             if (result.IsSucceeded)
             {
                 return RedirectToPage("./Index", new { courseId = courseId });

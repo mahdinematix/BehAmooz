@@ -1,5 +1,7 @@
 ﻿using _01_Framework.Domain;
 using StudyManagement.Domain.ClassAgg;
+using StudyManagement.Domain.SemesterAgg;
+using StudyManagement.Domain.UniversityAgg;
 
 namespace StudyManagement.Domain.CourseAgg
 {
@@ -10,40 +12,42 @@ namespace StudyManagement.Domain.CourseAgg
         public string CourseKind { get; private set; }
         public string Code { get; private set; }
         public int Major { get; private set; }
-        public int UniversityType { get; set; }
-        public int University { get; private set; }
         public int Price { get; private set; }
         public int EducationLevel { get; set; }
+        public long SemesterId { get; private set; }
+        public long UniversityId { get; private set; }
         public bool IsActive { get; private set; }
         public ICollection<Class> Classes { get; private set; }
+        public Semester Semester { get; private set; }
+        public University University { get; private set; }
 
 
-        public Course(string name, int numberOfUnit, string courseKind, string code,int major,int universityType, int university, int price,int educationLevel)
+        public Course(string name, int numberOfUnit, string courseKind, string code,int major, int price,int educationLevel,long semesterId, long universityId)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;
             CourseKind = courseKind;
             Code = code;
             Major = major;
-            UniversityType = universityType;
-            University = university;
             IsActive = true;
             Classes = new List<Class>();
             Price = price;
             EducationLevel = educationLevel;
+            SemesterId = semesterId;
+            UniversityId = universityId;
         }
 
-        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major,int universityType, int university, int price, int educationLevel)
+        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major, int price, int educationLevel, long semesterId, long universityId)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;
             CourseKind = courseKind;
             Code = code;
             Major = major;
-            UniversityType = universityType;
-            University = university;
             Price = price;
             EducationLevel = educationLevel;
+            SemesterId = semesterId;
+            UniversityId = universityId;
         }
 
         public void Activate()

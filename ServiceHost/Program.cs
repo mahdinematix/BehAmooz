@@ -20,7 +20,7 @@ using StudyManagement.Infrastructure.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-// Add services to the container.
+
 services.AddMemoryCache();
 services.AddHttpContextAccessor();
 services.AddControllers();
@@ -31,9 +31,9 @@ services.AddRazorPages()
     .AddRazorPagesOptions(options =>
     {
         options.Conventions.AuthorizeAreaFolder("Administration", "/", "AdminArea");
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Course", "Course");
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Message", "Message");
-        options.Conventions.AuthorizeAreaFolder("Administration", "/Account", "Account");
+
+        
+        options.Conventions.AuthorizeAreaFolder("Professor", "/", "ProfessorArea");
     });
 var connectionString = builder.Configuration.GetConnectionString("BehAmoozDb");
 
@@ -72,18 +72,11 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 
 services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminArea",
-        builder => builder.RequireRole(new List<string> { Roles.Administrator, Roles.Professor }));
+    options.AddPolicy("AdminArea", p => p.RequireRole(Roles.Administrator, Roles.SuperAdministrator));
 
-    options.AddPolicy("Course",
-        builder => builder.RequireRole(new List<string> { Roles.Administrator, Roles.Professor }));
-
-    options.AddPolicy("Message",
-        builder => builder.RequireRole(new List<string> { Roles.Administrator }));
-
-    options.AddPolicy("Account",
-        builder => builder.RequireRole(new List<string> { Roles.Administrator, Roles.Professor }));
+    options.AddPolicy("ProfessorArea", p => p.RequireRole(Roles.Professor));
 });
+
 
 builder.WebHost.ConfigureKestrel(o =>
 {
@@ -106,6 +99,8 @@ builder.Services.Configure<FormOptions>(options =>
 
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -114,28 +109,27 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseCookiePolicy();
 
-app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
 app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller}/{action}")
-    .WithStaticAssets();
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-app.MapAreaControllerRoute(
-    name: "AreaRoute",
-    areaName: "Administration",
-    pattern: "{area}/{controller}/{action}"
-).WithStaticAssets();
+
+app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
 
 app.MapRazorPages()
    .WithStaticAssets();

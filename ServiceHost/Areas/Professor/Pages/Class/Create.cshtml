@@ -1,0 +1,75 @@
+﻿@page "{courseId}"
+@using _01_Framework.Infrastructure
+@model ServiceHost.Areas.Professor.Pages.Class.CreateModel
+@{
+    Layout = "Shared/_ProfessorLayout";
+    ViewBag.Title = "تعریف کلاس جدید";
+}
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">@Model.Message</div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">تعریف کلاس جدید برای درس @Model.Course.Name</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post"
+                      enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Code" class="control-label">کد ارائه کلاس</label>
+                                <input type="text" class="form-control" asp-for="Command.Code" maxlength="20">
+                                <span asp-validation-for="Command.Code" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Day" class="control-label">روز کلاس</label>
+                                <select class="form-control" asp-for="Command.Day" asp-items='new SelectList(Days.List, "Id", "Name")'>
+                                    <option value="0">روز کلاس را انتخاب کنید ...</option>
+                                </select>
+                                <span asp-validation-for="Command.Day" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.StartTime" class="control-label">ساعت شروع</label>
+                                <select type="text" class="form-control" asp-for="Command.StartTime" asp-items='new SelectList(Times.List, "Value", "Value")'>
+                                    <option value="0">ساعت شروع</option>
+                                </select>
+                                <span asp-validation-for="Command.StartTime" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.EndTime" class="control-label">ساعت پایان</label>
+                                <select type="text" class="form-control" asp-for="Command.EndTime" asp-items='new SelectList(Times.List, "Value", "Value")'>
+                                    <option value="0">ساعت پایان</option>
+                                </select>
+                                <span asp-validation-for="Command.EndTime" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="@Model.Course.Id" asp-for="Command.CourseId" />
+                    <input type="hidden" value="@Model.ProfessorId" asp-for="Command.ProfessorId" />
+                    <button type="submit" class="btn btn-info waves-effect waves-light">تعریف</button>
+                    <a asp-page="./Index" asp-route-courseId="@Model.Course.Id" class="btn btn-default waves-effect">بازگشت</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".select22").select2();
+        });
+    </script>
+}

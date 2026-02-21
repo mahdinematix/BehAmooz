@@ -1,16 +1,16 @@
 ﻿@page "{id}"
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Course.EditModel
 @{
+    Layout = "Shared/_AdminLayout";
+    ViewBag.Title = $"ویرایش درس {Model.Command.Name}";
 }
 
 @if (!string.IsNullOrWhiteSpace(Model.Message))
 {
     <div class="alert alert-danger">@Model.Message</div>
 }
-<div class="alert alert-primary">اگر لیست دانشگاه برای شما دچار مشکل شد کافیست لیست نوع دانشگاه را یکبار تغییر دهید و مجددا آنرا انتخاب کنید.</div>
 
 <div class="row">
     <div class="col-md-12">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Command.EducationLevel" class="control-label">مقطع تحصیلی</label>
                                 <select class="form-control" asp-for="Command.EducationLevel">
@@ -67,6 +67,16 @@
                                     <option value="@EducationLevels.FoghDoktora">فوق دکتری</option>
                                 </select>
                                 <span asp-validation-for="Command.EducationLevel" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.SemesterId" class="control-label">ترم</label>
+                                <select class="form-control" asp-for="Command.SemesterId"
+                                        asp-items='new SelectList(Model.SemesterCodes, "Id", "Code")'>
+                                    <option value="0">ترم</option>
+                                </select>
+                                <span asp-validation-for="Command.SemesterId" class="error"></span>
                             </div>
                         </div>
                     </div>
@@ -88,26 +98,6 @@
                                     <option value="نظری-عملی">نظری-عملی</option>
                                 </select>
                                 <span asp-validation-for="Command.CourseKind" class="error"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <label asp-for="Command.UniversityType" class="control-label">نوع دانشگاه</label>
-                                    <select onchange="FillUnivirsities(this);" class="form-control" asp-for="Command.UniversityType" asp-items="Model.UniTypes" data-val="false" placeholder="نوع دانشگاه">
-                                    </select>
-                                    <span asp-validation-for="Command.UniversityType" class="error"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="Command.University" class="control-label">دانشگاه</label>
-                                <select id="lstUnis" class="form-control select22" asp-for="Command.University" asp-items="Model.Unis" placeholder="دانشگاه">
-                                </select>
-                                <span asp-validation-for="Command.University" class="error"></span>
                             </div>
                         </div>
                     </div>

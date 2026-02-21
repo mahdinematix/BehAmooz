@@ -134,5 +134,13 @@ namespace _01_Framework.Application
 
             return 0;
         }
+
+        public long CurrentAccountUniversityId()
+        {
+            if (IsAuthenticated())
+                return long.Parse(_contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "UniversityId").Value);
+
+            return 0;
+        }
     }
 }

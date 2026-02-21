@@ -1,0 +1,127 @@
+﻿@page "{id}/{sessionId}"
+@model ServiceHost.Areas.Professor.Pages.SessionPicture.EditModel
+@{
+    ViewBag.Title = $"ویرایش تصویر جلسه {Model.Session.Number}";
+    Layout = "Shared/_ProfessorLayout";
+}
+
+@section Css
+{
+        .readonly-input-file {
+        background-color: #e9ecef;
+        pointer-events: none;
+        user-select: none;
+        color: #6c757d;
+        cursor: not-allowed;
+        }
+
+        .readonly-button {
+        background-color: #6c757d !important;
+        cursor: not-allowed !important;
+        pointer-events: none !important;
+        opacity: 0.65;
+        color: #fff !important;
+        }
+
+}
+<div class="alert alert-warning">حداکثر حجم تصویر باید 5 مگابایت باشد.</div>
+<div class="alert alert-warning">لطفا تا پایان اپلود صبر کنید. در صورت موفقیت به صفحه قبل ارجاع داده خواهید شد</div>
+
+
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">@Model.Message</div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">ویرایش تصویر جلسه @Model.Session.Number کلاس @Model.Class.Code درس @Model.Class.Course</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post"
+                      enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Command.Picture" class="control-label">عکس</label>
+                                <input id="inputPicture" type="file" class="form-control" asp-for="Command.Picture" accept="image/*" />
+                                <span asp-validation-for="Command.Picture" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" asp-for="Command.SessionId" value="@Model.Session.Id" />
+                    <input type="hidden" asp-for="Command.Id" value="@Model.Command.Id" />
+                    <button type="submit" id="uploadButton" class="btn btn-info waves-effect waves-light">ویرایش</button>
+                    <a id="backButton" asp-page="./Index" asp-route-sessionId="@Model.Command.SessionId" class="btn btn-default waves-effect">بازگشت</a>
+                    <a style="display: none;" id="cancelButton" asp-page-handler="Cancel" asp-route-sessionId="@Model.Command.SessionId" asp-route-id="@Model.Command.Id" class="btn btn-danger">لغو فرایند آپلود</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        const inputPicture = document.getElementById('inputPicture');
+        const maxSize = 5*1024*1024;
+
+        inputPicture.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                if (file.size > maxSize) {
+                    alert('حجم فایل تصویر نباید بیشتر از 5 مگابایت باشد.');
+                    this.value = '';
+                }
+            }
+        });
+    </script>
+
+    <script>
+
+        function makeFileInputReadOnly(input) {
+            input.classList.add('readonly-input-file');
+
+            input.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+
+            input.addEventListener('keydown', function(e) {
+                e.preventDefault();
+            });
+        }
+        document.getElementById("uploadButton").onclick = function(event) {
+            const fileInput = document.getElementById("inputPicture");
+            const hasFile = fileInput.files.length > 0;
+            const uploadButton = document.getElementById("uploadButton");
+
+            if (uploadButton.classList.contains('readonly-button')) {
+                event.preventDefault();
+                return false;
+            }
+
+            uploadButton.classList.add('readonly-button');
+            document.getElementById("backButton").style.display = "none";
+            document.getElementById("cancelButton").style.display = "inline";
+
+            if (hasFile) {
+                makeFileInputReadOnly(fileInput);
+            }
+        };
+
+        document.getElementById("cancelButton").addEventListener("click", function (event) {
+            const cancelButton = document.getElementById("cancelButton");
+            if (cancelButton.classList.contains('readonly-button')) {
+                event.preventDefault();
+                return false;
+            }
+
+            cancelButton.classList.add('readonly-button');
+        });
+
+
+    </script>
+}

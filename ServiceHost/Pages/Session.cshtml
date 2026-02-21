@@ -1,7 +1,6 @@
 ﻿@page "{sessionId}"
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
-@inject IAuthHelper AuthHelper
 @model ServiceHost.Pages.SessionModel
 @{
     Layout = "Shared/_Layout";
@@ -29,7 +28,7 @@
     </style>
 }
 
-@if (!Model.IsPaid && AuthHelper.CurrentAccountRole() == Roles.Student)
+@if (!Model.ShowSessionDetailsIfPaid)
 {
     <div class="row m-5" id="ProductCategoriesDiv">
         <div class="col-md-12">
@@ -172,17 +171,52 @@ else
                                             }
                                             else
                                             {
-                                                <div class="r1_iframe_embed">
-                                                    <iframe src="@Model.Session.Video"
-                                                            style="border: 0 #ffffff none"
-                                                            frameborder="0"
-                                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                                            allowfullscreen="true"
-                                                            webkitallowfullscreen="true"
-                                                            mozallowfullscreen="true"></iframe>
-                                                </div>
+                                                @if (!Model.ShowVideoPlayer)
+                                                {
+                                                    @if (!string.IsNullOrWhiteSpace(Model.VideoMessage))
+                                                    {
+                                                        <div class="alert alert-warning">
+                                                            @Model.VideoMessage
+                                                        </div>
+                                                    }
 
+                                                    <form method="post" asp-page-handler="ShowVideo">
+                                                        <input type="hidden" name="sessionId" value="@Model.Session.Id" />
+                                                        @if (Model.RemainingVideoCount <= 3 && Model.RemainingVideoCount !=0)
+                                                        {
+                                                            <button type="submit" class="btn btn-primary">
+                                                                نمایش ویدیو
+                                                            </button>
+                                                        }
+                                                        
+                                                    </form>
+                                                    @if (Model.RemainingVideoCount > 0)
+                                                    {
+                                                        <div class="alert alert-info">
+                                                            شما مجاز به تماشای @Model.RemainingVideoCount بار دیگر از این ویدیو هستید.
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="alert alert-danger">
+                                                            تعداد دفعات مجاز تماشای این ویدیو برای شما به پایان رسیده است.</div>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <div class="r1_iframe_embed">
+                                                        <iframe src="@Model.Session.Video"
+                                                                style="border: 0 #ffffff none"
+                                                                frameborder="0"
+                                                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                                allowfullscreen="true"
+                                                                webkitallowfullscreen="true"
+                                                                mozallowfullscreen="true"></iframe>
+                                                    </div>
+                                                }
                                             }
+
 
                                             <br />
                                             @if (Model.Session.Booklet == "" || !Model.Session.Booklet.StartsWith("https://behamooz"))

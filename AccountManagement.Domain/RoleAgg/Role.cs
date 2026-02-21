@@ -19,9 +19,8 @@ namespace AccountManagement.Domain.RoleAgg
             Permissions = permissions;
         }
 
-        public void Edit(string name, List<RolePermission> permissions)
+        public void Edit(List<RolePermission> permissions)
         {
-            Name = name;
             Permissions = permissions;
         }
     }

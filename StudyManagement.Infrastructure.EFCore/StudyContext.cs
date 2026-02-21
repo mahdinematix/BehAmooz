@@ -2,8 +2,11 @@
 using StudyManagement.Domain.ClassAgg;
 using StudyManagement.Domain.CourseAgg;
 using StudyManagement.Domain.OrderAgg;
+using StudyManagement.Domain.SemesterAgg;
 using StudyManagement.Domain.SessionAgg;
 using StudyManagement.Domain.SessionPictureAgg;
+using StudyManagement.Domain.SessionVideoViewAgg;
+using StudyManagement.Domain.UniversityAgg;
 using StudyManagement.Infrastructure.EFCore.Mapping;
 
 namespace StudyManagement.Infrastructure.EFCore
@@ -15,6 +18,9 @@ namespace StudyManagement.Infrastructure.EFCore
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionPicture> SessionPictures { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
+        public DbSet<University> Universities { get; set; }
+        public DbSet<SessionVideoView> SessionVideoViews { get; set; }
 
         public StudyContext(DbContextOptions<StudyContext> options):base(options)
         {

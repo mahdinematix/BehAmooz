@@ -1,0 +1,105 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.SelectUniversity.IndexModel
+@{
+    Layout = "Shared/_AdminLayout";
+    ViewBag.Title = "انتخاب دانشگاه";
+}
+
+@section Css
+{
+    <style>
+        .panel-body {
+            padding: 40px 30px;
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        #uniForm select {
+            border-radius: 8px;
+        }
+
+        #uniForm button {
+            border-radius: 8px;
+        }
+
+    </style>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">انتخاب دانشگاه</h3>
+            </div>
+            <div class="panel-body">
+
+                <form id="uniForm" class="mt-4">
+
+                    <div class="row justify-content-center">
+
+                        <div class="col-md-5 mb-4">
+                            <div class="form-group">
+                                <label asp-for="Command.Type" class="control-label mb-2">
+                                    نوع دانشگاه
+                                </label>
+                                <select onchange="FillActiveUnisA(this);"
+                                        class="form-control"
+                                        asp-for="Command.Type"
+                                        asp-items="Model.UniTypes"
+                                        data-val="false">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 mb-4">
+                            <div class="form-group">
+                                <label asp-for="Command.Id" class="control-label mb-2">
+                                    دانشگاه
+                                </label>
+                                <select name="universityId"
+                                        id="lstUnis"
+                                        class="form-control form-control-lg select22"
+                                        data-val="false"
+                                        asp-items="Model.Unis">
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-center">
+                            <button type="button"
+                                    id="goToCourses"
+                                    class="btn btn-primary btn-lg px-5 shadow-sm">
+                                مشاهده درس‌ها
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+                        
+@section Scripts
+{
+    <script>
+    $('#goToCourses').on('click', function () {
+
+        var uniId = $('#lstUnis').val();
+
+        if (!uniId || uniId === "0") {
+            alert('لطفاً دانشگاه را انتخاب کنید');
+            return;
+        }
+        window.location.href = '/Administration/Course/Index/' + encodeURIComponent(uniId);
+    });
+</script>
+}

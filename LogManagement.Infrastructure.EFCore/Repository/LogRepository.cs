@@ -1,7 +1,7 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Infrastructure.EFCore;
-using LogManagement.Application.Contracts.Log;
+using LogManagement.Application.Contracts.LogContracts;
 using LogManagement.Domain.LogAgg;
 using StudyManagement.Infrastructure.EFCore;
 
@@ -19,30 +19,60 @@ namespace LogManagement.Infrastructure.EFCore.Repository
             _studyContext = studyContext;
         }
 
-        public List<LogViewModel> Search(LogSearchModel searchModel)
+        public List<LogViewModel> Search(LogSearchModel searchModel, long currentAccountUniversityId, string currentAccountRole)
         {
+            var accountsQuery = _accountContext.Accounts.AsQueryable();
 
-            var accounts = _accountContext.Accounts
+            if (currentAccountRole == Roles.Administrator)
+            {
+                accountsQuery = accountsQuery.Where(a => a.UniversityId == (int)currentAccountUniversityId);
+            }
+
+            if (searchModel.UniversityTypeId > 0)
+                accountsQuery = accountsQuery.Where(a => a.UniversityTypeId == searchModel.UniversityTypeId);
+
+            if (searchModel.UniversityId > 0)
+                accountsQuery = accountsQuery.Where(a => a.UniversityId == searchModel.UniversityId);
+
+            var accounts = accountsQuery
                 .Select(a => new
                 {
                     a.Id,
                     FullName = a.FirstName + " " + a.LastName,
                     a.NationalCode,
-                    a.RoleId
+                    a.RoleId,
+                    a.UniversityId
                 })
                 .ToList();
+
+            var accountIds = accounts.Select(a => a.Id).ToHashSet();
+
+            if (accountIds.Count == 0)
+                return new List<LogViewModel>();
+
+            var universityIds = accounts
+                .Select(a => a.UniversityId)
+                .Distinct()
+                .ToList();
+
+            var universities = _studyContext.Universities
+                .Where(u => universityIds.Contains((int)u.Id))
+                .Select(u => new { u.Id, u.Name })
+                .ToList();
+
+            var universityDict = universities.ToDictionary(u => u.Id, u => u.Name);
+
+
             var roles = _accountContext.Roles
-                .Select(r => new
-                {
-                    r.Id,
-                    r.Name
-                })
+                .Select(r => new { r.Id, r.Name })
                 .ToList();
 
 
             var query = _context.Logs.AsQueryable();
 
-            if(searchModel.Operation > 0)
+            query = query.Where(l => accountIds.Contains(l.AccountId));
+
+            if (searchModel.Operation > 0)
                 query = query.Where(x => x.Operation == searchModel.Operation);
 
             if (searchModel.TargetType > 0)
@@ -51,15 +81,18 @@ namespace LogManagement.Infrastructure.EFCore.Repository
             if (!string.IsNullOrWhiteSpace(searchModel.Description))
                 query = query.Where(x => x.Description.Contains(searchModel.Description));
 
-            var logs = query
-                .OrderByDescending(x => x.Id)
-                .ToList();
+            var logs = query.OrderByDescending(x => x.Id).ToList();
+
+            var accountDict = accounts.ToDictionary(a => a.Id, a => a);
+            var roleDict = roles.ToDictionary(r => r.Id, r => r.Name);
 
             var result = logs.Select(x =>
             {
-                var account = accounts.FirstOrDefault(a => a.Id == x.AccountId);
-                var roleName = roles.FirstOrDefault(r => r.Id == account?.RoleId)?.Name;
-
+                accountDict.TryGetValue(x.AccountId, out var account);
+                var roleName = (account != null && roleDict.TryGetValue(account.RoleId, out var rn)) ? rn : null;
+                string universityName = null;
+                if (account != null && universityDict.TryGetValue(account.UniversityId, out var uniName))
+                    universityName = uniName;
 
                 return new LogViewModel
                 {
@@ -71,20 +104,24 @@ namespace LogManagement.Infrastructure.EFCore.Repository
                     CreationDate = x.CreationDate.ToFarsi(),
                     Description = x.Description,
                     TargetType = TargetTypes.GetTargetTypeBy(x.TargetType),
+                    UniversityId = account.UniversityId,
+                    UniversityName = universityName
                 };
             }).ToList();
 
             if (!string.IsNullOrWhiteSpace(searchModel.AccountName))
-                result = result.Where(x => x.AccountName.Contains(searchModel.AccountName)).ToList();
+                result = result.Where(x => x.AccountName != null && x.AccountName.Contains(searchModel.AccountName)).ToList();
 
             if (!string.IsNullOrWhiteSpace(searchModel.AccountNationalCode))
-                result = result.Where(x => x.AccountNationalCode.Contains(searchModel.AccountNationalCode)).ToList();
+                result = result.Where(x => x.AccountNationalCode != null && x.AccountNationalCode.Contains(searchModel.AccountNationalCode)).ToList();
 
             if (!string.IsNullOrWhiteSpace(searchModel.AccountRole) && searchModel.AccountRole != "0")
-                result = result.Where(x => x.AccountRole==searchModel.AccountRole).ToList();
+                result = result.Where(x => x.AccountRole == searchModel.AccountRole).ToList();
 
             return result;
         }
+
+
 
         public List<LogViewModel> GetCourseLogsById(long id)
         {
@@ -207,6 +244,8 @@ namespace LogManagement.Infrastructure.EFCore.Repository
                     a.RoleId
                 })
                 .ToList();
+
+
             var roles = _accountContext.Roles
                 .Select(r => new
                 {

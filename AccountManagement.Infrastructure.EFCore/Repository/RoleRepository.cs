@@ -15,14 +15,29 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             _context = context;
         }
 
-        public List<RoleViewModel> GetAllRoles()
+        public List<RoleViewModel> GetAllRoles(string currentAccountRole)
         {
-            return _context.Roles.Select(x => new RoleViewModel
+            if (currentAccountRole == Roles.SuperAdministrator)
             {
-                Id = x.Id,
-                Name = x.Name,
-                CreationDate = x.CreationDate.ToFarsi()
-            }).ToList();
+                return _context.Roles.Select(x => new RoleViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    AccountsCount = x.Accounts.Count,
+                    CreationDate = x.CreationDate.ToFarsi()
+                }).ToList();
+            }
+            else
+            {
+                return _context.Roles.Select(x => new RoleViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    AccountsCount = x.Accounts.Count,
+                    CreationDate = x.CreationDate.ToFarsi()
+                }).Where(x => x.Name != "سوپر مدیر سیستم").Where(x => x.Name != "مدیر سیستم").ToList();
+            }
+            
         }
 
         public EditRole GetDetails(long id)
