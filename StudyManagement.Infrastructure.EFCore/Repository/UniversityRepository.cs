@@ -36,9 +36,9 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             {
                 query = query.Where(x => x.Type == searchModel.Type);
             }
-            if (searchModel.CurrentSemesterId > 0)
+            if (searchModel.CurrentSemesterCode > 0)
             {
-                query = query.Where(x => x.CurrentSemesterId == searchModel.CurrentSemesterId);
+                query = query.Where(x => x.CurrentSemesterCode == searchModel.CurrentSemesterCode);
             }
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))

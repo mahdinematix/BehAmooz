@@ -14,7 +14,7 @@
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
             <a class="btn btn-success btn-lg" asp-page="Create" asp-route-courseId="@Model.Course.Id">تعریف کلاس جدید</a>
-            <a asp-page="/Course/Index" class="btn btn-primary btn-lg">بازگشت</a>
+            <a asp-page="/Course/Index" asp-route-universityId="@Model.Course.UniversityId" class="btn btn-primary btn-lg">بازگشت</a>
         </p>
     </div>
 </div>

@@ -22,6 +22,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
         public SemesterViewModel CurrentSemester;
         public SelectList SemesterCodes;
         public string UniversityName;
+        [BindProperty] public long UniversityId { get; set; }
 
         public IndexModel(ICourseApplication courseApplication, IAuthHelper authHelper, ILogApplication logApplication, ISemesterApplication semesterApplication, IUniversityApplication universityApplication):base(authHelper)
         {
@@ -43,16 +44,22 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             {
                 return RedirectToPage("/Reject");
             }
-            CurrentSemester = _semesterApplication.GetCurrentSemester();
-          
-            if (searchModel.SemesterId == 0)
-                searchModel.SemesterId = CurrentSemester?.Id ?? 0;
+
+            if (CurrentAccountRole == Roles.Administrator)
+            {
+                if (universityId != CurrentAccountUniversityId)
+                {
+                    return RedirectToPage("./Index" ,new {universityId = CurrentAccountUniversityId});
+                }
+            }
+            CurrentSemester = _semesterApplication.GetCurrentSemester(universityId);
 
             SemesterCodes = new SelectList(
-                _semesterApplication.GetSemesters(), 
+                _semesterApplication.GetSemestersByUniversityId(universityId), 
                 "Id",                           
                 "Code"               
             );
+            UniversityId = universityId;
             UniversityName = _universityApplication.GetNameBy(universityId);
             Courses = _courseApplication.Search(searchModel, universityId, CurrentAccountId, CurrentAccountRole);
             return Page();
@@ -85,8 +92,8 @@ namespace ServiceHost.Areas.Administration.Pages.Course
 
         public IActionResult OnPostDefineSemester(DefineSemester command)
         {
-            command.UniversityId = CurrentAccountUniversityId;
-            var result = _semesterApplication.Define(command);
+            command.UniversityId = UniversityId;
+            var result = _semesterApplication.Define(command, CurrentAccountId);
             return new JsonResult(result);
         }
     }

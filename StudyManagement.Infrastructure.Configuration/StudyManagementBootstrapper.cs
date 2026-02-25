@@ -6,6 +6,7 @@ using _02_Query.Contracts.Customer;
 using _02_Query.Contracts.Message;
 using _02_Query.Contracts.Order;
 using _02_Query.Contracts.Session;
+using _02_Query.Contracts.University;
 using _02_Query.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +55,7 @@ namespace StudyManagement.Infrastructure.Configuration
             services.AddTransient<ISessionQuery, SessionQuery>();
             services.AddTransient<IOrderQuery, OrderQuery>();
             services.AddTransient<ICustomerQuery, CustomerQuery>();
+            services.AddTransient<IUniversityQuery, UniversityQuery>();
 
 
 

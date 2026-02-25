@@ -11,6 +11,6 @@ namespace StudyManagement.Application.Contracts.Course
         List<CourseViewModel> Search(CourseSearchModel searchModel, long universityId, long currentAccountId, string currentAccountRole);
         EditCourse GetDetails(long id);
         List<CourseViewModel> GetCourses();
-        CourseViewModel GetByCourseId(long courseId);
+        CourseViewModel GetById(long courseId);
     }
 }

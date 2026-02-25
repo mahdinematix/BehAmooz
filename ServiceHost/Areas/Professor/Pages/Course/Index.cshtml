@@ -1,4 +1,4 @@
-﻿@page "{universityId?}"
+﻿@page "{universityId}"
 @using _01_Framework.Infrastructure
 @using _01_Framework.Application
 @model ServiceHost.Areas.Professor.Pages.Course.IndexModel
@@ -12,7 +12,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewBag.Title</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" asp-page="./Create">تعریف درس جدید</a>
+            <a class="btn btn-success btn-lg" asp-page="./Create" asp-route-universityId="@Model.UniversityId">تعریف درس جدید</a>
             <a asp-page="/SelectUniversity/Index" class="btn btn-primary btn-lg">بازگشت</a>
         </p>
         <div class="text-center">
@@ -135,7 +135,7 @@
                                         </td>
                                         <td>@item.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-id="@item.Id">
+                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-id="@item.Id" asp-route-universityId="@Model.UniversityId">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (item.IsActive)

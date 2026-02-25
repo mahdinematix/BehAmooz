@@ -18,6 +18,7 @@ namespace ServiceHost.Areas.Administration.Pages.Account
         public SelectList RolesList;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
+        public string UniversityName { get; set; }
         private readonly IAccountApplication _accountApplication;
         private readonly IRoleApplication _roleApplication;
         private readonly IWalletApplication _walletApplication;
@@ -49,7 +50,9 @@ namespace ServiceHost.Areas.Administration.Pages.Account
             
             RolesList = new SelectList(_roleApplication.GetAllRoles(CurrentAccountRole), "Id", "Name");
 
-            Accounts = _accountApplication.Search(searchModel,CurrentAccountRole,CurrentAccountUniversityId);
+            UniversityName = _universityApplication.GetNameBy(CurrentAccountUniversityId);
+
+            Accounts = _accountApplication.Search(searchModel,CurrentAccountRole, CurrentAccountUniversityId, CurrentAccountInfo.UniversityTypeId);
             UniTypes = GetUniTypes();
             Unis = GetUnis();
             return Page();

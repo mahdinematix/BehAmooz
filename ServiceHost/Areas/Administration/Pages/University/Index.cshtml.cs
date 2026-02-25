@@ -13,11 +13,12 @@ namespace ServiceHost.Areas.Administration.Pages.University
         private readonly IUniversityApplication _universityApplication;
         private readonly ISemesterApplication _semesterApplication;
 
+        [BindProperty] public long UniversityId { get; set; }
+
         public UniversitySearchModel SearchModel;
         public List<UniversityViewModel> Universities;
         public List<SelectListItem> UniTypes;
         public List<SelectListItem> Unis;
-        public SelectList SemesterCodes;
 
         public IndexModel(IUniversityApplication universityApplication, ISemesterApplication semesterApplication, IAuthHelper authHelper):base(authHelper)
         {
@@ -39,11 +40,6 @@ namespace ServiceHost.Areas.Administration.Pages.University
             Universities = _universityApplication.Search(searchModel);
             UniTypes = GetUniTypes();
             Unis = GetUnis();
-            SemesterCodes = new SelectList(
-                _semesterApplication.GetSemesters(),
-                "Id",
-                "Code"
-            );
             return Page();
         }
 
@@ -90,7 +86,20 @@ namespace ServiceHost.Areas.Administration.Pages.University
             _universityApplication.Deactivate(id);
             return RedirectToPage("./Index");
         }
+        public IActionResult OnGetDefineSemester(long id)
+        {
+            var command = new DefineSemester
+            {
+                UniversityId = id
+            };
+            return Partial("DefineSemester", command);
+        }
 
+        public IActionResult OnPostDefineSemester(DefineSemester command)
+        {
+            var result = _semesterApplication.Define(command, CurrentAccountId);
+            return new JsonResult(result);
+        }
 
         private List<SelectListItem> GetUnis(int typeId = 0)
         {

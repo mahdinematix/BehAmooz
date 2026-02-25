@@ -37,7 +37,7 @@ namespace StudyManagement.Domain.CourseAgg
             UniversityId = universityId;
         }
 
-        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major, int price, int educationLevel, long semesterId, long universityId)
+        public void Edit(string name, int numberOfUnit, string courseKind, string code, int major, int price, int educationLevel, long semesterId)
         {
             Name = name;
             NumberOfUnit = numberOfUnit;
@@ -47,7 +47,6 @@ namespace StudyManagement.Domain.CourseAgg
             Price = price;
             EducationLevel = educationLevel;
             SemesterId = semesterId;
-            UniversityId = universityId;
         }
 
         public void Activate()

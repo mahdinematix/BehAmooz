@@ -34,10 +34,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.CurrentSemesterId"></label>
-                        <select class="form-control" asp-for="SearchModel.CurrentSemesterId" asp-items="Model.SemesterCodes">
-                            <option value="0">ترم فعال ...</option>
-                        </select>
+                        <label class="sr-only" asp-for="SearchModel.CurrentSemesterCode"></label>
+                        <input class="form-control" asp-for="SearchModel.CurrentSemesterCode" data-val="false" placeholder="کد ترم (مثال: 4041)">
                     </div>
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
                     <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
@@ -109,6 +107,10 @@
                                             {
                                                 <a class="btn btn-success" asp-page="./Index" asp-page-handler="Activate" asp-route-id="@item.Id">فعالسازی</a>
                                             }
+                                            <a class="btn btn-primary pull-right m-rl-5"
+                                               href="#showmodal=@Url.Page("./Index", "DefineSemester", new { id = item.Id })">
+                                                تنظیم ترم
+                                            </a>
                                         </td>
                                     </tr>
                                 }

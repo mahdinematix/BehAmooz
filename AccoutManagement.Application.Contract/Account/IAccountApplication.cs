@@ -12,10 +12,10 @@ namespace AccountManagement.Application.Contract.Account
         OperationResult ChangePassword(ChangePassword command);
         OperationResult ChangePasswordByUser(ChangePassword command);
         EditAccount GetDetails(long id);
-        List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId);
+        List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId, int currentAccountTypeUniversity);
         OperationResult Login(Login command);
         void Logout();
-        List<AccountViewModel> GetProfessors();
+        List<AccountViewModel> GetProfessors(string currentAccountRole, long currentAccountUniversityId);
         string GetProfessorById(long professorId);
         List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel);
         List<AccountViewModel> SearchInCustomers(AccountSearchModel searchModel);

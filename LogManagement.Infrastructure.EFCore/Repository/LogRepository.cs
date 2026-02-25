@@ -25,7 +25,7 @@ namespace LogManagement.Infrastructure.EFCore.Repository
 
             if (currentAccountRole == Roles.Administrator)
             {
-                accountsQuery = accountsQuery.Where(a => a.UniversityId == (int)currentAccountUniversityId);
+                accountsQuery = accountsQuery.Where(a => a.UniversityId == (int)currentAccountUniversityId).Where(x=>x.RoleId == long.Parse(Roles.Professor));
             }
 
             if (searchModel.UniversityTypeId > 0)

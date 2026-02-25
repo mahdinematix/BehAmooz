@@ -13,14 +13,14 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             _context = context;
         }
 
-        public Semester GetCurrent()
+        public Semester GetCurrentByUniversityId(long universityId)
         {
-            return _context.Semesters.FirstOrDefault(x => x.IsCurrent);
+            return _context.Semesters.Where(x=>x.UniversityId==universityId).FirstOrDefault(x => x.IsCurrent);
         }
 
-        public SemesterViewModel GetCurrentSemester()
+        public SemesterViewModel GetCurrentSemester(long universityId)
         {
-            return _context.Semesters.Include(x=>x.University).Select(x=> new SemesterViewModel
+            return _context.Semesters.Where(x=>x.UniversityId==universityId).Include(x=>x.University).Select(x=> new SemesterViewModel
             {
                 Id = x.Id,
                 Code = x.Code,
@@ -38,9 +38,9 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 .FirstOrDefault(x => x.Year == year && x.MidYear == midYear && x.UniversityId ==universityId);
         }
 
-        public List<SemesterViewModel> GetSemesters()
+        public List<SemesterViewModel> GetSemestersByUniversityId(long universityId)
         {
-            return _context.Semesters.Select(x => new SemesterViewModel
+            return _context.Semesters.Where(x=>x.UniversityId == universityId).Select(x => new SemesterViewModel
             {
                 Id = x.Id,
                 Code = x.Code

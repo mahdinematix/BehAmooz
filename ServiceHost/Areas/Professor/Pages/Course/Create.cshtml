@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{universityId}"
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
 @model ServiceHost.Areas.Professor.Pages.Course.CreateModel
@@ -90,6 +90,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" asp-for="UniversityId" />
                     <a class="btn btn-default waves-effect" asp-page="./Index">بازگشت</a>
                     <button type="submit" class="btn btn-info waves-effect waves-light">تعریف</button>
                 </form>

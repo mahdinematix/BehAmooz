@@ -49,6 +49,14 @@
                             <select class="form-control select22" asp-for="SearchModel.UniversityId" asp-items="Model.Unis" data-val="false" id="lstUnis">
                             </select>
                         </div>
+                        <div class="form-group">
+                            <div class="checkbox checkbox-primary">
+                                <input asp-for="SearchModel.ForAllUniversities">
+                                <label asp-for="SearchModel.ForAllUniversities">
+                                    جستجو در پیام همه دانشگاه ها
+                                </label>
+                            </div>
+                        </div>
                     }
 
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
@@ -97,7 +105,14 @@
                                         <td>@item.MessageFor</td>
                                         @if (Model.ShowUniversityField)
                                         {
-                                            <td>@item.UniversityName</td>
+                                            if (item.UniversityId > 0)
+                                            {
+                                                <td>@item.UniversityName</td>
+                                            }
+                                            else
+                                            {
+                                                <td>همه دانشگاه ها</td>
+                                            }
                                         }
                                         <td>@item.CreationDate</td>
                                         <td>
@@ -178,16 +193,16 @@
 
             if (checked) {
 
-         
+
                 $('#UniversitySection').css('display', 'none');
 
-            
+
                 $('#UniversityTypeSelect').val('0').trigger('change');
                 $('#UniversitySelect').val('0').trigger('change');
 
             } else {
 
-            
+
                 $('#UniversitySection').css('display', 'block');
 
             }

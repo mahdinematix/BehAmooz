@@ -4,6 +4,7 @@ using AccountManagement.Application.Contract.Account;
 using AccountManagement.Domain.AccountAgg;
 using AccountManagement.Domain.RoleAgg;
 using AccountManagement.Domain.WalletAgg;
+using StudyManagement.Application.Contracts.Semester;
 using StudyManagement.Domain.UniversityAgg;
 
 namespace AccountManagement.Application
@@ -16,9 +17,10 @@ namespace AccountManagement.Application
         private readonly IAuthHelper _authHelper;
         private readonly IFileManager _FileManager;
         private readonly IWalletRepository _walletRepository;
-        private readonly IUniversityRepository _universityRepository; 
+        private readonly IUniversityRepository _universityRepository;
+        private readonly ISemesterApplication _semesterApplication;
 
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IRoleRepository roleRepository, IAuthHelper authHelper, IFileManager fileManager, IWalletRepository walletRepository, IUniversityRepository universityRepository)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IRoleRepository roleRepository, IAuthHelper authHelper, IFileManager fileManager, IWalletRepository walletRepository, IUniversityRepository universityRepository, ISemesterApplication semesterApplication)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
@@ -27,6 +29,7 @@ namespace AccountManagement.Application
             _FileManager = fileManager;
             _walletRepository = walletRepository;
             _universityRepository = universityRepository;
+            _semesterApplication = semesterApplication;
         }
 
         public async Task<OperationResult> Register(RegisterAccount command)
@@ -37,57 +40,9 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecordNationalCodeOrCode);
             }
 
-            if (command.NationalCode.Length != 10 || string.IsNullOrWhiteSpace(command.NationalCode))
+            if (!IsValidNationalCode(command.NationalCode))
             {
                 return operation.Failed(ApplicationMessages.InvalidNationalCode);
-            }
-            int[] numArray = command.NationalCode.Select(c => (int)char.GetNumericValue(c)).ToArray();
-            int num2 = numArray[9];
-            string[] invalidCodes = new string[]
-            {
-                "0000000000", "1111111111", "2222222222", "3333333333",
-                "4444444444", "5555555555", "6666666666", "7777777777",
-                "8888888888", "9999999999"
-            };
-            if (invalidCodes.Contains(command.NationalCode))
-            {
-                return operation.Failed(ApplicationMessages.InvalidNationalCode);
-            }
-
-            int num3 = 0;
-
-            for (int i = 0; i < 9; i++)
-            {
-                num3 += numArray[i] * (10 - i);
-            }
-
-            int num4 = num3 % 11;
-
-            if (!((num4 == 0 && num2 == 0) || (num4 == 1 && num2 == 1) || (num4 > 1 && num2 == 11 - num4)))
-            {
-                return operation.Failed(ApplicationMessages.InvalidNationalCode);
-            }
-
-            if (command.Password.Length < 8)
-            {
-                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
-            }
-            if (!command.Password.Any(char.IsLower) || !command.Password.Any(char.IsUpper))
-            {
-                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
-            }
-            if (command.Password.Any(c => c >= 0x0600 && c <= 0x06FF)) 
-            {
-                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
-            }
-            if (!command.Password.Any(c => "!@#$%^&*(),.?\":{}|<>".Contains(c)))
-            {
-                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
-            }
-
-            if (command.Password != command.RePassword)
-            {
-                return operation.Failed(ApplicationMessages.PasswordsNotMatch);
             }
 
 
@@ -114,7 +69,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
 
-            if (_accountRepository.Exists(x =>x.NationalCode == command.NationalCode && x.Id != command.Id))
+            if (_accountRepository.Exists(x => x.NationalCode == command.NationalCode && x.Id != command.Id))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecordNationalCodeOrCode);
             }
@@ -124,33 +79,7 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecordNationalCodeOrCode);
             }
 
-            if (command.NationalCode.Length != 10 || string.IsNullOrWhiteSpace(command.NationalCode))
-            {
-                return operation.Failed(ApplicationMessages.InvalidNationalCode);
-            }
-            int[] numArray = command.NationalCode.Select(c => (int)char.GetNumericValue(c)).ToArray();
-            int num2 = numArray[9];
-            string[] invalidCodes = new string[]
-            {
-                "0000000000", "1111111111", "2222222222", "3333333333",
-                "4444444444", "5555555555", "6666666666", "7777777777",
-                "8888888888", "9999999999"
-            };
-            if (invalidCodes.Contains(command.NationalCode))
-            {
-                return operation.Failed(ApplicationMessages.InvalidNationalCode);
-            }
-
-            int num3 = 0;
-
-            for (int i = 0; i < 9; i++)
-            {
-                num3 += numArray[i] * (10 - i);
-            }
-
-            int num4 = num3 % 11;
-
-            if (!((num4 == 0 && num2 == 0) || (num4 == 1 && num2 == 1) || (num4 > 1 && num2 == 11 - num4)))
+            if (!IsValidNationalCode(command.NationalCode))
             {
                 return operation.Failed(ApplicationMessages.InvalidNationalCode);
             }
@@ -158,7 +87,7 @@ namespace AccountManagement.Application
             account.Edit(command.FirstName, command.LastName, command.Email, command.PhoneNumber,
                 command.NationalCode, command.Code, command.UniversityType, command.University, command.Major,
                 fileUrlForNationalCardPicture, command.RoleId, command.EducationLevel);
-            if (account.RoleId != 1)
+            if (account.RoleId != long.Parse(Roles.SuperAdministrator) || account.RoleId != long.Parse(Roles.Administrator))
             {
                 if (command.RoleId == long.Parse(Roles.Professor))
                 {
@@ -187,6 +116,8 @@ namespace AccountManagement.Application
             if (university != null && !university.IsActive)
             {
                 university.Activate();
+                _semesterApplication.DefineAutoSemester(university.Id);
+
             }
             _universityRepository.Save();
             return operation.Succeed();
@@ -292,9 +223,9 @@ namespace AccountManagement.Application
             return _accountRepository.GetDetails(id);
         }
 
-        public List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId)
+        public List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId, int currentAccountTypeUniversity)
         {
-            return _accountRepository.Search(searchModel,currentAccountRole,currentAccountUniversityId);
+            return _accountRepository.Search(searchModel, currentAccountRole, currentAccountUniversityId, currentAccountTypeUniversity);
         }
 
         public OperationResult Login(Login command)
@@ -318,7 +249,7 @@ namespace AccountManagement.Application
                 .Select(x => x.Code)
                 .ToList();
             var fullname = account.FirstName + " " + account.LastName;
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, fullname, account.NationalCode, account.Code, account.UniversityTypeId, account.UniversityId, account.MajorId, account.NationalCardPicture, account.Status, account.PhoneNumber, account.Email, permissions, command.Password,account.EducationLevel);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, fullname, account.NationalCode, account.Code, account.UniversityTypeId, account.UniversityId, account.MajorId, account.NationalCardPicture, account.Status, account.PhoneNumber, account.Email, permissions, command.Password, account.EducationLevel);
 
             _authHelper.Signin(authViewModel);
             return operation.Succeed();
@@ -329,9 +260,9 @@ namespace AccountManagement.Application
             _authHelper.SignOut();
         }
 
-        public List<AccountViewModel> GetProfessors()
+        public List<AccountViewModel> GetProfessors(string currentAccountRole, long currentAccountUniversityId)
         {
-            return _accountRepository.GetProfessors();
+            return _accountRepository.GetProfessors(currentAccountRole, currentAccountUniversityId);
         }
 
         public string GetProfessorById(long professorId)
@@ -347,6 +278,37 @@ namespace AccountManagement.Application
         public List<AccountViewModel> SearchInCustomers(AccountSearchModel searchModel)
         {
             return _accountRepository.SearchInCustomers(searchModel);
+        }
+
+        private bool IsValidNationalCode(string nationalCode)
+        {
+            if (string.IsNullOrWhiteSpace(nationalCode) || nationalCode.Length != 10)
+                return false;
+
+            if (!nationalCode.All(char.IsDigit))
+                return false;
+
+            string[] invalidCodes =
+            {
+        "0000000000", "1111111111", "2222222222", "3333333333",
+        "4444444444", "5555555555", "6666666666", "7777777777",
+        "8888888888", "9999999999"
+    };
+
+            if (invalidCodes.Contains(nationalCode))
+                return false;
+
+            int[] digits = nationalCode.Select(c => int.Parse(c.ToString())).ToArray();
+            int checkDigit = digits[9];
+
+            int sum = 0;
+            for (int i = 0; i < 9; i++)
+                sum += digits[i] * (10 - i);
+
+            int remainder = sum % 11;
+
+            return (remainder < 2 && checkDigit == remainder) ||
+                   (remainder >= 2 && checkDigit == 11 - remainder);
         }
     }
 }

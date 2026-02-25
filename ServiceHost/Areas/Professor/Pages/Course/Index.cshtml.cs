@@ -18,6 +18,7 @@ namespace ServiceHost.Areas.Professor.Pages.Course
         public SemesterViewModel CurrentSemester;
         public SelectList SemesterCodes;
         public string UniversityName;
+        public long UniversityId { get; set; }
 
         public IndexModel(ICourseApplication courseApplication, IAuthHelper authHelper, ISemesterApplication semesterApplication, IUniversityApplication universityApplication):base(authHelper)
         {
@@ -38,12 +39,13 @@ namespace ServiceHost.Areas.Professor.Pages.Course
             {
                 return RedirectToPage("/Reject");
             }
-            CurrentSemester = _semesterApplication.GetCurrentSemester();
+            UniversityId = universityId;
+            CurrentSemester = _semesterApplication.GetCurrentSemester(universityId);
             if (searchModel.SemesterId == 0)
                 searchModel.SemesterId = CurrentSemester?.Id ?? 0;
 
             SemesterCodes = new SelectList(
-                _semesterApplication.GetSemesters(), 
+                _semesterApplication.GetSemestersByUniversityId(universityId), 
                 "Id",                           
                 "Code"               
             );

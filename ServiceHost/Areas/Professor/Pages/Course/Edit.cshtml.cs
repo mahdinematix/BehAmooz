@@ -11,6 +11,7 @@ namespace ServiceHost.Areas.Professor.Pages.Course
         private readonly ISemesterApplication _semesterApplication;
         [BindProperty] public EditCourse Command { get; set; }
         public List<SemesterViewModel> SemesterCodes { get; set; }
+        public long UniversityId { get; set; }
 
         [TempData] public string Message { get; set; }
         public EditModel(ICourseApplication courseApplication, IAuthHelper authHelper, ISemesterApplication semesterApplication):base(authHelper)
@@ -19,7 +20,7 @@ namespace ServiceHost.Areas.Professor.Pages.Course
             _semesterApplication = semesterApplication;
         }
 
-        public IActionResult OnGet(long id)
+        public IActionResult OnGet(long id, long universityId)
         {
             if (CurrentAccountStatus == Statuses.Waiting)
             {
@@ -30,8 +31,8 @@ namespace ServiceHost.Areas.Professor.Pages.Course
             {
                 return RedirectToPage("/Reject");
             }
-
-            SemesterCodes = _semesterApplication.GetSemesters();
+            UniversityId = universityId;
+            SemesterCodes = _semesterApplication.GetSemestersByUniversityId(universityId);
             Command = _courseApplication.GetDetails(id);
             return Page();
         }
@@ -44,8 +45,6 @@ namespace ServiceHost.Areas.Professor.Pages.Course
                 return RedirectToPage("./Index");
             }
             Message = result.Message;
-
-            SemesterCodes = _semesterApplication.GetSemesters();
 
             return Page();
         }

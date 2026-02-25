@@ -8,6 +8,7 @@
         public const int Deactivate = 4;
         public const int Delete = 5;
         public const int Copy = 6;
+        public const int Define = 7;
 
         public static string GetOperationBy(long id)
         {
@@ -25,6 +26,8 @@
                     return "حذف";
                 case 6:
                     return "کپی";
+                case 7:
+                    return "تعریف";
                 default:
                     return "";
             }

@@ -10,31 +10,33 @@ namespace _02_Query.Query
     public class CourseQuery : ICourseQuery
     {
         private readonly StudyContext _studyContext;
-        private readonly IAuthHelper _authHelper;
 
-        public CourseQuery(StudyContext studyContext, IAuthHelper authHelper)
+        public CourseQuery(StudyContext studyContext)
         {
             _studyContext = studyContext;
-            _authHelper = authHelper;
         }
 
-        public List<CourseQueryModel> Search(CourseSearchModel searchModel)
+        public List<CourseQueryModel> Search(CourseSearchModel searchModel, AuthViewModel currentAccountInfo)
         {
             var semesters = _studyContext.Semesters
-        .Select(x => new { x.Id, x.Code, x.IsCurrent })
-        .ToList();
-            var currentSemester = semesters.FirstOrDefault(x => x.IsCurrent).Id;
+            .Select(x => new { x.Id, x.Code,x.UniversityId, x.IsCurrent })
+            .ToList();
+            var currentSemester = semesters.Where(x=>x.UniversityId == currentAccountInfo.UniversityId).FirstOrDefault(x => x.IsCurrent).Id;
             IQueryable<Course> courseQuery;
-            if (_authHelper.CurrentAccountRole()==Roles.Student)
+            if (currentAccountInfo.RoleId.ToString()==Roles.Student)
             {
-                courseQuery = _studyContext.Courses.Where(x=>x.Major==_authHelper.GetAccountInfo().MajorId).Where(x=>x.IsActive).Where(x=>x.SemesterId==currentSemester).Where(x=>x.EducationLevel==_authHelper.CurrentAccountEducationLevel())
-                    .Include(x => x.Classes)
+                courseQuery = _studyContext.Courses.Where(x=>x.Major==currentAccountInfo.MajorId).Where(x=>x.IsActive).Where(x=>x.SemesterId==currentSemester).Where(x=>x.EducationLevel==currentAccountInfo.EducationLevel)
+                    .Include(x => x.Classes).Include(x=>x.University)
+                    .AsQueryable();
+            } else if (currentAccountInfo.RoleId.ToString() == Roles.Administrator)
+            {
+                courseQuery = _studyContext.Courses.Where(x => x.IsActive).Where(x => x.SemesterId == currentSemester).Where(x=>x.UniversityId == currentAccountInfo.UniversityId).Include(x => x.Classes).Include(x=>x.University)
                     .AsQueryable();
             }
             else
             {
-                courseQuery = _studyContext.Courses.Where(x => x.IsActive).Where(x => x.SemesterId == currentSemester)
-                    .Include(x => x.Classes)
+                courseQuery = _studyContext.Courses.Where(x => x.IsActive)
+                    .Include(x => x.Classes).Include(x=>x.University)
                     .AsQueryable();
             }
 
@@ -46,6 +48,11 @@ namespace _02_Query.Query
 
             if (searchModel.CourseKind != "0" && searchModel.CourseKind != null)
                 courseQuery = courseQuery.Where(x => x.CourseKind == searchModel.CourseKind);
+            if (searchModel.Major > 0)
+                courseQuery = courseQuery.Where(x => x.Major == searchModel.Major);
+
+            if (searchModel.EducationLevel > 0)
+                courseQuery = courseQuery.Where(x => x.EducationLevel == searchModel.EducationLevel);
 
 
             var courses = courseQuery
@@ -61,6 +68,9 @@ namespace _02_Query.Query
                     Major = x.Major,
                     Price = x.Price,
                     EducationLevel = x.EducationLevel,
+                    SemesterId = x.SemesterId,
+                    UniversityId = x.UniversityId,
+                    UniversityName = x.University.Name,
                     SemesterCode = semesters.FirstOrDefault(s=>s.Id ==x.SemesterId).Code
                 })
                 .OrderByDescending(x => x.Id)

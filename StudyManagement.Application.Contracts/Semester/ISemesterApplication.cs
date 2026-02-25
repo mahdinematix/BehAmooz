@@ -5,9 +5,10 @@ namespace StudyManagement.Application.Contracts.Semester
 {
     public interface ISemesterApplication
     {
-        OperationResult Define(DefineSemester command);
-        SemesterViewModel GetCurrentSemester();
-        List<SemesterViewModel> GetSemesters();
+        OperationResult Define(DefineSemester command, long currentAccountId);
+        void DefineAutoSemester(long universityId);
+        SemesterViewModel GetCurrentSemester(long universityId);
+        List<SemesterViewModel> GetSemestersByUniversityId(long universityId);
         int GetSemesterByCode(long semesterId);
     }
 }

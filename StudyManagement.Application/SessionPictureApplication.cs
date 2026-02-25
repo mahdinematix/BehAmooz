@@ -26,6 +26,7 @@ namespace StudyManagement.Application
             var sessionPicture = new SessionPicture(command.SessionId, fileUrl);
             _sessionPictureRepository.Create(sessionPicture);
             _sessionPictureRepository.Save();
+
             return operation.Succeed();
         }
 

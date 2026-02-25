@@ -304,7 +304,7 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CurrentSemesterId")
+                    b.Property<long>("CurrentSemesterCode")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")

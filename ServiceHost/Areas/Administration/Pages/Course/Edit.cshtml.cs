@@ -1,6 +1,5 @@
 ﻿using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Course;
 using StudyManagement.Application.Contracts.Semester;
 
@@ -13,6 +12,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
         [BindProperty] public EditCourse Command { get; set; }
         public List<SemesterViewModel> SemesterCodes { get; set; }
 
+        [BindProperty] public long UniversityId { get; set; }
         [TempData] public string Message { get; set; }
         public EditModel(ICourseApplication courseApplication, IAuthHelper authHelper, ISemesterApplication semesterApplication):base(authHelper)
         {
@@ -20,7 +20,7 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             _semesterApplication = semesterApplication;
         }
 
-        public IActionResult OnGet(long id)
+        public IActionResult OnGet(long id, long universityId)
         {
             if (CurrentAccountStatus == Statuses.Waiting)
             {
@@ -32,7 +32,8 @@ namespace ServiceHost.Areas.Administration.Pages.Course
                 return RedirectToPage("/Reject");
             }
 
-            SemesterCodes = _semesterApplication.GetSemesters();
+            UniversityId = universityId;
+            SemesterCodes = _semesterApplication.GetSemestersByUniversityId(universityId);
             Command = _courseApplication.GetDetails(id);
             return Page();
         }
@@ -42,11 +43,9 @@ namespace ServiceHost.Areas.Administration.Pages.Course
             var result = _courseApplication.Edit(command, CurrentAccountId);
             if (result.IsSucceeded)
             {
-                return RedirectToPage("./Index");
+                return RedirectToPage("./Index", new{universityId = UniversityId});
             }
             Message = result.Message;
-
-            SemesterCodes = _semesterApplication.GetSemesters();
 
             return Page();
         }

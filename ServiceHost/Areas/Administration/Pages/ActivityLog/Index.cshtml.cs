@@ -17,7 +17,7 @@ namespace ServiceHost.Areas.Administration.Pages.ActivityLog
         public List<LogViewModel> Logs;
         public List<SelectListItem> Unis;
         public List<SelectListItem> UniTypes;
-        public bool ShowUniversityFiled { get; set; }
+        public bool IsSuperAdministrator { get; set; }
 
         public IndexModel(ILogApplication logApplication, IAuthHelper authHelper, IUniversityApplication universityApplication) :base(authHelper)
         {
@@ -38,7 +38,7 @@ namespace ServiceHost.Areas.Administration.Pages.ActivityLog
             {
                 return RedirectToPage("/Reject");
             }
-            ShowUniversityFiled = CurrentAccountRole == Roles.SuperAdministrator;
+            IsSuperAdministrator = CurrentAccountRole == Roles.SuperAdministrator;
             Logs = _logApplication.Search(searchModel, CurrentAccountUniversityId, CurrentAccountRole);
             UniTypes = GetUniTypes();
             Unis = GetUnis();

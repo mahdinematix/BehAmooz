@@ -6,7 +6,11 @@ namespace ServiceHost.Areas.Professor.Pages.Course
 {
     public class CreateModel : UserContextPageModel
     {
-        public CreateCourse Command;
+        [BindProperty]
+        public long UniversityId { get; set; }
+
+        [BindProperty]
+        public CreateCourse Command { get; set; }
         private readonly ICourseApplication _courseApplication;
         
         public CreateModel(ICourseApplication courseApplication, IAuthHelper authHelper):base(authHelper)
@@ -15,7 +19,7 @@ namespace ServiceHost.Areas.Professor.Pages.Course
         }
 
         [TempData] public string Message { get; set; }
-        public IActionResult OnGet()
+        public IActionResult OnGet(long universityId)
         {
             if (CurrentAccountStatus == Statuses.Waiting)
             {
@@ -26,12 +30,14 @@ namespace ServiceHost.Areas.Professor.Pages.Course
             {
                 return RedirectToPage("/Reject");
             }
+            UniversityId = universityId;
            
             return Page();
         }
 
         public IActionResult OnPost(CreateCourse command)
         {
+            command.UniversityId = UniversityId;
             var result = _courseApplication.Create(command, CurrentAccountId);
             if (result.IsSucceeded)
             {

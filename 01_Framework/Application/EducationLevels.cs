@@ -24,7 +24,7 @@
                 case 5:
                     return "فوق دکتری";
                 case 6:
-                    return "استاد هستم";
+                    return "استاد";
                 default:
                     return "";
             }

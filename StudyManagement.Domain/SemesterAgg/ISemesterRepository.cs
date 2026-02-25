@@ -5,11 +5,11 @@ namespace StudyManagement.Domain.SemesterAgg
 {
     public interface ISemesterRepository : IRepositoryBase<long , Semester>
     {
-        Semester GetCurrent();
-        SemesterViewModel GetCurrentSemester();
+        Semester GetCurrentByUniversityId(long universityId);
+        SemesterViewModel GetCurrentSemester(long universityId);
         Semester GetByYearAndMidYear(int year, int midYear, long universityId);
 
-        List<SemesterViewModel> GetSemesters();
+        List<SemesterViewModel> GetSemestersByUniversityId(long universityId);
         int GetSemesterCodeBy(long semesterId);
     }
 }

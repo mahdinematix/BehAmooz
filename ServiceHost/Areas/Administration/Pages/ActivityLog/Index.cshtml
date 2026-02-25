@@ -3,7 +3,17 @@
 @model ServiceHost.Areas.Administration.Pages.ActivityLog.IndexModel
 @{
     Layout = "Shared/_AdminLayout";
-    ViewBag.Title = "تاریخچه عملیات اساتید";
+    @if (Model.IsSuperAdministrator)
+    {
+        ViewBag.Title = "تاریخچه عملیات کاربران";
+
+    }
+    else
+    {
+        ViewBag.Title = "تاریخچه عملیات اساتید";
+
+
+    }
 }
 
 @section Css
@@ -25,15 +35,18 @@
             </div>
             <div class="panel-body">
                 <form class="form-inline" role="form" method="get">
+                    @if (Model.IsSuperAdministrator)
+                    {
+                        <div class="form-group">
+                            <label class="sr-only" asp-for="SearchModel.AccountRole"></label>
+                            <select class="form-control" asp-for="SearchModel.AccountRole" data-val="false">
+                                <option value="0">نقش کاربر را انتخاب کنید...</option>
+                                <option value="@Roles.GetRoleBy(long.Parse(Roles.Administrator))">مدیر سیستم</option>
+                                <option value="@Roles.GetRoleBy(long.Parse(Roles.Professor))">استاد</option>
+                            </select>
+                        </div>
+                    }
                     
-                    <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.AccountRole"></label>
-                        <select class="form-control" asp-for="SearchModel.AccountRole" data-val="false">
-                            <option value="0">نقش کاربر را انتخاب کنید...</option>
-                            <option value="@Roles.GetRoleBy(long.Parse(Roles.Administrator))">مدیر سیستم</option>
-                            <option value="@Roles.GetRoleBy(long.Parse(Roles.Professor))">استاد</option>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label class="sr-only" asp-for="SearchModel.AccountName"></label>
                         <input class="form-control" asp-for="SearchModel.AccountName" data-val="false" placeholder="نام کاربر">
@@ -62,7 +75,7 @@
                             <option value="@Operations.Copy">کپی جلسات</option>
                         </select>
                     </div>
-                    @if (Model.ShowUniversityFiled)
+                    @if (Model.IsSuperAdministrator)
                     {
                         <div class="form-group">
                             <label class="sr-only" asp-for="SearchModel.UniversityTypeId"></label>
@@ -91,7 +104,17 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">تاریخچه عملیات اساتید</h3>
+                <h3 class="panel-title">
+                    @if (Model.IsSuperAdministrator)
+                    {
+                        <span>تاریخچه عملیات کاربران</span>
+                    }
+                    else
+                    {
+                        <span>تاریخچه عملیات اساتید</span>
+
+                    }
+                </h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -100,7 +123,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>نقش</th>
+                                    @if (Model.IsSuperAdministrator)
+                                    {
+                                        <th>نقش</th>
+                                    }
                                     <th>نام</th>
                                     <th>کد ملی</th>
                                     <th>هدف عملیات</th>
@@ -115,7 +141,10 @@
                                 {
                                     <tr>
                                         <td>@item.Id</td>
-                                        <td>@item.AccountRole</td>
+                                        @if (Model.IsSuperAdministrator)
+                                        {
+                                            <td>@item.AccountRole</td>
+                                        }
                                         <td>@item.AccountName</td>
                                         <td>@item.AccountNationalCode</td>
                                         <td>@item.TargetType</td>

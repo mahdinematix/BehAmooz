@@ -13,6 +13,9 @@
         <p class="pull-left">
             <a permission="@AccountPermissions.CreateAccount" class="btn btn-success btn-lg" asp-page="./Create">ثبت نام کاربر جدید</a>
         </p>
+        <div class="text-center">
+            <p>@Model.UniversityName</p>
+        </div>
     </div>
 </div>
 
@@ -116,7 +119,10 @@
                                     <th>کد ملی</th>
                                     <th>کارت ملی</th>
                                     <th>رشته</th>
-                                    <th>دانشگاه</th>
+                                    @if (Model.ShowUniversityFiled)
+                                    {
+                                        <th>دانشگاه</th>
+                                    }
                                     <th>موبایل</th>
                                     <th>ایمیل</th>
                                     <th>مقطع</th>
@@ -139,7 +145,10 @@
                                             </a>
                                         </td>
                                         <td>@Majors.GetName(item.MajorId)</td>
-                                        <td>@item.UniversityName</td>
+                                        @if (Model.ShowUniversityFiled)
+                                        {
+                                            <td>@item.UniversityName</td>
+                                        }
                                         <td>@item.PhoneNumber.Substring(0, 7) ...</td>
                                         <td>@item.Email.Substring(0, 7) ...</td>
                                         <td>@EducationLevels.GetEducationLevelById(item.EducationLevel)</td>

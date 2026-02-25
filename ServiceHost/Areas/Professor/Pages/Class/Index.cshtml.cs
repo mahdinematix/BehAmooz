@@ -40,8 +40,8 @@ namespace ServiceHost.Areas.Professor.Pages.Class
                 return RedirectToPage("/Reject");
             }
             Classes = _classApplication.Search(searchModel, courseId);
-            Course = _courseApplication.GetByCourseId(courseId);
-            Professors = new SelectList(_accountApplication.GetProfessors(), "Id", "FullName");
+            Course = _courseApplication.GetById(courseId);
+            Professors = new SelectList(_accountApplication.GetProfessors(CurrentAccountRole, CurrentAccountUniversityId), "Id", "FullName");
             return Page();
         }
 

@@ -33,7 +33,7 @@ namespace ServiceHost.Areas.Professor.Pages.Class
             }
 
             ProfessorId = CurrentAccountId;
-            Course = _courseApplication.GetByCourseId(courseId);
+            Course = _courseApplication.GetById(courseId);
             return Page();
         }
 

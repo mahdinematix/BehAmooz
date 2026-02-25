@@ -33,7 +33,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
 
-            var currentSemester = _semesterRepository.GetCurrent().Id;
+            var currentSemester = _semesterRepository.GetCurrentByUniversityId(command.UniversityId).Id;
             var course = new Course(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.Price,command.EducationLevel,currentSemester, command.UniversityId);
             _courseRepository.Create(course);
             _courseRepository.Save();
@@ -71,7 +71,7 @@ namespace StudyManagement.Application
             var oldSemesterId = course.SemesterId;
 
 
-            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.Price, command.EducationLevel, command.SemesterId,command.UniversityId);
+            course.Edit(command.Name, command.NumberOfUnit, command.CourseKind, command.Code, command.Major,command.Price, command.EducationLevel, command.SemesterId);
             _courseRepository.Save();
 
             if (!(oldName == command.Name && oldPrice == command.Price && oldMajor == command.Major &&
@@ -179,9 +179,9 @@ namespace StudyManagement.Application
             return _courseRepository.GetCourses();
         }
 
-        public CourseViewModel GetByCourseId(long courseId)
+        public CourseViewModel GetById(long courseId)
         {
-            return _courseRepository.GetByCourseId(courseId);
+            return _courseRepository.GetById(courseId);
         }
     }
 }

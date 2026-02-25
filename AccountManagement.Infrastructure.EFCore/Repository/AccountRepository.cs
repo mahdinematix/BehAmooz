@@ -37,7 +37,7 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             }).FirstOrDefault(x => x.Id == id);
         }
 
-        public List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId)
+        public List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId, int currentAccountTypeUniversity)
         {
             var query = _context.Accounts.Include(x=>x.Role).Select(x => new AccountViewModel
             {
@@ -90,8 +90,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                     query = query.Where(x => x.UniversityId == searchModel.UniversityId);
                 }
             }
+            
             if (currentAccountRole == Roles.Administrator)
             {
+                query = query.Where(x => x.UniversityTypeId == currentAccountTypeUniversity);
                 query = query.Where(x => x.UniversityId == currentAccountUniversityId);
             }
 
@@ -125,13 +127,25 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
             return _context.Accounts.FirstOrDefault(x => x.NationalCode == nationalCode);
         }
 
-        public List<AccountViewModel> GetProfessors()
+        public List<AccountViewModel> GetProfessors(string currentAccountRole, long currentAccountUniversityId)
         {
-            return _context.Accounts.Where(x => x.RoleId == long.Parse(Roles.Professor)).Where(x=>x.Status == Statuses.Confirmed).Select(x => new AccountViewModel
+            if (currentAccountRole == Roles.SuperAdministrator)
             {
-                Id = x.Id,
-                FullName = x.FirstName + " " + x.LastName
-            }).ToList();
+                return _context.Accounts.Where(x => x.RoleId == long.Parse(Roles.Professor)).Where(x => x.Status == Statuses.Confirmed).Select(x => new AccountViewModel
+                {
+                    Id = x.Id,
+                    FullName = x.FirstName + " " + x.LastName
+                }).ToList();
+            }
+            else
+            {
+                return _context.Accounts.Where(x => x.RoleId == long.Parse(Roles.Professor)).Where(x=>x.UniversityId == currentAccountUniversityId).Where(x => x.Status == Statuses.Confirmed).Select(x => new AccountViewModel
+                {
+                    Id = x.Id,
+                    FullName = x.FirstName + " " + x.LastName
+                }).ToList();
+            }
+           
         }
 
         public string GetProfessorById(long professorId)

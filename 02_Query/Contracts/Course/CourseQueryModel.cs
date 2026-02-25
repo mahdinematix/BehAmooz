@@ -13,5 +13,7 @@
         public int EducationLevel { get; set; }
         public int SemesterCode { get; set; }
         public long SemesterId { get; set; }
+        public long UniversityId { get; set; }
+        public string UniversityName { get; set; }
     }
 }

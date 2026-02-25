@@ -36,8 +36,8 @@ namespace ServiceHost.Areas.Administration.Pages.Class
             {
                 return RedirectToPage("/Reject");
             }
-            Course = _courseApplication.GetByCourseId(courseId);
-            Professors = new SelectList(_accountApplication.GetProfessors(), "Id", "FullName");
+            Course = _courseApplication.GetById(courseId);
+            Professors = new SelectList(_accountApplication.GetProfessors(CurrentAccountRole, CurrentAccountUniversityId), "Id", "FullName");
             return Page();
         }
 

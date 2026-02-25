@@ -50,7 +50,6 @@ namespace ServiceHost.Areas.Administration.Pages.Account
 
         public IActionResult OnPost(EditAccount command)
         {
-            command.RoleId = CurrentAccountRoleId;
             var result = _accountApplication.Edit(command);
             if (result.Result.IsSucceeded)
             {

@@ -93,12 +93,13 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             }).ToList();
         }
 
-        public CourseViewModel GetByCourseId(long courseId)
+        public CourseViewModel GetById(long courseId)
         {
             return _context.Courses.Select(x => new CourseViewModel
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                UniversityId = x.UniversityId
             }).FirstOrDefault(x => x.Id == courseId);
         }
     }
