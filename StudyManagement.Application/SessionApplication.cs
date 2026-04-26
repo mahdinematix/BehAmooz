@@ -22,7 +22,7 @@ namespace StudyManagement.Application
         public async Task<OperationResult> Create(CreateSession command, long currentAccountId)
         {
             var operation = new OperationResult();
-            if (_sessionRepository.Exists(x => x.Number == command.Number && x.ClassId == command.ClassId))
+            if (_sessionRepository.Exists(x => x.Number == command.Number && x.ClassTemplateId == command.ClassTemplateId))
             {
                 return operation.Failed(ApplicationMessages.ASessionWithThatNumberExists);
             }
@@ -51,7 +51,7 @@ namespace StudyManagement.Application
 
 
             var session = new Session(command.Number, command.Title, fileUrlForVideo, fileUrlForBooklet,
-                command.Description, command.ClassId);
+                command.Description, command.ClassTemplateId);
             _sessionRepository.Create(session);
             _sessionRepository.Save();
             _logApplication.Create(new CreateLog
@@ -73,7 +73,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
 
-            if (_sessionRepository.Exists(x => x.Number == command.Number && x.Id != command.Id && x.ClassId == command.ClassId))
+            if (_sessionRepository.Exists(x => x.Number == command.Number && x.Id != command.Id && x.ClassTemplateId == command.ClassTemplateId))
             {
                 return operation.Failed(ApplicationMessages.ASessionWithThatNumberExists);
             }
@@ -106,7 +106,7 @@ namespace StudyManagement.Application
                 : command.Description.Trim();
 
             session.Edit(command.Number, command.Title, fileUrlForVideo, fileUrlForBooklet,
-                command.Description, command.ClassId);
+                command.Description, command.ClassTemplateId);
             _sessionRepository.Save();
 
             if (!(oldNumber == command.Number && oldTitle == command.Title && oldVideoUrl == fileUrlForVideo && oldBookletUrl == fileUrlForBooklet && oldDesc == newDesc))
@@ -193,19 +193,20 @@ namespace StudyManagement.Application
             return _sessionRepository.GetDetails(id);
         }
 
-        public List<SessionViewModel> GetAllByClassId(long classId)
-        {
-            return _sessionRepository.GetAllByClassId(classId);
-        }
 
         public SessionViewModel GetBySessionId(long sessionId)
         {
             return _sessionRepository.GetBySessionId(sessionId);
         }
 
-        public bool HasAnySessionsByClassId(long classId)
+        public List<SessionViewModel> GetAllByClassTemplateId(long classTemplateId)
         {
-            return _sessionRepository.HasAnySessionsByClassId(classId);
+            return _sessionRepository.GetAllByClassTemplateId(classTemplateId);
+        }
+
+        public bool HasAnySessionsByClassTemplateId(long classTemplateId)
+        {
+            return _sessionRepository.HasAnySessionsByClassTemplateId(classTemplateId);
         }
     }
 }

@@ -1,4 +1,86 @@
-﻿@page
+﻿@page "{nationalCode}"
 @model ServiceHost.Pages.SMSModel
 @{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "کد ورود";
 }
+
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 m-auto">
+                                @if (!string.IsNullOrWhiteSpace(Model.Message))
+                                {
+                                    <div class="alert alert-danger">@Model.Message</div>
+                                }
+                                <form method="post">
+                                    <div class="login-form">
+                                        <div class="row">
+                                            <div class="col-md-12 col-12">
+                                                <label for="userOtpCode">کد ورود به شماره موبایل با انتهای @Model.HiddenPhoneNumber پیامک شد</label>
+                                                <input name="userOtpCode" id="userOtpCode" class="form-control" type="tel" maxlength="6" placeholder="کد پیامک شده را وارد کنید" autofocus>
+                                            </div>
+                                            <div class="col-md-12 col-12 text-center mt-3">
+                                                <p id="timerText" class="text-muted"></p>
+                                                <button id="resendButton" class="btn btn-warning w-100" disabled>ارسال مجدد کد</button>
+                                            </div>
+
+                                            <input type="hidden" asp-for="@Model.NationalCode" value="@Model.NationalCode" />
+                                            <div class="col-md-12 col-12 text-center">
+                                                <button type="submit" class="btn btn-primary w-100">ورود</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+<script>
+    let remaining = @Model.RemainingSeconds;
+    const timerText = document.getElementById("timerText");
+    const resendButton = document.getElementById("resendButton");
+
+    function updateTimer() {
+        if (remaining > 0) {
+            resendButton.disabled = true;
+            timerText.innerText = `می‌توانید پس از ${remaining} ثانیه دوباره درخواست ارسال کد بدهید`;
+            remaining--;
+        } else {
+            resendButton.disabled = false;
+            timerText.innerText = "اکنون می‌توانید دوباره کد را درخواست کنید.";
+        }
+    }
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+
+    resendButton.addEventListener("click", async () => {
+        resendButton.disabled = true;
+        timerText.innerText = "در حال ارسال مجدد کد...";
+        try {
+            await fetch(`/SMS?handler=ResendOtp&nationalCode=@Model.NationalCode`);
+            location.reload(); // Refresh page to restart countdown
+        } catch (error) {
+            timerText.innerText = "ارسال مجدد با مشکل مواجه شد.";
+            console.error(error);
+        }
+    });
+</script>
+
+
+}
+

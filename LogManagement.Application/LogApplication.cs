@@ -30,16 +30,19 @@ namespace LogManagement.Application
             return _logRepository.GetCourseLogsById(id);
         }
 
-        public List<LogViewModel> GetClassLogsById(long id)
+        public List<LogViewModel> GetClassLogsById(long id, long courseId)
         {
-            return _logRepository.GetClassLogsById(id);
+            return _logRepository.GetClassLogsById(id, courseId);
         }
 
-        public List<LogViewModel> GetSessionLogsById(long id)
+        public List<LogViewModel> GetSessionLogsById(long id, long classId)
         {
-            return _logRepository.GetSessionLogsById(id);
+            return _logRepository.GetSessionLogsById(id, classId);
         }
 
-
+        public List<LogViewModel> GetUniversityLogsById(long id)
+        {
+            return _logRepository.GetUniversityLogsById(id);
+        }
     }
 }

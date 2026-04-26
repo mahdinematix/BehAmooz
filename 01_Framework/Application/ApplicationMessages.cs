@@ -30,6 +30,9 @@ public class ApplicationMessages
     public static string PasswordRulesAreNotPassed = "شروط کلمه عبور را رعایت نکردید!";
     public static string VideoWatched3 = "شما ۳ بار این ویدیو را مشاهده کرده‌اید.";
     public static string TheClassHasNotAnySessions = "این کلاس هیچ جلسه‌ای ندارد.";
+    public static string WrongOtpCode = "کد وارد شده اشتباه است. لطفا مجددا تلاش کنید.";
+    public static string WrongPhoneNumberFormat = "فرمت شماره موبایل به اشتباه وارد شده است.";
+    public static string ProblemInProgress = "مشکلی در فرایند به‌وجود آمده است. لطفا مجددا تلاش کنید.";
 }
 
 

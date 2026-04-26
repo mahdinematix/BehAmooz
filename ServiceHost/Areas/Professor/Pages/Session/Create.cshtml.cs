@@ -1,6 +1,5 @@
 using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
 
@@ -13,6 +12,7 @@ namespace ServiceHost.Areas.Professor.Pages.Session
         private readonly IFileManager _FileManager;
         public CreateSession Command;
         public ClassViewModel Class;
+        public long ClassTemplateId { get; set; }
         [TempData] public string Message { get; set; }
 
         public CreateModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper):base(authHelper)
@@ -34,6 +34,7 @@ namespace ServiceHost.Areas.Professor.Pages.Session
                 return RedirectToPage("/Reject");
             }
             Class = _classApplication.GetClassById(classId);
+            ClassTemplateId = _classApplication.GetTemplateIdByClassId(classId);
             return Page();
         }
 
@@ -41,7 +42,8 @@ namespace ServiceHost.Areas.Professor.Pages.Session
         {
             if (ModelState.IsValid)
             {
-                command.ClassId = classId;
+                var templateId = _classApplication.GetTemplateIdByClassId(classId);
+                command.ClassTemplateId = templateId;
                 var result = await _sessionApplication.Create(command, CurrentAccountId);
                 if (result.IsSucceeded)
                 {

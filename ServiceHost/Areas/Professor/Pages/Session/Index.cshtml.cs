@@ -12,6 +12,7 @@ namespace ServiceHost.Areas.Professor.Pages.Session
 
         public List<SessionViewModel> Sessions;
         public ClassViewModel Class { get; set; }
+        public long ClassTemplateId { get; set; }
 
 
         public IndexModel(IClassApplication classApplication, ISessionApplication sessionApplication, IAuthHelper authHelper):base(authHelper)
@@ -31,7 +32,8 @@ namespace ServiceHost.Areas.Professor.Pages.Session
             {
                 return RedirectToPage("/Reject");
             }
-            Sessions = _sessionApplication.GetAllByClassId(classId);
+            ClassTemplateId = _classApplication.GetTemplateIdByClassId(classId);
+            Sessions = _sessionApplication.GetAllByClassTemplateId(ClassTemplateId);
             Class = _classApplication.GetClassById(classId);
             return Page();
         }

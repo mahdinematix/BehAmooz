@@ -11,51 +11,54 @@ namespace StudyManagement.Application
     public class ClassApplication : IClassApplication
     {
         private readonly IClassRepository _classRepository;
+        private readonly IClassTemplateRepository _classTemplateRepository;
         private readonly ISessionRepository _sessionRepository;
         private readonly ILogApplication _logApplication;
         private readonly IAccountApplication _accountApplication;
 
-        public ClassApplication(IClassRepository classRepository, ISessionRepository sessionRepository, ILogApplication logApplication, IAccountApplication accountApplication)
+        public ClassApplication(IClassRepository classRepository, ISessionRepository sessionRepository, ILogApplication logApplication, IAccountApplication accountApplication, IClassTemplateRepository classTemplateRepository)
         {
             _classRepository = classRepository;
             _sessionRepository = sessionRepository;
             _logApplication = logApplication;
             _accountApplication = accountApplication;
+            _classTemplateRepository = classTemplateRepository;
         }
 
         public OperationResult Create(CreateClass command, long currentAccountId)
         {
             var operation = new OperationResult();
+
             if (_classRepository.Exists(x => x.Code == command.Code))
-            {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
-            }
 
             var startTimeHour = Convert.ToInt32(command.StartTime.Substring(0, 2));
             var endTimeHour = Convert.ToInt32(command.EndTime.Substring(0, 2));
             var startTimeMinute = Convert.ToInt32(command.StartTime.Substring(3, 2));
             var endTimeMinute = Convert.ToInt32(command.EndTime.Substring(3, 2));
+
             if (startTimeHour > endTimeHour)
-            {
                 return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
-            }
-            if (startTimeHour == endTimeHour)
+
+            if (startTimeHour == endTimeHour && startTimeMinute >= endTimeMinute)
+                return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
+
+            var template = _classTemplateRepository.GetBy(command.CourseId, command.ProfessorId);
+            if (template == null)
             {
-                if (startTimeMinute >= endTimeMinute)
-                {
-                    return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
-                }
+                template = new ClassTemplate(command.CourseId, command.ProfessorId);
+                _classTemplateRepository.Create(template);
+                _classTemplateRepository.Save();
             }
 
-
-            if (_classRepository.Exists(x => x.ProfessorId == command.ProfessorId && x.StartTime == command.StartTime && x.Day == command.Day))
-            {
+            if (_classRepository.ExistsForProfessorAtTime(command.ProfessorId, command.Day, command.StartTime))
                 return operation.Failed(ApplicationMessages.AClassExistsWithTheStartTime);
-            }
-            var classs = new Class(command.Code, command.StartTime, command.EndTime,
-                command.CourseId, command.Day, command.ProfessorId);
+
+            var classs = new Class(command.Code, command.StartTime, command.EndTime, command.Day, template.Id);
+
             _classRepository.Create(classs);
             _classRepository.Save();
+
             _logApplication.Create(new CreateLog
             {
                 AccountId = currentAccountId,
@@ -63,54 +66,54 @@ namespace StudyManagement.Application
                 TargetId = classs.Id,
                 TargetType = TargetTypes.Class
             });
+
             return operation.Succeed();
         }
 
         public OperationResult Edit(EditClass command, long currentAccountId)
         {
             var operation = new OperationResult();
+
             var classs = _classRepository.GetBy(command.Id);
             if (classs == null)
-            {
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
-            }
 
-            if (_classRepository.Exists(x => x.Code == command.Code && x.Id != command.Id && x.CourseId == command.CourseId))
-            {
+            if (_classRepository.Exists(x => x.Code == command.Code && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
-            }
 
             var startTimeHour = Convert.ToInt32(command.StartTime.Substring(0, 2));
             var endTimeHour = Convert.ToInt32(command.EndTime.Substring(0, 2));
             var startTimeMinute = Convert.ToInt32(command.StartTime.Substring(3, 2));
             var endTimeMinute = Convert.ToInt32(command.EndTime.Substring(3, 2));
+
             if (startTimeHour > endTimeHour)
-            {
                 return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
-            }
-            if (startTimeHour == endTimeHour)
+
+            if (startTimeHour == endTimeHour && startTimeMinute >= endTimeMinute)
+                return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
+
+            var template = _classTemplateRepository.GetBy(command.CourseId, command.ProfessorId);
+            if (template == null)
             {
-                if (startTimeMinute >= endTimeMinute)
-                {
-                    return operation.Failed(ApplicationMessages.StartTimeAndEndTimeHaveInterference);
-                }
+                template = new ClassTemplate(command.CourseId, command.ProfessorId);
+                _classTemplateRepository.Create(template);
+                _classTemplateRepository.Save();
             }
 
-            if (_classRepository.Exists(x => x.ProfessorId == command.ProfessorId && x.StartTime == command.StartTime && x.Day == command.Day && x.Id != command.Id))
-            {
+            if (_classRepository.ExistsForProfessorAtTime(command.ProfessorId, command.Day, command.StartTime, command.Id))
                 return operation.Failed(ApplicationMessages.AClassExistsWithTheStartTime);
-            }
 
             var oldCode = classs.Code;
             var oldStartTime = classs.StartTime;
             var oldEndTime = classs.EndTime;
             var oldDay = classs.Day;
-            var oldProfessorId = classs.ProfessorId;
+            var oldTemplateId = classs.ClassTemplateId;
 
-            classs.Edit(command.Code, command.StartTime, command.EndTime, command.CourseId, command.Day, command.ProfessorId);
+            classs.Edit(command.Code, command.StartTime, command.EndTime, command.Day, template.Id);
             _classRepository.Save();
 
-            if (!(oldCode == command.Code && oldStartTime == command.StartTime && oldEndTime == command.EndTime && oldDay == command.Day && oldProfessorId == command.ProfessorId))
+            if (!(oldCode == command.Code && oldStartTime == command.StartTime && oldEndTime == command.EndTime &&
+                  oldDay == command.Day && oldTemplateId == template.Id))
             {
                 var changes = new List<string>();
 
@@ -126,8 +129,8 @@ namespace StudyManagement.Application
                 if (oldDay != command.Day)
                     changes.Add($"روز از «{Days.GetName(oldDay)}» به «{Days.GetName(command.Day)}»");
 
-                if (oldProfessorId != command.ProfessorId)
-                    changes.Add($"استاد از «{_accountApplication.GetProfessorById(oldProfessorId)}» به «{_accountApplication.GetProfessorById(command.ProfessorId)}»");
+                if (oldTemplateId != template.Id)
+                    changes.Add($"تغییر قالب کلاس");
 
                 var description = string.Join(" | ", changes);
 
@@ -206,42 +209,43 @@ namespace StudyManagement.Application
             return _classRepository.GetClassById(id);
         }
 
-        public OperationResult Copy(CopyClass command, long currentAccountId)
+        public OperationResult Copy(CopyClassTemplate command, long currentAccountId)
         {
             var operation = new OperationResult();
-            var classThatFromCopy = _classRepository.GetBy(command.ClassId);
-            var classThatToCopy = _classRepository.GetClassByCode(command.ClassCode);
-            if (classThatFromCopy == null || classThatToCopy == null)
-            {
+
+            var classFrom = _classRepository.GetBy(command.ClassId);
+            var classTo = _classRepository.GetClassByCode(command.ClassCode);
+
+            if (classFrom == null || classTo == null)
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
-            }
 
-            var existingSessions = _sessionRepository.GetAllByClassIdForCopy(classThatToCopy.Id);
-            foreach (var session in existingSessions)
-            {
-                _sessionRepository.Delete(session);
-            }
-            var classThatFromCopySessions = _sessionRepository.GetAllByClassIdForCopy(classThatFromCopy.Id);
+            var fromTemplateId = classFrom.ClassTemplateId;
+            var toTemplateId = classTo.ClassTemplateId;
 
-            if (classThatFromCopySessions == null || classThatFromCopySessions.Count == 0)
-            {
+            if (!_sessionRepository.HasAnySessionsByClassTemplateId(fromTemplateId))
                 return operation.Failed(ApplicationMessages.TheClassHasNotAnySessions);
-            }
-            foreach (var session in classThatFromCopySessions)
-            {
-                var newSession = new Session(session.Number, session.Title, session.Video, session.Booklet, session.Description, classThatToCopy.Id);
 
-                classThatToCopy.Sessions.Add(newSession);
+            _sessionRepository.DeleteAllByClassTemplateId(toTemplateId);
+
+            var sourceSessions = _sessionRepository.GetAllByClassTemplateIdForCopy(fromTemplateId);
+
+            foreach (var s in sourceSessions)
+            {
+                var newSession = new Session(s.Number, s.Title, s.Video, s.Booklet, s.Description, toTemplateId);
+                _sessionRepository.Create(newSession);
             }
-            _classRepository.Save();
+
+            _sessionRepository.Save();
+
             _logApplication.Create(new CreateLog
             {
                 AccountId = currentAccountId,
                 Operation = Operations.Copy,
-                TargetId = classThatFromCopy.Id,
+                TargetId = classFrom.Id,
                 TargetType = TargetTypes.Class,
-                Description = $"به کلاس {classThatToCopy.Code}"
+                Description = $"به کلاس {classTo.Code}"
             });
+
             return operation.Succeed();
         }
 
@@ -254,15 +258,14 @@ namespace StudyManagement.Application
         {
             return _classRepository.GetClassesForCopy(classId);
         }
-
-        public string GetCourseNameByClassId(long classId)
-        {
-            return _classRepository.GetCourseNameByClassId(classId);
-        }
-
         public ClassInfoForCopy GetClassInfoByClassCode(string classCode)
         {
             return _classRepository.GetClassInfoByClassCode(classCode);
+        }
+
+        public long GetTemplateIdByClassId(long classId)
+        {
+            return _classRepository.GetTemplateIdByClassId(classId);
         }
     }
 }

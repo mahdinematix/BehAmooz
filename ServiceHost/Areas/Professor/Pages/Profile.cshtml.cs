@@ -53,18 +53,7 @@ namespace ServiceHost.Areas.Professor.Pages
             if (!IsSucceeded)
             {
                 Message = result.Result.Message;
-                UniTypes = GetUniTypes();
-                Unis = GetUnis(Command.UniversityType);
-                return Page();
-
             }
-            var loginDto = new Login
-            {
-                NationalCode = CurrentAccountNationalCode,
-                Password = CurrentAccountPassword
-            };
-            _accountApplication.Logout();
-            _accountApplication.Login(loginDto);
             UniTypes = GetUniTypes();
             Unis = GetUnis(Command.UniversityType);
             return Page();

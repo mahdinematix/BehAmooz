@@ -11,6 +11,7 @@ namespace ServiceHost.Areas.Professor.Pages.Course
         private readonly ISemesterApplication _semesterApplication;
         [BindProperty] public EditCourse Command { get; set; }
         public List<SemesterViewModel> SemesterCodes { get; set; }
+        [BindProperty]
         public long UniversityId { get; set; }
 
         [TempData] public string Message { get; set; }
@@ -42,7 +43,7 @@ namespace ServiceHost.Areas.Professor.Pages.Course
             var result = _courseApplication.Edit(command, CurrentAccountId);
             if (result.IsSucceeded)
             {
-                return RedirectToPage("./Index");
+                return RedirectToPage("./Index", new { universityId = UniversityId });
             }
             Message = result.Message;
 

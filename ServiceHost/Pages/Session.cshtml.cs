@@ -15,6 +15,7 @@ namespace ServiceHost.Pages
         ISessionVideoViewApplication _videoViewApplication;
         private readonly IClassQuery _classQuery;
         private readonly IOrderQuery _orderQuery;
+        private readonly ICourseQuery _courseQuery;
         public SessionQueryModel Session;
         public ClassQueryModel Class;
         public CourseQueryModel Course;
@@ -26,12 +27,13 @@ namespace ServiceHost.Pages
         public int RemainingVideoCount { get; set; }
 
 
-        public SessionModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery, IOrderQuery orderQuery, ISessionVideoViewApplication videoViewApplication):base(authHelper)
+        public SessionModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery, IOrderQuery orderQuery, ISessionVideoViewApplication videoViewApplication, ICourseQuery courseQuery):base(authHelper)
         {
             _sessionQuery = sessionQuery;
             _classQuery = classQuery;
             _orderQuery = orderQuery;
             _videoViewApplication = videoViewApplication;
+            _courseQuery = courseQuery;
         }
 
         public IActionResult OnGet(long sessionId)
@@ -58,8 +60,8 @@ namespace ServiceHost.Pages
             
             IsPaid = _orderQuery.IsPaid(sessionId);
             Session = _sessionQuery.GetSessionById(sessionId);
-            Class = _classQuery.GetClassById(Session.ClassId);
-            Course = _classQuery.GetCourseNameAndPriceByClassId(Class.CourseId);
+            Class = _classQuery.GetClassById(Session.ClassTemplateId);
+            Course = _courseQuery.GetCourseNameAndPriceById(Class.CourseId);
             ShowSessionDetailsIfPaid = IsPaid && CurrentAccountRole == Roles.Student;
             ShowVideoPlayer = false;
             CanWatchVideo = false;
@@ -85,8 +87,8 @@ namespace ServiceHost.Pages
             {
                 IsPaid = _orderQuery.IsPaid(sessionId);
                 Session = _sessionQuery.GetSessionById(sessionId);
-                Class = _classQuery.GetClassById(Session.ClassId);
-                Course = _classQuery.GetCourseNameAndPriceByClassId(Class.CourseId);
+                Class = _classQuery.GetClassById(Session.ClassTemplateId);
+                Course = _courseQuery.GetCourseNameAndPriceById(Class.CourseId);
                 ShowSessionDetailsIfPaid = IsPaid && CurrentAccountRole == Roles.Student;
 
                 if (!ShowSessionDetailsIfPaid)

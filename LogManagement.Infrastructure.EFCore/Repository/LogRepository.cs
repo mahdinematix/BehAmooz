@@ -25,7 +25,7 @@ namespace LogManagement.Infrastructure.EFCore.Repository
 
             if (currentAccountRole == Roles.Administrator)
             {
-                accountsQuery = accountsQuery.Where(a => a.UniversityId == (int)currentAccountUniversityId).Where(x=>x.RoleId == long.Parse(Roles.Professor));
+                accountsQuery = accountsQuery.Where(a => a.UniversityId == (int)currentAccountUniversityId);
             }
 
             if (searchModel.UniversityTypeId > 0)
@@ -104,7 +104,7 @@ namespace LogManagement.Infrastructure.EFCore.Repository
                     CreationDate = x.CreationDate.ToFarsi(),
                     Description = x.Description,
                     TargetType = TargetTypes.GetTargetTypeBy(x.TargetType),
-                    UniversityId = account.UniversityId,
+                    UniversityId = account?.UniversityId ?? 0,
                     UniversityName = universityName
                 };
             }).ToList();
@@ -125,7 +125,7 @@ namespace LogManagement.Infrastructure.EFCore.Repository
 
         public List<LogViewModel> GetCourseLogsById(long id)
         {
-            var accounts = _accountContext.Accounts
+            var accounts = _accountContext.Accounts.Where(x=>x.RoleId != 3)
                 .Select(a => new
                 {
                     a.Id,
@@ -142,13 +142,12 @@ namespace LogManagement.Infrastructure.EFCore.Repository
                 })
                 .ToList();
 
-            var courses = _studyContext.Courses
-                .Select(x => new { x.Id, x.Name })
+            var courses = _studyContext.Courses.Select(x => new { x.Id, x.Name })
                 .ToList();
 
             var query = _context.Logs.AsQueryable();
 
-            var logs = query.Where(x => x.TargetId == id)
+            var logs = query.Where(x => x.TargetId == id && x.TargetType == TargetTypes.Course)
                 .OrderByDescending(x => x.Id)
                 .ToList();
 
@@ -178,9 +177,9 @@ namespace LogManagement.Infrastructure.EFCore.Repository
             return result;
         }
 
-        public List<LogViewModel> GetClassLogsById(long id)
+        public List<LogViewModel> GetClassLogsById(long id, long courseId)
         {
-            var accounts = _accountContext.Accounts
+            var accounts = _accountContext.Accounts.Where(x => x.RoleId != 3)
                 .Select(a => new
                 {
                     a.Id,
@@ -203,7 +202,7 @@ namespace LogManagement.Infrastructure.EFCore.Repository
 
             var query = _context.Logs.AsQueryable();
 
-            var logs = query.Where(x => x.TargetId == id)
+            var logs = query.Where(x => x.TargetId == id && x.TargetType == TargetTypes.Class)
                 .OrderByDescending(x => x.Id)
                 .ToList();
 
@@ -233,9 +232,9 @@ namespace LogManagement.Infrastructure.EFCore.Repository
             return result;
         }
 
-        public List<LogViewModel> GetSessionLogsById(long id)
+        public List<LogViewModel> GetSessionLogsById(long id, long classId)
         {
-            var accounts = _accountContext.Accounts
+            var accounts = _accountContext.Accounts.Where(x => x.RoleId != 3)
                 .Select(a => new
                 {
                     a.Id,
@@ -254,13 +253,13 @@ namespace LogManagement.Infrastructure.EFCore.Repository
                 })
                 .ToList();
 
-            var sessions = _studyContext.Sessions
+            var sessions = _studyContext.Sessions.Where(x=>x.ClassTemplateId ==  classId)
                 .Select(x => new { x.Id, x.Number })
                 .ToList();
 
             var query = _context.Logs.AsQueryable();
 
-            var logs = query.Where(x => x.TargetId == id)
+            var logs = query.Where(x => x.TargetId == id && x.TargetType == TargetTypes.Session)
                 .OrderByDescending(x => x.Id)
                 .ToList();
 
@@ -290,5 +289,57 @@ namespace LogManagement.Infrastructure.EFCore.Repository
             return result;
         }
 
+        public List<LogViewModel> GetUniversityLogsById(long id)
+        {
+            var accounts = _accountContext.Accounts.Where(x => x.RoleId != 3)
+                .Select(a => new
+                {
+                    a.Id,
+                    FullName = a.FirstName + " " + a.LastName,
+                    a.NationalCode,
+                    a.RoleId
+                })
+                .ToList();
+            var roles = _accountContext.Roles
+                .Select(r => new
+                {
+                    r.Id,
+                    r.Name
+                })
+                .ToList();
+
+            var universities = _studyContext.Universities.Select(x => new { x.Id, x.Name }).ToList();
+
+            var query = _context.Logs.AsQueryable();
+
+            var logs = query.Where(x => x.TargetId == id && x.TargetType == TargetTypes.University)
+                .OrderByDescending(x => x.Id)
+                .ToList();
+
+            var result = logs.Select(x =>
+            {
+                var account = accounts.FirstOrDefault(a => a.Id == x.AccountId);
+                var roleName = roles.FirstOrDefault(r => r.Id == account?.RoleId)?.Name;
+
+
+                string universityName = universities.FirstOrDefault(c => c.Id == x.TargetId).Name;
+
+                return new LogViewModel
+                {
+                    AccountId = x.AccountId,
+                    AccountName = account?.FullName,
+                    AccountNationalCode = account?.NationalCode,
+                    AccountRole = roleName,
+                    Operation = Operations.GetOperationBy(x.Operation),
+                    CreationDate = x.CreationDate.ToFarsi(),
+                    Description = x.Description,
+                    TargetId = x.TargetId,
+                    TargetType = TargetTypes.GetTargetTypeBy(TargetTypes.University),
+                    TargetName = universityName
+                };
+            }).ToList();
+
+            return result;
+        }
     }
 }

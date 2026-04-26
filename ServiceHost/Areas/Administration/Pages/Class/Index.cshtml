@@ -97,7 +97,7 @@
                                         <td>@item.Id</td>
                                         <td>@item.ProfessorFullName</td>
                                         <td>@item.Code</td>
-                                        <td>@item.Day</td>
+                                        <td>@Days.GetName(item.DayId)</td>
                                         <td>@item.StartTime.ToShownTime()</td>
                                         <td>@item.EndTime.ToShownTime()</td>
                                         <td>@item.SessionsCount</td>
@@ -130,7 +130,7 @@
                                             <a class="btn btn-info pull-right m-rl-5" onclick="openCopyModal(@item.Id)">کپی جلسات این کلاس</a>
 
                                             <a permission="@ActivityLogPermissions.ShowActivityLog" class="btn btn-pink pull-right m-rl-5"
-                                               href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id })">
+                                               href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id, courseId = item.CourseId })">
                                                 <i class="fa fa-recycle"></i> تاریخچه عملیات
                                             </a>
                                         </td>

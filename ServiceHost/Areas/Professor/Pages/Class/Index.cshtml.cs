@@ -59,7 +59,7 @@ namespace ServiceHost.Areas.Professor.Pages.Class
 
         public IActionResult OnGetCopyCheck(long id)
         {
-            var hasSessions = _sessionApplication.HasAnySessionsByClassId(id);
+            var hasSessions = _sessionApplication.HasAnySessionsByClassTemplateId(id);
             if (!hasSessions)
                 return new JsonResult(new { isSucceeded = false, message = ApplicationMessages.TheClassHasNotAnySessions });
 
@@ -67,7 +67,7 @@ namespace ServiceHost.Areas.Professor.Pages.Class
         }
         public IActionResult OnGetCopy(long id)
         {
-            var command = new CopyClass
+            var command = new CopyClassTemplate
             {
                 Classes = _classApplication.GetClassesForCopy(id),
                 ClassCode = _classApplication.GetClassCodeById(id),
@@ -76,7 +76,7 @@ namespace ServiceHost.Areas.Professor.Pages.Class
             return Partial("Copy", command);
         }
 
-        public IActionResult OnPostCopy(CopyClass command)
+        public IActionResult OnPostCopy(CopyClassTemplate command)
         {
             var result = _classApplication.Copy(command,CurrentAccountId);
             return new JsonResult(result);

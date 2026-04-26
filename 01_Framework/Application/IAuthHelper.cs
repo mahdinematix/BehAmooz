@@ -3,8 +3,8 @@ namespace _01_Framework.Application
 {
     public interface IAuthHelper
     {
-        void Signin(AuthViewModel account);
-        void SignOut();
+        Task Signin(AuthViewModel account);
+        Task SignOut();
         bool IsAuthenticated();
         string CurrentAccountRole();
         AuthViewModel GetAccountInfo();

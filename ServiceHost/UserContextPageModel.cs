@@ -17,8 +17,6 @@ namespace ServiceHost
         protected long CurrentAccountUniversityId => AuthHelper.CurrentAccountUniversityId();
         protected string CurrentAccountRole => AuthHelper.CurrentAccountRole();
         protected string CurrentAccountNationalCode => AuthHelper.GetAccountInfo().NationalCode;
-        protected string CurrentAccountPassword => AuthHelper.GetAccountInfo().Password;
-        protected long CurrentAccountRoleId => AuthHelper.GetAccountInfo().RoleId;
         protected int CurrentAccountStatus => AuthHelper.CurrentAccountStatus();
         protected AuthViewModel CurrentAccountInfo => AuthHelper.GetAccountInfo();
 

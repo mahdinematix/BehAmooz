@@ -12,14 +12,16 @@ namespace ServiceHost.Pages
     {
         private readonly ISessionQuery _sessionQuery;
         private readonly IClassQuery _classQuery;
+        private readonly ICourseQuery _courseQuery;
         public ClassQueryModel Class;
         public List<CartItem> Sessions;
         public CourseQueryModel Course { get; set; }
 
-        public SessionsModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery) : base(authHelper)
+        public SessionsModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery, ICourseQuery courseQuery) : base(authHelper)
         {
             _sessionQuery = sessionQuery;
             _classQuery = classQuery;
+            _courseQuery = courseQuery;
         }
 
 
@@ -49,7 +51,7 @@ namespace ServiceHost.Pages
 
             Sessions = _sessionQuery.GetItemsByClassId(classId);
             Class = _classQuery.GetClassById(classId);
-            Course = _classQuery.GetCourseNameAndPriceByClassId(Class.CourseId);
+            Course = _courseQuery.GetCourseNameAndPriceById(Class.CourseId);
             return Page();
         }
     }

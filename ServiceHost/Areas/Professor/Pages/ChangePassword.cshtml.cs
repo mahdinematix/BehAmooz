@@ -45,12 +45,6 @@ namespace ServiceHost.Areas.Professor.Pages
         {
             command.Id = CurrentAccountId;
             var result = _accountApplication.ChangePasswordByUser(command);
-            if (result.IsSucceeded)
-            {
-                Message = result.Message;
-                return RedirectToPage("/ChangePassword");
-            }
-
             Message = result.Message;
             return RedirectToPage("/ChangePassword");
 

@@ -17,6 +17,6 @@ namespace StudyManagement.Application.Contracts.Session
         public IFormFile? Booklet { get; set; }
         [MaxLength(5000, ErrorMessage = ValidationMessages.MaxLength)]
         public string? Description { get; set; }
-        public long ClassId { get; set; }
+        public long ClassTemplateId { get; set; }
     }
 }

@@ -7,6 +7,8 @@
         public string Code { get; set; }
         public int EducationLevel { get; set; }
         public int Major { get; set; }
+        public int UniversityTypeId { get; set; }
+        public int UniversityId { get; set; }
 
     }
 }

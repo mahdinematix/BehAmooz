@@ -21,56 +21,84 @@ public class CustomerQuery : ICustomerQuery
 
     public List<CustomerQueryModel> GetCustomersByProfessorId(CustomerSearchModel searchModel, long professorId)
     {
-        var classes = _studyContext.Classes
-            .Where(c => c.ProfessorId == professorId && c.IsActive)
-            .Include(c => c.Course)
-            .ToList();
 
+        var classes = (
+            from c in _studyContext.Classes
+            join t in _studyContext.ClassTemplates on c.ClassTemplateId equals t.Id
+            join course in _studyContext.Courses on t.CourseId equals course.Id
+            where t.ProfessorId == professorId && c.IsActive
+            select new
+            {
+                ClassId = c.Id,
+                c.Code,
+                c.Day,
+                c.StartTime,
+                c.EndTime,
+                CourseName = course.Name
+            }
+        ).ToList();
 
-        var ordersWithItems = _studyContext.Orders
+        if (classes.Count == 0)
+            return new List<CustomerQueryModel>();
+
+        var classIds = classes.Select(x => x.ClassId).ToList();
+
+        var orderItemsForClasses = _studyContext.Orders
             .Where(o => o.IsPayed)
-            .Include(o => o.Items)
+            .SelectMany(o => o.Items
+                .Where(i => classIds.Contains(i.ClassId))
+                .Select(i => new
+                {
+                    i.ClassId,
+                    i.SessionNumber,
+                    i.SessionPrice,
+                    o.AccountId
+                }))
             .ToList();
 
-        var orderItemsForClasses = ordersWithItems
-            .SelectMany(o => o.Items)
-            .Where(i => classes.Any(c => c.Id == i.ClassId))
-            .ToList();
+        if (orderItemsForClasses.Count == 0)
+            return new List<CustomerQueryModel>();
 
-        var accountIds = orderItemsForClasses
-            .Select(i => i.Order.AccountId)
-            .ToList();
+
+        var accountIds = orderItemsForClasses.Select(x => x.AccountId).Distinct().ToList();
 
         var accounts = _accountContext.Accounts
             .Where(a => accountIds.Contains(a.Id))
+            .Select(a => new
+            {
+                a.Id,
+                a.FirstName,
+                a.LastName,
+                a.Code,
+                a.UniversityId,
+                a.EducationLevel
+            })
             .ToList();
 
         var customers = new List<CustomerQueryModel>();
 
+
         var groupedItems = orderItemsForClasses
-            .GroupBy(i => new { i.Order.AccountId, i.ClassId })
+            .GroupBy(i => new { i.AccountId, i.ClassId })
             .ToList();
 
         foreach (var group in groupedItems)
         {
             var account = accounts.FirstOrDefault(a => a.Id == group.Key.AccountId);
-            var classInfo = classes.FirstOrDefault(c => c.Id == group.Key.ClassId);
+            var classInfo = classes.FirstOrDefault(c => c.ClassId == group.Key.ClassId);
 
             if (account == null || classInfo == null)
                 continue;
 
-
             var sessionCounts = new Dictionary<int, int>();
             for (int i = 1; i <= 16; i++)
-            {
                 sessionCounts[i] = group.Count(it => it.SessionNumber == i);
-            }
 
             int totalSessions = sessionCounts.Values.Sum();
             int sessionPrice = group.FirstOrDefault()?.SessionPrice ?? 0;
             int totalAmount = totalSessions * sessionPrice;
 
-            int organShare = (int)(totalAmount * 0.25); 
+            int organShare = (int)(totalAmount * 0.25);
             int tax = (int)(totalAmount * 0.10);
             int professorShare = totalAmount - organShare - tax;
 
@@ -81,11 +109,13 @@ public class CustomerQuery : ICustomerQuery
                 Code = account.Code,
                 UniversityId = account.UniversityId,
                 UniversityName = _universityApplication.GetNameBy(account.UniversityId),
-                CourseName = classInfo.Course.Name,
+
+                CourseName = classInfo.CourseName,
                 ClassCode = classInfo.Code,
                 ClassDay = classInfo.Day,
                 ClassStartTime = classInfo.StartTime,
                 ClassEndTime = classInfo.EndTime,
+
                 SessionCounts = sessionCounts,
                 TotalSessions = totalSessions,
                 SessionPrice = sessionPrice,
@@ -97,44 +127,30 @@ public class CustomerQuery : ICustomerQuery
             });
         }
 
+
         if (!string.IsNullOrWhiteSpace(searchModel.FullName))
-        {
             customers = customers.Where(x => x.FullName.Contains(searchModel.FullName)).ToList();
-        }
 
         if (!string.IsNullOrWhiteSpace(searchModel.ClassCode))
-        {
             customers = customers.Where(x => x.ClassCode.Contains(searchModel.ClassCode)).ToList();
-        }
 
         if (!string.IsNullOrWhiteSpace(searchModel.Code))
-        {
             customers = customers.Where(x => x.Code.Contains(searchModel.Code)).ToList();
-        }
 
         if (!string.IsNullOrWhiteSpace(searchModel.CourseName))
-        {
             customers = customers.Where(x => x.CourseName.Contains(searchModel.CourseName)).ToList();
-        }
 
-        if (searchModel.ClassStartTime != "0" && searchModel.ClassStartTime != null)
-        {
+        if (!string.IsNullOrWhiteSpace(searchModel.ClassStartTime) && searchModel.ClassStartTime != "0")
             customers = customers.Where(x => x.ClassStartTime == searchModel.ClassStartTime).ToList();
-        }
 
         if (searchModel.ClassDay > 0)
-        {
             customers = customers.Where(x => x.ClassDay == searchModel.ClassDay).ToList();
-        }
 
         if (searchModel.UniversityId > 0)
-        {
             customers = customers.Where(x => x.UniversityId == searchModel.UniversityId).ToList();
-        }
+
         if (searchModel.EducationLevel > 0)
-        {
             customers = customers.Where(x => x.EducationLevel == searchModel.EducationLevel).ToList();
-        }
 
         return customers;
     }

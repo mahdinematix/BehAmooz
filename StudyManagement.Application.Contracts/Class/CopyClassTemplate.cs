@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyManagement.Application.Contracts.Class
 {
-    public class CopyClass
+    public class CopyClassTemplate
     {
         public long ClassId { get; set; }
         [Required(ErrorMessage = ValidationMessages.IsRequired)]

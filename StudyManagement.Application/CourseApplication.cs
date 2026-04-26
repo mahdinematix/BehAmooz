@@ -24,11 +24,7 @@ namespace StudyManagement.Application
         public OperationResult Create(CreateCourse command, long currentAccountId)
         {
             var operation = new OperationResult();
-            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.EducationLevel == command.EducationLevel && x.SemesterId == command.SemesterId))
-            {
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
-            }
-            if (_courseRepository.Exists(x => x.Code == command.Code))
+            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.EducationLevel == command.EducationLevel && x.Code == command.Code && x.SemesterId == command.SemesterId))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }
@@ -56,7 +52,7 @@ namespace StudyManagement.Application
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
             }
 
-            if (_courseRepository.Exists(x => x.Name == command.Name && x.Major == command.Major && x.SemesterId == command.SemesterId && x.Id != command.Id))
+            if (_courseRepository.Exists(x => x.Name == command.Name && x.Code == command.Code && x.Major == command.Major && x.SemesterId == command.SemesterId && x.Id != command.Id))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
             }

@@ -1,5 +1,7 @@
 using _01_Framework.Application;
 using _01_Framework.Infrastructure;
+using LogManagement.Application.Contracts.LogContracts;
+using LogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudyManagement.Application.Contracts.Semester;
@@ -12,6 +14,7 @@ namespace ServiceHost.Areas.Administration.Pages.University
     {
         private readonly IUniversityApplication _universityApplication;
         private readonly ISemesterApplication _semesterApplication;
+        private readonly ILogApplication _logApplication;
 
         [BindProperty] public long UniversityId { get; set; }
 
@@ -20,10 +23,11 @@ namespace ServiceHost.Areas.Administration.Pages.University
         public List<SelectListItem> UniTypes;
         public List<SelectListItem> Unis;
 
-        public IndexModel(IUniversityApplication universityApplication, ISemesterApplication semesterApplication, IAuthHelper authHelper):base(authHelper)
+        public IndexModel(IUniversityApplication universityApplication, ISemesterApplication semesterApplication, IAuthHelper authHelper, ILogApplication logApplication):base(authHelper)
         {
             _universityApplication = universityApplication;
             _semesterApplication = semesterApplication;
+            _logApplication = logApplication;
         }
         [NeedsPermissions(StudyPermissions.ListUniversity)]
         public IActionResult OnGet(UniversitySearchModel searchModel)
@@ -100,6 +104,15 @@ namespace ServiceHost.Areas.Administration.Pages.University
             var result = _semesterApplication.Define(command, CurrentAccountId);
             return new JsonResult(result);
         }
+
+        [NeedsPermissions(ActivityLogPermissions.ShowActivityLog)]
+        public IActionResult OnGetLogs(long id)
+        {
+            var logs = _logApplication.GetUniversityLogsById(id);
+            return Partial("./Logs", logs);
+        }
+
+
 
         private List<SelectListItem> GetUnis(int typeId = 0)
         {

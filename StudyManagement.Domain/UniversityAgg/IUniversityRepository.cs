@@ -12,5 +12,7 @@ namespace StudyManagement.Domain.UniversityAgg
         string GetNameBy(long id);
         List<UniversityViewModel> GetActiveUniversities();
         List<UniversityViewModel> GetActiveUniversitiesByTypeId(int typeId);
+        int GetTypeByUniversityId(long universityId);
+        List<long> GetUniversityIdsByType(int typeId);
     }
 }

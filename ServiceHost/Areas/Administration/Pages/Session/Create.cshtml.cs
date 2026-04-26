@@ -13,6 +13,8 @@ namespace ServiceHost.Areas.Administration.Pages.Session
         public CreateSession Command;
         public ClassViewModel Class;
         [TempData] public string Message { get; set; }
+        public long ClassTemplateId { get; set; }
+
 
         public CreateModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper):base(authHelper)
         {
@@ -33,6 +35,7 @@ namespace ServiceHost.Areas.Administration.Pages.Session
                 return RedirectToPage("/Reject");
             }
             Class = _classApplication.GetClassById(classId);
+            ClassTemplateId = _classApplication.GetTemplateIdByClassId(classId);
             return Page();
         }
 
@@ -40,7 +43,8 @@ namespace ServiceHost.Areas.Administration.Pages.Session
         {
             if (ModelState.IsValid)
             {
-                command.ClassId = classId;
+                var templateId = _classApplication.GetTemplateIdByClassId(classId);
+                command.ClassTemplateId = templateId;
                 var result = await _sessionApplication.Create(command,CurrentAccountId);
                 if (result.IsSucceeded)
                 {

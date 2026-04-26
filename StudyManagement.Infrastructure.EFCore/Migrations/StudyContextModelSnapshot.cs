@@ -30,13 +30,13 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("ClassTemplateId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<long>("CourseId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -52,9 +52,6 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("ProfessorId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("StartTime")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -62,9 +59,34 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("ClassTemplateId");
 
                     b.ToTable("Classes", (string)null);
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.ClassAgg.ClassTemplate", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CourseId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ProfessorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId", "ProfessorId")
+                        .IsUnique();
+
+                    b.ToTable("ClassTemplates", (string)null);
                 });
 
             modelBuilder.Entity("StudyManagement.Domain.CourseAgg.Course", b =>
@@ -202,7 +224,7 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<long>("ClassId")
+                    b.Property<long>("ClassTemplateId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreationDate")
@@ -231,7 +253,7 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClassId");
+                    b.HasIndex("ClassTemplateId");
 
                     b.ToTable("Sessions", (string)null);
                 });
@@ -304,7 +326,7 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CurrentSemesterCode")
+                    b.Property<long>("CurrentSemesterId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")
@@ -325,8 +347,19 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
             modelBuilder.Entity("StudyManagement.Domain.ClassAgg.Class", b =>
                 {
-                    b.HasOne("StudyManagement.Domain.CourseAgg.Course", "Course")
+                    b.HasOne("StudyManagement.Domain.ClassAgg.ClassTemplate", "Template")
                         .WithMany("Classes")
+                        .HasForeignKey("ClassTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Template");
+                });
+
+            modelBuilder.Entity("StudyManagement.Domain.ClassAgg.ClassTemplate", b =>
+                {
+                    b.HasOne("StudyManagement.Domain.CourseAgg.Course", "Course")
+                        .WithMany("ClassTemplates")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -431,13 +464,13 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
 
             modelBuilder.Entity("StudyManagement.Domain.SessionAgg.Session", b =>
                 {
-                    b.HasOne("StudyManagement.Domain.ClassAgg.Class", "Class")
+                    b.HasOne("StudyManagement.Domain.ClassAgg.ClassTemplate", "ClassTemplate")
                         .WithMany("Sessions")
-                        .HasForeignKey("ClassId")
+                        .HasForeignKey("ClassTemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Class");
+                    b.Navigation("ClassTemplate");
                 });
 
             modelBuilder.Entity("StudyManagement.Domain.SessionPictureAgg.SessionPicture", b =>
@@ -451,14 +484,16 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("StudyManagement.Domain.ClassAgg.Class", b =>
+            modelBuilder.Entity("StudyManagement.Domain.ClassAgg.ClassTemplate", b =>
                 {
+                    b.Navigation("Classes");
+
                     b.Navigation("Sessions");
                 });
 
             modelBuilder.Entity("StudyManagement.Domain.CourseAgg.Course", b =>
                 {
-                    b.Navigation("Classes");
+                    b.Navigation("ClassTemplates");
                 });
 
             modelBuilder.Entity("StudyManagement.Domain.SemesterAgg.Semester", b =>

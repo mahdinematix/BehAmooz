@@ -17,7 +17,7 @@ namespace StudyManagement.Domain.CourseAgg
         public long SemesterId { get; private set; }
         public long UniversityId { get; private set; }
         public bool IsActive { get; private set; }
-        public ICollection<Class> Classes { get; private set; }
+        public List<ClassTemplate> ClassTemplates { get; private set; }
         public Semester Semester { get; private set; }
         public University University { get; private set; }
 
@@ -30,11 +30,11 @@ namespace StudyManagement.Domain.CourseAgg
             Code = code;
             Major = major;
             IsActive = true;
-            Classes = new List<Class>();
             Price = price;
             EducationLevel = educationLevel;
             SemesterId = semesterId;
             UniversityId = universityId;
+            ClassTemplates = new List<ClassTemplate>();
         }
 
         public void Edit(string name, int numberOfUnit, string courseKind, string code, int major, int price, int educationLevel, long semesterId)

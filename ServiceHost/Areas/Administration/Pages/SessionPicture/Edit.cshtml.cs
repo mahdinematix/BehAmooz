@@ -39,7 +39,7 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
             }
             Command = _sessionPictureApplication.GetDetails(id);
             Session = _sessionApplication.GetBySessionId(sessionId);
-            Class = _classApplication.GetClassById(Session.ClassId);
+            Class = _classApplication.GetClassById(Session.ClassTemplateId);
             return Page();
         }
 

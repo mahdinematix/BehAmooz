@@ -15,7 +15,6 @@ public class AuthViewModel
     public string Mobile { get; set; }
     public string Email { get; set; }
     public string Role { get; set; }
-    public string Password { get; set; }
     public int EducationLevel { get; set; }
     public List<int> Permissions { get; set; }
 
@@ -24,7 +23,7 @@ public class AuthViewModel
     {
     }
 
-    public AuthViewModel(long id, long roleId, string fullname, string nationalCode, string code, int universityTypeId, int universityId, int majorId, string nationalCardPicture, int status, string mobile, string email, List<int> permissions,string password, int educationLevel)
+    public AuthViewModel(long id, long roleId, string fullname, string nationalCode, string code, int universityTypeId, int universityId, int majorId, string nationalCardPicture, int status, string mobile, string email, List<int> permissions, int educationLevel)
     {
         Id = id;
         RoleId = roleId;
@@ -39,7 +38,6 @@ public class AuthViewModel
         Mobile = mobile;
         Email = email;
         Permissions = permissions;
-        Password = password;
         EducationLevel = educationLevel;
     }
 }

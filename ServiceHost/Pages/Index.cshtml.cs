@@ -3,6 +3,7 @@ using _01_Framework.Infrastructure;
 using _02_Query.Contracts.Course;
 using _02_Query.Contracts.University;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceHost.Pages
 {
@@ -10,6 +11,7 @@ namespace ServiceHost.Pages
     {
         private readonly ICourseQuery _courseQuery;
         private readonly IUniversityQuery _universityQuery;
+        
 
         public List<CourseQueryModel> Courses { get; set; }
         public CourseSearchModel SearchModel;
@@ -20,6 +22,8 @@ namespace ServiceHost.Pages
         public bool IsStudent { get; set; }
         public string EducationLvl { get; private set; }
         public string Major { get; set; }
+        public List<SelectListItem> Unis;
+        public List<SelectListItem> UniTypes;
 
         public IndexModel(IAuthHelper authHelper, ICourseQuery courseQuery, IUniversityQuery universityQuery) : base(authHelper)
         {
@@ -59,7 +63,8 @@ namespace ServiceHost.Pages
             {
                 return RedirectToPage("/Reject");
             }
-
+            UniTypes = GetUniTypes();
+            Unis = GetUnis();
             IsSuperAdministrator = CurrentAccountRole == Roles.SuperAdministrator;
             IsAdministrator = CurrentAccountRole == Roles.Administrator;
             IsStudent = CurrentAccountRole == Roles.Student;
@@ -76,6 +81,50 @@ namespace ServiceHost.Pages
             Courses = _courseQuery.Search(searchModel, CurrentAccountInfo);
 
             return Page();
+        }
+
+        private List<SelectListItem> GetUnis(int typeId = 0)
+        {
+
+            List<SelectListItem> lstUnis = _universityQuery.GetActiveUniversitiesByTypeId(typeId).Select(n =>
+                new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.Name
+                }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "0",
+                Text = ApplicationMessages.SelectYourUniversity
+            };
+
+            lstUnis.Insert(0, defItem);
+
+            return lstUnis;
+        }
+
+        private List<SelectListItem> GetUniTypes()
+        {
+            var lstCountries = new List<SelectListItem>();
+
+            List<UniversityTypeViewModel> Countries = UniversityTypes.List;
+
+            lstCountries = Countries.Select(ct => new SelectListItem()
+            {
+                Value = ct.Id.ToString(),
+                Text = ct.Name
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "0",
+                Text = ApplicationMessages.SelectYourUniversityType
+            };
+
+            lstCountries.Insert(0, defItem);
+
+            return lstCountries;
         }
     }
 }

@@ -223,7 +223,7 @@ function FillActiveUnisP(lstUniTypes) {
         return;
     }
 
-    $.getJSON('/Professor/Unis/GetUnisByType', { typeId: selectedType })
+    $.getJSON('/Professor/ActiveUni/GetUnisByType', { typeId: selectedType })
         .done(function (unis) {
             lstUnis.empty();
             $.each(unis, function (index, uni) {

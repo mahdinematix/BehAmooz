@@ -14,15 +14,16 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using ServiceHost;
+using StackExchange.Redis;
 using StudyManagement.Infrastructure.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-
 services.AddMemoryCache();
 services.AddHttpContextAccessor();
+services.AddHttpClient();
 services.AddControllers();
 services.AddAWSService<IAmazonS3>();
 services.AddSignalR();
@@ -49,6 +50,8 @@ services.AddTransient<IEmailService, EmailService>();
 services.AddScoped<IFileManager, FileManager>();
 services.AddScoped<IStorageServiceAws, StorageServiceAws>();
 services.AddScoped<IStorageServiceTus, StorageServiceTus>();
+services.AddTransient<IOtpStore, RedisOtpStore>();
+services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379"));
 
 
 services.Configure<CookieTempDataProviderOptions>(options => {
@@ -94,29 +97,22 @@ builder.Services.Configure<FormOptions>(options =>
 });
 
 
-
-
-
 var app = builder.Build();
 
-
-
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseRouting();
 
+app.UseHttpsRedirection(); 
+
+app.UseStaticFiles(); 
+app.UseCookiePolicy(); 
+
 app.UseAuthentication();
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-app.UseCookiePolicy();
-
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -125,14 +121,13 @@ app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-
 app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 app.MapRazorPages()
-   .WithStaticAssets();
+    .WithStaticAssets();
 
 app.MapHub<UploadHub>("/uploadHub");
 

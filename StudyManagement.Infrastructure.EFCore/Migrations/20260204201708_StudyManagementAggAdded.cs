@@ -174,7 +174,7 @@ namespace StudyManagement.Infrastructure.EFCore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_ClassId",
                 table: "Sessions",
-                column: "ClassId");
+                column: "ClassTemplateId");
         }
 
         /// <inheritdoc />

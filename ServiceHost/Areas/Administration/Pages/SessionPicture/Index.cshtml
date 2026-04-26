@@ -2,7 +2,7 @@
 @model ServiceHost.Areas.Administration.Pages.SessionPicture.IndexModel
 @{
     Layout = "Shared/_AdminLayout";
-    ViewBag.Title = $"مدیریت تصاویر جلسه {Model.Session.Number} کلاس {Model.Class.Code} درس {Model.Class.Course}";
+    ViewBag.Title = $"مدیریت تصاویر جلسه {Model.Session.Number} کلاس {Model.Class.Code} درس {Model.Class.CourseName}";
 }
 
 
@@ -21,7 +21,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">لیست تصاویر جلسه @Model.Session.Number کلاس @Model.Class.Code درس @Model.Class.Course</h3>
+                <h3 class="panel-title">لیست تصاویر جلسه @Model.Session.Number کلاس @Model.Class.Code درس @Model.Class.CourseName</h3>
             </div>
             <div class="panel-body">
                 <div class="row">

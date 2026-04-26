@@ -2,6 +2,6 @@
 {
     public interface ISmsService
     {
-        void Send(string number, string message);
+        Task<bool> Send(string phoneNumber, string otpCode);
     }
 }

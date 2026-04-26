@@ -38,7 +38,7 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
                 return RedirectToPage("/Reject");
             }
             Session = _sessionApplication.GetBySessionId(sessionId);
-            Class = _classApplication.GetClassById(Session.ClassId);
+            Class = _classApplication.GetClassById(Session.ClassTemplateId);
             return Page();
         }
 

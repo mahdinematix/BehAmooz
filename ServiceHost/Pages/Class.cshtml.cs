@@ -42,7 +42,7 @@ namespace ServiceHost.Pages
             }
 
             Classes = _classQuery.GetClassesByCourseId(courseId);
-            Course = _courseQuery.GetCourseNameById(courseId);
+            Course = _courseQuery.GetCourseNameAndPriceById(courseId).Name;
             return Page();
         }
     }

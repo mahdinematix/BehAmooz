@@ -19,33 +19,36 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             return _context.Sessions.Select(x => new EditSession
             {
                 Id = x.Id,
-                ClassId = x.ClassId,
+                ClassTemplateId = x.ClassTemplateId,
                 Description = x.Description,
                 Number = x.Number,
                 Title = x.Title,
-            }).FirstOrDefault(x => x.Id == id);
+            }).FirstOrDefault(x => x.Id == id); ;
         }
 
-        public List<SessionViewModel> GetAllByClassId(long classId)
+        public List<SessionViewModel> GetAllByClassTemplateId(long classTemplateId)
         {
-            return _context.Sessions.Where(x => x.ClassId == classId).Select(x => new SessionViewModel
-            {
-                Id = x.Id,
-                Booklet = x.Booklet,
-                Description = x.Description.Substring(0, Math.Min(x.Description.Length, 10)) + "...",
-                Number = x.Number,
-                Title = x.Title,
-                Video = x.Video,
-                IsActive = x.IsActive,
-                ClassId = x.ClassId,
-                CreationDate = x.CreationDate.ToFarsi(),
-
-            }).OrderBy(x => x.Number).ToList();
+            return _context.Sessions
+                .Where(x => x.ClassTemplateId == classTemplateId)
+                .Select(x => new SessionViewModel
+                {
+                    Id = x.Id,
+                    Booklet = x.Booklet,
+                    Description = x.Description.Substring(0, Math.Min(x.Description.Length, 10)) + "...",
+                    Number = x.Number,
+                    Title = x.Title,
+                    Video = x.Video,
+                    IsActive = x.IsActive,
+                    ClassTemplateId = x.ClassTemplateId,
+                    CreationDate = x.CreationDate.ToFarsi(),
+                })
+                .OrderBy(x => x.Number)
+                .ToList();
         }
 
-        public ICollection<Session> GetAllByClassIdForCopy(long classId)
+        public List<Session> GetAllByClassTemplateIdForCopy(long classTemplateId)
         {
-            return _context.Sessions.Where(x => x.ClassId == classId).ToList();
+            return _context.Sessions.Where(x => x.ClassTemplateId == classTemplateId).ToList();
         }
 
         public SessionViewModel GetBySessionId(long sessionId)
@@ -55,7 +58,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Id = x.Id,
                 Number = x.Number,
                 Title = x.Title,
-                ClassId = x.ClassId
+                ClassTemplateId = x.ClassTemplateId
             }).FirstOrDefault(x => x.Id == sessionId);
         }
 
@@ -65,9 +68,16 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             Save();
         }
 
-        public bool HasAnySessionsByClassId(long classId)
+        public bool HasAnySessionsByClassTemplateId(long classTemplateId)
         {
-            return _context.Sessions.Any(x => x.ClassId == classId);
+            return _context.Sessions.Any(x => x.ClassTemplateId == classTemplateId);
+        }
+
+        public void DeleteAllByClassTemplateId(long classTemplateId)
+        {
+            var sessions = _context.Sessions.Where(x => x.ClassTemplateId == classTemplateId);
+            _context.Sessions.RemoveRange(sessions);
+            Save();
         }
     }
 }

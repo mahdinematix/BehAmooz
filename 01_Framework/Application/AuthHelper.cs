@@ -18,7 +18,7 @@ namespace _01_Framework.Application
         }
 
 
-        public void Signin(AuthViewModel account)
+        public async Task Signin(AuthViewModel account)
         {
             var permissions = JsonConvert.SerializeObject(account.Permissions);
             var claims = new List<Claim>
@@ -36,7 +36,6 @@ namespace _01_Framework.Application
                 new Claim("NationalCode",account.NationalCode),
                 new Claim("Code",account.Code),
                 new Claim("permissions",permissions),
-                new Claim("Password",account.Password),
                 new Claim("EducationLevel", account.EducationLevel.ToString())
             };
 
@@ -44,19 +43,23 @@ namespace _01_Framework.Application
 
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(2)
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(2),
+                IsPersistent = true
             };
 
-            _contextAccessor.HttpContext.SignInAsync
+            await _contextAccessor.HttpContext.SignInAsync
             (
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties
             );
+
         }
-        public void SignOut()
+
+
+        public async Task SignOut()
         {
-            _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+           await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         public bool IsAuthenticated()
@@ -94,7 +97,6 @@ namespace _01_Framework.Application
             result.Code = claims.FirstOrDefault(x => x.Type == "Code").Value;
             result.NationalCardPicture = claims.FirstOrDefault(x => x.Type == "NationalCardPicture").Value;
             result.Role = Roles.GetRoleBy(result.RoleId);
-            result.Password = claims.FirstOrDefault(x => x.Type == "Password").Value;
             result.EducationLevel = int.Parse(claims.FirstOrDefault(x => x.Type == "EducationLevel").Value);
 
 

@@ -126,7 +126,14 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
         {
             return _context.Accounts.FirstOrDefault(x => x.NationalCode == nationalCode);
         }
-
+        public string GetPhoneNumberByNationalCode(string nationalCode)
+        {
+            return _context.Accounts.Select(x=> new AccountViewModel
+            {
+                NationalCode = nationalCode,
+                PhoneNumber = x.PhoneNumber
+            }).FirstOrDefault(x => x.NationalCode == nationalCode).PhoneNumber;
+        }
         public List<AccountViewModel> GetProfessors(string currentAccountRole, long currentAccountUniversityId)
         {
             if (currentAccountRole == Roles.SuperAdministrator)

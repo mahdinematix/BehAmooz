@@ -11,10 +11,12 @@ namespace StudyManagement.Application.Contracts.University
         List<UniversityViewModel> Search(UniversitySearchModel searchModel);
         EditUniversity GetDetails(long id);
         List<UniversityViewModel> GetUniversitiesByType(int typeId);
-        OperationResult SetCurrentSemesterId(long id, long semesterId);
+        OperationResult SetCurrentSemesterId(long id, long semesterId, long currentAccountId);
         long GetCurrentSemesterId(long id);
         string GetNameBy(long id);
         List<UniversityViewModel> GetActiveUniversities();
         List<UniversityViewModel> GetActiveUniversitiesByTypeId(int typeId);
+        int GetTypeByUniversityId(long universityId);
+        List<long> GetUniversityIdsByType(int typeId);
     }
 }

@@ -12,8 +12,8 @@ namespace StudyManagement.Domain.ClassAgg
         string GetClassCodeById(long id);
         List<ClassViewModel> GetClassesForCopy(long classId);
         Class GetClassByCode(string code);
-        string GetCourseNameByClassId(long classId);
-
         ClassInfoForCopy GetClassInfoByClassCode(string classCode);
+        long GetTemplateIdByClassId(long classId);
+        bool ExistsForProfessorAtTime(long professorId, int day, string startTime, long? excludeClassId = null);
     }
 }

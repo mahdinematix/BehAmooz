@@ -35,7 +35,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading text-center mb-4">
                     <h3 class="panel-title">جلسه @Model.Session.Number کلاس @Days.GetName(Model.Class.Day) @Model.Class.StartTime تا @Model.Class.EndTime استاد @Model.Class.ProfessorFullName درس @Model.Course.Name</h3>
-                    <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.Session.ClassId">بازگشت</a>
+                    <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.Session.ClassTemplateId">بازگشت</a>
 
                 </div>
                 <div class="panel-body">
@@ -84,7 +84,7 @@ else
 {
     <div class="panel-heading text-center mb-4">
         <h3 class="panel-title">جلسه @Model.Session.Number کلاس @Days.GetName(Model.Class.Day) @Model.Class.StartTime تا @Model.Class.EndTime استاد @Model.Class.ProfessorFullName درس @Model.Course.Name</h3>
-        <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.Session.ClassId">بازگشت</a>
+        <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.Session.ClassTemplateId">بازگشت</a>
 
     </div>
     <div class="page-content-area">

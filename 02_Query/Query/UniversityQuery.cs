@@ -1,4 +1,5 @@
 ﻿using _02_Query.Contracts.University;
+using StudyManagement.Application.Contracts.University;
 using StudyManagement.Infrastructure.EFCore;
 
 namespace _02_Query.Query
@@ -26,6 +27,15 @@ namespace _02_Query.Query
                     .FirstOrDefault()
 
             }).FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<UniversityViewModel> GetActiveUniversitiesByTypeId(int typeId)
+        {
+            return _studyContext.Universities.Where(x => x.IsActive).Where(x => x.Type == typeId).Select(x => new UniversityViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
         }
     }
 }

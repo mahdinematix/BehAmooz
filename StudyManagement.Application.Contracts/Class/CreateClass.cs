@@ -12,8 +12,8 @@ namespace StudyManagement.Application.Contracts.Class
         public string StartTime { get; set; }
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string EndTime { get; set; }
-        public long CourseId { get; set; }
         public int Day { get; set; }
+        public long CourseId { get; set; }
         public long ProfessorId { get; set; }
     }
 }

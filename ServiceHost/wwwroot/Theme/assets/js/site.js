@@ -24,7 +24,7 @@ function FillUnis(lstUniTypes) {
     var selectedType = lstUniTypes.options[lstUniTypes.selectedIndex].value;
 
     if (selectedType != null && selectedType != '') {
-        $.getJSON('Uni/GetUnisByType', {typeId: selectedType}, function (unis) {
+        $.getJSON('/Controllers/Uni/GetUnisByType', {typeId: selectedType}, function (unis) {
             if (unis != null && !jQuery.isEmptyObject(unis)) {
                 $.each(unis, function (index, uni) {
                     lstUnis.append($('<option/>',
@@ -38,5 +38,33 @@ function FillUnis(lstUniTypes) {
     }
 
     return;
+}
+
+function FillActiveUnisS(lstUniTypes) {
+    var lstUnis = $("#lstUnis");
+    lstUnis.empty();
+
+    var selectedType = lstUniTypes.value;
+
+
+    lstUnis.append($('<option/>', { value: "0", text: "دانشگاه را انتخاب کنید" }));
+
+    if (!selectedType || selectedType === "0") {
+        return;
+    }
+
+    $.getJSON('/Controllers/ActiveUni/GetUnisByType', { typeId: selectedType })
+        .done(function (unis) {
+            lstUnis.empty();
+            $.each(unis, function (index, uni) {
+                lstUnis.append($('<option/>', {
+                    value: uni.value,
+                    text: uni.text
+                }));
+            });
+        })
+        .fail(function (xhr) {
+            alert('خطا در دریافت لیست دانشگاه‌ها');
+        });
 }
 

@@ -12,10 +12,10 @@
 
     List<int> GetSelectableYears()
     {
-        var currentYear = DateTime.Now.ToFarsiYear();
+        var currentYear = DateTime.Now.AddYears(-1).ToFarsiYear();
 
         return Enumerable
-            .Range(currentYear, 2)
+            .Range(currentYear, 3)
             .ToList();
     }
 }

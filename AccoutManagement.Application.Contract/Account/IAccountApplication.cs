@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using _01_Framework.Application;
+﻿using _01_Framework.Application;
 
 namespace AccountManagement.Application.Contract.Account
 {
@@ -13,11 +12,13 @@ namespace AccountManagement.Application.Contract.Account
         OperationResult ChangePasswordByUser(ChangePassword command);
         EditAccount GetDetails(long id);
         List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId, int currentAccountTypeUniversity);
-        OperationResult Login(Login command);
-        void Logout();
+        OperationResult FirstLogin(FirstLogin command);
+        Task FinalLogin(string nationalCode);
+        Task Logout();
         List<AccountViewModel> GetProfessors(string currentAccountRole, long currentAccountUniversityId);
         string GetProfessorById(long professorId);
         List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel);
         List<AccountViewModel> SearchInCustomers(AccountSearchModel searchModel);
+        string GetPhoneNumberByNationalCode(string nationalCode);
     }
 }

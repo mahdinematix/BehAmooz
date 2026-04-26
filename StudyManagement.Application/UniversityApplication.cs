@@ -1,5 +1,8 @@
 ﻿using _01_Framework.Application;
+using _01_Framework.Infrastructure;
+using LogManagement.Application.Contracts.LogContracts;
 using StudyManagement.Application.Contracts.University;
+using StudyManagement.Domain.SemesterAgg;
 using StudyManagement.Domain.UniversityAgg;
 
 namespace StudyManagement.Application
@@ -7,10 +10,14 @@ namespace StudyManagement.Application
     public class UniversityApplication : IUniversityApplication 
     {
         private readonly IUniversityRepository _universityRepository;
+        private readonly ILogApplication _logApplication;
+        private readonly ISemesterRepository _semesterRepository;
 
-        public UniversityApplication(IUniversityRepository universityRepository)
+        public UniversityApplication(IUniversityRepository universityRepository, ILogApplication logApplication, ISemesterRepository semesterRepository)
         {
             _universityRepository = universityRepository;
+            _logApplication = logApplication;
+            _semesterRepository = semesterRepository;
         }
 
         public OperationResult Define(DefineUniversity command)
@@ -88,9 +95,10 @@ namespace StudyManagement.Application
             return _universityRepository.GetUniversitiesByType(typeId);
         }
 
-        public OperationResult SetCurrentSemesterId(long id, long semesterId)
+        public OperationResult SetCurrentSemesterId(long id, long semesterId, long currentAccountId)
         {
             var operation = new OperationResult();
+            var type = _universityRepository.GetTypeByUniversityId(id);
             var university = _universityRepository.GetBy(id);
             if (university == null)
             {
@@ -98,7 +106,18 @@ namespace StudyManagement.Application
             }
 
             university.SetCurrentSemester(semesterId);
+            var semesterCode = _semesterRepository.GetSemesterCodeBy(semesterId);
             _universityRepository.Save();
+            _logApplication.Create(new CreateLog
+            {
+                AccountId = currentAccountId,
+                Operation = Operations.Define,
+                TargetId = university.Id,
+                TargetType = TargetTypes.University,
+                Description = type == 2
+                    ? $"تنظیم ترم {semesterCode} برای همه دانشگاه‌های آزاد"
+                    : $"تنظیم ترم {semesterCode}"
+            });
             return operation.Succeed();
         }
 
@@ -120,6 +139,16 @@ namespace StudyManagement.Application
         public List<UniversityViewModel> GetActiveUniversitiesByTypeId(int typeId)
         {
             return _universityRepository.GetActiveUniversitiesByTypeId(typeId);
+        }
+
+        public int GetTypeByUniversityId(long universityId)
+        {
+            return _universityRepository.GetTypeByUniversityId(universityId);
+        }
+
+        public List<long> GetUniversityIdsByType(int typeId)
+        {
+            return _universityRepository.GetUniversityIdsByType(typeId);
         }
     }
 }

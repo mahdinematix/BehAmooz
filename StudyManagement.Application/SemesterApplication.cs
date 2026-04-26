@@ -11,18 +11,28 @@ namespace StudyManagement.Application
     {
         private readonly ISemesterRepository _semesterRepository;
         private readonly IUniversityApplication _universityApplication;
-        private readonly ILogApplication _logApplication;
 
-        public SemesterApplication(ISemesterRepository semesterRepository, IUniversityApplication universityApplication, ILogApplication logApplication)
+        public SemesterApplication(ISemesterRepository semesterRepository, IUniversityApplication universityApplication)
         {
             _semesterRepository = semesterRepository;
             _universityApplication = universityApplication;
-            _logApplication = logApplication;
         }
 
         public OperationResult Define(DefineSemester command, long currentAccountId)
         {
             var operation = new OperationResult();
+            var type = _universityApplication.GetTypeByUniversityId(command.UniversityId);
+
+            if (type == 2)
+            {
+                var targetUniversityIds = _universityApplication.GetUniversityIdsByType(2);
+                
+                foreach (var uniId in targetUniversityIds)
+                    ApplySemesterForUniversity(command.Year, command.MidYear, uniId, currentAccountId);
+            }
+            
+
+
             var existedSemester = _semesterRepository
                 .GetByYearAndMidYear(command.Year, command.MidYear, command.UniversityId);
 
@@ -34,7 +44,7 @@ namespace StudyManagement.Application
 
                 existedSemester.SetAsCurrent();
                 _semesterRepository.Save();
-                _universityApplication.SetCurrentSemesterId(command.UniversityId, existedSemester.Id);
+                _universityApplication.SetCurrentSemesterId(command.UniversityId, existedSemester.Id, currentAccountId);
 
                 return operation.Succeed();
             }
@@ -47,15 +57,7 @@ namespace StudyManagement.Application
 
             _semesterRepository.Create(semester);
             _semesterRepository.Save();
-            _universityApplication.SetCurrentSemesterId(command.UniversityId, semester.Id);
-            _logApplication.Create(new CreateLog
-            {
-                AccountId = currentAccountId,
-                Operation = Operations.Define,
-                TargetId = semester.Id,
-                TargetType = TargetTypes.Semester
-            });
-
+            _universityApplication.SetCurrentSemesterId(command.UniversityId, semester.Id, currentAccountId);
             return operation.Succeed();
 
 
@@ -100,15 +102,8 @@ namespace StudyManagement.Application
 
             _semesterRepository.Create(semester);
             _semesterRepository.Save();
-            _universityApplication.SetCurrentSemesterId(universityId, semester.Id);
-            _logApplication.Create(new CreateLog
-            {
-                AccountId = 0,
-                Operation = Operations.Define,
-                TargetId = semester.Id,
-                TargetType = TargetTypes.Semester
-            });
-        }
+            _universityApplication.SetCurrentSemesterId(universityId, semester.Id, 0);
+            }
 
         public SemesterViewModel GetCurrentSemester(long universityId)
         {
@@ -123,6 +118,35 @@ namespace StudyManagement.Application
         public int GetSemesterByCode(long semesterId)
         {
             return _semesterRepository.GetSemesterCodeBy(semesterId);
+        }
+
+        private void ApplySemesterForUniversity(int year, int midYear, long universityId, long currentAccountId)
+        {
+            var existedSemester = _semesterRepository.GetByYearAndMidYear(year, midYear, universityId);
+
+            if (existedSemester != null)
+            {
+                var currentSemester = _semesterRepository.GetCurrentByUniversityId(universityId);
+                if (currentSemester != null && currentSemester.Id != existedSemester.Id)
+                    currentSemester.UnsetCurrent();
+
+                existedSemester.SetAsCurrent();
+                _semesterRepository.Save();
+
+                _universityApplication.SetCurrentSemesterId(universityId, existedSemester.Id, currentAccountId);
+                return;
+            }
+
+            var current = _semesterRepository.GetCurrentByUniversityId(universityId);
+            if (current != null) current.UnsetCurrent();
+
+            var semester = new Semester(midYear, year, universityId);
+            semester.SetAsCurrent();
+
+            _semesterRepository.Create(semester);
+            _semesterRepository.Save();
+
+            _universityApplication.SetCurrentSemesterId(universityId, semester.Id, currentAccountId);
         }
     }
 }

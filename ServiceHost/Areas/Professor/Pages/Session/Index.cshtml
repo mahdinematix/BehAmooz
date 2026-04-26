@@ -1,4 +1,5 @@
 ﻿@page "{classId}"
+@using _01_Framework.Infrastructure
 @model ServiceHost.Areas.Professor.Pages.Session.IndexModel
 @{
     Layout = "Shared/_ProfessorLayout";
@@ -10,7 +11,7 @@
 <div class="col-md-12">
 <div class="panel panel-default">
 <div class="panel-heading">
-                <h3 class="panel-title">مدیریت جلسات کلاس @Model.Class.Code در روز های @Model.Class.Day ساعت @Model.Class.StartTime تا @Model.Class.EndTime درس @Model.Class.Course</h3>
+                <h3 class="panel-title">مدیریت جلسات کلاس @Model.Class.Code در روز های @Days.GetName(Model.Class.DayId) ساعت @Model.Class.StartTime تا @Model.Class.EndTime درس @Model.Class.CourseName</h3>
             </div>
         </div>
     </div>
@@ -89,16 +90,16 @@
                                         </td>
                                         <td>@item.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-id="@item.Id" asp-route-classId="@item.ClassId">
+                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-id="@item.Id" asp-route-classId="@item.ClassTemplateId">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (item.IsActive)
                                             {
-                                                <a class="btn btn-danger" asp-page="/Session/Index" asp-page-handler="DeActivate" asp-route-id="@item.Id" asp-route-classId="@item.ClassId">غیرفعالسازی</a>
+                                                <a class="btn btn-danger" asp-page="/Session/Index" asp-page-handler="DeActivate" asp-route-id="@item.Id" asp-route-classId="@item.ClassTemplateId">غیرفعالسازی</a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-success" asp-page="/Session/Index" asp-page-handler="Activate" asp-route-id="@item.Id" asp-route-classId="@item.ClassId">فعالسازی</a>
+                                                <a class="btn btn-success" asp-page="/Session/Index" asp-page-handler="Activate" asp-route-id="@item.Id" asp-route-classId="@item.ClassTemplateId">فعالسازی</a>
                                             }
                                         </td>
                                     </tr>

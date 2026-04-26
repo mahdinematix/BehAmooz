@@ -1,5 +1,6 @@
 ﻿@page
 @using _01_Framework.Infrastructure
+@using LogManagement.Infrastructure.Configuration.Permissions
 @model ServiceHost.Areas.Administration.Pages.University.IndexModel
 @{
     Layout = "Shared/_AdminLayout";
@@ -110,6 +111,10 @@
                                             <a class="btn btn-primary pull-right m-rl-5"
                                                href="#showmodal=@Url.Page("./Index", "DefineSemester", new { id = item.Id })">
                                                 تنظیم ترم
+                                            </a>
+                                            <a permission="@ActivityLogPermissions.ShowActivityLog" class="btn btn-pink pull-right m-rl-5"
+                                               href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id, semesterId = item.CurrentSemesterId })">
+                                                <i class="fa fa-recycle"></i> تاریخچه عملیات
                                             </a>
                                         </td>
                                     </tr>

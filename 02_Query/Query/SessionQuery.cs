@@ -19,19 +19,65 @@ namespace _02_Query.Query
 
         public List<CartItem> GetItemsByClassId(long classId)
         {
-            return _studyContext.Sessions.Where(x=>x.IsActive).Where(x => x.ClassId == classId).Include(x => x.Class).ThenInclude(x => x.Course).Select(x => new CartItem
-            {
-                Id = x.Id,
-                SessionNumber = x.Number,
-                ClassStartTime = x.Class.StartTime,
-                ClassEndTime = x.Class.EndTime,
-                ClassDay = x.Class.Day,
-                ProfessorFullName = x.Class.ProfessorId.ToString(),
-                CourseName = x.Class.Course.Name,
-                SessionId = x.Id,
-                SessionPrice = x.Class.Course.Price,
-                
-            }).ToList();
+           
+            var templateId = _studyContext.Classes
+                .Where(c => c.Id == classId && c.IsActive)
+                .Select(c => c.ClassTemplateId)
+                .FirstOrDefault();
+
+            if (templateId == 0)
+                return new List<CartItem>();
+
+            
+            var classInfo = _studyContext.Classes
+                .Where(c => c.Id == classId)
+                .Select(c => new { c.StartTime, c.EndTime, c.Day })
+                .FirstOrDefault();
+
+            if (classInfo == null)
+                return new List<CartItem>();
+
+            
+            var templateInfo = _studyContext.ClassTemplates
+                .Where(t => t.Id == templateId)
+                .Select(t => new { t.CourseId, t.ProfessorId })
+                .FirstOrDefault();
+
+            if (templateInfo == null)
+                return new List<CartItem>();
+
+            
+            var courseInfo = _studyContext.Courses
+                .Where(c => c.Id == templateInfo.CourseId)
+                .Select(c => new { c.Name, c.Price })
+                .FirstOrDefault();
+
+            if (courseInfo == null)
+                return new List<CartItem>();
+
+            
+            var professorName = _studyContext.Set<AccountManagement.Domain.AccountAgg.Account>()
+                .Where(a => a.Id == templateInfo.ProfessorId)
+                .Select(a => a.FirstName + " " + a.LastName)
+                .FirstOrDefault() ?? "";
+
+           
+            return _studyContext.Sessions
+                .Where(s => s.IsActive && s.ClassTemplateId == templateId)
+                .Select(s => new CartItem
+                {
+                    Id = s.Id,
+                    SessionId = s.Id,
+                    SessionNumber = s.Number,
+                    ClassStartTime = classInfo.StartTime,
+                    ClassEndTime = classInfo.EndTime,
+                    ClassDay = classInfo.Day,
+                    ProfessorFullName = professorName,
+                    CourseName = courseInfo.Name,
+                    SessionPrice = courseInfo.Price
+                })
+                .OrderBy(x => x.SessionNumber)
+                .ToList();
         }
 
         public SessionQueryModel GetSessionById(long sessionId)
@@ -40,7 +86,7 @@ namespace _02_Query.Query
             {
                 Id = x.Id,
                 Booklet = x.Booklet,
-                ClassId = x.ClassId,
+                ClassTemplateId = x.ClassTemplateId,
                 Description = x.Description,
                 IsActive = x.IsActive,
                 Number = x.Number,

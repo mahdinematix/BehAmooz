@@ -19,62 +19,69 @@ namespace _02_Query.Query
 
         public List<ClassQueryModel> GetClassesByCourseId(long courseId)
         {
-            var accounts = _accountContext.Accounts.Select(x => new AccountViewModel
-            {
-                Id = x.Id,
-                FullName = x.FirstName + " " + x.LastName
-            });
-            var classes =  _studyContext.Classes.Where(x => x.IsActive).Where(x=>x.CourseId == courseId).Select(x => new ClassQueryModel
-            {
-                Id = x.Id,
-                Code = x.Code,
-                CourseId = x.CourseId,
-                Day = x.Day,
-                StartTime = x.StartTime,
-                EndTime = x.EndTime,
-                IsActive = x.IsActive,
-                ProfessorId = x.ProfessorId,
-                SessionsCount = x.Sessions.Count(x=>x.IsActive),
-            }).OrderByDescending(x=>x.Id).ToList();
+            var accounts = _accountContext.Accounts
+                .Select(a => new { a.Id, FullName = a.FirstName + " " + a.LastName })
+                .ToList();
+
+            var classes = (
+                    from c in _studyContext.Classes
+                    join t in _studyContext.ClassTemplates on c.ClassTemplateId equals t.Id
+                    where c.IsActive && t.CourseId == courseId
+                    select new ClassQueryModel
+                    {
+                        Id = c.Id,
+                        Code = c.Code,
+                        Day = c.Day,
+                        StartTime = c.StartTime,
+                        EndTime = c.EndTime,
+                        IsActive = c.IsActive,
+                        CourseId = t.CourseId,
+                        ProfessorId = t.ProfessorId,
+                        SessionsCount = _studyContext.Sessions.Count(s => s.ClassTemplateId == t.Id && s.IsActive)
+                    })
+                .OrderByDescending(x => x.Id)
+                .ToList();
 
             classes.ForEach(item =>
             {
-                item.ProfessorFullName = accounts.FirstOrDefault(x => x.Id == item.ProfessorId)?.FullName;
+                item.ProfessorFullName = accounts.FirstOrDefault(a => a.Id == item.ProfessorId)?.FullName;
             });
+
             return classes;
         }
 
         public ClassQueryModel GetClassById(long classId)
         {
-            var accounts = _accountContext.Accounts.Select(x => new AccountViewModel
-            {
-                Id = x.Id,
-                FullName = x.FirstName + " " + x.LastName
-            });
-            var classs = _studyContext.Classes.Select(x => new ClassQueryModel
-            {
-                Id = x.Id,
-                Code = x.Code,
-                CourseId = x.CourseId,
-                Day = x.Day,
-                StartTime = x.StartTime,
-                EndTime = x.EndTime,
-                IsActive = x.IsActive,
-                ProfessorId = x.ProfessorId,
-                SessionsCount = x.Sessions.Count
-            }).FirstOrDefault(x => x.Id == classId);
+            var accounts = _accountContext.Accounts
+                .Select(a => new { a.Id, FullName = a.FirstName + " " + a.LastName })
+                .ToList();
 
-                classs.ProfessorFullName = accounts.FirstOrDefault(x => x.Id == classs.ProfessorId)?.FullName;
+            var classs = (
+                    from c in _studyContext.Classes
+                    join t in _studyContext.ClassTemplates on c.ClassTemplateId equals t.Id
+                    where c.Id == classId
+                    select new ClassQueryModel
+                    {
+                        Id = c.Id,
+                        Code = c.Code,
+                        Day = c.Day,
+                        StartTime = c.StartTime,
+                        EndTime = c.EndTime,
+                        IsActive = c.IsActive,
+
+                        CourseId = t.CourseId,
+                        ProfessorId = t.ProfessorId,
+
+                        SessionsCount = _studyContext.Sessions.Count(s => s.ClassTemplateId == t.Id)
+                    })
+                .FirstOrDefault();
+
+            if (classs == null) return null;
+
+            classs.ProfessorFullName = accounts.FirstOrDefault(a => a.Id == classs.ProfessorId)?.FullName;
             return classs;
         }
 
-        public CourseQueryModel GetCourseNameAndPriceByClassId(long courseId)
-        {
-            return _studyContext.Courses.Where(x=>x.Id==courseId).Select(x=> new CourseQueryModel
-            {
-                Name = x.Name,
-                Price = x.Price
-            }).FirstOrDefault();
-        }
+        
     }
 }

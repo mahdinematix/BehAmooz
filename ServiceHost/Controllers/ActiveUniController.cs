@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using _01_Framework.Application;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudyManagement.Application.Contracts.University;
 
-namespace ServiceHost.Pages
+namespace ServiceHost.Controllers
 {
-    public class UniController : Controller
+    public class ActiveUniController : Controller
     {
         private readonly IUniversityApplication _universityApplication;
 
-        public UniController(IUniversityApplication universityApplication)
+        public ActiveUniController(IUniversityApplication universityApplication)
         {
             _universityApplication = universityApplication;
         }
@@ -22,7 +23,8 @@ namespace ServiceHost.Pages
 
         private List<SelectListItem> GetUnis(int typeId = 0)
         {
-            List<SelectListItem> lstUnis = _universityApplication.GetUniversitiesByType(typeId).Select(n =>
+            List<SelectListItem> lstUnis = _universityApplication.GetActiveUniversitiesByTypeId(typeId)
+                .Select(n =>
                     new SelectListItem
                     {
                         Value = n.Id.ToString(),
@@ -32,7 +34,7 @@ namespace ServiceHost.Pages
             var defItem = new SelectListItem
             {
                 Value = "0",
-                Text = "دانشگاه را انتخاب کنید"
+                Text = ApplicationMessages.SelectYourUniversity
             };
 
             lstUnis.Insert(0, defItem);

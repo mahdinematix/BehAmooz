@@ -8,6 +8,7 @@ namespace AccountManagement.Domain.AccountAgg
         EditAccount GetDetails(long id);
         List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId, int currentAccountTypeUniversity);
         Account GetByNationalCode(string nationalCode);
+        string GetPhoneNumberByNationalCode(string nationalCode);
         List<AccountViewModel> GetProfessors(string currentAccountRole, long currentAccountUniversityId);
         string GetProfessorById(long professorId);
         List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel);

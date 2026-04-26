@@ -12,10 +12,11 @@ namespace StudyManagement.Application.Contracts.Class
         List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId);
         List<ClassViewModel> GetClasses(long classId);
         ClassViewModel GetClassById(long id);
-        OperationResult Copy(CopyClass command, long currentAccountId);
+        OperationResult Copy(CopyClassTemplate command, long currentAccountId);
         string GetClassCodeById(long id);
         List<ClassViewModel> GetClassesForCopy(long classId);
-        string GetCourseNameByClassId(long classId);
         ClassInfoForCopy GetClassInfoByClassCode(string classCode);
+        long GetTemplateIdByClassId(long classId);
+
     }
 }

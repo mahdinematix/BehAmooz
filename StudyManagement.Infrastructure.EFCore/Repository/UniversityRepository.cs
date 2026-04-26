@@ -98,5 +98,15 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Name = x.Name
             }).ToList();
         }
+
+        public int GetTypeByUniversityId(long universityId)
+        {
+            return _context.Universities.Where(x => x.Id == universityId).FirstOrDefault().Type;
+        }
+
+        public List<long> GetUniversityIdsByType(int typeId)
+        {
+            return _context.Universities.Where(x => x.Type == typeId).Select(x => x.Id).ToList();
+        }
     }
 }

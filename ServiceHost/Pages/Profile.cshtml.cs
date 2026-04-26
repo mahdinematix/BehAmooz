@@ -55,13 +55,6 @@ namespace ServiceHost.Pages
             var result = _accountApplication.Edit(command);
             IsSucceeded = result.Result.IsSucceeded;
             Message = result.Result.Message;
-            var loginDto = new Login
-            {
-                NationalCode = CurrentAccountNationalCode,
-                Password = CurrentAccountPassword
-            };
-            _accountApplication.Logout();
-            _accountApplication.Login(loginDto);
             UniTypes = GetUniTypes();
             Unis = GetUnis(Command.UniversityType);
             return Page();

@@ -42,6 +42,8 @@ namespace StudyManagement.Infrastructure.Configuration
 
             services.AddTransient<IClassApplication, ClassApplication>();
             services.AddTransient<IClassRepository, ClassRepository>();
+            services.AddTransient<IClassTemplateRepository, ClassTemplateRepository>();
+
 
             services.AddTransient<ISessionApplication, SessionApplication>();
             services.AddTransient<ISessionRepository, SessionRepository>();

@@ -1,5 +1,6 @@
 ﻿using _01_Framework.Infrastructure;
 using AccountManagement.Application;
+using AccountManagement.Application.Contract;
 using AccountManagement.Application.Contract.Account;
 using AccountManagement.Application.Contract.Role;
 using AccountManagement.Application.Contract.Wallet;
@@ -28,6 +29,9 @@ namespace AccountManagement.Infrastructure.Configuration
             services.AddTransient<IWalletApplication, WalletApplication>();
 
             services.AddTransient<IPermissionExposer, AccountPermissionExposer>();
+
+
+            services.AddTransient<IOtpApplication, OtpApplication>();
 
 
             services.AddDbContext<AccountContext>(x => x.UseSqlServer(connectionString));

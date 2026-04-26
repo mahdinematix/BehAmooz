@@ -19,6 +19,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="106.11.4" />
     <PackageReference Include="SmsIrRestful" Version="1.1.3" />
+    <PackageReference Include="stackexchange.redis" Version="2.12.14" />
   </ItemGroup>
 
 </Project>

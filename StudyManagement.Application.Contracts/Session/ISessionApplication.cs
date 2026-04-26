@@ -9,8 +9,8 @@ namespace StudyManagement.Application.Contracts.Session
         OperationResult Activate(long id, long currentAccountId);
         OperationResult DeActivate(long id, long currentAccountId);
         EditSession GetDetails(long id);
-        List<SessionViewModel> GetAllByClassId(long classId);
+        List<SessionViewModel> GetAllByClassTemplateId(long classTemplateId);
         SessionViewModel GetBySessionId(long sessionId);
-        bool HasAnySessionsByClassId(long classId);
+        bool HasAnySessionsByClassTemplateId(long classTemplateId);
     }
 }

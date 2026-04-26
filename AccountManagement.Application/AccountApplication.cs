@@ -45,6 +45,11 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.InvalidNationalCode);
             }
 
+            if (!IsPhoneNumber(command.PhoneNumber))
+            {
+                return operation.Failed(ApplicationMessages.WrongPhoneNumberFormat);
+            }
+
 
             var password = _passwordHasher.Hash(command.Password);
             var fileUrlForNationalCardPicture = await _FileManager.Upload(command.NationalCardPicture, false);
@@ -82,6 +87,10 @@ namespace AccountManagement.Application
             if (!IsValidNationalCode(command.NationalCode))
             {
                 return operation.Failed(ApplicationMessages.InvalidNationalCode);
+            }
+            if (!IsPhoneNumber(command.PhoneNumber))
+            {
+                return operation.Failed(ApplicationMessages.WrongPhoneNumberFormat);
             }
             var fileUrlForNationalCardPicture = await _FileManager.Upload(command.NationalCardPicture, false);
             account.Edit(command.FirstName, command.LastName, command.Email, command.PhoneNumber,
@@ -228,7 +237,7 @@ namespace AccountManagement.Application
             return _accountRepository.Search(searchModel, currentAccountRole, currentAccountUniversityId, currentAccountTypeUniversity);
         }
 
-        public OperationResult Login(Login command)
+        public OperationResult FirstLogin(FirstLogin command)
         {
             var operation = new OperationResult();
             var account = _accountRepository.GetByNationalCode(command.NationalCode);
@@ -244,20 +253,30 @@ namespace AccountManagement.Application
                 return operation.Failed(ApplicationMessages.WrongPasswordOrUsername);
             }
 
+           
+            return operation.Succeed();
+        }
+        public async Task FinalLogin(string nationalCode)
+        {
+            var account = _accountRepository.GetByNationalCode(nationalCode);
+            if (account == null)
+            {
+                return;
+            }
+
             var permissions = _roleRepository.GetBy(account.RoleId)
                 .Permissions
                 .Select(x => x.Code)
                 .ToList();
             var fullname = account.FirstName + " " + account.LastName;
-            var authViewModel = new AuthViewModel(account.Id, account.RoleId, fullname, account.NationalCode, account.Code, account.UniversityTypeId, account.UniversityId, account.MajorId, account.NationalCardPicture, account.Status, account.PhoneNumber, account.Email, permissions, command.Password, account.EducationLevel);
+            var authViewModel = new AuthViewModel(account.Id, account.RoleId, fullname, account.NationalCode, account.Code, account.UniversityTypeId, account.UniversityId, account.MajorId, account.NationalCardPicture, account.Status, account.PhoneNumber, account.Email, permissions, account.EducationLevel);
 
-            _authHelper.Signin(authViewModel);
-            return operation.Succeed();
+            await _authHelper.Signin(authViewModel);
         }
 
-        public void Logout()
+        public async Task Logout()
         {
-            _authHelper.SignOut();
+            await _authHelper.SignOut();
         }
 
         public List<AccountViewModel> GetProfessors(string currentAccountRole, long currentAccountUniversityId)
@@ -280,6 +299,11 @@ namespace AccountManagement.Application
             return _accountRepository.SearchInCustomers(searchModel);
         }
 
+        public string GetPhoneNumberByNationalCode(string nationalCode)
+        {
+            return _accountRepository.GetPhoneNumberByNationalCode(nationalCode);
+        }
+
         private bool IsValidNationalCode(string nationalCode)
         {
             if (string.IsNullOrWhiteSpace(nationalCode) || nationalCode.Length != 10)
@@ -293,7 +317,7 @@ namespace AccountManagement.Application
         "0000000000", "1111111111", "2222222222", "3333333333",
         "4444444444", "5555555555", "6666666666", "7777777777",
         "8888888888", "9999999999"
-    };
+            };
 
             if (invalidCodes.Contains(nationalCode))
                 return false;
@@ -310,5 +334,15 @@ namespace AccountManagement.Application
             return (remainder < 2 && checkDigit == remainder) ||
                    (remainder >= 2 && checkDigit == 11 - remainder);
         }
+        private bool IsPhoneNumber(string mobile)
+        {
+            if (string.IsNullOrWhiteSpace(mobile))
+                return false;
+
+            mobile = mobile.Trim();
+            string pattern = @"^(0?9\d{9}|(\+?98)?9\d{9})$";
+            return System.Text.RegularExpressions.Regex.IsMatch(mobile, pattern);
+        }
+
     }
 }

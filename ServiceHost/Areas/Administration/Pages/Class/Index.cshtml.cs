@@ -23,6 +23,7 @@ namespace ServiceHost.Areas.Administration.Pages.Class
         public List<ClassViewModel> Classes;
         public SelectList Professors;
         public CourseViewModel Course { get; set; }
+        public long ClassTemplateId { get; set; }
 
         public IndexModel(ICourseApplication courseApplication, IClassApplication classApplication, IAccountApplication accountApplication, IAuthHelper authHelper, ILogApplication logApplication, ISessionApplication sessionApplication):base(authHelper)
         {
@@ -64,7 +65,7 @@ namespace ServiceHost.Areas.Administration.Pages.Class
 
         public IActionResult OnGetCopyCheck(long id)
         {
-            var hasSessions = _sessionApplication.HasAnySessionsByClassId(id);
+            var hasSessions = _sessionApplication.HasAnySessionsByClassTemplateId(id);
             if (!hasSessions)
                 return new JsonResult(new { isSucceeded = false, message = ApplicationMessages.TheClassHasNotAnySessions });
 
@@ -73,7 +74,7 @@ namespace ServiceHost.Areas.Administration.Pages.Class
 
         public IActionResult OnGetCopy(long id)
         {
-            var command = new CopyClass
+            var command = new CopyClassTemplate
             {
                 Classes = _classApplication.GetClasses(id),
                 ClassCode = _classApplication.GetClassCodeById(id),
@@ -82,7 +83,7 @@ namespace ServiceHost.Areas.Administration.Pages.Class
             return Partial("Copy", command);
         }
 
-        public IActionResult OnPostCopy(CopyClass command)
+        public IActionResult OnPostCopy(CopyClassTemplate command)
         {
             var result = _classApplication.Copy(command,CurrentAccountId);
             return new JsonResult(result);
@@ -109,9 +110,9 @@ namespace ServiceHost.Areas.Administration.Pages.Class
         }
 
         [NeedsPermissions(ActivityLogPermissions.ShowActivityLog)]
-        public IActionResult OnGetLogs(long id)
+        public IActionResult OnGetLogs(long id, long courseId)
         {
-            var logs = _logApplication.GetClassLogsById(id);
+            var logs = _logApplication.GetClassLogsById(id, courseId);
             return Partial("./Logs", logs);
         }
     }

@@ -13,6 +13,8 @@ namespace ServiceHost.Areas.Administration.Pages.Session
         private readonly IFileManager _fileManager;
         public EditSession Command;
         public ClassViewModel Class;
+        public long ClassTemplateId { get; set; }
+
         [TempData] public string Message { get; set; }
 
         public EditModel(ISessionApplication sessionApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper):base(authHelper)
@@ -35,12 +37,15 @@ namespace ServiceHost.Areas.Administration.Pages.Session
             }
             Command = _sessionApplication.GetDetails(id);
             Class = _classApplication.GetClassById(classId);
+            ClassTemplateId = _classApplication.GetTemplateIdByClassId(classId);
+
             return Page();
         }
 
         public IActionResult OnPost(EditSession command, long classId)
         {
-            command.ClassId = classId;
+            var templateId = _classApplication.GetTemplateIdByClassId(classId);
+            command.ClassTemplateId = templateId;
             var result = _sessionApplication.Edit(command, CurrentAccountId);
             if (result.Result.IsSucceeded)
             {

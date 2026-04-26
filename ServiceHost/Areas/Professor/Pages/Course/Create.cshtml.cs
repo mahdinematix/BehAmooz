@@ -41,7 +41,7 @@ namespace ServiceHost.Areas.Professor.Pages.Course
             var result = _courseApplication.Create(command, CurrentAccountId);
             if (result.IsSucceeded)
             {
-                return RedirectToPage("./Index");
+                return RedirectToPage("./Index", new { universityId = UniversityId });
             }
             Message = result.Message;
             return RedirectToPage("./Create");

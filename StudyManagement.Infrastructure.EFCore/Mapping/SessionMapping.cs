@@ -17,7 +17,7 @@ namespace StudyManagement.Infrastructure.EFCore.Mapping
             builder.Property(x => x.Booklet).HasMaxLength(1000);
             builder.Property(x => x.Description).HasMaxLength(5000);
 
-            builder.HasOne(x => x.Class).WithMany(x => x.Sessions).HasForeignKey(x => x.ClassId);
+            builder.HasOne(x => x.ClassTemplate).WithMany(x => x.Sessions).HasForeignKey(x => x.ClassTemplateId);
 
             builder.HasMany(x => x.SessionPictures).WithOne(x => x.Session).HasForeignKey(x => x.SessionId);
         }

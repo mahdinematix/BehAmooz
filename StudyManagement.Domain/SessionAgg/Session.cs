@@ -11,12 +11,12 @@ namespace StudyManagement.Domain.SessionAgg
         public string Video { get; private set; }
         public string Booklet { get; private set; }
         public string Description { get; private set; }
-        public long ClassId { get; private set; }
+        public long ClassTemplateId { get; private set; }
         public bool IsActive { get; private set; }
-        public Class Class { get; private set; }
-        public ICollection<SessionPicture> SessionPictures { get; private set; }
+        public ClassTemplate ClassTemplate { get; private set; }
+        public List<SessionPicture> SessionPictures { get; private set; }
 
-        public Session(int number, string title, string video, string booklet, string description, long classId)
+        public Session(int number, string title, string video, string booklet, string description, long classTemplateId)
         {
             Number = number;
             Title = title;
@@ -45,7 +45,7 @@ namespace StudyManagement.Domain.SessionAgg
             {
                 Description = "";
             }
-            ClassId = classId;
+            ClassTemplateId = classTemplateId;
             IsActive = true;
             SessionPictures = new List<SessionPicture>();
         }
@@ -67,7 +67,7 @@ namespace StudyManagement.Domain.SessionAgg
                 Description = description;
             }
             
-            ClassId = classId;
+            ClassTemplateId = classId;
         }
 
         public void Activate()

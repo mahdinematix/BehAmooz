@@ -1,4 +1,4 @@
-using _01_Framework.Application;
+﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Account;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +8,10 @@ namespace ServiceHost.Pages
     public class LoginModel : UserContextPageModel
     {
         private readonly IAccountApplication _accountApplication;
-        public Login Command;
+        public FirstLogin Command;
 
-        public LoginModel(IAccountApplication accountApplication, IAuthHelper authHelper):base(authHelper)
+
+        public LoginModel(IAccountApplication accountApplication, IAuthHelper authHelper, IHttpClientFactory httpClientFactory):base(authHelper)
         {
             _accountApplication = accountApplication;
         }
@@ -44,24 +45,28 @@ namespace ServiceHost.Pages
                 }
             }
 
+
             return Page();
         }
 
-        public IActionResult OnPost(Login command)
+        public async Task<IActionResult> OnPost(FirstLogin command)
         {
-            var result = _accountApplication.Login(command);
+            var result = _accountApplication.FirstLogin(command);
 
             if (result.IsSucceeded)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/SMS", new{ nationalCode = command.NationalCode});
             }
             LoginMessage = result.Message;
+
             return RedirectToPage("/Login");
         }
 
-        public IActionResult OnGetLogout()
+       
+
+        public async Task<IActionResult> OnGetLogout()
         {
-            _accountApplication.Logout();
+            await _accountApplication.Logout();
             TempData.Remove("AdminFirstRedirect");
             return RedirectToPage("/Login");
         }

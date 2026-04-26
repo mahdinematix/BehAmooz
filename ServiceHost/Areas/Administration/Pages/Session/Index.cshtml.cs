@@ -17,6 +17,8 @@ namespace ServiceHost.Areas.Administration.Pages.Session
 
         public List<SessionViewModel> Sessions;
         public ClassViewModel Class { get; set; }
+        public long ClassTemplateId { get; set; }
+
 
 
         public IndexModel(IClassApplication classApplication, ISessionApplication sessionApplication, IAuthHelper authHelper, ILogApplication logApplication):base(authHelper)
@@ -37,8 +39,10 @@ namespace ServiceHost.Areas.Administration.Pages.Session
             {
                 return RedirectToPage("/Reject");
             }
-            Sessions = _sessionApplication.GetAllByClassId(classId);
+            Sessions = _sessionApplication.GetAllByClassTemplateId(classId);
             Class = _classApplication.GetClassById(classId);
+            ClassTemplateId = _classApplication.GetTemplateIdByClassId(classId);
+
             return Page();
         }
         public IActionResult OnGetActivate(long id, long classId)
@@ -54,9 +58,9 @@ namespace ServiceHost.Areas.Administration.Pages.Session
         }
 
         [NeedsPermissions(ActivityLogPermissions.ShowActivityLog)]
-        public IActionResult OnGetLogs(long id)
+        public IActionResult OnGetLogs(long id, long classId)
         {
-            var logs = _logApplication.GetSessionLogsById(id);
+            var logs = _logApplication.GetSessionLogsById(id, classId);
             return Partial("./Logs", logs);
         }
     }

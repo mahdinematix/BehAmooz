@@ -14,6 +14,7 @@ namespace StudyManagement.Infrastructure.EFCore
     public class StudyContext : DbContext
     {
         public DbSet<Course> Courses { get; set; }
+        public DbSet<ClassTemplate> ClassTemplates { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionPicture> SessionPictures { get; set; }

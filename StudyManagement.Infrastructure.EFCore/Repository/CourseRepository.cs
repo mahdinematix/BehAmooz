@@ -18,8 +18,9 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
         public List<CourseViewModel> Search(CourseSearchModel searchModel, long universityId, long currentAccountId, string currentAccountRole)
         {
             var coursesQuery = _context.Courses
-                    .Include(x => x.Classes).Include(x => x.Semester).Where(x => x.UniversityId == universityId)
-                    .AsQueryable();
+                .Include(x => x.Semester)
+                .Where(x => x.UniversityId == universityId)
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
                 coursesQuery = coursesQuery.Where(x => x.Name.Contains(searchModel.Name));
@@ -27,7 +28,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             if (!string.IsNullOrWhiteSpace(searchModel.Code))
                 coursesQuery = coursesQuery.Where(x => x.Code == searchModel.Code);
 
-            if (searchModel.CourseKind != "0" && searchModel.CourseKind != null)
+            if (!string.IsNullOrWhiteSpace(searchModel.CourseKind) && searchModel.CourseKind != "0")
                 coursesQuery = coursesQuery.Where(x => x.CourseKind == searchModel.CourseKind);
 
             if (searchModel.Major > 0)
@@ -40,31 +41,63 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 coursesQuery = coursesQuery.Where(x => x.SemesterId == searchModel.SemesterId);
 
             var courses = coursesQuery
-                .AsEnumerable()
-                .Select(x => new CourseViewModel
+                .Select(x => new
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Code = x.Code,
-                    NumberOfUnit = x.NumberOfUnit,
-                    CourseKind = x.CourseKind,
-                    IsActive = x.IsActive,
-                    CreationDate = x.CreationDate.ToFarsi(),
-                    ClassesCount = currentAccountRole == Roles.Professor
-                        ? x.Classes.Count(c => c.ProfessorId == currentAccountId)
-                        : x.Classes.Count,
-                    Major = x.Major,
-                    Price = x.Price,
-                    EducationLevel = x.EducationLevel,
+                    x.Id,
+                    x.Name,
+                    x.Code,
+                    x.NumberOfUnit,
+                    x.CourseKind,
+                    x.IsActive,
+                    x.CreationDate,
+                    x.Major,
+                    x.Price,
+                    x.EducationLevel,
                     SemesterCode = x.Semester.Code,
-                    SemesterId = x.SemesterId,
-                    UniversityId = x.UniversityId,
-                    UniversityName = x.University.Name
+                    x.SemesterId,
+                    x.UniversityId
                 })
                 .OrderByDescending(x => x.Id)
                 .ToList();
 
-            return courses;
+            var courseIds = courses.Select(x => x.Id).ToList();
+
+            var classCountsQuery =
+                from t in _context.ClassTemplates
+                join c in _context.Classes on t.Id equals c.ClassTemplateId
+                where courseIds.Contains(t.CourseId)
+                select new
+                {
+                    t.CourseId,
+                    t.ProfessorId,
+                    ClassId = c.Id
+                };
+
+            if (currentAccountRole == Roles.Professor)
+                classCountsQuery = classCountsQuery.Where(x => x.ProfessorId == currentAccountId);
+
+            var classCounts = classCountsQuery
+                .GroupBy(x => x.CourseId)
+                .Select(g => new { CourseId = g.Key, Count = g.Count() })
+                .ToDictionary(x => x.CourseId, x => x.Count);
+
+            return courses.Select(x => new CourseViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Code = x.Code,
+                NumberOfUnit = x.NumberOfUnit,
+                CourseKind = x.CourseKind,
+                IsActive = x.IsActive,
+                CreationDate = x.CreationDate.ToFarsi(),
+                ClassesCount = classCounts.TryGetValue(x.Id, out var cnt) ? cnt : 0,
+                Major = x.Major,
+                Price = x.Price,
+                EducationLevel = x.EducationLevel,
+                SemesterCode = x.SemesterCode,
+                SemesterId = x.SemesterId,
+                UniversityId = x.UniversityId
+            }).ToList();
         }
 
         public EditCourse GetDetails(long id)
