@@ -1,5 +1,6 @@
 ﻿using _02_Query.Contracts.Session;
 using _02_Query.Contracts.SessionPicture;
+using AccountManagement.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using StudyManagement.Application.Contracts.Order;
 using StudyManagement.Domain.SessionPictureAgg;
@@ -11,10 +12,12 @@ namespace _02_Query.Query
     {
 
         private readonly StudyContext _studyContext;
+        private readonly AccountContext _accountContext;
 
-        public SessionQuery(StudyContext studyContext)
+        public SessionQuery(StudyContext studyContext, AccountContext accountContext)
         {
             _studyContext = studyContext;
+            _accountContext = accountContext;
         }
 
         public List<CartItem> GetItemsByClassId(long classId)
@@ -56,7 +59,7 @@ namespace _02_Query.Query
                 return new List<CartItem>();
 
             
-            var professorName = _studyContext.Set<AccountManagement.Domain.AccountAgg.Account>()
+            var professorName = _accountContext.Accounts
                 .Where(a => a.Id == templateInfo.ProfessorId)
                 .Select(a => a.FirstName + " " + a.LastName)
                 .FirstOrDefault() ?? "";

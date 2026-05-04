@@ -17,7 +17,7 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             _accountContext = accountContext;
         }
 
-        public int GetAmountBy(long id)
+        public long GetAmountBy(long id)
         {
             var result = _context.Orders.Select(x => new {x.TotalAmount, x.Id}).FirstOrDefault(x => x.Id == id);
             if (result != null)

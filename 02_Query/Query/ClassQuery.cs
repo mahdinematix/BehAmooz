@@ -1,6 +1,5 @@
-﻿using _02_Query.Contracts.Class;
-using _02_Query.Contracts.Course;
-using AccountManagement.Application.Contract.Account;
+﻿using _01_Framework.Infrastructure;
+using _02_Query.Contracts.Class;
 using AccountManagement.Infrastructure.EFCore;
 using StudyManagement.Infrastructure.EFCore;
 
@@ -19,7 +18,7 @@ namespace _02_Query.Query
 
         public List<ClassQueryModel> GetClassesByCourseId(long courseId)
         {
-            var accounts = _accountContext.Accounts
+            var accounts = _accountContext.Accounts.Where(x => x.RoleId.ToString() == Roles.Professor)
                 .Select(a => new { a.Id, FullName = a.FirstName + " " + a.LastName })
                 .ToList();
 
@@ -32,6 +31,7 @@ namespace _02_Query.Query
                         Id = c.Id,
                         Code = c.Code,
                         Day = c.Day,
+                        ClassTemplateId = c.ClassTemplateId,
                         StartTime = c.StartTime,
                         EndTime = c.EndTime,
                         IsActive = c.IsActive,
@@ -50,16 +50,15 @@ namespace _02_Query.Query
             return classes;
         }
 
-        public ClassQueryModel GetClassById(long classId)
+        public ClassQueryModel GetClassTemplateById(long classTemplateId)
         {
             var accounts = _accountContext.Accounts
                 .Select(a => new { a.Id, FullName = a.FirstName + " " + a.LastName })
                 .ToList();
-
             var classs = (
                     from c in _studyContext.Classes
                     join t in _studyContext.ClassTemplates on c.ClassTemplateId equals t.Id
-                    where c.Id == classId
+                    where t.Id == classTemplateId
                     select new ClassQueryModel
                     {
                         Id = c.Id,
@@ -81,7 +80,36 @@ namespace _02_Query.Query
             classs.ProfessorFullName = accounts.FirstOrDefault(a => a.Id == classs.ProfessorId)?.FullName;
             return classs;
         }
+        public ClassQueryModel GetClassById(long classId)
+        {
+            var accounts = _accountContext.Accounts.Where(x=>x.RoleId.ToString() == Roles.Professor)
+                .Select(a => new { a.Id, FullName = a.FirstName + " " + a.LastName })
+                .ToList();
+            var classs = (
+                    from c in _studyContext.Classes
+                    join t in _studyContext.ClassTemplates on c.ClassTemplateId equals t.Id
+                    where c.Id == classId
+                    select new ClassQueryModel
+                    {
+                        Id = c.Id,
+                        ClassTemplateId = c.ClassTemplateId,
+                        Code = c.Code,
+                        Day = c.Day,
+                        StartTime = c.StartTime,
+                        EndTime = c.EndTime,
+                        IsActive = c.IsActive,
+                        CourseId = t.CourseId,
+                        ProfessorId = t.ProfessorId,
+                        SessionsCount = _studyContext.Sessions.Count(s => s.ClassTemplateId == t.Id)
+                    })
+                .FirstOrDefault();
 
-        
+            if (classs == null) return null;
+
+            classs.ProfessorFullName = accounts.FirstOrDefault(a => a.Id == classs.ProfessorId)?.FullName;
+            return classs;
+        }
+
+
     }
 }

@@ -33,7 +33,7 @@ namespace ServiceHost.Areas.Administration.Pages.SelectUniversity
 
             if (CurrentAccountRole!=Roles.SuperAdministrator)
             {
-                return RedirectToPage("/CourseName/Index", new { area = "Administration", universityId = CurrentAccountUniversityId });
+                return RedirectToPage("/Course/Index", new { area = "Administration", universityId = CurrentAccountUniversityId });
             }
 
             UniTypes = GetUniTypes();

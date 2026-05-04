@@ -5,7 +5,7 @@ namespace StudyManagement.Domain.OrderAgg
 {
     public interface IOrderRepository : IRepositoryBase<long , Order>
     {
-        int GetAmountBy(long id);
+        long GetAmountBy(long id);
         List<OrderViewModel> Search(OrderSearchModel searchModel);
         List<OrderItemViewModel> GetItems(long orderId);
     }

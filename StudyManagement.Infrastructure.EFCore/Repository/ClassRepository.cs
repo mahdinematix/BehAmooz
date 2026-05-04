@@ -10,13 +10,12 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
     {
         private readonly StudyContext _context;
         private readonly AccountContext _accountContext;
-        private readonly IAuthHelper _authHelper;
 
-        public ClassRepository(StudyContext context, AccountContext accountContext, IAuthHelper authHelper) : base(context)
+        public ClassRepository(StudyContext context, AccountContext accountContext) : base(context)
         {
             _context = context;
             _accountContext = accountContext;
-            _authHelper = authHelper;
+
         }
 
         public EditClass GetDetails(long id)
@@ -35,10 +34,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 .FirstOrDefault(x => x.Id == id);
         }
 
-        public List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId)
+        public List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId, long currentAccountId, string currentAccountRole)
         {
-            var accountId = _authHelper.CurrentAccountId();
-            var role = _authHelper.CurrentAccountRole();
 
             var query =
                 from c in _context.Classes
@@ -65,8 +62,8 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
             query = query.Where(x => x.CourseId == courseId);
 
             
-            if (role == Roles.Professor)
-                query = query.Where(x => x.ProfessorId == accountId);
+            if (currentAccountRole == Roles.Professor)
+                query = query.Where(x => x.ProfessorId == currentAccountId);
 
             
             if (!string.IsNullOrWhiteSpace(searchModel.Code))
@@ -100,7 +97,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
 
             return result;
         }
-
         public List<ClassViewModel> GetClasses(long classId)
         {
             return _context.Classes.Where(x => x.Id != classId).Select(x => new ClassViewModel
@@ -109,7 +105,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 Code = x.Code
             }).ToList();
         }
-
         public ClassViewModel GetClassById(long id)
         {
             return (from c in _context.Classes
@@ -123,34 +118,14 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                     DayId = c.Day,
                     StartTime = c.StartTime,
                     EndTime = c.EndTime,
-
                     ClassTemplateId = c.ClassTemplateId,
                     CourseId = crs.Id,
                     CourseName = crs.Name,
                     ProfessorId = t.ProfessorId,
-
                     SessionsCount = _context.Sessions.Count(s => s.ClassTemplateId == t.Id)
                 }).FirstOrDefault();
         }
 
-        public string GetClassCodeById(long id)
-        {
-            return _context.Classes.FirstOrDefault(x => x.Id == id).Code;
-        }
-
-        public List<ClassViewModel> GetClassesForCopy(long classId)
-        {
-            var currentProfessorId = _authHelper.CurrentAccountId();
-
-            return (from c in _context.Classes
-                join t in _context.ClassTemplates on c.ClassTemplateId equals t.Id
-                where t.ProfessorId == currentProfessorId && c.Id != classId
-                select new ClassViewModel
-                {
-                    Id = c.Id,
-                    Code = c.Code
-                }).ToList();
-        }
         public long GetTemplateIdByClassId(long classId)
         {
             return _context.Classes
@@ -158,39 +133,6 @@ namespace StudyManagement.Infrastructure.EFCore.Repository
                 .Select(x => x.ClassTemplateId)
                 .FirstOrDefault();
         }
-        
-        public Class GetClassByCode(string code)
-        {
-            return _context.Classes.FirstOrDefault(x => x.Code == code);
-        }
-
-
-        public ClassInfoForCopy GetClassInfoByClassCode(string classCode)
-        {
-            var data =
-                (from c in _context.Classes
-                    join t in _context.ClassTemplates on c.ClassTemplateId equals t.Id
-                    join crs in _context.Courses on t.CourseId equals crs.Id
-                    where c.Code == classCode
-                    select new
-                    {
-                        c.Day,
-                        c.StartTime,
-                        c.EndTime,
-                        CourseName = crs.Name
-                    }).FirstOrDefault();
-
-            if (data == null) return null;
-
-            return new ClassInfoForCopy
-            {
-                CourseName = data.CourseName,
-                Day = Days.GetName(data.Day),
-                StartTime = data.StartTime,
-                EndTime = data.EndTime
-            };
-        }
-
         public bool ExistsForProfessorAtTime(long professorId, int day, string startTime, long? excludeClassId = null)
         {
             var query =

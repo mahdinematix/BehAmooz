@@ -1,6 +1,5 @@
 using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
 using StudyManagement.Application.Contracts.SessionPicture;
@@ -18,6 +17,7 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
         public ClassViewModel Class;
         [TempData]
         public string Message { get; set; }
+        [BindProperty] public long ClassId { get; set; }
         public CreateModel(ISessionApplication sessionApplication, IClassApplication classApplication, ISessionPictureApplication sessionPictureApplication, IFileManager fileManager, IAuthHelper authHelper) : base(authHelper)
         {
             _sessionApplication = sessionApplication;
@@ -26,7 +26,7 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
             _fileManager = fileManager;
         }
 
-        public IActionResult OnGet(long sessionId)
+        public IActionResult OnGet(long sessionId, long classId)
         {
             if (CurrentAccountStatus == Statuses.Waiting)
             {
@@ -37,8 +37,10 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
             {
                 return RedirectToPage("/Reject");
             }
+
+            ClassId = classId;
             Session = _sessionApplication.GetBySessionId(sessionId);
-            Class = _classApplication.GetClassById(Session.ClassTemplateId);
+            Class = _classApplication.GetClassById(classId);
             return Page();
         }
 
@@ -48,10 +50,10 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
             var result = _sessionPictureApplication.CreateAsync(command);
             if (result.Result.IsSucceeded)
             {
-                return RedirectToPage("./Index", new { sessionId });
+                return RedirectToPage("./Index", new { sessionId, classId = ClassId });
             }
             Message = result.Result.Message;
-            return RedirectToPage("./Create", new { sessionId });
+            return RedirectToPage("./Create", new { sessionId, classId = ClassId });
         }
 
         public async Task<IActionResult> OnGetCancel(long sessionId)
@@ -59,7 +61,7 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
 
             await _fileManager.Cancel();
             Message = ApplicationMessages.UploadProgressCanceled;
-            return RedirectToPage("./Create", new { sessionId });
+            return RedirectToPage("./Create", new { sessionId, classId = ClassId });
         }
 
 

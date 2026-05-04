@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using _01_Framework.Application;
+﻿using _01_Framework.Application;
 
 namespace StudyManagement.Application.Contracts.Semester
 {
@@ -9,6 +8,5 @@ namespace StudyManagement.Application.Contracts.Semester
         void DefineAutoSemester(long universityId);
         SemesterViewModel GetCurrentSemester(long universityId);
         List<SemesterViewModel> GetSemestersByUniversityId(long universityId);
-        int GetSemesterByCode(long semesterId);
     }
 }

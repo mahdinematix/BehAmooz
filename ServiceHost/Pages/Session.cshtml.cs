@@ -17,8 +17,9 @@ namespace ServiceHost.Pages
         private readonly IOrderQuery _orderQuery;
         private readonly ICourseQuery _courseQuery;
         public SessionQueryModel Session;
-        public ClassQueryModel Class;
+        public ClassQueryModel ClassTemplate;
         public CourseQueryModel Course;
+        [BindProperty] public long ClassId { get; set; }
         public bool ShowSessionDetailsIfPaid { get; set; }
         public bool IsPaid;
         public bool ShowVideoPlayer { get; set; }
@@ -36,7 +37,7 @@ namespace ServiceHost.Pages
             _courseQuery = courseQuery;
         }
 
-        public IActionResult OnGet(long sessionId)
+        public IActionResult OnGet(long sessionId, long classId)
         {
             if (!IsAuthenticated)
             {
@@ -57,11 +58,12 @@ namespace ServiceHost.Pages
             {
                 return RedirectToPage("/Reject");
             }
+            ClassId = classId;
             
             IsPaid = _orderQuery.IsPaid(sessionId);
             Session = _sessionQuery.GetSessionById(sessionId);
-            Class = _classQuery.GetClassById(Session.ClassTemplateId);
-            Course = _courseQuery.GetCourseNameAndPriceById(Class.CourseId);
+            ClassTemplate = _classQuery.GetClassTemplateById(Session.ClassTemplateId);
+            Course = _courseQuery.GetCourseNameAndPriceById(ClassTemplate.CourseId);
             ShowSessionDetailsIfPaid = IsPaid && CurrentAccountRole == Roles.Student;
             ShowVideoPlayer = false;
             CanWatchVideo = false;
@@ -87,8 +89,8 @@ namespace ServiceHost.Pages
             {
                 IsPaid = _orderQuery.IsPaid(sessionId);
                 Session = _sessionQuery.GetSessionById(sessionId);
-                Class = _classQuery.GetClassById(Session.ClassTemplateId);
-                Course = _courseQuery.GetCourseNameAndPriceById(Class.CourseId);
+                ClassTemplate = _classQuery.GetClassTemplateById(Session.ClassTemplateId);
+                Course = _courseQuery.GetCourseNameAndPriceById(ClassTemplate.CourseId);
                 ShowSessionDetailsIfPaid = IsPaid && CurrentAccountRole == Roles.Student;
 
                 if (!ShowSessionDetailsIfPaid)

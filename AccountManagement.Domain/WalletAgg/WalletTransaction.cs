@@ -15,14 +15,14 @@ public class WalletTransaction : EntityBase
     public long WalletId { get; private set; }
     public Wallet Wallet { get; private set; }
 
-    public WalletTransaction(long accountId, long amount, int type, int status, long orderId, string creditCardNo= "")
+    public WalletTransaction(long accountId, long amount, int type, int status, long orderId, string creditCardNo= "", string description = "")
     {
         AccountId = accountId;
         Amount = amount;
         Type = type;
         Status = status;
         CreditCardNo = creditCardNo;
-        Description = "";
+        Description = description;
         OrderId = orderId;
     }
 

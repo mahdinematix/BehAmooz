@@ -3,7 +3,6 @@ using _01_Framework.Infrastructure;
 using LogManagement.Application.Contracts.LogContracts;
 using LogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
 
@@ -39,9 +38,10 @@ namespace ServiceHost.Areas.Administration.Pages.Session
             {
                 return RedirectToPage("/Reject");
             }
-            Sessions = _sessionApplication.GetAllByClassTemplateId(classId);
-            Class = _classApplication.GetClassById(classId);
+
             ClassTemplateId = _classApplication.GetTemplateIdByClassId(classId);
+            Sessions = _sessionApplication.GetAllByClassTemplateId(ClassTemplateId);
+            Class = _classApplication.GetClassById(classId);
 
             return Page();
         }

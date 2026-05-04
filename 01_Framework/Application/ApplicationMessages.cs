@@ -16,8 +16,8 @@ public class ApplicationMessages
     public const string PaymentSuccessful = "پرداخت با موفقیت انجام شد. ممنون از خرید و اعتماد شما.";
     public const string PaymentFailed = "پرداخت با خطا مواجه شد. در صورت کسر از حساب شما، مبلغ نهایتا تا 72 ساعت کاری دیگر به حسابتان باز گردانده می شود.";
 
-    public const string PaymentByCash =
-        "سفارش شما با موفقیت ثبت شد. پس از تماس کارشناسان ما با شما، سفارش ارسال خواهد شد.";
+    public const string PaymentByWallet =
+        "پرداخت از طریق کیف پول انجام شد. لطفا به بخش جلسات من مراجعه فرمایید.";
     public const string InvalidNationalCode = "کد ملی نامعتبر است.";
     public const string RequestedAmountMoreThanYourBalance = "مقدار درخواستی بیشتر از موجودی شماست.";
 
@@ -33,6 +33,8 @@ public class ApplicationMessages
     public static string WrongOtpCode = "کد وارد شده اشتباه است. لطفا مجددا تلاش کنید.";
     public static string WrongPhoneNumberFormat = "فرمت شماره موبایل به اشتباه وارد شده است.";
     public static string ProblemInProgress = "مشکلی در فرایند به‌وجود آمده است. لطفا مجددا تلاش کنید.";
+    public static string PasswordResetSuccess = "بازنشانی رمز عبور با موفقیت انجام شد.";
+    public static string ErrorWhenCreateSecurityToken= "خطا در هنگام ایجاد توکن امنیتی";
 }
 
 

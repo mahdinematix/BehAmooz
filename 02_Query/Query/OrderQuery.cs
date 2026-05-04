@@ -1,5 +1,6 @@
 ﻿using _01_Framework.Application;
 using _02_Query.Contracts.Order;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using StudyManagement.Infrastructure.EFCore;
 
 namespace _02_Query.Query
@@ -35,6 +36,7 @@ namespace _02_Query.Query
                         OrderId = orderItem.OrderId,
                         PayDate = orderItem.CreationDate.ToFarsi(),
                         IsPaid = order.IsPayed,
+                        ClassId = orderItem.ClassId,
                         SessionPrice = orderItem.SessionPrice
                     });
                 }

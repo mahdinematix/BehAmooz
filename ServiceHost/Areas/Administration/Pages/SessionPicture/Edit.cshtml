@@ -1,4 +1,4 @@
-﻿@page "{id}/{sessionId}"
+﻿@page "{id}/{sessionId}/{classId}"
 @model ServiceHost.Areas.Administration.Pages.SessionPicture.EditModel
 @{
     ViewBag.Title = $"ویرایش تصویر جلسه {Model.Session.Number}";
@@ -55,8 +55,8 @@
                     <input type="hidden" asp-for="Command.SessionId" value="@Model.Session.Id" />
                     <input type="hidden" asp-for="Command.Id" value="@Model.Command.Id" />
                     <button type="submit" id="uploadButton" class="btn btn-info waves-effect waves-light">ویرایش</button>
-                    <a id="backButton" asp-page="./Index" asp-route-sessionId="@Model.Command.SessionId" class="btn btn-default waves-effect">بازگشت</a>
-                    <a style="display: none;" id="cancelButton" asp-page-handler="Cancel" asp-route-sessionId="@Model.Command.SessionId" asp-route-id="@Model.Command.Id" class="btn btn-danger">لغو فرایند آپلود</a>
+                    <a id="backButton" asp-page="./Index" asp-route-sessionId="@Model.Command.SessionId" asp-route-classId="@Model.ClassId" class="btn btn-default waves-effect">بازگشت</a>
+                    <a style="display: none;" id="cancelButton" asp-page-handler="Cancel" asp-route-sessionId="@Model.Command.SessionId" asp-route-id="@Model.Command.Id" asp-route-classId="@Model.Class.Id" class="btn btn-danger">لغو فرایند آپلود</a>
                 </form>
             </div>
         </div>

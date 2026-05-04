@@ -26,13 +26,13 @@
 			if (scroll < headerHeight) {
 				sticky.removeClass('is-sticky');
 			} else {
-				sticky.addClass('is-sticky');
+				//sticky.addClass('is-sticky');
             }
             
 			if (scroll < headerHeightAbsolute) {
 				stickyAbsolute.removeClass('is-sticky--absolute');
 			} else {
-				stickyAbsolute.addClass('is-sticky--absolute');
+				//stickyAbsolute.addClass('is-sticky--absolute');
 			}
 		}
 

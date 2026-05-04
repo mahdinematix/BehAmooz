@@ -1,4 +1,4 @@
-﻿@page "{nationalCode}"
+﻿@page "{nationalCode}/{type}"
 @model ServiceHost.Pages.SMSModel
 @{
     Layout = "Shared/_Layout";
@@ -30,6 +30,7 @@
                                             </div>
 
                                             <input type="hidden" asp-for="@Model.NationalCode" value="@Model.NationalCode" />
+                                            <input type="hidden" asp-for="@Model.Type" value="@Model.Type" />
                                             <div class="col-md-12 col-12 text-center">
                                                 <button type="submit" class="btn btn-primary w-100">ورود</button>
                                             </div>
@@ -72,8 +73,8 @@
         resendButton.disabled = true;
         timerText.innerText = "در حال ارسال مجدد کد...";
         try {
-            await fetch(`/SMS?handler=ResendOtp&nationalCode=@Model.NationalCode`);
-            location.reload(); // Refresh page to restart countdown
+            await fetch(`/SMS?handler=ResendOtp&nationalCode=@Model.NationalCode&typeof=@Model.Type`);
+            location.reload();
         } catch (error) {
             timerText.innerText = "ارسال مجدد با مشکل مواجه شد.";
             console.error(error);

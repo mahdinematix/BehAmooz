@@ -1,5 +1,4 @@
 ﻿using _01_Framework.Application;
-using _01_Framework.Application.Sms;
 using AccountManagement.Application.Contract.Wallet;
 using StudyManagement.Application.Contracts.Order;
 using StudyManagement.Domain.OrderAgg;
@@ -8,22 +7,17 @@ namespace StudyManagement.Application
 {
     public class OrderApplication:IOrderApplication
     {
-        private readonly IAuthHelper _authHelper;
         private readonly IOrderRepository _orderRepository;
-        private readonly ISmsService _smsService;
         private readonly IWalletApplication _walletApplication;
 
-        public OrderApplication(IAuthHelper authHelper, IOrderRepository orderRepository,  ISmsService smsService, IWalletApplication walletApplication)
+        public OrderApplication(IOrderRepository orderRepository, IWalletApplication walletApplication)
         {
-            _authHelper = authHelper;
             _orderRepository = orderRepository;
-            _smsService = smsService;
             _walletApplication = walletApplication;
         }
 
-        public long PlaceOrder(Cart cart)
+        public long PlaceOrder(Cart cart, long currentAccountId)
         {
-            var currentAccountId = _authHelper.CurrentAccountId();
             var order = new Order(currentAccountId, cart.FinalAmount);
 
             foreach (var cartItem in cart.Items)
@@ -41,7 +35,7 @@ namespace StudyManagement.Application
         {
             var order = _orderRepository.GetBy(orderId);
             order.PaymentSucceeded(refId);
-            var issueTrackingNo = CodeGenerator.Generate("S");
+            var issueTrackingNo = CodeGenerator.Generate("B");
             order.SetIssueTrackingNo(issueTrackingNo);
             foreach (var orderItem in order.Items)
             {
@@ -51,7 +45,7 @@ namespace StudyManagement.Application
             return issueTrackingNo;
         }
 
-        public double GetAmountBy(long id)
+        public long GetAmountBy(long id)
         {
             return _orderRepository.GetAmountBy(id);
         }

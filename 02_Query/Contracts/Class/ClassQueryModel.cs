@@ -3,6 +3,7 @@
     public class ClassQueryModel
     {
         public long Id { get; set; }
+        public long ClassTemplateId { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public int Day { get; set; }

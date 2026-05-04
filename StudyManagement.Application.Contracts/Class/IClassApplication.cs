@@ -9,13 +9,8 @@ namespace StudyManagement.Application.Contracts.Class
         OperationResult Activate(long id, long currentAccountId);
         OperationResult DeActivate(long id, long currentAccountId);
         EditClass GetDetails(long id);
-        List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId);
-        List<ClassViewModel> GetClasses(long classId);
+        List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId, long currentAccountId, string currentAccountRole);
         ClassViewModel GetClassById(long id);
-        OperationResult Copy(CopyClassTemplate command, long currentAccountId);
-        string GetClassCodeById(long id);
-        List<ClassViewModel> GetClassesForCopy(long classId);
-        ClassInfoForCopy GetClassInfoByClassCode(string classCode);
         long GetTemplateIdByClassId(long classId);
 
     }

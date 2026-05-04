@@ -55,7 +55,7 @@ namespace ServiceHost.Pages
 
             if (result.IsSucceeded)
             {
-                return RedirectToPage("/SMS", new{ nationalCode = command.NationalCode});
+                return RedirectToPage("/SMS", new{ nationalCode = command.NationalCode, type = OtpType.Login});
             }
             LoginMessage = result.Message;
 

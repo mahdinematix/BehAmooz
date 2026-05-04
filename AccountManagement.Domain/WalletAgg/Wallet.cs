@@ -41,14 +41,15 @@ public class Wallet : EntityBase
         Transactions.Add(transaction);
         return true;
     }
-    public bool BuyFromGateway(long amount, long accountId, long orderId)
+    public bool BuyFromGateway(long amount, long accountId, long orderId, string description)
     {
         var transaction = new WalletTransaction(
             accountId,
             amount,
             TransactionTypes.PayFromGateway,
             TransactionStatuses.Paid,
-            orderId);
+            orderId,
+            description:description);
         Transactions.Add(transaction);
         return true;
     }

@@ -10,6 +10,7 @@ namespace AccountManagement.Application.Contract.Account
         OperationResult Reject(long id);
         OperationResult ChangePassword(ChangePassword command);
         OperationResult ChangePasswordByUser(ChangePassword command);
+        OperationResult ResetPassword(ResetPassword command);
         EditAccount GetDetails(long id);
         List<AccountViewModel> Search(AccountSearchModel searchModel, string currentAccountRole, long currentAccountUniversityId, int currentAccountTypeUniversity);
         OperationResult FirstLogin(FirstLogin command);
@@ -20,5 +21,6 @@ namespace AccountManagement.Application.Contract.Account
         List<AccountViewModel> SearchInStudents(AccountSearchModel searchModel);
         List<AccountViewModel> SearchInCustomers(AccountSearchModel searchModel);
         string GetPhoneNumberByNationalCode(string nationalCode);
+        OperationResult ExistsNationalCode(string nationalCode);
     }
 }

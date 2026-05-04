@@ -222,7 +222,7 @@
 <script>
     function hideOffcanvas() {
        $("#offcanvas-mobile-menu").click(function(){
-           $('#offcanvas-mobile-menu').removeClass('active').addClass('inactive');
+           $('#offcanvas-mobile-menu').removeClassTemplate('active').addClassTemplate('inactive');
     });
     }
 

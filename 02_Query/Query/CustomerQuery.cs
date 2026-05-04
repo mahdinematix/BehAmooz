@@ -95,12 +95,12 @@ public class CustomerQuery : ICustomerQuery
                 sessionCounts[i] = group.Count(it => it.SessionNumber == i);
 
             int totalSessions = sessionCounts.Values.Sum();
-            int sessionPrice = group.FirstOrDefault()?.SessionPrice ?? 0;
-            int totalAmount = totalSessions * sessionPrice;
+            long sessionPrice = group.FirstOrDefault()?.SessionPrice ?? 0;
+            long totalAmount = totalSessions * sessionPrice;
 
             int organShare = (int)(totalAmount * 0.25);
             int tax = (int)(totalAmount * 0.10);
-            int professorShare = totalAmount - organShare - tax;
+            long professorShare = totalAmount - organShare - tax;
 
             customers.Add(new CustomerQueryModel
             {

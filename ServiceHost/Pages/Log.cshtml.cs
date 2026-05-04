@@ -2,7 +2,6 @@ using _01_Framework.Application;
 using _01_Framework.Infrastructure;
 using AccountManagement.Application.Contract.Wallet;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Pages
@@ -63,8 +62,5 @@ namespace ServiceHost.Pages
             var items = _orderApplication.GetItems(id);
             return Partial("Items", items);
         }
-
-
-
     }
 }

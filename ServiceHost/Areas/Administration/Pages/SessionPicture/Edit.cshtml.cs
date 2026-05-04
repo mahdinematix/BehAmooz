@@ -1,6 +1,5 @@
 using _01_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Application.Contracts.Session;
 using StudyManagement.Application.Contracts.SessionPicture;
@@ -16,9 +15,10 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
         public EditSessionPicture Command;
         public SessionViewModel Session;
         public ClassViewModel Class;
+        [BindProperty] public long ClassId { get; set; }
         [TempData] public string Message { get; set; }
 
-        public EditModel(ISessionApplication sessionApplication, ISessionPictureApplication sessionPictureApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper):base(authHelper)
+        public EditModel(ISessionApplication sessionApplication, ISessionPictureApplication sessionPictureApplication, IClassApplication classApplication, IFileManager fileManager, IAuthHelper authHelper) : base(authHelper)
         {
             _sessionApplication = sessionApplication;
             _sessionPictureApplication = sessionPictureApplication;
@@ -26,7 +26,7 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
             _fileManager = fileManager;
         }
 
-        public IActionResult OnGet(long id, long sessionId)
+        public IActionResult OnGet(long id, long sessionId, long classId)
         {
             if (CurrentAccountStatus == Statuses.Waiting)
             {
@@ -37,9 +37,11 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
             {
                 return RedirectToPage("/Reject");
             }
+
+            ClassId = classId;
             Command = _sessionPictureApplication.GetDetails(id);
             Session = _sessionApplication.GetBySessionId(sessionId);
-            Class = _classApplication.GetClassById(Session.ClassTemplateId);
+            Class = _classApplication.GetClassById(classId);
             return Page();
         }
 
@@ -48,17 +50,17 @@ namespace ServiceHost.Areas.Administration.Pages.SessionPicture
             var result = _sessionPictureApplication.Edit(command);
             if (result.Result.IsSucceeded)
             {
-                return RedirectToPage("./Index", new { sessionId = command.SessionId });
+                return RedirectToPage("./Index", new { sessionId = command.SessionId, classId = ClassId });
             }
             Message = result.Result.Message;
-            return RedirectToPage("./Edit", new { sessionId = command.SessionId });
+            return RedirectToPage("./Edit", new { id = command.Id, sessionId = command.SessionId, classId = ClassId });
         }
 
-        public async Task<IActionResult> OnGetCancel(long sessionId,long id)
+        public async Task<IActionResult> OnGetCancel(long sessionId, long id, long classId)
         {
             await _fileManager.Cancel();
             Message = ApplicationMessages.UploadProgressCanceled;
-            return RedirectToPage("./Edit", new { sessionId, id });
+            return RedirectToPage("./Edit", new { id, sessionId, classId });
         }
 
     }

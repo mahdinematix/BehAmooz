@@ -78,7 +78,7 @@
                                         {
                                             <td><a href="@item.Booklet">مشاهده</a></td>
                                         }
-                                        <td><a asp-page="/SessionPicture/Index" asp-route-sessionId="@item.Id">مشاهده</a></td>
+                                        <td><a asp-page="/SessionPicture/Index" asp-route-sessionId="@item.Id" asp-route-classId="@Model.Class.Id">مشاهده</a></td>
                                         <td>@item.Description</td>
                                         <td>
                                             @if (item.IsActive)
@@ -92,20 +92,20 @@
                                         </td>
                                         <td>@item.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-id="@item.Id" asp-route-classId="@item.ClassTemplateId">
+                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-id="@item.Id" asp-route-classId="@Model.Class.Id">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (item.IsActive)
                                             {
-                                                <a class="btn btn-danger" asp-page="/Session/Index" asp-page-handler="DeActivate" asp-route-id="@item.Id" asp-route-classId="@item.ClassTemplateId">غیرفعالسازی</a>
+                                                <a class="btn btn-danger" asp-page="/Session/Index" asp-page-handler="DeActivate" asp-route-id="@item.Id" asp-route-classId="@Model.Class.Id">غیرفعالسازی</a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-success" asp-page="/Session/Index" asp-page-handler="Activate" asp-route-id="@item.Id" asp-route-classId="@item.ClassTemplateId">فعالسازی</a>
+                                                <a class="btn btn-success" asp-page="/Session/Index" asp-page-handler="Activate" asp-route-id="@item.Id" asp-route-classId="@Model.Class.Id">فعالسازی</a>
                                             }
 
                                             <a permission="@ActivityLogPermissions.ShowActivityLog" class="btn btn-pink pull-right m-rl-5"
-                                               href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id, classId = item.ClassTemplateId })">
+                                               href="#showmodal=@Url.Page("./Index", "Logs", new { id = item.Id, classId = Model.Class.Id })">
                                                 <i class="fa fa-recycle"></i> تاریخچه عملیات
                                             </a>
 

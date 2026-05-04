@@ -2,7 +2,7 @@
 {
     public class VerificationResponse
     {
-        public int Status { get; set; }
-        public long RefID { get; set; }
+        public VerificationData data { get; set; }
+        public List<string> errors { get; set; }
     }
 }

@@ -34,7 +34,7 @@
                                 <tr>
                                     <td>@item.SessionNumber</td>
                                     <td>@item.SessionPrice.ToMoney()</td>
-                                    <td><a class="btn btn-success" asp-page="/Session" asp-route-sessionId="@item.SessionId">جزئیات</a></td>
+                                        <td><a class="btn btn-success" asp-page="/Session" asp-route-sessionId="@item.SessionId" asp-route-classId="@Model.ClassId">جزئیات</a></td>
                                 </tr>
                             }
                             </tbody>

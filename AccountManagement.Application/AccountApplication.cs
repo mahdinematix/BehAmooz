@@ -227,6 +227,43 @@ namespace AccountManagement.Application
             return operation.Succeed();
         }
 
+        public OperationResult ResetPassword(ResetPassword command)
+        {
+            var operation = new OperationResult();
+            var account = _accountRepository.GetByNationalCode(command.NationalCode);
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessages.NotFoundRecord);
+            }
+
+            if (command.NewPassword != command.RePassword)
+            {
+                return operation.Failed(ApplicationMessages.PasswordsNotMatch);
+            }
+            if (command.NewPassword.Length < 8)
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (!command.NewPassword.Any(char.IsLower) || !command.NewPassword.Any(char.IsUpper))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (command.NewPassword.Any(c => c >= 0x0600 && c <= 0x06FF))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+            if (!command.NewPassword.Any(c => "!@#$%^&*(),.?\":{}|<>".Contains(c)))
+            {
+                return operation.Failed(ApplicationMessages.PasswordRulesAreNotPassed);
+            }
+
+
+            var password = _passwordHasher.Hash(command.NewPassword);
+            account.ChangePassword(password);
+            _accountRepository.Save();
+            return operation.Succeed();
+        }
+
         public EditAccount GetDetails(long id)
         {
             return _accountRepository.GetDetails(id);
@@ -302,6 +339,18 @@ namespace AccountManagement.Application
         public string GetPhoneNumberByNationalCode(string nationalCode)
         {
             return _accountRepository.GetPhoneNumberByNationalCode(nationalCode);
+        }
+
+        public OperationResult ExistsNationalCode(string nationalCode)
+        {
+            var operation = new OperationResult();
+            if (_accountRepository.Exists(x=>x.NationalCode == nationalCode))
+            {
+                return operation.Succeed();
+            }
+
+            return operation.Failed(ApplicationMessages.InvalidNationalCode);
+
         }
 
         private bool IsValidNationalCode(string nationalCode)

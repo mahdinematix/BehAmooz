@@ -2,7 +2,7 @@
 {
     public class PaymentResponse
     {
-        public int Status { get; set; }
-        public string Authority { get; set; }
+        public PaymentData data { get; set; }
+        public List<string> errors { get; set; }
     }
 }

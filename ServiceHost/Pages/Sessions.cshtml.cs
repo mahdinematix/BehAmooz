@@ -15,6 +15,7 @@ namespace ServiceHost.Pages
         private readonly ICourseQuery _courseQuery;
         public ClassQueryModel Class;
         public List<CartItem> Sessions;
+        public long ClassId { get; set; }
         public CourseQueryModel Course { get; set; }
 
         public SessionsModel(IAuthHelper authHelper, ISessionQuery sessionQuery, IClassQuery classQuery, ICourseQuery courseQuery) : base(authHelper)
@@ -49,6 +50,7 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/Reject");
             }
 
+            ClassId = classId;
             Sessions = _sessionQuery.GetItemsByClassId(classId);
             Class = _classQuery.GetClassById(classId);
             Course = _courseQuery.GetCourseNameAndPriceById(Class.CourseId);

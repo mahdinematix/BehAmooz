@@ -1,4 +1,4 @@
-﻿@page "{sessionId}"
+﻿@page "{sessionId}/{classId}"
 @model ServiceHost.Areas.Administration.Pages.SessionPicture.CreateModel
 @{
     ViewBag.Title = "تعریف تصویر جلسه جدید";
@@ -55,7 +55,7 @@
 
                     <input type="hidden" asp-for="Command.SessionId" value="@Model.Session.Id" />
                     <button type="submit" id="uploadButton" class="btn btn-info waves-effect waves-light">تعریف</button>
-                    <a id="backButton" asp-page="./Index" asp-route-sessionId="@Model.Session.Id" class="btn btn-default waves-effect">بازگشت</a>
+                    <a id="backButton" asp-page="./Index" asp-route-sessionId="@Model.Session.Id" asp-route-classId="@Model.ClassId" class="btn btn-default waves-effect">بازگشت</a>
                     <a style="display: none;" id="cancelButton" asp-page-handler="Cancel" asp-route-sessionId="@Model.Session.Id" class="btn btn-danger">لغو فرایند آپلود</a>
                 </form>
             </div>

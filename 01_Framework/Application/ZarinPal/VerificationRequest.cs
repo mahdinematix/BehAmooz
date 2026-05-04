@@ -2,8 +2,8 @@
 {
     public class VerificationRequest
     {
-        public int Amount { get; set; }
-        public string MerchantID { get; set; }
-        public string Authority { get; set; }
+        public long amount { get; set; }
+        public string merchant_id { get; set; }
+        public string authority { get; set; }
     }
 }

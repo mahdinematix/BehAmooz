@@ -6,5 +6,6 @@ namespace _02_Query.Contracts.Class
     {
         List<ClassQueryModel> GetClassesByCourseId(long courseId);
         ClassQueryModel GetClassById(long classId);
+        ClassQueryModel GetClassTemplateById(long classTemplateId);
     }
 }

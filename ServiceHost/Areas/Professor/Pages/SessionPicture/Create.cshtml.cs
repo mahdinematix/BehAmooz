@@ -16,6 +16,8 @@ namespace ServiceHost.Areas.Professor.Pages.SessionPicture
         public CreateSessionPicture Command;
         public SessionViewModel Session;
         public ClassViewModel Class;
+        [BindProperty] public long ClassId { get; set; }
+
         [TempData]
         public string Message { get; set; }
         public CreateModel(ISessionApplication sessionApplication, IClassApplication classApplication, ISessionPictureApplication sessionPictureApplication, IFileManager fileManager, IAuthHelper authHelper):base(authHelper)
@@ -26,7 +28,7 @@ namespace ServiceHost.Areas.Professor.Pages.SessionPicture
             _fileManager = fileManager;
         }
 
-        public IActionResult OnGet(long sessionId)
+        public IActionResult OnGet(long sessionId, long classId)
         {
             if (CurrentAccountStatus == Statuses.Waiting)
             {
@@ -38,7 +40,7 @@ namespace ServiceHost.Areas.Professor.Pages.SessionPicture
                 return RedirectToPage("/Reject");
             }
             Session = _sessionApplication.GetBySessionId(sessionId);
-            Class = _classApplication.GetClassById(Session.ClassTemplateId);
+            Class = _classApplication.GetClassById(classId);
             return Page();
         }
 
@@ -48,18 +50,18 @@ namespace ServiceHost.Areas.Professor.Pages.SessionPicture
             var result = _sessionPictureApplication.CreateAsync(command);
             if (result.Result.IsSucceeded)
             {
-                return RedirectToPage("./Index", new { sessionId });
+                return RedirectToPage("./Index", new { sessionId, classId = ClassId });
             }
             Message = result.Result.Message;
-            return RedirectToPage("./Create", new { sessionId });
+            return RedirectToPage("./Create", new { sessionId, classId=ClassId });
         }
 
-        public async Task<IActionResult> OnGetCancel(long sessionId)
+        public async Task<IActionResult> OnGetCancel(long sessionId, long classId)
         {
 
             await _fileManager.Cancel();
             Message = ApplicationMessages.UploadProgressCanceled;
-            return RedirectToPage("./Create", new { sessionId });
+            return RedirectToPage("./Create", new { sessionId, classId });
         }
 
 

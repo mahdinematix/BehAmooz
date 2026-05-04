@@ -4,9 +4,9 @@
     {
         string Prefix { get; set; }
 
-        PaymentResponse CreatePaymentRequest(string amount, string mobile, string email, string description,
-            long orderId);
+        PaymentData CreatePaymentRequest(string amount, string mobile, string email, string description,
+            long orderId, int type);
 
-        VerificationResponse CreateVerificationRequest(string authority, string price);
+        VerificationData CreateVerificationRequest(string authority, string price);
     }
 }

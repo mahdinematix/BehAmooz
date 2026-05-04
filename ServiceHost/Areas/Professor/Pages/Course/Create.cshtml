@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <input type="hidden" asp-for="UniversityId" />
-                    <a class="btn btn-default waves-effect" asp-page="./Index">بازگشت</a>
+                    <a class="btn btn-default waves-effect" asp-page="./Index" asp-route-universityId="@Model.UniversityId">بازگشت</a>
                     <button type="submit" class="btn btn-info waves-effect waves-light">تعریف</button>
                 </form>
             </div>

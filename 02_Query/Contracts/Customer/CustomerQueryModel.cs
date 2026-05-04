@@ -14,11 +14,11 @@
         public string ClassEndTime { get; set; }
         public Dictionary<int, int> SessionCounts { get; set; } 
         public int TotalSessions { get; set; }
-        public int SessionPrice { get; set; }
-        public int TotalAmount { get; set; }
+        public long SessionPrice { get; set; }
+        public long TotalAmount { get; set; }
         public int EducationLevel { get; set; }
         public int OrganShare { get; set; }
         public int Tax { get; set; }
-        public int ProfessorShare { get; set; }
+        public long ProfessorShare { get; set; }
     }
 }

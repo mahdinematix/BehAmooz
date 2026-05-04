@@ -2,11 +2,13 @@
 {
     public class PaymentRequest
     {
-        public string Mobile { get; set; }
-        public string Email { get; set; }
-        public string CallbackURL { get; set; }
-        public string Description { get; set; }
-        public int Amount { get; set; }
-        public string MerchantID { get; set; }
+        public string mobile { get; set; }
+        public string email { get; set; }
+        public string callback_url { get; set; }
+        public string description { get; set; }
+        public long amount { get; set; }
+        public string merchant_id { get; set; }
+        public string currency { get; set; }
+        public string order_id { get; set; }
     }
 }

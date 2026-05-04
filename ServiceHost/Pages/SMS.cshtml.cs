@@ -18,9 +18,10 @@ public class SMSModel : UserContextPageModel
 
     [TempData] public string Message { get; set; }
     [BindProperty] public string NationalCode { get; set; }
+    [BindProperty] public int Type { get; set; }
     public string HiddenPhoneNumber { get; set; }
     public int RemainingSeconds { get; set; }
-    public async Task<IActionResult> OnGet(string nationalCode)
+    public async Task<IActionResult> OnGet(string nationalCode, int type)
     {
         if (IsAuthenticated)
         {
@@ -48,18 +49,19 @@ public class SMSModel : UserContextPageModel
             }
         }
 
+        Type = type;
         NationalCode = nationalCode;
         var phoneNumber = _accountApplication.GetPhoneNumberByNationalCode(nationalCode);
         HiddenPhoneNumber = phoneNumber.Substring(8, 3);
         try
         {
-            await _otpApplication.RequestOtpAsync(phoneNumber, OtpType.Login);
-            RemainingSeconds = await _otpApplication.GetOtpRemainingSecondsAsync(phoneNumber, OtpType.Login);
+            await _otpApplication.RequestOtpAsync(phoneNumber, type);
+            RemainingSeconds = await _otpApplication.GetOtpRemainingSecondsAsync(phoneNumber, type);
         }
         catch (Exception ex)
         {
             Message = ApplicationMessages.ProblemInProgress;
-            return Page(); 
+            return Page();
         }
         return Page();
     }
@@ -67,23 +69,35 @@ public class SMSModel : UserContextPageModel
     public async Task<IActionResult> OnPost(string userOtpCode)
     {
         var phoneNumber = _accountApplication.GetPhoneNumberByNationalCode(NationalCode);
+        
+        bool isVerified = await _otpApplication.VerifyOtpAsync(phoneNumber, userOtpCode, Type);
 
-        bool isVerified = await _otpApplication.VerifyOtpAsync(phoneNumber, userOtpCode, OtpType.Login);
+
 
         if (isVerified)
         {
-            await _accountApplication.FinalLogin(NationalCode);
-            return RedirectToPage("/Index");
+            if (Type == OtpType.Login)
+            {
+                await _accountApplication.FinalLogin(NationalCode);
+                return RedirectToPage("/Index");
+            }
+            else
+            {
+                return RedirectToPage("/ResetPassword", new { nationalCode = NationalCode });
+            }
         }
 
         Message = ApplicationMessages.WrongOtpCode;
-        return RedirectToPage("/SMS", new { nationalCode = NationalCode });
-   
+        return RedirectToPage("/SMS", new
+        {
+            nationalCode = NationalCode, Type
+        });
+
     }
-    public async Task<IActionResult> OnGetResendOtp(string nationalCode)
+    public async Task<IActionResult> OnGetResendOtp(string nationalCode, int type)
     {
         var phoneNumber = _accountApplication.GetPhoneNumberByNationalCode(nationalCode);
-        await _otpApplication.RequestOtpAsync(phoneNumber, OtpType.Login);
+        await _otpApplication.RequestOtpAsync(phoneNumber, type);
         return new JsonResult(new { success = true });
     }
 

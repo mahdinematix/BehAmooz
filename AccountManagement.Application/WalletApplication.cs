@@ -29,17 +29,18 @@ namespace AccountManagement.Application
             return operation.Succeed();
         }
 
-        public OperationResult BuyFromGateway(BuyFromWalletDto command)
+        public OperationResult BuyFromGateway(BuyFromGatewayDto command)
         {
             var operation = new OperationResult();
             var wallet = _walletRepository.GetByAccountId(command.AccountId);
             if (wallet == null)
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
 
-            wallet.BuyFromGateway(command.Amount, command.AccountId, command.OrderId);
+            wallet.BuyFromGateway(command.Amount, command.AccountId, command.OrderId, command.Description);
             _walletRepository.Save();
             return operation.Succeed();
         }
+
 
         public OperationResult ChargeWallet(ChargeWalletDto command)
         {
@@ -152,12 +153,12 @@ namespace AccountManagement.Application
             return _walletRepository.GetDetailsByTransactionId(transactionId);
         }
 
-        public void PayToProfessor(int sessionPrice, long professorId)
+        public void PayToProfessor(long sessionPrice, long professorId)
         {
             var wallet = _walletRepository.GetByAccountId(professorId);
             int organShare = (int)(sessionPrice * 0.25);
             int tax = (int)(sessionPrice * 0.10);
-            int professorShare = sessionPrice - organShare - tax;
+            long professorShare = sessionPrice - organShare - tax;
             wallet.Charge(professorShare,professorId);
         }
     }

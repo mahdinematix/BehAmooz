@@ -37,7 +37,7 @@
                                         <td>@item.CourseName</td>
                                         <td>@item.ProfessorFullName</td>
                                         <td>@item.PayDate</td>
-                                        <td><a class="btn btn-success" asp-page="/Session" asp-route-sessionId="@item.SessionId">مشاهده</a></td>
+                                        <td><a class="btn btn-success" asp-page="/Session" asp-route-sessionId="@item.SessionId" asp-route-classId="@item.ClassId">مشاهده</a></td>
                                     </tr>
                                 }
                             </tbody>

@@ -1,4 +1,4 @@
-﻿@page "{sessionId}"
+﻿@page "{sessionId}/{classId}"
 @model ServiceHost.Areas.Professor.Pages.SessionPicture.IndexModel
 @{
     Layout = "Shared/_ProfessorLayout";
@@ -10,7 +10,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" asp-page="Create" asp-route-sessionId="@Model.Session.Id">ایجاد تصویر جدید</a>
+            <a class="btn btn-success btn-lg" asp-page="Create" asp-route-sessionId="@Model.Session.Id" asp-route-classId="@Model.Class.Id">ایجاد تصویر جدید</a>
             <a asp-page="/Session/Index" asp-route-classId="@Model.Class.Id" class="btn btn-primary btn-lg">بازگشت</a>
 
         </p>
@@ -54,16 +54,16 @@
                                             }
                                         </td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-sessionId="@item.SessionId" asp-route-id="@item.Id">
+                                            <a class="btn btn-warning pull-right m-rl-5" asp-page="./Edit" asp-route-sessionId="@item.SessionId" asp-route-id="@item.Id" asp-route-classId="@Model.Class.Id">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (!item.IsRemoved)
                                             {
-                                                <a class="btn btn-danger" asp-page="/SessionPicture/Index" asp-page-handler="Remove" asp-route-id="@item.Id" asp-route-sessionId="@item.SessionId">حذف</a>
+                                                <a class="btn btn-danger" asp-page="/SessionPicture/Index" asp-page-handler="Remove" asp-route-id="@item.Id" asp-route-sessionId="@item.SessionId" asp-route-classId="@Model.Class.Id">حذف</a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-success" asp-page="/SessionPicture/Index" asp-page-handler="Restore" asp-route-id="@item.Id" asp-route-sessionId="@item.SessionId">فعالسازی</a>
+                                                <a class="btn btn-success" asp-page="/SessionPicture/Index" asp-page-handler="Restore" asp-route-id="@item.Id" asp-route-sessionId="@item.SessionId" asp-route-classId="@Model.Class.Id">فعالسازی</a>
                                             }
 
                                         </td>

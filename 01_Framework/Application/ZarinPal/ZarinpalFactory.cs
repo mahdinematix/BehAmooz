@@ -15,53 +15,75 @@ namespace _01_Framework.Application.ZarinPal
         public ZarinPalFactory(IConfiguration configuration)
         {
             _configuration = configuration;
-            Prefix = _configuration.GetSection("payment")["method"];
-            MerchantId= _configuration.GetSection("payment")["merchant"];
+            Prefix = _configuration.GetSection("Payment")["method"];
+            MerchantId= _configuration.GetSection("Payment")["merchant"];
         }
 
-        public PaymentResponse CreatePaymentRequest(string amount, string mobile, string email, string description,
-             long orderId)
+        public PaymentData CreatePaymentRequest(string amount, string mobile, string email, string description,
+             long orderId, int type)
         {
             amount = amount.Replace(",", "");
-            var finalAmount = int.Parse(amount);
+            var finalAmount = long.Parse(amount);
             var siteUrl = _configuration.GetSection("payment")["siteUrl"];
-
-            var client = new RestClient($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json");
+            var pageModel = PaymentTypes.GetType(type);
+            var client = new RestClient($"https://{Prefix}.zarinpal.com/pg/v4/payment/request.json");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
             var body = new PaymentRequest
             {
-                Mobile = mobile,
-                CallbackURL = $"{siteUrl}/Checkout?handler=CallBack&oId={orderId}",
-                Description = description,
-                Email = email,
-                Amount = finalAmount,
-                MerchantID = MerchantId
+                mobile = mobile,
+                callback_url = $"{siteUrl}/{pageModel}?handler=CallBack&oId={orderId}&amount={finalAmount}",
+                description = description,
+                email = email,
+                amount = finalAmount,
+                merchant_id = MerchantId,
+                order_id = orderId.ToString(),
+                currency = "IRT"
             };
+            
             request.AddJsonBody(body);
             var response = client.Execute(request);
-            var jsonSerializer = new JsonSerializer();
-            return jsonSerializer.Deserialize<PaymentResponse>(response);
+            var jsonSerializer = new JsonDeserializer();
+            var paymentResponse = jsonSerializer.Deserialize<PaymentResponse>(response);
+            var authority = paymentResponse.data.authority;
+            var status = response.ResponseStatus.ToString();
+
+
+            return new PaymentData
+            {
+                authority = authority,
+                Status = status
+            };
+            
         }
 
-        public VerificationResponse CreateVerificationRequest(string authority, string amount)
+        public VerificationData CreateVerificationRequest(string authority, string amount)
         {
-            var client = new RestClient($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json");
+            var client = new RestClient($"https://{Prefix}.zarinpal.com/pg/v4/payment/verify.json");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
 
             amount = amount.Replace(",", "");
-            var finalAmount = int.Parse(amount);
+            var finalAmount = long.Parse(amount);
 
             request.AddJsonBody(new VerificationRequest
             {
-                Amount = finalAmount,
-                MerchantID = MerchantId,
-                Authority = authority
+                amount = finalAmount,
+                merchant_id= MerchantId,
+                authority = authority
             });
             var response = client.Execute(request);
-            var jsonSerializer = new JsonSerializer();
-            return jsonSerializer.Deserialize<VerificationResponse>(response);
+            var jsonSerializer = new JsonDeserializer();
+            var verificationResponse = jsonSerializer.Deserialize<VerificationResponse>(response);
+            var code = verificationResponse.data.code;
+            var refId = verificationResponse.data.ref_id;
+
+
+            return new VerificationData
+            {
+                code = code,
+                ref_id = refId
+            };
         }
     }
 }

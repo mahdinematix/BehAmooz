@@ -1,6 +1,5 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
-using LogManagement.Application.Contracts.LogContracts;
 using StudyManagement.Application.Contracts.Semester;
 using StudyManagement.Application.Contracts.University;
 using StudyManagement.Domain.SemesterAgg;
@@ -59,8 +58,6 @@ namespace StudyManagement.Application
             _semesterRepository.Save();
             _universityApplication.SetCurrentSemesterId(command.UniversityId, semester.Id, currentAccountId);
             return operation.Succeed();
-
-
         }
 
         public void DefineAutoSemester(long universityId)
@@ -113,11 +110,6 @@ namespace StudyManagement.Application
         public List<SemesterViewModel> GetSemestersByUniversityId(long universityId)
         {
             return _semesterRepository.GetSemestersByUniversityId(universityId);
-        }
-
-        public int GetSemesterByCode(long semesterId)
-        {
-            return _semesterRepository.GetSemesterCodeBy(semesterId);
         }
 
         private void ApplySemesterForUniversity(int year, int midYear, long universityId, long currentAccountId)

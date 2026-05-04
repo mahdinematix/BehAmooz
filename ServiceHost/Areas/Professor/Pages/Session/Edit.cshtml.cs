@@ -47,10 +47,10 @@ namespace ServiceHost.Areas.Professor.Pages.Session
             var result = _sessionApplication.Edit(command, CurrentAccountId);
             if (result.Result.IsSucceeded)
             {
-                return RedirectToPage("./Index", new { classId = classId });
+                return RedirectToPage("./Index", new { classId });
             }
             Message = result.Result.Message;
-            return RedirectToPage("./Edit", new { classId = classId });
+            return RedirectToPage("./Edit", new { classId });
         }
 
         public async Task<IActionResult> OnGetCancel(long classId , long id)

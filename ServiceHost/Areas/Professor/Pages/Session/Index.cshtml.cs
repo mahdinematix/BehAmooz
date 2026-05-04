@@ -15,7 +15,7 @@ namespace ServiceHost.Areas.Professor.Pages.Session
         public long ClassTemplateId { get; set; }
 
 
-        public IndexModel(IClassApplication classApplication, ISessionApplication sessionApplication, IAuthHelper authHelper):base(authHelper)
+        public IndexModel(IClassApplication classApplication, ISessionApplication sessionApplication, IAuthHelper authHelper) : base(authHelper)
         {
             _classApplication = classApplication;
             _sessionApplication = sessionApplication;
@@ -32,6 +32,7 @@ namespace ServiceHost.Areas.Professor.Pages.Session
             {
                 return RedirectToPage("/Reject");
             }
+
             ClassTemplateId = _classApplication.GetTemplateIdByClassId(classId);
             Sessions = _sessionApplication.GetAllByClassTemplateId(ClassTemplateId);
             Class = _classApplication.GetClassById(classId);
@@ -40,13 +41,13 @@ namespace ServiceHost.Areas.Professor.Pages.Session
         public IActionResult OnGetActivate(long id, long classId)
         {
             _sessionApplication.Activate(id, CurrentAccountId);
-            return RedirectToPage("./Index", new { classId = classId });
+            return RedirectToPage("./Index", new { classId });
         }
 
         public IActionResult OnGetDeActivate(long id, long classId)
         {
             _sessionApplication.DeActivate(id, CurrentAccountId);
-            return RedirectToPage("./Index", new{classId=classId});
+            return RedirectToPage("./Index", new { classId });
         }
     }
 }

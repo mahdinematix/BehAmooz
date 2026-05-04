@@ -1,10 +1,8 @@
 ﻿using _01_Framework.Application;
 using _01_Framework.Infrastructure;
-using AccountManagement.Application.Contract.Account;
 using LogManagement.Application.Contracts.LogContracts;
 using StudyManagement.Application.Contracts.Class;
 using StudyManagement.Domain.ClassAgg;
-using StudyManagement.Domain.SessionAgg;
 
 namespace StudyManagement.Application
 {
@@ -12,16 +10,12 @@ namespace StudyManagement.Application
     {
         private readonly IClassRepository _classRepository;
         private readonly IClassTemplateRepository _classTemplateRepository;
-        private readonly ISessionRepository _sessionRepository;
         private readonly ILogApplication _logApplication;
-        private readonly IAccountApplication _accountApplication;
 
-        public ClassApplication(IClassRepository classRepository, ISessionRepository sessionRepository, ILogApplication logApplication, IAccountApplication accountApplication, IClassTemplateRepository classTemplateRepository)
+        public ClassApplication(IClassRepository classRepository, ILogApplication logApplication, IClassTemplateRepository classTemplateRepository)
         {
             _classRepository = classRepository;
-            _sessionRepository = sessionRepository;
             _logApplication = logApplication;
-            _accountApplication = accountApplication;
             _classTemplateRepository = classTemplateRepository;
         }
 
@@ -194,75 +188,19 @@ namespace StudyManagement.Application
             return _classRepository.GetDetails(id);
         }
 
-        public List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId)
+        public List<ClassViewModel> Search(ClassSearchModel searchModel, long courseId, long currentAccountId, string currentAccountRole)
         {
-            return _classRepository.Search(searchModel, courseId);
+            return _classRepository.Search(searchModel, courseId,currentAccountId, currentAccountRole);
         }
 
-        public List<ClassViewModel> GetClasses(long classId)
-        {
-            return _classRepository.GetClasses(classId);
-        }
-
+       
         public ClassViewModel GetClassById(long id)
         {
             return _classRepository.GetClassById(id);
         }
 
-        public OperationResult Copy(CopyClassTemplate command, long currentAccountId)
-        {
-            var operation = new OperationResult();
 
-            var classFrom = _classRepository.GetBy(command.ClassId);
-            var classTo = _classRepository.GetClassByCode(command.ClassCode);
-
-            if (classFrom == null || classTo == null)
-                return operation.Failed(ApplicationMessages.NotFoundRecord);
-
-            var fromTemplateId = classFrom.ClassTemplateId;
-            var toTemplateId = classTo.ClassTemplateId;
-
-            if (!_sessionRepository.HasAnySessionsByClassTemplateId(fromTemplateId))
-                return operation.Failed(ApplicationMessages.TheClassHasNotAnySessions);
-
-            _sessionRepository.DeleteAllByClassTemplateId(toTemplateId);
-
-            var sourceSessions = _sessionRepository.GetAllByClassTemplateIdForCopy(fromTemplateId);
-
-            foreach (var s in sourceSessions)
-            {
-                var newSession = new Session(s.Number, s.Title, s.Video, s.Booklet, s.Description, toTemplateId);
-                _sessionRepository.Create(newSession);
-            }
-
-            _sessionRepository.Save();
-
-            _logApplication.Create(new CreateLog
-            {
-                AccountId = currentAccountId,
-                Operation = Operations.Copy,
-                TargetId = classFrom.Id,
-                TargetType = TargetTypes.Class,
-                Description = $"به کلاس {classTo.Code}"
-            });
-
-            return operation.Succeed();
-        }
-
-        public string GetClassCodeById(long id)
-        {
-            return _classRepository.GetClassCodeById(id);
-        }
-
-        public List<ClassViewModel> GetClassesForCopy(long classId)
-        {
-            return _classRepository.GetClassesForCopy(classId);
-        }
-        public ClassInfoForCopy GetClassInfoByClassCode(string classCode)
-        {
-            return _classRepository.GetClassInfoByClassCode(classCode);
-        }
-
+        
         public long GetTemplateIdByClassId(long classId)
         {
             return _classRepository.GetTemplateIdByClassId(classId);

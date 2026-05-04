@@ -90,7 +90,8 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 CreationDate = x.Transaction.CreationDate.ToFarsi(),
                 Description = x.Transaction.Description,
                 Type = x.Transaction.Type, 
-                OrderId = x.Transaction.OrderId
+                OrderId = x.Transaction.OrderId,
+
             }).OrderByDescending(x => x.TransactionId).ToList();
 
             return result;

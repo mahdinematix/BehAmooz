@@ -1,10 +1,10 @@
-﻿@page "{sessionId}"
+﻿@page "{sessionId}/{classId}"
 @using _01_Framework.Application
 @using _01_Framework.Infrastructure
 @model ServiceHost.Pages.SessionModel
 @{
     Layout = "Shared/_Layout";
-    ViewData["Title"] = $"جلسه {Model.Session.Number} کلاس {Days.GetName(Model.Class.Day)} {Model.Class.StartTime} تا {Model.Class.EndTime} استاد {Model.Class.ProfessorFullName} درس {Model.Course.Name}";
+    ViewData["Title"] = $"جلسه {Model.Session.Number} کلاس {Days.GetName(Model.ClassTemplate.Day)} {Model.ClassTemplate.StartTime} تا {Model.ClassTemplate.EndTime} استاد {Model.ClassTemplate.ProfessorFullName} درس {Model.Course.Name}";
 }
 @section Css
 {
@@ -25,6 +25,10 @@
                 height: 100%;
                 border: 0;
             }
+
+        .btn-back {
+            width: auto !important;
+        }
     </style>
 }
 
@@ -34,8 +38,8 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading text-center mb-4">
-                    <h3 class="panel-title">جلسه @Model.Session.Number کلاس @Days.GetName(Model.Class.Day) @Model.Class.StartTime تا @Model.Class.EndTime استاد @Model.Class.ProfessorFullName درس @Model.Course.Name</h3>
-                    <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.Session.ClassTemplateId">بازگشت</a>
+                    <h3 class="panel-title">جلسه @Model.Session.Number کلاس @Days.GetName(Model.ClassTemplate.Day) @Model.ClassTemplate.StartTime تا @Model.ClassTemplate.EndTime استاد @Model.ClassTemplate.ProfessorFullName درس @Model.Course.Name</h3>
+                    <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.ClassId">بازگشت</a>
 
                 </div>
                 <div class="panel-body">
@@ -65,7 +69,7 @@
                                         <td><i class="fa fa-lock text-success fa-2x"></i></td>
                                         <td>@Model.Course.Price.ToMoney()</td>
                                         <td>
-                                            <a class="btn btn-success text-white" onclick="addToCart('@Model.Session.Id', '@Model.Course.Price', '@Model.Session.Number','@Model.Class.Id' , '@Model.Class.Day','@Model.Class.StartTime','@Model.Class.EndTime','@Model.Class.ProfessorId','@Model.Class.ProfessorFullName','@Model.Course.Name')">
+                                            <a class="btn btn-success text-white" onclick="addToCart('@Model.Session.Id', '@Model.Course.Price', '@Model.Session.Number','@Model.ClassTemplate.Id' , '@Model.ClassTemplate.Day','@Model.ClassTemplate.StartTime','@Model.ClassTemplate.EndTime','@Model.ClassTemplate.ProfessorId','@Model.ClassTemplate.ProfessorFullName','@Model.Course.Name')">
                                                 <i class="ion-bag"></i> افزودن به سبد خرید
                                             </a>
                                         </td>
@@ -83,8 +87,8 @@
 else
 {
     <div class="panel-heading text-center mb-4">
-        <h3 class="panel-title">جلسه @Model.Session.Number کلاس @Days.GetName(Model.Class.Day) @Model.Class.StartTime تا @Model.Class.EndTime استاد @Model.Class.ProfessorFullName درس @Model.Course.Name</h3>
-        <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.Session.ClassTemplateId">بازگشت</a>
+        <h3 class="panel-title">جلسه @Model.Session.Number کلاس @Days.GetName(Model.ClassTemplate.Day) @Model.ClassTemplate.StartTime تا @Model.ClassTemplate.EndTime استاد @Model.ClassTemplate.ProfessorFullName درس @Model.Course.Name</h3>
+        <a class="btn btn-primary btn-lg btn-back" asp-page="/Sessions" asp-route-classId="@Model.ClassId">بازگشت</a>
 
     </div>
     <div class="page-content-area">
@@ -108,8 +112,8 @@ else
                                                             "autoplaySpeed": 5000,
                                                             "fade": true,
                                                             "speed": 500,
-                                                            "prevArrow": {"buttonClass": "slick-prev", "iconClass": "fa fa-angle-left" },
-                                                            "nextArrow": {"buttonClass": "slick-next", "iconClass": "fa fa-angle-right" }
+                                                            "prevArrow": {"buttonClassTemplate": "slick-prev", "iconClassTemplate": "fa fa-angle-left" },
+                                                            "nextArrow": {"buttonClassTemplate": "slick-next", "iconClassTemplate": "fa fa-angle-right" }
                                                         }' data-slick-responsive='[
                                                             {"breakpoint":1501, "settings": {"slidesToShow": 1, "arrows": false} },
                                                             {"breakpoint":1199, "settings": {"slidesToShow": 1, "arrows": false} },
@@ -140,8 +144,8 @@ else
                                                             "asNavFor": ".product-details-big-image-slider-wrapper",
                                                             "focusOnSelect": true,
                                                             "centerMode": false,
-                                                            "prevArrow": {"buttonClass": "slick-prev", "iconClass": "fa fa-angle-left" },
-                                                            "nextArrow": {"buttonClass": "slick-next", "iconClass": "fa fa-angle-right" }
+                                                            "prevArrow": {"buttonClassTemplate": "slick-prev", "iconClassTemplate": "fa fa-angle-left" },
+                                                            "nextArrow": {"buttonClassTemplate": "slick-next", "iconClassTemplate": "fa fa-angle-right" }
                                                         }' data-slick-responsive='[
                                                             {"breakpoint":1501, "settings": {"slidesToShow": 3, "arrows": false} },
                                                             {"breakpoint":1199, "settings": {"slidesToShow": 3, "arrows": false} },

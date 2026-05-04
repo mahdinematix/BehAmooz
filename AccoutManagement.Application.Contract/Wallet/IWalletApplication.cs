@@ -5,7 +5,7 @@ namespace AccountManagement.Application.Contract.Wallet
     public interface IWalletApplication
     {
         OperationResult BuyFromWallet(BuyFromWalletDto command);
-        OperationResult BuyFromGateway(BuyFromWalletDto command);
+        OperationResult BuyFromGateway(BuyFromGatewayDto command);
         OperationResult ChargeWallet(ChargeWalletDto command);
         OperationResult RequestWithdraw(RequestWithdrawDto command);
         OperationResult PayRequestWithdraw(PayRequestWithdrawDto command);
@@ -16,6 +16,6 @@ namespace AccountManagement.Application.Contract.Wallet
         List<LogViewModel> GetLogsByAccountId(TransactionLogSearchModel searchModel, long accountId);
         OperationResult EditDescription(EditDescription command);
         EditDescription GetDetailsByTransactionId(long transactionId);
-        void PayToProfessor(int sessionPrice, long professorId);
+        void PayToProfessor(long sessionPrice, long professorId);
     }
 }

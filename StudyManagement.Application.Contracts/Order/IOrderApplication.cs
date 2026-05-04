@@ -2,9 +2,9 @@
 {
     public interface IOrderApplication
     {
-        long PlaceOrder(Cart cart);
+        long PlaceOrder(Cart cart, long currentAccountId);
         string PaymentSucceeded(long orderId, long refId);
-        double GetAmountBy(long id);
+        long GetAmountBy(long id);
         List<OrderViewModel> Search(OrderSearchModel searchModel);
         List<OrderItemViewModel> GetItems(long orderId);
     }
