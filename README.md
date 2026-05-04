@@ -1,3 +1,10 @@
+Welcome to the Virtual University Platform, a modern online learning environment designed to connect instructors and students through high-quality digital educational content.
+
+Our system allows teachers to upload and share course sessions in the form of videos, images, documents, and class notes, while students can easily purchase and access these materials anytime, anywhere.
+
+Below is an overview of how the platform works and the roles available within it.
+
+
 1. Super Admin
 The Super Admin oversees the entire platform and has full access to all features. This includes:
 
