@@ -6,6 +6,7 @@ Below is an overview of how the platform works and the roles available within it
 
 
 1. Super Admin
+
 The Super Admin oversees the entire platform and has full access to all features. This includes:
 
 Managing every university registered on the system
@@ -15,6 +16,7 @@ Monitoring financial transactions and activity logs across the platform
 This role maintains overall system governance and ensures smooth operation of the virtual university network.
 
 2. University Admin
+
 Each university has at least one University Admin, responsible for managing everything related to their specific institution. Their main responsibilities include:
 
 Reviewing and approving newly registered users (both students and instructors) after verifying their information
@@ -25,6 +27,7 @@ Viewing activity and transaction history related to their institution
 The University Admin ensures proper academic and financial flow within the university.
 
 3. Professor
+
 Once approved by the University Admin, an Professor can teach at any university inside the system. They can:
 
 Create and manage courses, classes, and individual sessions
@@ -35,6 +38,7 @@ Access their personal wallet, track their earnings, export financial reports to 
 Instructors have the tools they need to deliver high‑quality digital education.
 
 4. Student
+
 A student is the main end‑user of the platform. After being approved by the University Admin, each student can:
 
 Access courses offered in their registered university, academic program, and current semester
