@@ -47,7 +47,7 @@ This creates a flexible and secure learning environment built for student succes
 
 Additional Features
 Two‑Factor Authentication
-For added security, every login requires entering a verification code sent via SMS after providing national ID and password.
+For added security, every login requires entering a verification code sent via SMS after providing national ID and password (SMS.ir).
 
 Shopping Cart
 Students can add multiple session purchases to their cart and pay in one transaction.
