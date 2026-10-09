@@ -1,165 +1,143 @@
-Welcome to the Virtual University Platform, a modern online learning environment designed to connect instructors and students through high-quality digital educational content.
-Our system allows teachers to upload and share course sessions in the form of videos, images, documents, and class notes, while students can easily purchase and access these materials anytime, anywhere.
-Below is an overview of how the platform works and the roles available within it.
+[Uploading BehAmooz_README.md…]()
+# BehAmooz — Virtual University Platform
 
-1. Super Admin
+BehAmooz is a multi-university learning platform designed to help students access course material when they cannot attend classes in person. Instructors publish individual sessions and their learning materials, while students can purchase the sessions they need and access the content remotely.
 
-The Super Admin oversees the entire platform and has full access to all features. This includes:
+The project was built as a substantial .NET application with a DDD-oriented Onion Architecture and a modular solution structure. It brings together academic workflows, user and access management, messaging, media delivery, and financial operations in one application.
 
-Managing every university registered on the system
-Access to all courses, classes, and their sessions
-Viewing and managing all users (students, instructors, and administrators)
-Monitoring financial transactions and activity logs across the platform
-This role maintains overall system governance and ensures smooth operation of the virtual university network.
+> **Framework note:** The projects currently target **.NET 9** (`net9.0`). Update this documentation if the target framework is changed in a future revision.
 
-2. University Admin
+## Key Features
 
-Each university has at least one University Admin, responsible for managing everything related to their specific institution. Their main responsibilities include:
+### Academic and Content Management
+- Multi-university structure with university-specific administration.
+- Management of courses, classes, individual sessions, and session-related materials.
+- Support for educational videos, documents, images, and class notes.
+- Students can browse the sessions available to them and purchase individual sessions instead of paying for an entire course.
 
-Reviewing and approving newly registered users (both students and instructors) after verifying their information
-Posting announcements for students, instructors, or other administrators
-Processing withdrawal requests submitted by instructors and students
-Managing all courses, classes, and sessions in their university
-Viewing activity and transaction history related to their institution
-The University Admin ensures proper academic and financial flow within the university.
+### Roles and Access
+The platform defines four main roles:
 
-3. Professor
+- **Super Admin:** Oversees platform-wide users, universities, academic content, and operational activity.
+- **University Admin:** Manages a specific university, reviews student/instructor registrations, publishes announcements, oversees academic content, and handles withdrawal requests.
+- **Instructor:** Manages courses, classes, sessions, learning materials, enrolled students, and their financial activity.
+- **Student:** Browses eligible classes, purchases sessions, accesses learning materials, and manages wallet and transaction activity.
 
-Once approved by the University Admin, an Professor can teach at any university inside the system. They can:
+The application uses cookie-based authentication and role-based authorization for protected areas. The intended sign-in flow also includes SMS verification through SMS.ir.
 
-Create and manage courses, classes, and individual sessions
-Upload session materials: videos, documents, images, and notes
-Manage their enrolled students
-View which sessions each student has purchased
-Access their personal wallet, track their earnings, export financial reports to Excel, and request withdrawals
-Instructors have the tools they need to deliver high‑quality digital education.
+### Purchases and Financial Workflows
+- Shopping cart for purchasing multiple sessions in one checkout.
+- Wallet operations, deposits, purchases, withdrawal requests, settlement workflows, and transaction history.
+- Integration with the ZarinPal payment gateway.
+- Tax calculation as part of purchase and financial workflows.
+- Instructor earnings and financial reporting, including Excel export.
 
-4. Student
+### Messaging, Activity, and Integrations
+- Role-based messaging and announcements.
+- Activity/log management for administrative visibility.
+- Redis integration for caching and OTP-related storage.
+- AWS S3-compatible storage for general files and assets.
+- ArvanCloud/ArvanPlayer integration for media hosting and video streaming.
+- TUS-based upload service integration for media uploads.
+- Email and SMS service abstractions.
+- SignalR hub used by the application for upload-related real-time communication.
 
-A student is the main end‑user of the platform. After being approved by the University Admin, each student can:
+The intended video workflow restricts direct downloads and limits playback of purchased session videos. These controls should be reviewed and tested as part of any production deployment rather than treated as a substitute for a full security assessment.
 
-Access courses offered in their registered university, academic program, and current semester
-Choose a class and purchase individual class sessions
-View all provided materials such as notes, documents, images, descriptions, and videosEach video can be watched up to three times and cannot be downloaded for security reasons.
-Use their personal wallet to recharge and pay for sessions
-Alternatively pay directly through the ZarinPal payment gateway
-Request wallet withdrawals and view/manage their full transaction history
-This creates a flexible and secure learning environment built for student success.
+## Architecture
 
-Additional Features
+BehAmooz follows a **DDD-oriented Onion Architecture** with modules separated by business responsibility. The Visual Studio solution contains **23 C# projects**.
 
-Two‑Factor Authentication
-For added security, every login requires entering a verification code sent via SMS after providing national ID and password (SMS.ir).
+Each main module is organized into projects for Domain, Application, Application Contracts, Infrastructure/EF Core, and Infrastructure Configuration. This structure separates business concepts and use cases from persistence details and application startup wiring.
 
-Shopping Cart
+### Main Modules
 
-Students can add multiple session purchases to their cart and pay in one transaction.
+| Module | Responsibility |
+| --- | --- |
+| `AccountManagement` | User and account-related workflows, roles, and account/financial capabilities. |
+| `StudyManagement` | Universities, courses, classes, sessions, and educational content workflows. |
+| `MessageManagement` | Messages and announcements between platform roles. |
+| `LogManagement` | Activity and operational log records. |
+| `01_Framework` | Shared abstractions and cross-cutting integrations, including SMS, email, payment, storage, and shared infrastructure services. |
+| `02_Query` | Read/query functionality that brings together data from multiple modules. |
+| `ServiceHost` | ASP.NET Core entry point, Razor Pages/MVC presentation, dependency-injection registration, authentication, and authorization. |
 
-Tax Calculation System
+### Design Principles and Patterns
+- **Onion Architecture** to organize dependencies and isolate business logic.
+- **Domain-Driven Design (DDD)** to structure business concepts and rules around domain models.
+- **CQRS** to separate read and write responsibilities where appropriate.
+- **Repository Pattern** to abstract persistence access.
+- **SOLID and OOP** to support encapsulation, clear responsibilities, and maintainability.
+- **Dependency Injection** to wire module services and infrastructure implementations.
 
-All purchases and financial operations automatically include accurate tax calculations.
+## Technology Stack
 
-Nationwide Availability
+- **Language and framework:** C#, .NET 9, ASP.NET Core
+- **Presentation:** Razor Pages and MVC Areas
+- **Database and ORM:** Microsoft SQL Server, Entity Framework Core 9, LINQ
+- **Caching and temporary state:** Redis / StackExchange.Redis
+- **File storage:** AWS SDK for S3-compatible object storage
+- **Media:** ArvanCloud, ArvanPlayer, TUS-based uploads
+- **Payments:** ZarinPal
+- **Messaging services:** SMS.ir and email integration
+- **Real-time communication:** SignalR
+- **Reporting:** ClosedXML for Excel-based reports
 
-The platform is fully scalable and ready to be deployed for any university across the country.
+## Screenshots
 
-You can download & see screenshots of the any pages of the system here: https://cdn.imgurl.ir/uploads/w12507_BehAmooz_-_Screenshots.rar
+A screenshot archive of the application is available here:
 
+[BehAmooz UI screenshots (RAR)](https://cdn.imgurl.ir/uploads/w12507_BehAmooz_-_Screenshots.rar)
 
-Technical Overview
+## Getting Started
 
-This project is a virtual university platform built with modern, enterprise‑grade .NET practices and a layered, domain‑driven architecture.
+### Prerequisites
 
-Technology Stack
-Language: C#
+- .NET 9 SDK
+- Microsoft SQL Server
+- Redis available at `localhost:6379` (the current startup code connects to this address directly)
+- Valid development configuration for the services you intend to exercise, such as S3-compatible storage, SMS, payment, and media providers
 
-Framework: .NET 10
+### Configure Local Settings First
 
-UI Layer: ASP.NET Core Razor Pages
+The application reads its database connection from `ConnectionStrings:BehAmoozDb` and uses configuration sections for integrations such as `AWS`, `SmsIr`, and `Payment`. Do **not** use credentials committed to the repository. Before running the application:
 
-Database: Microsoft SQL Server
+1. Rotate any cloud-storage, SMS, payment, or database credentials that have been committed to Git; consider them compromised.
+2. Remove secrets from tracked configuration files and Git history, then store local values in .NET User Secrets or environment variables.
+3. Use the provider's sandbox/test mode for local development wherever possible.
+4. Ensure Redis is running on `localhost:6379`, or update the startup code to load its endpoint from configuration.
 
-ORM & Data Access:
+For .NET configuration via environment variables, nested settings use double underscores. Examples of setting names (use your own values; never commit them):
 
-Entity Framework Core (EF Core)
+```text
+ConnectionStrings__BehAmoozDb
+AWS__AccessKey
+AWS__SecretKey
+SmsIr__ApiKey
+Payment__merchant
+```
 
-LINQ for querying
+### Restore, Build, and Run
 
-Caching: Redis (for performance optimization and cache management)
+From the repository root:
 
-Cloud Storage & Media:
+```bash
+dotnet restore BehAmooz.sln
+dotnet build BehAmooz.sln
+dotnet run --project ServiceHost/ServiceHost.csproj
+```
 
-AWS for general file and asset storage
+Before the first run, initialize the SQL Server database using the EF Core migrations available in the relevant module projects. Because the solution contains multiple EF Core infrastructure projects, check the corresponding `DbContext`, migrations, and startup/target project when applying migrations.
 
-ArvanCloud & ArvanPlayer for hosting and streaming images and videos
+## Configuration and Security Notes
 
-Architecture & Design
+- This is a substantial learning and development project, not a claim of a fully audited production service.
+- Do not commit real credentials, connection strings, SMS tokens, or payment secrets.
+- Rotate secrets exposed in previous commits and remove them from repository history; deleting them only in a new commit is not sufficient.
+- Review authentication, authorization, file-upload limits, access to media, payment workflows, and transaction handling before deploying to a public environment.
+- The current Redis endpoint is hard-coded to `localhost:6379` in startup code and should be moved to configuration for deployments.
+- The project files currently target .NET 9 even if older project summaries mention .NET 10.
 
-The system is designed using a clean, layered, onion‑style architecture with strong separation of concerns:
+## Repository
 
-
-Core Layers:
-
-
-Domain – Core business logic, entities, value objects, domain services, and domain events
-
-Application – Use cases, application services, CQRS handlers, DTOs, and orchestration logic
-
-Infrastructure – EF Core implementations, repository implementations, Redis caching, external services (AWS, ArvanCloud, ArvanPlayer, SMS, etc.)
-
-Presentation – Razor Pages UI, controllers/handlers, view models, and HTTP endpoints
-
-Additional Structure:
-
-The solution contains 20+ projects, organized into multiple sub‑layers to keep domain, application, infrastructure, and presentation concerns separated and testable.
-Design Patterns & Principles
-Architectural Patterns:
-
-Onion Architecture as the main architectural style
-CQRS (Command Query Responsibility Segregation) for separating read and write concerns
-Repository Pattern for abstracting data access and supporting testability
-Methodologies & Principles:
-
-DDD (Domain‑Driven Design):
-
-The codebase is structured around domain concepts (bounded contexts, aggregates, entities, value objects).
-
-Business rules and invariants are modeled in the domain layer, not in the UI or infrastructure.
-
-SOLID Principles:
-
-Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion are applied across services and abstractions.
-
-OOP (Object‑Oriented Programming):
-
-Encapsulation of business logic
-
-Proper use of interfaces, abstractions, and composition
-
-Security & Identity
-
-Security is implemented and integrated throughout the platform:
-
-Identity Management:Full user management based on .NET identity practices (or custom identity implementation where needed)
-
-Authentication & Authorization:
-
-Role‑based access control for the four main roles (Super Admin, University Admin, Instructor, Student)
-
-Proper authorization checks across application and presentation layers
-
-Two‑Factor Authentication:
-
-SMS‑based 2FA during login (national ID + password + SMS code)
-
-File & Media Management
-
-File Storage:
-
-Integration with AWS for file and document storage
-
-Media Streaming:
-
-Deep integration with ArvanCloud and ArvanPlayer for video hosting and streaming
-
-Videos are protected against direct download, with controlled playback logic (e.g., max 3 plays per session)
+[GitHub — mahdinematix/BehAmooz](https://github.com/mahdinematix/BehAmooz)
